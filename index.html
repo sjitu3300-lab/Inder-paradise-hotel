@@ -7,8 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #141210;
-            --bg-card: #1c1916;
+            --bg-main: #12100e; /* असली लक्जरी वार्म डार्क बैकग्राउंड */
+            --bg-card: #1a1714; /* कार्ड के लिए हल्का डार्क शेड */
             --gold: #d4af37;
             --gold-light: #f3e5ab;
             --text-white: #fcfbf9;
@@ -24,7 +24,7 @@
         }
 
         body {
-            background-color: var(--bg-main);
+            background-color: var(--bg-main) !important;
             color: var(--text-white);
             overflow-x: hidden;
             line-height: 1.7;
@@ -45,7 +45,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 5%;
-            background: rgba(20, 18, 16, 0.9);
+            background: rgba(18, 16, 14, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
             z-index: 1000;
@@ -112,7 +112,7 @@
         .hero {
             padding: 130px 5% 50px 5%;
             text-align: center;
-            background: radial-gradient(circle at center, #25201b 0%, var(--bg-main) 100%);
+            background: radial-gradient(circle at center, #231f1a 0%, var(--bg-main) 100%);
         }
 
         .hero-titles h2 {
@@ -155,7 +155,7 @@
         /* --- At a Glimpse सेक्शन --- */
         .glimpse-section {
             padding: 70px 8%;
-            background: var(--bg-card);
+            background-color: var(--bg-card);
             border-top: 1px solid rgba(212, 175, 55, 0.15);
             border-bottom: 1px solid rgba(212, 175, 55, 0.15);
         }
@@ -194,6 +194,7 @@
             text-align: center;
             max-width: 950px;
             margin: 0 auto;
+            background-color: var(--bg-main);
         }
 
         .about-section h3 {
@@ -234,7 +235,7 @@
         /* --- Accommodation & Tabs सेक्शन --- */
         .accommodation-area {
             padding: 90px 8%;
-            background: #171512;
+            background-color: var(--bg-card);
             text-align: center;
         }
 
@@ -262,7 +263,7 @@
         }
 
         .tab-trigger {
-            background: var(--bg-card);
+            background: var(--bg-main);
             border: 1px solid rgba(212, 175, 55, 0.3);
             color: var(--text-white);
             padding: 12px 40px;
@@ -286,7 +287,7 @@
             gap: 50px;
             align-items: center;
             text-align: left;
-            background: var(--bg-card);
+            background: var(--bg-main);
             padding: 40px;
             border: 1px solid rgba(212, 175, 55, 0.2);
             animation: fadeIn 0.8s ease forwards;
@@ -385,7 +386,7 @@
         </div>
     </section>
 
-    <!-- At A Glimpse सेक्शन (Anantara फॉर्मेट) -->
+    <!-- At A Glimpse सेक्शन -->
     <section class="glimpse-section">
         <h4 class="section-title">At A Glimpse</h4>
         <div class="glimpse-grid">
