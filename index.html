@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inder Paradise | Luxury Hotel & Restaurant</title>
     <style>
-        /* --- 1. लक्जरी बैकग्राउंड और ग्लोबल स्टाइल्स --- */
         :root {
             --bg-color: #0d0e12;
+            --card-bg: #161821;
             --gold-color: #d4af37;
             --light-gold: #f3e5ab;
             --text-main: #f5f5f5;
+            --text-muted: #aaaaaa;
         }
 
         * {
@@ -24,9 +25,10 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* --- 2. नेविगेशन बार (हेडर) --- */
+        /* --- हेडर --- */
         header {
             position: fixed;
             top: 0;
@@ -40,7 +42,6 @@
             z-index: 1000;
         }
 
-        /* बाएं तरफ क्लिक करने योग्य मेनू बार */
         .menu-trigger {
             background: none;
             border: none;
@@ -59,11 +60,6 @@
             transition: 0.3s;
         }
 
-        .menu-trigger:hover span {
-            background-color: var(--light-gold);
-        }
-
-        /* बीच में होटल का नाम (लोगो) */
         .logo-title {
             text-align: center;
             text-decoration: none;
@@ -84,7 +80,6 @@
             display: block;
         }
 
-        /* दाएं तरफ क्लिक करने योग्य बुक नाउ बटन */
         .book-now-btn {
             background-color: var(--gold-color);
             color: var(--bg-color);
@@ -103,34 +98,33 @@
             background-color: var(--light-gold);
         }
 
-        /* --- 3. हीरो सेक्शन (होटल का नाम, पता और भव्य तस्वीर) --- */
+        /* --- हीरो सेक्शन --- */
         .hero-section {
-            padding: 120px 5% 60px 5%;
+            padding: 110px 5% 40px 5%;
             text-align: center;
             background: radial-gradient(circle at center, #1a1c26 0%, var(--bg-color) 100%);
         }
 
         .hotel-info h2 {
-            font-size: 36px;
+            font-size: 34px;
             color: var(--text-main);
             letter-spacing: 3px;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             text-transform: uppercase;
         }
 
         .hotel-info p {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--gold-color);
             letter-spacing: 2px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-family: 'Segoe UI', sans-serif;
         }
 
-        /* होटल की लक्जरी तस्वीर */
         .hero-image-container {
             width: 100%;
             max-width: 1000px;
-            height: 450px;
+            height: 420px;
             margin: 0 auto;
             border: 1px solid rgba(212, 175, 55, 0.4);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
@@ -141,56 +135,317 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
         }
 
-        .hero-image-container img:hover {
-            transform: scale(1.03);
+        /* --- 4. At A Glimpse सेक्शन --- */
+        .glimpse-section {
+            padding: 60px 8%;
+            background: #11131a;
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
         }
 
-        /* मोबाइल रेस्पॉन्सिविटी */
+        .glimpse-title {
+            font-size: 24px;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            color: var(--gold-color);
+        }
+
+        .glimpse-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 14px;
+        }
+
+        .glimpse-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+        }
+
+        /* --- 5. होटल डिस्क्रिप्शन और Read More --- */
+        .about-section {
+            padding: 70px 10%;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about-section h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .about-text {
+            font-size: 15px;
+            color: var(--text-muted);
+            font-family: 'Segoe UI', sans-serif;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .more-text {
+            display: none;
+        }
+
+        .read-more-btn {
+            background: none;
+            border: 1px solid var(--gold-color);
+            color: var(--gold-color);
+            padding: 8px 20px;
+            cursor: pointer;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .read-more-btn:hover {
+            background: var(--gold-color);
+            color: var(--bg-color);
+        }
+
+        /* --- 6, 7 & 8. Accommodation & Tabs (Rooms / Suites) --- */
+        .accommodation-section {
+            padding: 80px 8%;
+            background: #12141c;
+            text-align: center;
+        }
+
+        .sanctuary-title {
+            font-size: 30px;
+            color: var(--text-main);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .sanctuary-subtitle {
+            font-size: 16px;
+            color: var(--gold-color);
+            font-style: italic;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        /* टैब बटन */
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--text-main);
+            padding: 12px 35px;
+            cursor: pointer;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--gold-color);
+            color: var(--bg-color);
+            border-color: var(--gold-color);
+            font-weight: bold;
+        }
+
+        /* टैब कंटेंट */
+        .tab-content {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            text-align: left;
+            background: var(--card-bg);
+            padding: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .tab-content.active {
+            display: grid;
+        }
+
+        .tab-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .tab-details h4 {
+            font-size: 24px;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .tab-details p {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-family: 'Segoe UI', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .view-all-container {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .view-all-btn {
+            background-color: transparent;
+            border: 2px solid var(--gold-color);
+            color: var(--gold-color);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .view-all-btn:hover {
+            background-color: var(--gold-color);
+            color: var(--bg-color);
+        }
+
         @media(max-width: 768px) {
-            .hero-info h2 { font-size: 24px; }
-            .hero-image-container { height: 280px; }
-            header { padding: 15px 4%; }
+            .tab-content { grid-template-columns: 1fr; }
+            .hero-image-container { height: 260px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 2. हेडर: बाएं मेनू, बीच में नाम, दाएं बुक नाउ -->
+    <!-- हेडर -->
     <header>
-        <!-- क्लिक करने योग्य मेनू बटन -->
-        <button class="menu-trigger" onclick="alert('Menu clicked!')" aria-label="Menu">
+        <button class="menu-trigger" onclick="alert('Menu clicked!')">
             <span></span>
             <span></span>
             <span></span>
         </button>
-
-        <!-- बीच में लोगो/नाम -->
         <a href="#" class="logo-title">
             <h1>Inder Paradise</h1>
             <span>Luxury Hotel & Restaurant</span>
         </a>
-
-        <!-- क्लिक करने योग्य बुक नाउ बटन -->
-        <button class="book-now-btn" onclick="alert('Book Now clicked!')">
-            Book Now
-        </button>
+        <button class="book-now-btn" onclick="alert('Book Now clicked!')">Book Now</button>
     </header>
 
-    <!-- 3. हीरो सेक्शन: नाम, पता और भव्य तस्वीर -->
+    <!-- हीरो सेक्शन -->
     <section class="hero-section">
         <div class="hotel-info">
             <h2>Hotel Inder Paradise</h2>
             <p>📍 Luxury Stay & Fine Dining Experience</p>
         </div>
-
-        <!-- होटल की मुख्य लक्जरी तस्वीर (यहाँ अपनी इमेज फाइल का नाम जैसे 1000516065_2.jpg रख सकते हैं) -->
         <div class="hero-image-container">
-            <img src="1000516059_2.jpg" alt="Inder Paradise Luxury Interior">
+            <img src="1000516059_2.jpg" alt="Inder Paradise Interior">
         </div>
     </section>
+
+    <!-- 4. At A Glimpse सेक्शन (सुविधाएं) -->
+    <section class="glimpse-section">
+        <h4 class="glimpse-title">At A Glimpse</h4>
+        <div class="glimpse-grid">
+            <div class="glimpse-item">🛏️ Rooms & Suites</div>
+            <div class="glimpse-item">🍷 Luxury Bar</div>
+            <div class="glimpse-item">🏋️ Gym Facility</div>
+            <div class="glimpse-item">🏊 Swimming Pool</div>
+            <div class="glimpse-item">🐾 Pet Friendly</div>
+            <div class="glimpse-item">🍽️ Unique Dining</div>
+            <div class="glimpse-item">🎉 Banquet & Events</div>
+            <div class="glimpse-item">💆 Spa & Wellness</div>
+        </div>
+    </section>
+
+    <!-- 5. होटल डिस्क्रिप्शन और 'Read More' बटन -->
+    <section class="about-section">
+        <h3>Welcome to Inder Paradise</h3>
+        <p class="about-text">
+            होटल इंद्र पैराडाइज में आपका स्वागत है, जहाँ आधुनिक लक्जरी और पारंपरिक मेहमाननवाज़ी का अनूठा संगम देखने को मिलता है...
+            <span id="moreText" class="more-text"><br><br>
+            हम अपने मेहमानों को विश्व स्तरीय सुविधाएं, शानदार डाइनिंग अनुभव और पूर्ण शांति प्रदान करते हैं। चाहे आप परिवार के साथ छुट्टियां बिताने आए हों या किसी खास उत्सव का आयोजन कर रहे हों, हमारा हर कोना आपको एक शाही अहसास कराता है।</span>
+        </p>
+        <button class="read-more-btn" id="readMoreBtn" onclick="toggleReadMore()">Read More</button>
+    </section>
+
+    <!-- 6, 7 & 8. Accommodation & Interactive Tabs -->
+    <section class="accommodation-section">
+        <h3 class="sanctuary-title">Accommodation</h3>
+        <p class="sanctuary-subtitle">Choose your perfect sanctuary</p>
+
+        <!-- टैब के विकल्प (Rooms / Suites) -->
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="openTab(event, 'roomsTab')">Rooms</button>
+            <button class="tab-btn" onclick="openTab(event, 'suitesTab')">Suites</button>
+        </div>
+
+        <!-- Rooms टैब कंटेंट -->
+        <div id="roomsTab" class="tab-content active">
+            <img src="1000516067_2.jpg" alt="Luxury Room" class="tab-img">
+            <div class="tab-details">
+                <h4>Deluxe Rooms</h4>
+                <p>आरामदायक किंग-साइज बेड, आधुनिक सुविधाओं और शांत इंटीरियर से सुसज्जित हमारे डीलक्स रूम्स आपको घर जैसा सुकून और विलासिता देते हैं।</p>
+                <button class="book-now-btn" onclick="alert('Book Room clicked!')">Book Room</button>
+            </div>
+        </div>
+
+        <!-- Suites टैब कंटेंट -->
+        <div id="suitesTab" class="tab-content">
+            <img src="1000516068_2.jpg" alt="Luxury Suite" class="tab-img">
+            <div class="tab-details">
+                <h4>Royal Suites</h4>
+                <p>भव्य सजावट, विशेष बैठने की जगह और प्रीमियम लग्जरी सुविधाओं से भरपूर हमारे सूट्स उन मेहमानों के लिए हैं जो शाही ठाठ-बाट पसंद करते हैं।</p>
+                <button class="book-now-btn" onclick="alert('Book Suite clicked!')">Book Suite</button>
+            </div>
+        </div>
+
+        <!-- 8. View All Accommodation बटन -->
+        <div class="view-all-container">
+            <a href="#" class="view-all-btn" onclick="alert('View All Accommodations clicked!')">View All Accommodation</a>
+        </div>
+    </section>
+
+    <!-- जावास्क्रिप्ट (Read More और Tabs के लिए) -->
+    <script>
+        function toggleReadMore() {
+            const moreText = document.getElementById("moreText");
+            const btn = document.getElementById("readMoreBtn");
+            if (moreText.style.display === "inline") {
+                moreText.style.display = "none";
+                btn.innerHTML = "Read More";
+            } else {
+                moreText.style.display = "inline";
+                btn.innerHTML = "Read Less";
+            }
+        }
+
+        function openTab(evt, tabName) {
+            const contents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove("active");
+            }
+            const buttons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
 
 </body>
 </html>
