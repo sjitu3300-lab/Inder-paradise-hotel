@@ -3,24 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inder Paradise | Luxury 5-Star Hotel & Resort</title>
+    <title>Inder Paradise | Luxury Hotel & Resort Jaipur</title>
     <style>
-        /* --- ग्लोबल सेटिंग्स और फोंट्स --- */
+        /* --- ग्लोबल वेरिएबल्स और रिसेट --- */
+        :root {
+            --primary-gold: #d4af37;
+            --light-gold: #f3e5ab;
+            --dark-bg: #0c0d12;
+            --card-bg: #161821;
+            --text-light: #e0e0e0;
+            --white: #ffffff;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Georgia', serif;
+            font-family: 'Playfair Display', serif;
         }
 
         body {
-            background-color: #0b0c10;
-            color: #f3e9dc;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        /* --- नेविगेशन और कस्टम लोगो --- */
+        /* --- हेडर और कस्टम लोगो --- *
         header {
             position: fixed;
             top: 0;
@@ -28,72 +37,74 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 5%;
-            background: rgba(11, 12, 16, 0.95);
-            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+            padding: 20px 6%;
+            background: rgba(12, 13, 18, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
             z-index: 1000;
         }
 
-        .brand-container {
+        .brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
-        /* कस्टम यूनिक लोगो डिज़ाइन */
-        .hotel-logo-icon {
-            width: 45px;
-            height: 45px;
-            border: 2px solid #c5a059;
+        /* कस्टम रॉयल मोनोग्राम लोगो */
+        .logo-box {
+            width: 48px;
+            height: 48px;
+            border: 2px solid var(--primary-gold);
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #12141d;
+            background: var(--card-bg);
             position: relative;
         }
 
-        .hotel-logo-icon span {
-            color: #c5a059;
+        .logo-box span {
+            color: var(--primary-gold);
+            font-size: 20px;
             font-weight: bold;
-            font-size: 18px;
             letter-spacing: 1px;
         }
 
-        .brand-text h1 {
+        .brand-name h1 {
             font-size: 18px;
-            color: #f3e9dc;
-            letter-spacing: 2px;
+            color: var(--white);
+            letter-spacing: 3px;
             text-transform: uppercase;
         }
 
-        .brand-text p {
+        .brand-name p {
             font-size: 9px;
-            color: #c5a059;
-            letter-spacing: 3px;
+            color: var(--primary-gold);
+            letter-spacing: 4px;
             text-transform: uppercase;
         }
 
         nav {
             display: flex;
-            gap: 20px;
+            gap: 30px;
         }
 
         nav a {
-            color: #f3e9dc;
+            color: var(--text-light);
             text-decoration: none;
             font-size: 13px;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
             transition: 0.3s;
         }
 
         nav a:hover {
-            color: #c5a059;
+            color: var(--primary-gold);
         }
 
-        .book-btn {
-            background-color: #c5a059;
-            color: #0b0c10;
-            padding: 10px 20px;
+        .reserve-btn {
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+            padding: 12px 25px;
             text-decoration: none;
             font-weight: bold;
             font-size: 11px;
@@ -102,14 +113,14 @@
             transition: 0.3s;
         }
 
-        .book-btn:hover {
-            background-color: #e2be75;
+        .reserve-btn:hover {
+            background: var(--light-gold);
         }
 
-        /* --- हीरो सेक्शन (होटल के बाहरी लुक के आधार पर) --- */
+        /* --- हीरो सेक्शन (होटल की बाहरी इमारत के साथ) --- */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(11, 12, 16, 0.5), rgba(11, 12, 16, 0.85)), 
+            background: linear-gradient(rgba(12, 13, 18, 0.4), rgba(12, 13, 18, 0.85)), 
                         url('1000516065_2.jpg') no-repeat center center/cover;
             display: flex;
             flex-direction: column;
@@ -117,184 +128,241 @@
             align-items: center;
             text-align: center;
             padding: 0 20px;
-            margin-top: 70px;
+            margin-top: 75px;
+        }
+
+        .hero span.subtitle {
+            color: var(--primary-gold);
+            font-size: 13px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
         }
 
         .hero h2 {
-            font-size: 42px;
-            color: #f3e9dc;
-            letter-spacing: 4px;
-            margin-bottom: 15px;
+            font-size: 48px;
+            color: var(--white);
+            letter-spacing: 3px;
+            margin-bottom: 20px;
             text-transform: uppercase;
+            max-width: 800px;
         }
 
         .hero p {
             font-size: 16px;
-            color: #c5a059;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
+            color: #cccccc;
             max-width: 600px;
+            font-family: 'Segoe UI', sans-serif;
+            margin-bottom: 35px;
         }
 
-        /* --- हाइलाइट्स और फीचर्स (तस्वीरों के अनुसार) --- */
-        .section-padding {
-            padding: 90px 8%;
+        /* --- वेलकम स्टोरी सेक्शन (Anantara स्टाइल) --- */
+        .story-section {
+            padding: 100px 10%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            background: #0f1017;
         }
 
-        .section-title {
+        .story-content h3 {
+            font-size: 32px;
+            color: var(--white);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .story-content p {
+            font-size: 14px;
+            color: #aaaaaa;
+            font-family: 'Segoe UI', sans-serif;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .story-img {
+            height: 400px;
+            background: url('1000516067_2.jpg') no-repeat center center/cover;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* --- अनुभव और सुविधाएं (डाइनिंग, बैंक्वेट, रूम्स) --- */
+        .experiences {
+            padding: 100px 8%;
+            background: var(--dark-bg);
             text-align: center;
-            margin-bottom: 50px;
         }
 
-        .section-title h3 {
-            font-size: 30px;
-            color: #f3e9dc;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
+        .section-header {
+            margin-bottom: 60px;
+        }
+
+        .section-header span {
+            color: var(--primary-gold);
+            font-size: 12px;
+            letter-spacing: 4px;
             text-transform: uppercase;
         }
 
-        .section-title p {
-            color: #a0a0a0;
-            font-size: 14px;
-            font-family: 'Segoe UI', sans-serif;
+        .section-header h3 {
+            font-size: 36px;
+            color: var(--white);
+            margin-top: 10px;
+            letter-spacing: 2px;
         }
 
-        .features-grid {
+        .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
         }
 
-        .feature-card {
-            background: #141620;
-            border: 1px solid rgba(197, 160, 89, 0.2);
+        .exp-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            text-align: left;
+            transition: 0.4s;
             overflow: hidden;
-            transition: 0.3s;
         }
 
-        .feature-card:hover {
-            border-color: #c5a059;
-            transform: translateY(-5px);
+        .exp-card:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-8px);
         }
 
-        .card-img {
-            height: 220px;
+        .card-image {
+            height: 250px;
             background-size: cover;
             background-position: center;
         }
 
-        /* तस्वीरों के लिंक सेट अप */
-        .dining-img { background-image: url('1000516066_2.jpg'); }
-        .banquet-img { background-image: url('1000516059_2.jpg'); }
-        .room-img { background-image: url('1000516067_2.jpg'); }
+        .img-dining { background-image: url('1000516066_2.jpg'); }
+        .img-banquet { background-image: url('1000516059_2.jpg'); }
+        .img-suite { background-image: url('1000516068_2.jpg'); }
 
-        .card-content {
-            padding: 25px;
+        .card-body {
+            padding: 30px;
         }
 
-        .card-content h4 {
-            color: #f3e9dc;
-            font-size: 20px;
-            margin-bottom: 10px;
+        .card-body h4 {
+            font-size: 22px;
+            color: var(--white);
+            margin-bottom: 12px;
             letter-spacing: 1px;
         }
 
-        .card-content p {
-            color: #b0b0b0;
+        .card-body p {
             font-size: 13px;
+            color: #999999;
             font-family: 'Segoe UI', sans-serif;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        .explore-link {
-            color: #c5a059;
+        .discover-btn {
+            color: var(--primary-gold);
             text-decoration: none;
             font-size: 12px;
             font-weight: bold;
             letter-spacing: 2px;
             text-transform: uppercase;
+            border-bottom: 1px solid var(--primary-gold);
+            padding-bottom: 3px;
         }
 
-        /* --- फुटर --- *
+        /* --- फुटर --- */
         footer {
-            background: #07080b;
-            padding: 40px 8%;
+            background: #08090d;
+            padding: 50px 8%;
             text-align: center;
-            border-top: 1px solid rgba(197, 160, 89, 0.2);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         footer p {
-            color: #888;
+            color: #777;
             font-size: 12px;
             font-family: 'Segoe UI', sans-serif;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
-    <!-- हेडर और यूनिक लोगो -->
+    <!-- नेविगेशन और लोगो -->
     <header>
-        <div class="brand-container">
-            <div class="hotel-logo-icon">
+        <div class="brand">
+            <div class="logo-box">
                 <span>IP</span>
             </div>
-            <div class="brand-text">
+            <div class="brand-name">
                 <h1>Inder Paradise</h1>
                 <p>Luxury Hotel & Restaurant</p>
             </div>
         </div>
         <nav>
-            <a href="#home">Home</a>
-            <a href="#amenities">Amenities</a>
-            <a href="#suites">Suites</a>
-            <a href="#contact">Contact</a>
+            <a href="#">Home</a>
+            <a href="#">Rooms</a>
+            <a href="#">Dining</a>
+            <a href="#">Banquet</a>
+            <a href="#">Contact</a>
         </nav>
-        <a href="#book" class="book-btn">Book Now</a>
+        <a href="#" class="reserve-btn">Book Stay</a>
     </header>
 
-    <!-- हीरो सेक्शन (बाहरी इमारत की छवि के साथ) -->
-    <section id="home" class="hero">
-        <h2>Experience True Paradise</h2>
-        <p>जहाँ आधुनिक वास्तुकला, शाही आतिथ्य और लक्जरी का अनूठा संगम है。</p>
-        <a href="#suites" class="book-btn">Explore Rooms</a>
+    <!-- हीरो सेक्शन -->
+    <section class="hero">
+        <span class="subtitle">Welcome to Inder Paradise</span>
+        <h2>A Sanctuary of Modern Luxury & Royal Elegance</h2>
+        <p>शाही आतिथ्य और अत्याधुनिक सुविधाओं के साथ एक असाधारण प्रवास का अनुभव करें।</p>
+        <a href="#" class="reserve-btn">Explore Experiences</a>
     </section>
 
-    <!-- मुख्य विशेषताएं (डाइनिंग, बैंक्वेट और रूम्स) -->
-    <section id="amenities" class="section-padding">
-        <div class="section-title">
-            <h3>World-Class Amenities</h3>
-            <p>आपकी हर जरूरत को ध्यान में रखते हुए तैयार की गई प्रीमियम सुविधाएं</p>
+    <!-- वेलकम स्टोरी सेक्शन -->
+    <section class="story-section">
+        <div class="story-content">
+            <span style="color: var(--primary-gold); font-size: 12px; letter-spacing: 3px; text-transform: uppercase;">The Heritage & Style</span>
+            <h3>अनूठा डिजाइन और शानदार मेहमाननवाज़ी</h3>
+            <p>Inder Paradise में हम पारंपरिक संस्कृति और आधुनिक लक्जरी का अनूठा मिश्रण पेश करते हैं। हमारी भव्य वास्तुकला और उत्कृष्ट आंतरिक सज्जा आपके हर पल को खास बनाती है।</p>
+            <p>चाहे आप बेहतरीन व्यंजनों का लुत्फ उठाना चाहें या अपने खास पलों के लिए एक भव्य बैंक्वेट की तलाश में हों, हम हर अनुभव को यादगार बनाते हैं।</p>
+        </div>
+        <div class="story-img"></div>
+    </section>
+
+    <!-- प्रमुख विशेषताएं (डाइनिंग, बैंक्वेट, रूम्स) -->
+    <section class="experiences">
+        <div class="section-header">
+            <span>Curated For You</span>
+            <h3>Signature Offerings</h3>
         </div>
 
-        <div class="features-grid">
-            <!-- डाइनिंग कार्ड -->
-            <div class="feature-card">
-                <div class="card-img dining-img"></div>
-                <div class="card-content">
+        <div class="grid-3">
+            <!-- डाइनिंग -->
+            <div class="exp-card">
+                <div class="card-image img-dining"></div>
+                <div class="card-body">
                     <h4>Exquisite Dining</h4>
-                    <p>आकर्षक सीलिंग डिजाइन और आरामदायक सीटों के साथ हमारे रेस्टोरेंट में बेहतरीन व्यंजनों का आनंद लें。</p>
-                    <a href="#" class="explore-link">Discover Menu &rarr;</a>
+                    <p>मनमोहक सीलिंग डिजाइन और शानदार माहौल के बीच हमारे रेस्टोरेंट में लजीज व्यंजनों का स्वाद लें।</p>
+                    <a href="#" class="discover-btn">View Restaurant &rarr;</a>
                 </div>
             </div>
 
-            <!-- बैंक्वेट हॉल कार्ड -->
-            <div class="feature-card">
-                <div class="card-img banquet-img"></div>
-                <div class="card-content">
+            <!-- बैंक्वेट -->
+            <div class="exp-card">
+                <div class="card-image img-banquet"></div>
+                <div class="card-body">
                     <h4>Grand Banquets</h4>
-                    <p>शादियों और विशेष उत्सवों के लिए शानदार लाइटिंग और भव्य सजावट से सुसज्जित विशाल हॉल。</p>
-                    <a href="#" class="explore-link">Plan Event &rarr;</a>
+                    <p>शादियों, रिसेप्शन और कॉर्पोरेट आयोजनों के लिए भव्य लाइटिंग और सजावट से सजा विशाल हॉल।</p>
+                    <a href="#" class="discover-btn">Plan Event &rarr;</a>
                 </div>
             </div>
 
-            <!-- लक्जरी रूम कार्ड -->
-            <div class="feature-card">
-                <div class="card-img room-img"></div>
-                <div class="card-content">
+            <!-- रूम्स -->
+            <div class="exp-card">
+                <div class="card-image img-suite"></div>
+                <div class="card-body">
                     <h4>Luxury Suites</h4>
-                    <p>आरामदायक बिस्तर, बेहतरीन इंटीरियर और शांतिपूर्ण माहौल के साथ शाही विश्राम कक्ष。</p>
-                    <a href="#" class="explore-link">View Suites &rarr;</a>
+                    <p>आरामदायक किंग-साइज बेड, खूबसूरत इंटीरियर और शांतिपूर्ण माहौल के साथ शाही विश्राम कक्ष।</p>
+                    <a href="#" class="discover-btn">Explore Suites &rarr;</a>
                 </div>
             </div>
         </div>
@@ -302,10 +370,10 @@
 
     <!-- फुटर -->
     <footer>
-        <p>&copy; 2026 Inder Paradise Hotel. All Rights Reserved.</p>
+        <p>&copy; 2026 Inder Paradise Hotel & Restaurant. All Rights Reserved.</p>
     </footer>
 
 </body>
-    </html>
-                    
+</html>
+
 
