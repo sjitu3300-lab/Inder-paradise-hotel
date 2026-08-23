@@ -6,12 +6,12 @@
     <title>Inder Paradise | Luxury Hotel & Restaurant</title>
     <style>
         :root {
-            --bg-color: #0d0e12;
-            --card-bg: #161821;
-            --gold-color: #d4af37;
-            --light-gold: #f3e5ab;
-            --text-main: #f5f5f5;
-            --text-muted: #aaaaaa;
+            --bg-color: #12100e;
+            --card-bg: #1c1815;
+            --gold-color: #c5a059;
+            --light-gold: #e2be75;
+            --text-main: #f5f2eb;
+            --text-muted: #b5ada0;
         }
 
         * {
@@ -37,8 +37,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 18px 5%;
-            background: rgba(13, 14, 18, 0.95);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(18, 16, 14, 0.95);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
             z-index: 1000;
         }
 
@@ -102,7 +102,7 @@
         .hero-section {
             padding: 110px 5% 40px 5%;
             text-align: center;
-            background: radial-gradient(circle at center, #1a1c26 0%, var(--bg-color) 100%);
+            background: radial-gradient(circle at center, #231f1a 0%, var(--bg-color) 100%);
         }
 
         .hotel-info h2 {
@@ -126,7 +126,7 @@
             max-width: 1000px;
             height: 420px;
             margin: 0 auto;
-            border: 1px solid rgba(212, 175, 55, 0.4);
+            border: 1px solid rgba(197, 160, 89, 0.4);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
             overflow: hidden;
         }
@@ -137,12 +137,12 @@
             object-fit: cover;
         }
 
-        /* --- 4. At A Glimpse सेक्शन --- */
+        /* --- At A Glimpse सेक्शन (अपडेटेड) --- */
         .glimpse-section {
             padding: 60px 8%;
-            background: #11131a;
-            border-top: 1px solid rgba(212, 175, 55, 0.15);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            background: #171412;
+            border-top: 1px solid rgba(197, 160, 89, 0.15);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.15);
         }
 
         .glimpse-title {
@@ -168,7 +168,7 @@
             color: var(--text-muted);
         }
 
-        /* --- 5. होटल डिस्क्रिप्शन और Read More --- */
+        /* --- होटल डिस्क्रिप्शन और 'Read More' --- */
         .about-section {
             padding: 70px 10%;
             text-align: center;
@@ -211,10 +211,10 @@
             color: var(--bg-color);
         }
 
-        /* --- 6, 7 & 8. Accommodation & Tabs (Rooms / Suites) --- */
+        /* --- Accommodation & Tabs --- */
         .accommodation-section {
             padding: 80px 8%;
-            background: #12141c;
+            background: #171412;
             text-align: center;
         }
 
@@ -234,7 +234,6 @@
             letter-spacing: 1px;
         }
 
-        /* टैब बटन */
         .tab-buttons {
             display: flex;
             justify-content: center;
@@ -244,7 +243,7 @@
 
         .tab-btn {
             background: var(--card-bg);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(197, 160, 89, 0.3);
             color: var(--text-main);
             padding: 12px 35px;
             cursor: pointer;
@@ -261,7 +260,6 @@
             font-weight: bold;
         }
 
-        /* टैब कंटेंट */
         .tab-content {
             display: none;
             grid-template-columns: 1fr 1fr;
@@ -270,7 +268,7 @@
             text-align: left;
             background: var(--card-bg);
             padding: 30px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(197, 160, 89, 0.2);
         }
 
         .tab-content.active {
@@ -281,7 +279,7 @@
             width: 100%;
             height: 300px;
             object-fit: cover;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(197, 160, 89, 0.3);
         }
 
         .tab-details h4 {
@@ -356,22 +354,20 @@
         </div>
     </section>
 
-    <!-- 4. At A Glimpse सेक्शन (सुविधाएं) -->
+    <!-- At A Glimpse सेक्शन (अपडेटेड - अवांछित विकल्प हटाए गए) -->
     <section class="glimpse-section">
         <h4 class="glimpse-title">At A Glimpse</h4>
         <div class="glimpse-grid">
             <div class="glimpse-item">🛏️ Rooms & Suites</div>
             <div class="glimpse-item">🍷 Luxury Bar</div>
-            <div class="glimpse-item">🏋️ Gym Facility</div>
-            <div class="glimpse-item">🏊 Swimming Pool</div>
-            <div class="glimpse-item">🐾 Pet Friendly</div>
+            <div class="glimpse-item">💆 Spa & Wellness</div>
             <div class="glimpse-item">🍽️ Unique Dining</div>
             <div class="glimpse-item">🎉 Banquet & Events</div>
-            <div class="glimpse-item">💆 Spa & Wellness</div>
+            <div class="glimpse-item">🏛️ Heritage Experiences</div>
         </div>
     </section>
 
-    <!-- 5. होटल डिस्क्रिप्शन और 'Read More' बटन -->
+    <!-- होटल डिस्क्रिप्शन और 'Read More' -->
     <section class="about-section">
         <h3>Welcome to Inder Paradise</h3>
         <p class="about-text">
@@ -382,18 +378,17 @@
         <button class="read-more-btn" id="readMoreBtn" onclick="toggleReadMore()">Read More</button>
     </section>
 
-    <!-- 6, 7 & 8. Accommodation & Interactive Tabs -->
+    <!-- Accommodation & Interactive Tabs -->
     <section class="accommodation-section">
         <h3 class="sanctuary-title">Accommodation</h3>
         <p class="sanctuary-subtitle">Choose your perfect sanctuary</p>
 
-        <!-- टैब के विकल्प (Rooms / Suites) -->
         <div class="tab-buttons">
             <button class="tab-btn active" onclick="openTab(event, 'roomsTab')">Rooms</button>
             <button class="tab-btn" onclick="openTab(event, 'suitesTab')">Suites</button>
         </div>
 
-        <!-- Rooms टैब कंटेंट -->
+        <!-- Rooms टैब -->
         <div id="roomsTab" class="tab-content active">
             <img src="1000516067_2.jpg" alt="Luxury Room" class="tab-img">
             <div class="tab-details">
@@ -403,7 +398,7 @@
             </div>
         </div>
 
-        <!-- Suites टैब कंटेंट -->
+        <!-- Suites टैब -->
         <div id="suitesTab" class="tab-content">
             <img src="1000516068_2.jpg" alt="Luxury Suite" class="tab-img">
             <div class="tab-details">
@@ -413,13 +408,13 @@
             </div>
         </div>
 
-        <!-- 8. View All Accommodation बटन -->
+        <!-- View All Accommodation बटन -->
         <div class="view-all-container">
             <a href="#" class="view-all-btn" onclick="alert('View All Accommodations clicked!')">View All Accommodation</a>
         </div>
     </section>
 
-    <!-- जावास्क्रिप्ट (Read More और Tabs के लिए) -->
+    <!-- जावास्क्रिप्ट -->
     <script>
         function toggleReadMore() {
             const moreText = document.getElementById("moreText");
