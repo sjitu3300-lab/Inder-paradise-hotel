@@ -4,7 +4,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inder Paradise Hotel</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* बेसिक रीसेट और फोंट्स */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0f1115;
+            color: #f4f4f4;
+        }
+
+        /* हेडर डिज़ाइन */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: rgba(15, 17, 21, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #c5a059;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #c5a059;
+            letter-spacing: 2px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #c5a059;
+        }
+
+        .book-btn {
+            background-color: transparent;
+            color: #c5a059;
+            border: 1px solid #c5a059;
+            padding: 8px 18px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .book-btn:hover {
+            background-color: #c5a059;
+            color: #0f1115;
+        }
+
+        /* हीरो सेक्शन डिज़ाइन */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 40px;
+            color: #ffffff;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: #c5a059;
+            letter-spacing: 1px;
+        }
+
+        /* कमरों का सेक्शन डिज़ाइन */
+        .suites-section {
+            padding: 80px 5%;
+            text-align: center;
+        }
+
+        .suites-section h2 {
+            font-size: 28px;
+            color: #c5a059;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+
+        .suite-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .suite-card {
+            background-color: #1a1d24;
+            border: 1px solid #333;
+            padding: 25px;
+            width: 300px;
+            text-align: left;
+            border-radius: 4px;
+        }
+
+        .suite-card h3 {
+            color: #ffffff;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .suite-card p {
+            color: #b0b0b0;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .detail-btn {
+            background-color: #c5a059;
+            color: #0f1115;
+            border: none;
+            padding: 10px 15px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 
@@ -46,5 +183,4 @@
     </section>
 
 </body>
-              </html>
-
+</html>
