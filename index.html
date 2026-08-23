@@ -3,422 +3,455 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inder Paradise | Luxury Hotel & Restaurant</title>
+    <title>Inder Paradise | Luxury Hotel & Resort</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #12100e;
-            --card-bg: #1c1815;
-            --gold-color: #c5a059;
-            --light-gold: #e2be75;
-            --text-main: #f5f2eb;
-            --text-muted: #b5ada0;
+            --bg-main: #141210;
+            --bg-card: #1c1916;
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --text-white: #fcfbf9;
+            --text-gray: #b3ada4;
+            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Playfair Display', serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: var(--bg-main);
+            color: var(--text-white);
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        /* --- हेडर --- */
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+        }
+
+        /* --- हेडर सेक्शन --- */
         header {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 5%;
-            background: rgba(18, 16, 14, 0.95);
-            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+            padding: 20px 5%;
+            background: rgba(20, 18, 16, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
             z-index: 1000;
+            transition: var(--transition);
         }
 
-        .menu-trigger {
+        .menu-icon {
             background: none;
             border: none;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             gap: 6px;
-            padding: 5px;
         }
 
-        .menu-trigger span {
-            display: block;
-            width: 28px;
+        .menu-icon span {
+            width: 30px;
             height: 2px;
-            background-color: var(--gold-color);
-            transition: 0.3s;
+            background-color: var(--gold);
+            transition: var(--transition);
         }
 
-        .logo-title {
+        .brand-logo {
             text-align: center;
             text-decoration: none;
         }
 
-        .logo-title h1 {
+        .brand-logo h1 {
             font-size: 20px;
-            color: var(--text-main);
-            letter-spacing: 3px;
+            color: var(--text-white);
             text-transform: uppercase;
+            letter-spacing: 4px;
         }
 
-        .logo-title span {
-            font-size: 9px;
-            color: var(--gold-color);
-            letter-spacing: 4px;
+        .brand-logo span {
+            font-size: 8px;
+            color: var(--gold);
+            letter-spacing: 5px;
             text-transform: uppercase;
             display: block;
         }
 
-        .book-now-btn {
-            background-color: var(--gold-color);
-            color: var(--bg-color);
-            padding: 10px 20px;
-            text-decoration: none;
-            font-weight: bold;
+        .book-btn {
+            background-color: var(--gold);
+            color: var(--bg-main);
+            padding: 10px 22px;
             font-size: 11px;
+            font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
             border: none;
             cursor: pointer;
-            transition: 0.3s;
+            transition: var(--transition);
+            text-decoration: none;
         }
 
-        .book-now-btn:hover {
-            background-color: var(--light-gold);
+        .book-btn:hover {
+            background-color: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
         }
 
         /* --- हीरो सेक्शन --- */
-        .hero-section {
-            padding: 110px 5% 40px 5%;
+        .hero {
+            padding: 130px 5% 50px 5%;
             text-align: center;
-            background: radial-gradient(circle at center, #231f1a 0%, var(--bg-color) 100%);
+            background: radial-gradient(circle at center, #25201b 0%, var(--bg-main) 100%);
         }
 
-        .hotel-info h2 {
-            font-size: 34px;
-            color: var(--text-main);
-            letter-spacing: 3px;
-            margin-bottom: 5px;
+        .hero-titles h2 {
+            font-size: 36px;
+            margin-bottom: 8px;
             text-transform: uppercase;
+            color: var(--text-white);
         }
 
-        .hotel-info p {
+        .hero-titles p {
             font-size: 13px;
-            color: var(--gold-color);
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        .hero-image-container {
-            width: 100%;
-            max-width: 1000px;
-            height: 420px;
-            margin: 0 auto;
-            border: 1px solid rgba(197, 160, 89, 0.4);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            overflow: hidden;
-        }
-
-        .hero-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* --- At A Glimpse सेक्शन (अपडेटेड) --- */
-        .glimpse-section {
-            padding: 60px 8%;
-            background: #171412;
-            border-top: 1px solid rgba(197, 160, 89, 0.15);
-            border-bottom: 1px solid rgba(197, 160, 89, 0.15);
-        }
-
-        .glimpse-title {
-            font-size: 24px;
+            color: var(--gold);
             letter-spacing: 3px;
             margin-bottom: 30px;
             text-transform: uppercase;
-            color: var(--gold-color);
+        }
+
+        .hero-img-box {
+            width: 100%;
+            max-width: 1100px;
+            height: 480px;
+            margin: 0 auto;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .hero-img-box:hover img {
+            transform: scale(1.03);
+        }
+
+        /* --- At a Glimpse सेक्शन --- */
+        .glimpse-section {
+            padding: 70px 8%;
+            background: var(--bg-card);
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .section-title {
+            font-size: 24px;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 35px;
         }
 
         .glimpse-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            font-family: 'Segoe UI', sans-serif;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
             font-size: 14px;
         }
 
-        .glimpse-item {
+        .glimpse-col {
             display: flex;
             align-items: center;
             gap: 12px;
-            color: var(--text-muted);
+            color: var(--text-gray);
+            transition: var(--transition);
         }
 
-        /* --- होटल डिस्क्रिप्शन और 'Read More' --- */
+        .glimpse-col:hover {
+            color: var(--text-white);
+            transform: translateX(5px);
+        }
+
+        /* --- About / Read More सेक्शन --- */
         .about-section {
-            padding: 70px 10%;
+            padding: 80px 10%;
             text-align: center;
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
         }
 
         .about-section h3 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
+            font-size: 30px;
+            margin-bottom: 25px;
+            color: var(--text-white);
         }
 
-        .about-text {
+        .about-desc {
             font-size: 15px;
-            color: var(--text-muted);
-            font-family: 'Segoe UI', sans-serif;
-            line-height: 1.8;
-            margin-bottom: 20px;
+            color: var(--text-gray);
+            line-height: 1.9;
+            margin-bottom: 25px;
         }
 
-        .more-text {
+        .extra-content {
             display: none;
         }
 
-        .read-more-btn {
-            background: none;
-            border: 1px solid var(--gold-color);
-            color: var(--gold-color);
-            padding: 8px 20px;
-            cursor: pointer;
-            font-size: 12px;
+        .read-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 10px 25px;
+            font-size: 11px;
             letter-spacing: 2px;
             text-transform: uppercase;
-            transition: 0.3s;
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .read-more-btn:hover {
-            background: var(--gold-color);
-            color: var(--bg-color);
+        .read-btn:hover {
+            background: var(--gold);
+            color: var(--bg-main);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
         }
 
-        /* --- Accommodation & Tabs --- */
-        .accommodation-section {
-            padding: 80px 8%;
-            background: #171412;
+        /* --- Accommodation & Tabs सेक्शन --- */
+        .accommodation-area {
+            padding: 90px 8%;
+            background: #171512;
             text-align: center;
         }
 
         .sanctuary-title {
-            font-size: 30px;
-            color: var(--text-main);
-            letter-spacing: 3px;
-            margin-bottom: 10px;
+            font-size: 32px;
             text-transform: uppercase;
+            margin-bottom: 8px;
+            color: var(--text-white);
         }
 
-        .sanctuary-subtitle {
-            font-size: 16px;
-            color: var(--gold-color);
+        .sanctuary-sub {
+            font-size: 15px;
+            color: var(--gold);
             font-style: italic;
-            margin-bottom: 40px;
             letter-spacing: 1px;
+            margin-bottom: 45px;
+            font-family: 'Playfair Display', serif;
         }
 
-        .tab-buttons {
+        .tab-menu {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin-bottom: 40px;
         }
 
-        .tab-btn {
-            background: var(--card-bg);
-            border: 1px solid rgba(197, 160, 89, 0.3);
-            color: var(--text-main);
-            padding: 12px 35px;
-            cursor: pointer;
-            font-size: 14px;
+        .tab-trigger {
+            background: var(--bg-card);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--text-white);
+            padding: 12px 40px;
+            font-size: 13px;
             letter-spacing: 2px;
             text-transform: uppercase;
-            transition: 0.3s;
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .tab-btn.active, .tab-btn:hover {
-            background: var(--gold-color);
-            color: var(--bg-color);
-            border-color: var(--gold-color);
-            font-weight: bold;
+        .tab-trigger.active, .tab-trigger:hover {
+            background: var(--gold);
+            color: var(--bg-main);
+            border-color: var(--gold);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
         }
 
-        .tab-content {
+        .tab-panel {
             display: none;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
             align-items: center;
             text-align: left;
-            background: var(--card-bg);
-            padding: 30px;
-            border: 1px solid rgba(197, 160, 89, 0.2);
+            background: var(--bg-card);
+            padding: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            animation: fadeIn 0.8s ease forwards;
         }
 
-        .tab-content.active {
+        .tab-panel.active {
             display: grid;
         }
 
-        .tab-img {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel-image {
             width: 100%;
-            height: 300px;
+            height: 340px;
             object-fit: cover;
-            border: 1px solid rgba(197, 160, 89, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: var(--transition);
         }
 
-        .tab-details h4 {
-            font-size: 24px;
-            color: var(--text-main);
+        .panel-image:hover {
+            transform: scale(1.02);
+        }
+
+        .panel-info h4 {
+            font-size: 26px;
+            color: var(--text-white);
             margin-bottom: 15px;
-            letter-spacing: 1px;
         }
 
-        .tab-details p {
+        .panel-info p {
             font-size: 14px;
-            color: var(--text-muted);
-            font-family: 'Segoe UI', sans-serif;
-            margin-bottom: 20px;
+            color: var(--text-gray);
+            margin-bottom: 25px;
+            line-height: 1.8;
         }
 
-        .view-all-container {
+        .view-all-box {
             margin-top: 50px;
             text-align: center;
         }
 
-        .view-all-btn {
-            background-color: transparent;
-            border: 2px solid var(--gold-color);
-            color: var(--gold-color);
-            padding: 12px 30px;
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: bold;
+        .view-all-link {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 12px 35px;
+            font-size: 11px;
+            font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
+            text-decoration: none;
             display: inline-block;
-            transition: 0.3s;
-            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .view-all-btn:hover {
-            background-color: var(--gold-color);
-            color: var(--bg-color);
+        .view-all-link:hover {
+            background: var(--gold);
+            color: var(--bg-main);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
         }
 
         @media(max-width: 768px) {
-            .tab-content { grid-template-columns: 1fr; }
-            .hero-image-container { height: 260px; }
+            .tab-panel { grid-template-columns: 1fr; padding: 20px; }
+            .hero-img-box { height: 280px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- हेडर -->
+    <!-- हेडर बार -->
     <header>
-        <button class="menu-trigger" onclick="alert('Menu clicked!')">
+        <button class="menu-icon" onclick="alert('Menu opened!')">
             <span></span>
             <span></span>
             <span></span>
         </button>
-        <a href="#" class="logo-title">
+        <a href="#" class="brand-logo">
             <h1>Inder Paradise</h1>
-            <span>Luxury Hotel & Restaurant</span>
+            <span>Luxury Hotel & Resort</span>
         </a>
-        <button class="book-now-btn" onclick="alert('Book Now clicked!')">Book Now</button>
+        <a href="#" class="book-btn" onclick="alert('Redirecting to Booking Engine...')">Book Now</a>
     </header>
 
     <!-- हीरो सेक्शन -->
-    <section class="hero-section">
-        <div class="hotel-info">
+    <section class="hero">
+        <div class="hero-titles">
             <h2>Hotel Inder Paradise</h2>
-            <p>📍 Luxury Stay & Fine Dining Experience</p>
+            <p>📍 Luxury Stay & Royal Heritage Experience</p>
         </div>
-        <div class="hero-image-container">
-            <img src="1000516059_2.jpg" alt="Inder Paradise Interior">
+        <div class="hero-img-box">
+            <img src="1000516059_2.jpg" alt="Inder Paradise Luxury View">
         </div>
     </section>
 
-    <!-- At A Glimpse सेक्शन (अपडेटेड - अवांछित विकल्प हटाए गए) -->
+    <!-- At A Glimpse सेक्शन (Anantara फॉर्मेट) -->
     <section class="glimpse-section">
-        <h4 class="glimpse-title">At A Glimpse</h4>
+        <h4 class="section-title">At A Glimpse</h4>
         <div class="glimpse-grid">
-            <div class="glimpse-item">🛏️ Rooms & Suites</div>
-            <div class="glimpse-item">🍷 Luxury Bar</div>
-            <div class="glimpse-item">💆 Spa & Wellness</div>
-            <div class="glimpse-item">🍽️ Unique Dining</div>
-            <div class="glimpse-item">🎉 Banquet & Events</div>
-            <div class="glimpse-item">🏛️ Heritage Experiences</div>
+            <div class="glimpse-col">🛏️ 150 Rooms & Suites</div>
+            <div class="glimpse-col">🎉 9 Banqueting Venues</div>
+            <div class="glimpse-col">🍷 Exclusive Luxury Bar</div>
+            <div class="glimpse-col">🏛️ Cultural & Heritage Experiences</div>
+            <div class="glimpse-col">🍽️ Destination Dining Experiences</div>
+            <div class="glimpse-col">💆 Inder Paradise Spa & Wellness</div>
+            <div class="glimpse-col">💍 Destination Weddings & Celebrations</div>
         </div>
     </section>
 
-    <!-- होटल डिस्क्रिप्शन और 'Read More' -->
+    <!-- होटल डिस्क्रिप्शन और Read More एनिमेशन -->
     <section class="about-section">
-        <h3>Welcome to Inder Paradise</h3>
-        <p class="about-text">
-            होटल इंद्र पैराडाइज में आपका स्वागत है, जहाँ आधुनिक लक्जरी और पारंपरिक मेहमाननवाज़ी का अनूठा संगम देखने को मिलता है...
-            <span id="moreText" class="more-text"><br><br>
-            हम अपने मेहमानों को विश्व स्तरीय सुविधाएं, शानदार डाइनिंग अनुभव और पूर्ण शांति प्रदान करते हैं। चाहे आप परिवार के साथ छुट्टियां बिताने आए हों या किसी खास उत्सव का आयोजन कर रहे हों, हमारा हर कोना आपको एक शाही अहसास कराता है।</span>
+        <h3>A Sanctuary of Elegance</h3>
+        <p class="about-desc">
+            होटल इंद्र पैराडाइज में आपका स्वागत है, जहाँ राजसी भव्यता और आधुनिक लक्जरी का अनूठा मेल आपको एक अविस्मरणीय अनुभव प्रदान करता है...
+            <span id="moreText" class="extra-content"><br><br>
+            शांत वातावरण, उत्कृष्ट वास्तुकला और विश्व स्तरीय आतिथ्य सत्कार के साथ, हमारा हर कोना आपको एक शाही सुकून का अहसास कराता है। चाहे आप अवकाश बिताने आए हों या किसी खास उत्सव का जश्न मनाने, हम आपकी हर जरूरत को भव्यता के साथ पूरा करते हैं।</span>
         </p>
-        <button class="read-more-btn" id="readMoreBtn" onclick="toggleReadMore()">Read More</button>
+        <button class="read-btn" id="readBtn" onclick="toggleText()">Read More</button>
     </section>
 
     <!-- Accommodation & Interactive Tabs -->
-    <section class="accommodation-section">
+    <section class="accommodation-area">
         <h3 class="sanctuary-title">Accommodation</h3>
-        <p class="sanctuary-subtitle">Choose your perfect sanctuary</p>
+        <p class="sanctuary-sub">Choose your perfect sanctuary</p>
 
-        <div class="tab-buttons">
-            <button class="tab-btn active" onclick="openTab(event, 'roomsTab')">Rooms</button>
-            <button class="tab-btn" onclick="openTab(event, 'suitesTab')">Suites</button>
+        <!-- टैब स्विच बटन्स -->
+        <div class="tab-menu">
+            <button class="tab-trigger active" onclick="switchTab(event, 'roomsBlock')">Rooms</button>
+            <button class="tab-trigger" onclick="switchTab(event, 'suitesBlock')">Suites</button>
         </div>
 
-        <!-- Rooms टैब -->
-        <div id="roomsTab" class="tab-content active">
-            <img src="1000516067_2.jpg" alt="Luxury Room" class="tab-img">
-            <div class="tab-details">
+        <!-- Rooms पैनल -->
+        <div id="roomsBlock" class="tab-panel active">
+            <img src="1000516067_2.jpg" alt="Deluxe Room" class="panel-image">
+            <div class="panel-info">
                 <h4>Deluxe Rooms</h4>
-                <p>आरामदायक किंग-साइज बेड, आधुनिक सुविधाओं और शांत इंटीरियर से सुसज्जित हमारे डीलक्स रूम्स आपको घर जैसा सुकून और विलासिता देते हैं।</p>
-                <button class="book-now-btn" onclick="alert('Book Room clicked!')">Book Room</button>
+                <p>आधुनिक सुविधाओं, आरामदायक किंग बेड और शांत इंटीरियर से सुसज्जित हमारे डीलक्स रूम्स आपको बेहतरीन सुकून और विलासिता का अहसास कराते हैं।</p>
+                <a href="#" class="book-btn" onclick="alert('Room booking initiated')">Explore Rooms</a>
             </div>
         </div>
 
-        <!-- Suites टैब -->
-        <div id="suitesTab" class="tab-content">
-            <img src="1000516068_2.jpg" alt="Luxury Suite" class="tab-img">
-            <div class="tab-details">
+        <!-- Suites पैनल -->
+        <div id="suitesBlock" class="tab-panel">
+            <img src="1000516068_2.jpg" alt="Royal Suite" class="panel-image">
+            <div class="panel-info">
                 <h4>Royal Suites</h4>
-                <p>भव्य सजावट, विशेष बैठने की जगह और प्रीमियम लग्जरी सुविधाओं से भरपूर हमारे सूट्स उन मेहमानों के लिए हैं जो शाही ठाठ-बाट पसंद करते हैं।</p>
-                <button class="book-now-btn" onclick="alert('Book Suite clicked!')">Book Suite</button>
+                <p>विशाल स्पेस, शाही सजावट और प्रीमियम सुविधाओं से भरपूर हमारे सूट्स उन खास मेहमानों के लिए हैं जो जीवन के हर पल में भव्यता पसंद करते हैं।</p>
+                <a href="#" class="book-btn" onclick="alert('Suite booking initiated')">Explore Suites</a>
             </div>
         </div>
 
         <!-- View All Accommodation बटन -->
-        <div class="view-all-container">
-            <a href="#" class="view-all-btn" onclick="alert('View All Accommodations clicked!')">View All Accommodation</a>
+        <div class="view-all-box">
+            <a href="#" class="view-all-link" onclick="alert('Redirecting to All Accommodations...')">View All Accommodation</a>
         </div>
     </section>
 
-    <!-- जावास्क्रिप्ट -->
+    <!-- स्मूथ एनिमेशन और इंटरेक्शन स्क्रिप्ट -->
     <script>
-        function toggleReadMore() {
+        function toggleText() {
             const moreText = document.getElementById("moreText");
-            const btn = document.getElementById("readMoreBtn");
+            const btn = document.getElementById("readBtn");
             if (moreText.style.display === "inline") {
                 moreText.style.display = "none";
                 btn.innerHTML = "Read More";
@@ -428,16 +461,16 @@
             }
         }
 
-        function openTab(evt, tabName) {
-            const contents = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < contents.length; i++) {
-                contents[i].classList.remove("active");
+        function switchTab(evt, blockId) {
+            const panels = document.getElementsByClassName("tab-panel");
+            for (let i = 0; i < panels.length; i++) {
+                panels[i].classList.remove("active");
             }
-            const buttons = document.getElementsByClassName("tab-btn");
-            for (let i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove("active");
+            const triggers = document.getElementsByClassName("tab-trigger");
+            for (let i = 0; i < triggers.length; i++) {
+                triggers[i].classList.remove("active");
             }
-            document.getElementById(tabName).classList.add("active");
+            document.getElementById(blockId).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
     </script>
