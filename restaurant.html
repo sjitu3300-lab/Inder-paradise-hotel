@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ashray Restaurant | Hotel Inder Paradise Nagaur</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root { --primary-gold: #c5a880; --royal-dark: #0c0e12; --bg-cream: #faf8f5; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--bg-cream); color: #222; line-height: 1.7; }
+    header { background: rgba(12, 14, 18, 0.98); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: sticky; top:0; z-index:100; }
+    .logo { font-family: Georgia, serif; font-size: 1.5rem; color: var(--primary-gold); text-decoration: none; font-weight: bold; }
+    .btn-home { border: 1px solid var(--primary-gold); color: var(--primary-gold); padding: 7px 15px; text-decoration: none; font-size: 0.8rem; border-radius: 2px; }
+    .container { max-width: 1100px; margin: 50px auto; background: #fff; padding: 45px; border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+    h1 { font-family: Georgia, serif; color: var(--royal-dark); font-size: 2.3rem; margin-bottom: 20px; }
+    p { color: #555; margin-bottom: 20px; font-size: 0.98rem; }
+    .rest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; margin-top: 30px; }
+    .rest-grid img { width: 100%; height: 320px; object-fit: cover; border-radius: 4px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    .menu-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
+    .menu-tag { background: #faf8f5; border: 1px solid var(--primary-gold); padding: 6px 14px; font-size: 0.85rem; border-radius: 2px; color: #444; font-weight: 500; }
+    .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #c5a880, #a38153); color: #0b0d10; padding: 10px 22px; border-radius: 2px; text-decoration: none; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; margin-top: 20px; }
+    footer { background: #07080a; color: #888; text-align: center; padding: 30px; margin-top: 60px; font-size: 0.85rem; }
+    @media(max-width: 768px) { .rest-grid { grid-template-columns: 1fr; } .container { padding: 20px; margin: 20px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">INDER PARADISE</a>
+    <a href="index.html" class="btn-home" target="_blank"><i class="fa-solid fa-house"></i> Home Page</a>
+  </header>
+
+  <div class="container">
+    <h1>Ashray Restaurant - Fine Dining in Nagaur</h1>
+    <p>Indulge in an exquisite culinary journey at <strong>Ashray Restaurant</strong>, located inside Hotel Inder Paradise on Didwana Road, Nagaur. We specialize in authentic regional delicacies, North Indian gravies, Chinese delights, and wholesome vegetarian thalis.</p>
+
+    <div class="rest-grid">
+      <img src="restaurant.jpg" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop'" alt="Ashray Restaurant">
+      <div>
+        <h3 style="font-family: Georgia, serif; font-size: 1.6rem; color: var(--royal-dark); margin-bottom: 10px;">Pure, Hygienic & Delicious</h3>
+        <p>Featuring beautiful false ceiling architecture, comfortable family seating booths, and warm lighting, Ashray Restaurant provides the ideal ambience for family dinners and couple gatherings.</p>
+        
+        <div class="menu-tags">
+          <span class="menu-tag">North Indian</span>
+          <span class="menu-tag">Rajasthani Thali</span>
+          <span class="menu-tag">Chinese Snacks</span>
+          <span class="menu-tag">Pure Veg</span>
+        </div>
+
+        <p style="margin-top: 20px; font-size: 0.85rem; color: #666;"><i class="fa-regular fa-clock" style="color:var(--primary-gold);"></i> <strong>Open Daily:</strong> 08:00 AM – 11:00 PM</p>
+        
+        <a href="https://wa.me/919257090750?text=Hello,%20I%20want%20to%20reserve%20a%20table%20at%20Ashray%20Restaurant" target="_blank" class="btn-wa">
+          <i class="fa-brands fa-whatsapp"></i> Reserve Table
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Hotel Inder Paradise, Didwana Road, Nagaur, Rajasthan. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>
+
