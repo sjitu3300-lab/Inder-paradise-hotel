@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hotel Inder Paradise | Luxury Hotel, Restaurant & Banquet</title>
+  <title>Hotel Inder Paradise | Luxury Hotel, Restaurant & Banquet, Nagaur</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +26,7 @@
       --white: #ffffff;
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Montserrat', sans-serif;
-      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -50,14 +50,14 @@
       color: var(--gold-light);
       font-size: 0.8rem;
       text-align: center;
-      padding: 9px 15px;
+      padding: 8px 15px;
       letter-spacing: 1px;
       text-transform: uppercase;
       border-bottom: 1px solid rgba(197, 168, 128, 0.2);
     }
     .top-bar span { color: var(--primary-gold); font-weight: 600; }
 
-    /* Navigation Bar */
+    /* Header Navigation Bar */
     header {
       position: sticky;
       top: 0;
@@ -68,19 +68,59 @@
       border-bottom: 1px solid rgba(197, 168, 128, 0.25);
     }
     .nav-container {
-      max-width: 1300px;
+      max-width: 1350px;
       margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      padding: 16px 24px;
+      padding: 14px 24px;
     }
-    .logo { display: flex; flex-direction: column; align-items: center; }
+
+    /* Left: 3-Line Menu Button */
+    .nav-left {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .menu-toggle-btn {
+      background: rgba(197, 168, 128, 0.1);
+      border: 1px solid rgba(197, 168, 128, 0.35);
+      color: var(--primary-gold);
+      padding: 8px 16px;
+      border-radius: 3px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: var(--transition);
+    }
+    .menu-toggle-btn:hover {
+      background: var(--primary-gold);
+      color: var(--royal-dark);
+      border-color: var(--primary-gold);
+    }
+    .menu-toggle-btn i {
+      font-size: 1.1rem;
+    }
+
+    /* Center: Logo / Hotel Name */
+    .nav-center {
+      text-align: center;
+    }
+    .logo {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+    }
     .logo-main {
       font-family: var(--font-serif);
-      font-size: 1.85rem;
+      font-size: 2rem;
       font-weight: 700;
-      letter-spacing: 3px;
+      letter-spacing: 3.5px;
       color: var(--primary-gold);
       text-transform: uppercase;
       line-height: 1;
@@ -92,33 +132,20 @@
       color: var(--gold-light);
       margin-top: 4px;
     }
-    .nav-menu { display: flex; gap: 24px; align-items: center; }
-    .nav-link {
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #e0e0e0;
-      font-weight: 500;
-      position: relative;
+
+    /* Right: Quick Action */
+    .nav-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 12px;
     }
-    .nav-link:hover { color: var(--primary-gold); }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      width: 0%;
-      height: 1.5px;
-      bottom: -4px;
-      left: 0;
-      background-color: var(--primary-gold);
-      transition: var(--transition);
-    }
-    .nav-link:hover::after { width: 100%; }
 
     .btn-gold {
       background: linear-gradient(135deg, #c5a880 0%, #a38153 100%);
       color: #0b0d10;
-      padding: 10px 22px;
-      font-size: 0.8rem;
+      padding: 9px 20px;
+      font-size: 0.78rem;
       font-weight: 600;
       letter-spacing: 1.5px;
       text-transform: uppercase;
@@ -138,8 +165,8 @@
     .btn-outline {
       border: 1px solid var(--primary-gold);
       color: var(--primary-gold);
-      padding: 10px 22px;
-      font-size: 0.8rem;
+      padding: 9px 20px;
+      font-size: 0.78rem;
       font-weight: 600;
       letter-spacing: 1.5px;
       text-transform: uppercase;
@@ -151,7 +178,120 @@
       transition: var(--transition);
     }
     .btn-outline:hover { background: var(--primary-gold); color: var(--royal-dark); }
-    .mobile-menu-btn { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+
+    /* Left Side Sliding Drawer Menu */
+    .side-drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+    .side-drawer-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .side-drawer {
+      position: fixed;
+      top: 0;
+      left: -380px;
+      width: 360px;
+      max-width: 85vw;
+      height: 100vh;
+      background: #0d1015;
+      border-right: 1px solid rgba(197, 168, 128, 0.3);
+      z-index: 2001;
+      padding: 35px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: auto;
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .side-drawer.active {
+      transform: translateX(380px);
+    }
+
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(197, 168, 128, 0.2);
+      padding-bottom: 20px;
+      margin-bottom: 25px;
+    }
+    .drawer-logo {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      color: var(--primary-gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .close-drawer-btn {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 1.2rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .close-drawer-btn:hover {
+      background: var(--primary-gold);
+      color: var(--royal-dark);
+      border-color: var(--primary-gold);
+    }
+
+    .drawer-links li {
+      margin-bottom: 16px;
+    }
+    .drawer-links a {
+      color: #e0e0e0;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 8px 12px;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+    .drawer-links a i {
+      color: var(--primary-gold);
+      width: 20px;
+      font-size: 1.1rem;
+    }
+    .drawer-links a:hover {
+      background: rgba(197, 168, 128, 0.15);
+      color: var(--primary-gold);
+      padding-left: 18px;
+    }
+
+    .drawer-footer {
+      border-top: 1px solid rgba(197, 168, 128, 0.2);
+      padding-top: 20px;
+      margin-top: 20px;
+    }
+    .drawer-footer p {
+      font-size: 0.8rem;
+      color: #999;
+      margin-bottom: 12px;
+    }
+    .drawer-footer p i {
+      color: var(--primary-gold);
+      margin-right: 6px;
+    }
 
     /* Hero Section */
     .hero {
@@ -288,7 +428,7 @@
     .dining-feat-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #eee; }
     .dining-feat-item i { color: var(--primary-gold); }
 
-    /* Weddings & Banquets Section */
+    /* Banquet & Celebrations Section */
     .banquet-section { background: #faf8f5; }
     .banquet-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; }
     .banquet-img-wrapper { position: relative; }
@@ -408,10 +548,10 @@
       .booking-bar, .rooms-grid, .dining-grid, .banquet-grid, .gallery-grid, .footer-container { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 768px) {
-      .nav-menu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--royal-dark); flex-direction: column; padding: 25px 0; gap: 16px; text-align: center; }
-      .nav-menu.active { display: flex; }
-      .mobile-menu-btn { display: block; }
-      .hero-title { font-size: 2.5rem; }
+      .nav-container { grid-template-columns: auto 1fr auto; }
+      .logo-main { font-size: 1.4rem; letter-spacing: 2px; }
+      .logo-sub { font-size: 0.55rem; letter-spacing: 2px; }
+      .hero-title { font-size: 2.4rem; }
       .booking-bar, .overview-grid, .contact-grid, .rooms-grid, .dining-grid, .banquet-grid, .gallery-grid, .footer-container { grid-template-columns: 1fr; }
       .overview-badge { position: static; margin-top: 15px; }
     }
@@ -421,40 +561,74 @@
 
   <!-- Top Announcement Bar -->
   <div class="top-bar">
-    Hotel Inder Paradise &nbsp;|&nbsp; Direct Booking Privileges: <span>Complimentary Breakfast & Free Wi-Fi</span> &nbsp;|&nbsp; Call: +91 92570 90750
+    Hotel Inder Paradise &nbsp;|&nbsp; <span>Didwana Road, Nagaur, Rajasthan</span> &nbsp;|&nbsp; Direct Booking Call: +91 92570 90750
   </div>
 
-  <!-- Header & Navigation -->
+   <!-- Header & Navigation Bar -->
   <header>
     <div class="nav-container">
-      <a href="#" class="logo">
-        <span class="logo-main">HOTEL INDER PARADISE</span>
-        <span class="logo-sub">LUXURY STAY • RESTAURANT • BANQUET</span>
-      </a>
+      
+      <!-- Left: 3-Line Menu Button -->
+      <div class="nav-left">
+        <button class="menu-toggle-btn" id="openDrawerBtn" aria-label="Open Navigation Menu">
+          <i class="fa-solid fa-bars"></i>
+          <span>Menu</span>
+        </button>
+      </div>
 
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#rooms" class="nav-link">Rooms & Suites</a></li>
-        <li><a href="#dining" class="nav-link">Restaurant</a></li>
-        <li><a href="#banquet" class="nav-link">Banquet Hall</a></li>
-        <li><a href="#gallery" class="nav-link">Gallery</a></li>
-        <li><a href="#faq" class="nav-link">FAQ</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-        <li><a href="#booking" class="btn-gold"><i class="fa-solid fa-calendar-check"></i> Book Now</a></li>
-      </ul>
+      <!-- Center: Hotel Name / Logo -->
+      <div class="nav-center">
+        <a href="#" class="logo">
+          <span class="logo-main">HOTEL INDER PARADISE</span>
+          <span class="logo-sub">NAGAUR • RAJASTHAN</span>
+        </a>
+      </div>
 
-      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+      <!-- Right: Direct Book / Call Action -->
+      <div class="nav-right">
+        <a href="#booking" class="btn-gold"><i class="fa-solid fa-calendar-check"></i> Book Now</a>
+      </div>
+
     </div>
   </header>
+
+  <!-- Left Side Drawer (Navigation Bar Menu) -->
+  <div class="side-drawer-overlay" id="drawerOverlay"></div>
+  <aside class="side-drawer" id="sideDrawer">
+    <div>
+      <div class="drawer-header">
+        <div class="drawer-logo">Inder Paradise</div>
+        <button class="close-drawer-btn" id="closeDrawerBtn" aria-label="Close Menu">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <ul class="drawer-links">
+        <li><a href="#about" class="drawer-nav-item"><i class="fa-solid fa-hotel"></i> The Hotel Overview</a></li>
+        <li><a href="#rooms" class="drawer-nav-item"><i class="fa-solid fa-bed"></i> Rooms & Suites</a></li>
+        <li><a href="#dining" class="drawer-nav-item"><i class="fa-solid fa-utensils"></i> Ashray Restaurant</a></li>
+        <li><a href="#banquet" class="drawer-nav-item"><i class="fa-solid fa-champagne-glasses"></i> Banquet & Events</a></li>
+        <li><a href="#gallery" class="drawer-nav-item"><i class="fa-solid fa-images"></i> Photo Gallery</a></li>
+        <li><a href="#faq" class="drawer-nav-item"><i class="fa-solid fa-circle-question"></i> FAQs</a></li>
+        <li><a href="#contact" class="drawer-nav-item"><i class="fa-solid fa-location-dot"></i> Contact & Location</a></li>
+      </ul>
+    </div>
+
+    <div class="drawer-footer">
+      <p><i class="fa-solid fa-location-dot"></i> Didwana Road, Nagaur, Rajasthan</p>
+      <p><i class="fa-solid fa-phone"></i> +91 92570 90750</p>
+      <a href="https://wa.me/919257090750?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20book%20a%20stay." target="_blank" class="btn-gold" style="width: 100%; justify-content: center; margin-top: 10px;">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp Reservation
+      </a>
+    </div>
+  </aside>
 
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
-      <p class="hero-subtitle">Premium Comfort & Hospitality</p>
+      <p class="hero-subtitle">Premium Comfort & Royal Hospitality</p>
       <h1 class="hero-title">Welcome to <span>Hotel Inder Paradise</span></h1>
-      <p class="hero-desc">Experience unmatched comfort, premium AC rooms, signature dining at Ashray Restaurant, and grand banquet facilities for weddings and celebrations.</p>
+      <p class="hero-desc">Experience premium AC rooms, signature dining at Ashray Restaurant, and grand banquet celebrations on Didwana Road, Nagaur, Rajasthan.</p>
       <div>
         <a href="#rooms" class="btn-gold" style="margin-right: 10px;"><i class="fa-solid fa-bed"></i> View Rooms</a>
         <a href="#banquet" class="btn-outline"><i class="fa-solid fa-champagne-glasses"></i> Book Banquet</a>
@@ -501,7 +675,6 @@
     <div class="section-container">
       <div class="overview-grid">
         <div class="overview-img-wrapper">
-          <!-- Building Exterior Photo -->
           <img src="hotel-exterior.jpg" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop'" alt="Hotel Inder Paradise Building">
           <div class="overview-badge">
             <span class="num">100%</span>
@@ -511,9 +684,9 @@
 
         <div class="overview-content">
           <span class="section-tag">About Inder Paradise</span>
-          <h3>Your Premium Destination for Stays, Dining & Celebrations</h3>
-          <p><strong>Hotel Inder Paradise</strong> provides the perfect blend of modern luxury and warm hospitality. Conveniently situated, our hotel offers elegantly designed air-conditioned rooms, fine multi-cuisine dining, and state-of-the-art banquet spaces.</p>
-          <p>Whether you are travelling for business, visiting with family, or hosting a memorable wedding reception, our team is committed to making your stay exceptional.</p>
+          <h3>Your Premium Landmark for Stays, Dining & Events in Nagaur</h3>
+          <p><strong>Hotel Inder Paradise</strong> is centrally situated on Didwana Road, Nagaur. We provide modern luxury accommodations, high-class family dining, and expansive banquet arrangements.</p>
+          <p>Whether you are on a business visit, family holiday, or planning a grand wedding celebration, our dedicated staff ensures a royal experience.</p>
           
           <div class="highlights-list">
             <div class="highlight-item"><i class="fa-solid fa-snowflake"></i> Fully Air Conditioned</div>
@@ -537,14 +710,13 @@
         <span class="section-tag">Accommodations</span>
         <h2 class="section-title">Rooms & Suites</h2>
         <div class="divider"></div>
-        <p class="section-desc">Each room at Hotel Inder Paradise is thoughtfully furnished with contemporary decor, plush beds, air conditioning, and modern amenities.</p>
+        <p class="section-desc">Elegantly appointed rooms with modern wood finish, split AC, smart TV, plush bedding, and immaculate washrooms.</p>
       </div>
 
       <div class="rooms-grid">
         <!-- Room 1: Suite Room -->
         <div class="room-card">
           <div class="room-img">
-            <!-- Suite Room Photo -->
             <img src="suite-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop'" alt="Super Deluxe Suite Room">
             <div class="room-price">₹2,499 / Night</div>
           </div>
@@ -553,10 +725,10 @@
               <span><i class="fa-solid fa-bed"></i> King Bed</span>
               <span><i class="fa-solid fa-snowflake"></i> Split AC</span>
               <span><i class="fa-solid fa-tv"></i> Smart TV</span>
-              <span><i class="fa-solid fa-couch"></i> Lounge Area</span>
+              <span><i class="fa-solid fa-couch"></i> Lounge Corner</span>
             </div>
             <h3 class="room-title">Super Deluxe Suite Room</h3>
-            <p class="room-desc">Featuring designer wood-panelled interiors, elegant floral headboards, a comfortable seating corner, LED lighting, and a modern attached bathroom with hot/cold shower.</p>
+            <p class="room-desc">Designer wood-panelled headboard wall, custom floral wallpaper, comfortable lounge seating, mood lighting, and modern attached bathroom.</p>
             <div class="room-footer">
               <a href="https://wa.me/919257090750?text=I%20want%20to%20book%20Super%20Deluxe%20Suite%20Room" target="_blank" class="btn-gold" style="padding: 8px 18px; font-size: 0.8rem;"><i class="fa-brands fa-whatsapp"></i> Book Now</a>
             </div>
@@ -566,7 +738,6 @@
         <!-- Room 2: Deluxe Executive Room -->
         <div class="room-card">
           <div class="room-img">
-            <!-- Deluxe Room Photo -->
             <img src="deluxe-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=800&auto=format&fit=crop'" alt="Deluxe Executive AC Room">
             <div class="room-price">₹1,899 / Night</div>
           </div>
@@ -578,7 +749,7 @@
               <span><i class="fa-solid fa-wifi"></i> Free Wi-Fi</span>
             </div>
             <h3 class="room-title">Deluxe Executive AC Room</h3>
-            <p class="room-desc">Equipped with a plush velvet headboard bed, wooden wardrobe, dedicated vanity mirror, cozy accent armchair with coffee table, and fast room service.</p>
+            <p class="room-desc">Plush velvet headboard bed, wooden wardrobe, full-length mirror, comfortable accent chair with tea table, and prompt room service.</p>
             <div class="room-footer">
               <a href="https://wa.me/919257090750?text=I%20want%20to%20book%20Deluxe%20Executive%20Room" target="_blank" class="btn-gold" style="padding: 8px 18px; font-size: 0.8rem;"><i class="fa-brands fa-whatsapp"></i> Book Now</a>
             </div>
@@ -595,23 +766,22 @@
         <span class="section-tag" style="color: var(--primary-gold);">Culinary Excellence</span>
         <h2 class="section-title">Ashray Restaurant</h2>
         <div class="divider"></div>
-        <p class="section-desc">Indulge in delicious multi-cuisine flavours in our designer dining hall crafted for families, couples, and food lovers.</p>
+        <p class="section-desc">Delight in mouth-watering multi-cuisine delicacies in our beautifully designed dining restaurant.</p>
       </div>
 
       <div class="dining-grid">
         <div class="dining-card">
           <div class="dining-img">
-            <!-- Restaurant Photo -->
             <img src="restaurant.jpg" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop'" alt="Ashray Restaurant Dining Interior">
           </div>
         </div>
 
         <div class="dining-details">
-          <h3>Fine Dining & Warm Ambience</h3>
-          <p>Ashray Restaurant at Hotel Inder Paradise features modern false-ceiling architecture, lush green wall backdrops, and comfortable seating. Our chefs prepare fresh vegetarian and authentic regional dishes with premium ingredients.</p>
+          <h3>Fine Dining & Family Ambience</h3>
+          <p>Ashray Restaurant at Hotel Inder Paradise features designer wooden ceilings, vibrant green garden aesthetics, and comfortable booths for families and gatherings.</p>
           
           <div class="dining-features">
-            <div class="dining-feat-item"><i class="fa-solid fa-circle-check"></i> Pure & Hygienic Food</div>
+            <div class="dining-feat-item"><i class="fa-solid fa-circle-check"></i> Pure & Hygienic Cooking</div>
             <div class="dining-feat-item"><i class="fa-solid fa-circle-check"></i> Multi-Cuisine Menu</div>
             <div class="dining-feat-item"><i class="fa-solid fa-circle-check"></i> Family Dining Cabins</div>
             <div class="dining-feat-item"><i class="fa-solid fa-circle-check"></i> Prompt Table Service</div>
@@ -631,33 +801,31 @@
         <span class="section-tag">Grand Celebrations</span>
         <h2 class="section-title">Banquet Hall & Events</h2>
         <div class="divider"></div>
-        <p class="section-desc">Host unforgettable weddings, ring ceremonies, birthday parties, and corporate conferences in our pillarless decorated banquet hall.</p>
+        <p class="section-desc">Host weddings, sangeet, ring ceremonies, birthday parties, and corporate meetings in our grand pillarless banquet hall.</p>
       </div>
 
       <div class="banquet-grid">
         <div class="banquet-content">
-          <h3 style="font-size: 2rem; color: var(--royal-dark); margin-bottom: 15px;">A Royal Setting for Your Special Occasions</h3>
-          <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">Our air-conditioned banquet hall comes with luxury chandeliers, custom geometric ceiling lighting, floral stage backdrops, round-table seating arrangements, and dedicated event management.</p>
+          <h3 style="font-size: 2rem; color: var(--royal-dark); margin-bottom: 15px;">The Perfect Venue for Special Moments</h3>
+          <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">Equipped with crystal chandeliers, floral backdrop stages, round-table dining setups, premium lighting, and customized multi-course catering.</p>
           
           <div class="highlights-list">
             <div class="highlight-item"><i class="fa-solid fa-users"></i> 100 to 300+ Capacity</div>
-            <div class="highlight-item"><i class="fa-solid fa-music"></i> Sound & DJ Setup</div>
-            <div class="highlight-item"><i class="fa-solid fa-lightbulb"></i> Ambient Lighting</div>
-            <div class="highlight-item"><i class="fa-solid fa-cake-candles"></i> Catering Packages</div>
+            <div class="highlight-item"><i class="fa-solid fa-music"></i> Sound & Stage Setup</div>
+            <div class="highlight-item"><i class="fa-solid fa-lightbulb"></i> Royal Ambient Lighting</div>
+            <div class="highlight-item"><i class="fa-solid fa-cake-candles"></i> Tailored Catering</div>
           </div>
 
-          <a href="https://wa.me/919257090750?text=Hello,%20I%20want%20to%20enquire%20about%20Banquet%20Hall%20booking" target="_blank" class="btn-gold"><i class="fa-brands fa-whatsapp"></i> Enquire for Event</a>
+          <a href="https://wa.me/919257090750?text=Hello,%20I%20want%20to%20enquire%20about%20Banquet%20Hall%20booking%20in%20Nagaur" target="_blank" class="btn-gold"><i class="fa-brands fa-whatsapp"></i> Enquire for Event</a>
         </div>
 
         <div class="banquet-img-wrapper">
-          <!-- Banquet Photo -->
           <img src="banquet-hall.jpg" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop'" alt="Inder Paradise Banquet Hall">
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- Photo Gallery -->
+                                              </section>
+                                                <!-- Photo Gallery -->
   <section id="gallery">
     <div class="section-container">
       <div class="section-header">
@@ -685,7 +853,7 @@
         </div>
         <div class="gallery-item">
           <img src="banquet-hall.jpg" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop'" alt="Banquet Hall">
-          <div class="gallery-overlay">Banquet Hall</div>
+          <div class="gallery-overlay">Banquet & Party Hall</div>
         </div>
         <div class="gallery-item">
           <img src="hotel-logo.jpg" onerror="this.src='https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=600&auto=format&fit=crop'" alt="Inder Paradise">
@@ -706,63 +874,69 @@
 
       <div class="faq-container">
         <div class="faq-item">
-          <div class="faq-question"><span>What types of rooms are available at Hotel Inder Paradise?</span><i class="fa-solid fa-chevron-down"></i></div>
+          <div class="faq-question"><span>Where is Hotel Inder Paradise located?</span><i class="fa-solid fa-chevron-down"></i></div>
+          <div class="faq-answer">Hotel Inder Paradise is prominently located on Didwana Road, Nagaur, Rajasthan, India, easily accessible from the railway station and city bus stand.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question"><span>What types of rooms are available?</span><i class="fa-solid fa-chevron-down"></i></div>
           <div class="faq-answer">We offer Super Deluxe Suite Rooms, Deluxe Executive AC Rooms, and Standard AC Rooms equipped with smart TV, comfortable bedding, and attached modern washrooms.</div>
         </div>
         <div class="faq-item">
           <div class="faq-question"><span>What are the check-in and check-out timings?</span><i class="fa-solid fa-chevron-down"></i></div>
-          <div class="faq-answer">Standard check-in time is 12:00 PM and check-out time is 11:00 AM. Flexible check-in/check-out is available upon request depending on room availability.</div>
+          <div class="faq-answer">Standard check-in time is 12:00 PM and check-out time is 11:00 AM. Early check-in or late check-out is subject to room availability upon request.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-question"><span>Can we book the banquet hall for marriage and birthday parties?</span><i class="fa-solid fa-chevron-down"></i></div>
-          <div class="faq-answer">Yes, our banquet hall is fully equipped for weddings, ring ceremonies, anniversary parties, birthday celebrations, and business conferences with customized catering.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question"><span>How do I make a quick reservation?</span><i class="fa-solid fa-chevron-down"></i></div>
+          <div class="faq-question"><span>How can I reserve a room or banquet hall quickly?</span><i class="fa-solid fa-chevron-down"></i></div>
           <div class="faq-answer">You can instantly book by clicking on our WhatsApp button or calling our reception desk directly at +91 92570 90750.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact & Location -->
+  <!-- Contact & Location Section -->
   <section id="contact" class="contact-section">
     <div class="section-container">
       <div class="contact-grid">
         <div class="contact-info">
           <span class="section-tag" style="color: var(--primary-gold);">Get in Touch</span>
           <h3>Hotel Inder Paradise</h3>
-          <p>For instant room bookings, dining reservations, or banquet inquiries, contact our hospitality desk.</p>
+          <p>For direct room bookings, Ashray Restaurant table reservations, or banquet inquiries, connect with our team.</p>
           <ul class="contact-list">
-            <li><i class="fa-solid fa-location-dot"></i><div><strong>Address:</strong><br>Hotel Inder Paradise, Nagaur / Rajasthan, India</div></li>
+            <li><i class="fa-solid fa-location-dot"></i><div><strong>Exact Address:</strong><br>Didwana Road, Nagaur, Rajasthan 341001, India</div></li>
             <li><i class="fa-solid fa-phone"></i><div><strong>Direct Booking Call:</strong><br>+91 92570 90750</div></li>
             <li><i class="fa-brands fa-whatsapp"></i><div><strong>WhatsApp Support:</strong><br>+91 92570 90750</div></li>
+            <li><i class="fa-solid fa-envelope"></i><div><strong>Email Address:</strong><br>contact@hotelinderparadise.com</div></li>
           </ul>
           <a href="https://wa.me/919257090750" target="_blank" class="btn-gold"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
         </div>
+        
         <div class="map-frame">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113942.34863390176!2d75.7673!3d26.8851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396c4adf4c57e281%3A0xce1c63a0cf22e09!2sRajasthan!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" loading="lazy"></iframe>
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56782.49386708398!2d73.717625!3d27.202167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3941eb058ffc60bd%3A0x889aa36a7eef761f!2sNagaur%2C%20Rajasthan%20341001!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+            loading="lazy">
+          </iframe>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Floating WhatsApp -->
-  <a href="https://wa.me/919257090750?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20inquire%20about%20rooms." class="whatsapp-float" target="_blank">
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/919257090750?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20inquire%20about%20room%20booking." class="whatsapp-float" target="_blank">
     <i class="fa-brands fa-whatsapp"></i> Book via WhatsApp
-                                                       </a>
-    <!-- Footer -->
+  </a>
+
+  <!-- Footer -->
   <footer>
     <div class="footer-container">
       <div class="footer-col">
         <a href="#" class="logo" style="align-items: flex-start; margin-bottom: 12px;">
           <span class="logo-main" style="font-size: 1.4rem;">HOTEL INDER PARADISE</span>
-          <span class="logo-sub">PREMIUM HOSPITALITY</span>
+          <span class="logo-sub">DIDWANA ROAD, NAGAUR</span>
         </a>
-        <p style="font-size: 0.85rem; line-height: 1.6; color: #888;">Experience premium stays, delightful dining at Ashray Restaurant, and memorable banquet celebrations.</p>
+        <p style="font-size: 0.85rem; line-height: 1.6; color: #888;">Experience premium stays, delightful dining at Ashray Restaurant, and grand banquet events in Nagaur, Rajasthan.</p>
       </div>
       <div class="footer-col">
-        <h4>Navigation</h4>
+        <h4>Quick Navigation</h4>
         <ul class="footer-links">
           <li><a href="#about">About Hotel</a></li>
           <li><a href="#rooms">Rooms & Suites</a></li>
@@ -771,27 +945,28 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Services</h4>
+        <h4>Our Services</h4>
         <ul class="footer-links">
-          <li><a href="#rooms">24/7 Room Service</a></li>
+          <li><a href="#rooms">24/7 AC Rooms</a></li>
           <li><a href="#banquet">Weddings & Parties</a></li>
-          <li><a href="#dining">Family Dining</a></li>
+          <li><a href="#dining">Family Restaurant</a></li>
           <li><a href="#contact">Direct Assistance</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Newsletter</h4>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing to Hotel Inder Paradise offers!');">
+        <h4>Stay Updated</h4>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed to Hotel Inder Paradise updates!');">
           <input type="email" placeholder="Your Email" required>
           <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
         </form>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 Hotel Inder Paradise. All Rights Reserved.</p>
+      <p>© 2026 Hotel Inder Paradise, Didwana Road, Nagaur, Rajasthan. All Rights Reserved.</p>
     </div>
   </footer>
 
+  <!-- Interactive JavaScript -->
   <script>
     // Dates Setup
     const today = new Date();
@@ -800,12 +975,31 @@
     document.getElementById('checkinDate').value = today.toISOString().split('T')[0];
     document.getElementById('checkoutDate').value = tomorrow.toISOString().split('T')[0];
 
-    // Mobile Menu Toggle
-    const mobileBtn = document.getElementById('mobileMenuBtn');
-    const navMenu = document.getElementById('navMenu');
-    mobileBtn.addEventListener('click', () => navMenu.classList.toggle('active'));
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => navMenu.classList.remove('active'));
+    // Left Side Drawer Open / Close Logic
+    const openDrawerBtn = document.getElementById('openDrawerBtn');
+    const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+    const sideDrawer = document.getElementById('sideDrawer');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+
+    function openDrawer() {
+      sideDrawer.classList.add('active');
+      drawerOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      sideDrawer.classList.remove('active');
+      drawerOverlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    openDrawerBtn.addEventListener('click', openDrawer);
+    closeDrawerBtn.addEventListener('click', closeDrawer);
+    drawerOverlay.addEventListener('click', closeDrawer);
+
+    // Close drawer when clicking any link
+    document.querySelectorAll('.drawer-nav-item').forEach(link => {
+      link.addEventListener('click', closeDrawer);
     });
 
     // FAQ Accordion
