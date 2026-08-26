@@ -1,61 +1,239 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us | Hotel Inder Paradise Nagaur</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <style>
-    :root { --primary-gold: #c5a880; --royal-dark: #0c0e12; --bg-cream: #faf8f5; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Montserrat', sans-serif; background: var(--bg-cream); color: #222; line-height: 1.7; }
-    header { background: rgba(12, 14, 18, 0.98); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: sticky; top:0; z-index:100; }
-    .logo { font-family: Georgia, serif; font-size: 1.5rem; color: var(--primary-gold); text-decoration: none; font-weight: bold; }
-    .btn-home { border: 1px solid var(--primary-gold); color: var(--primary-gold); padding: 7px 15px; text-decoration: none; font-size: 0.8rem; border-radius: 2px; }
-    .container { max-width: 1100px; margin: 50px auto; background: #fff; padding: 45px; border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
-    h1 { font-family: Georgia, serif; color: var(--royal-dark); font-size: 2.5rem; margin-bottom: 20px; }
-    p { color: #555; margin-bottom: 20px; font-size: 1rem; }
-    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px; }
-    .feature-card { background: #faf8f5; padding: 25px; border-radius: 4px; border-top: 3px solid var(--primary-gold); text-align: center; }
-    .feature-card i { font-size: 2rem; color: var(--primary-gold); margin-bottom: 15px; }
-    .feature-card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--royal-dark); }
-    footer { background: #07080a; color: #888; text-align: center; padding: 30px; margin-top: 60px; font-size: 0.85rem; }
-    @media(max-width: 768px) { .features-grid { grid-template-columns: 1fr; } .container { padding: 20px; margin: 20px; } }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us & Owner Profile | Hotel Inder Paradise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-main: #f4efe6;
+            --bg-card: #eae3d5;
+            --gold: #b38b3f;
+            --gold-light: #d4af37;
+            --text-main: #3a3531;
+            --text-gray: #6e655d;
+            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+        }
+
+        /* --- हेडर सेक्शन --- */
+        header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 5%;
+            background: rgba(244, 239, 230, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(179, 139, 63, 0.3);
+            z-index: 1000;
+        }
+
+        .brand-logo {
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .brand-logo h1 {
+            font-size: 18px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .brand-logo span {
+            font-size: 8px;
+            color: var(--gold);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .back-home {
+            background-color: var(--gold);
+            color: var(--bg-main);
+            padding: 8px 18px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .back-home:hover {
+            background-color: var(--gold-light);
+        }
+
+        /* --- मुख्य सेक्शन --- */
+        .about-container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .section-box {
+            background: var(--bg-card);
+            border: 1px solid rgba(179, 139, 63, 0.3);
+            padding: 40px;
+            margin-bottom: 50px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .section-box h2 {
+            font-size: 28px;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--gold);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .section-box p {
+            font-size: 15px;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+            line-height: 1.8;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* --- ओनर प्रोफाइल लेआउट --- */
+        .owner-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .owner-img-box {
+            width: 100%;
+            height: 320px;
+            background: #d4cfc4;
+            border: 2px solid var(--gold);
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .owner-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .owner-info h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+
+        .owner-role {
+            font-size: 12px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* --- फुटर --- */
+        footer {
+            background: #1a1714;
+            color: #b5ada0;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 13px;
+            border-top: 1px solid rgba(179, 139, 63, 0.2);
+        }
+
+        @media(max-width: 768px) {
+            .owner-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-box {
+                padding: 25px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <a href="index.html" class="logo">INDER PARADISE</a>
-    <a href="index.html" class="btn-home" target="_blank"><i class="fa-solid fa-house"></i> Home Page</a>
-  </header>
 
-  <div class="container">
-    <h1>About Hotel Inder Paradise, Nagaur</h1>
-    <p>Welcome to <strong>Hotel Inder Paradise</strong>, your premier destination for luxurious accommodation, delightful dining, and grand celebrations located right on <strong>Didwana Road, Nagaur, Rajasthan</strong>.</p>
-    <p>Our hotel is meticulously designed to offer a blend of modern elegance and traditional Rajasthani warmth. Whether you are traveling for business, visiting tourist attractions, or hosting family weddings, our dedicated team ensures your stay is comfortable, safe, and memorable.</p>
-    
-    <div class="features-grid">
-      <div class="feature-card">
-        <i class="fa-solid fa-bed"></i>
-        <h3>Luxury Rooms</h3>
-        <p>Spacious, clean, fully air-conditioned rooms equipped with modern amenities.</p>
-      </div>
-      <div class="feature-card">
-        <i class="fa-solid fa-utensils"></i>
-        <h3>Ashray Restaurant</h3>
-        <p>Pure, hygienic, and mouth-watering multi-cuisine dining experience.</p>
-      </div>
-      <div class="feature-card">
-        <i class="fa-solid fa-champagne-glasses"></i>
-        <h3>Grand Banquet</h3>
-        <p>Pillarless air-conditioned hall for weddings, parties, and corporate events.</p>
-      </div>
+    <!-- हेडर -->
+    <header>
+        <a href="#" class="brand-logo">
+            <h1>Inder Paradise</h1>
+            <span>Luxury Hotel & Restaurant</span>
+        </a>
+        <a href="index.html" class="back-home"><i class="fa-solid fa-arrow-left"></i> Home</a>
+    </header>
+
+    <!-- अबाउट पेज कंटेंट -->
+    <div class="about-container">
+        
+        <!-- 1. होटल का परिचय -->
+        <section class="section-box">
+            <h2>About Hotel Inder Paradise</h2>
+            <p>
+                नागौर की ऐतिहासिक भूमि पर स्थित, **Hotel Inder Paradise** आधुनिक विलासिता (Modern Luxury) और पारंपरिक राजस्थानी आतिथ्य का एक अनूठा संगम है[span_1](start_span)[span_1](end_span)। चौधरी पेट्रोल पंप के पास विजय वल्लभ सर्किल पर स्थित, यह होटल शहर के मुख्य व्यावसायिक और सांस्कृतिक केंद्रों से आसानी से जुड़ा हुआ है।
+            </p>
+            <p>
+                हमारा उद्देश्य हर मेहमान को एक शाही और आरामदायक अनुभव देना है। होटल में ठहरने के लिए अत्याधुनिक सुविधाओं से लैस **सुपर डीलक्स सुइट्स** और **डीलक्स एसी रूम्स** उपलब्ध हैं, जिनका इंटीरियर आधुनिक लकड़ी की फिनिश और सुंदर सजावट के साथ तैयार किया गया है[span_2](start_span)[span_2](end_span)। हर कमरे में आरामदायक किंग-साइज बेड, स्मार्ट टीवी और उच्च कोटि की स्वच्छता का विशेष ध्यान रखा जाता है[span_3](start_span)[span_3](end_span)।
+            </p>
+            <p>
+                भोजन के प्रेमियों के लिए हमारा **'आश्रय' (Ashray) रेस्टोरेंट** नागौर का एक प्रमुख आकर्षण है[span_4](start_span)[span_4](end_span)। यहाँ लकड़ी की खूबसूरत नक्काशीदार छत, आरामदायक बैठने की व्यवस्था और शांत पारिवारिक माहौल के बीच शुद्ध और लजीज मल्टी-क्यूज़ीन व्यंजन परोसे जाते हैं[span_5](start_span)[span_5](end_span)। इसके अलावा, हमारे विशाल और भव्य **बैंक्वेट हॉल** में शादियों, सगाई, जन्मदिन और कॉर्पोरेट आयोजनों के लिए शानदार व्यवस्था है[span_6](start_span)[span_6](end_span)।
+            </p>
+        </section>
+
+        <!-- 2. ओनर की प्रोफाइल (About Owner) -->
+        <section class="section-box">
+            <h2>Founder & Owner Profile</h2>
+            <div class="owner-grid">
+                <div class="owner-img-box">
+                    <!-- यहाँ ओनर की फोटो की लिंक या फाइल का नाम जोड़ें -->
+                    <img src="owner.jpg" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop'" alt="Inder Kumar - Owner">
+                </div>
+                <div class="owner-info">
+                    <h3>इन्द्र कुमार (Inder Kumar)</h3>
+                    <p class="owner-role">Founder & Visionary Director</p>
+                    <p>
+                        **इन्द्र कुमार**, जो Hotel Inder Paradise के संस्थापक और विजनरी ओनर हैं, की आतिथ्य सत्कार के क्षेत्र में गहरी सोच और अटूट समर्पण का परिणाम है यह होटल। नागौर की संस्कृति से जुड़ाव रखते हुए, उन्होंने इस बात की परिकल्पना की थी कि शहर में एक ऐसा स्थान होना चाहिए जहाँ आने वाले हर यात्री और पर्यटक को अपने घर जैसा सुकून और राजा-महाराजाओं जैसा सम्मान मिल सके।
+                    </p>
+                    <p>
+                        उनकी दूरदर्शिता के चलते ही होटल में न केवल विश्व स्तरीय कमरे और रेस्टोरेंट बनाए गए, बल्कि स्थानीय परंपराओं को आधुनिक comforts के साथ जोड़ा गया। ओनर का यह स्पष्ट दृष्टिकोण रहा है कि आतिथ्य केवल एक व्यवसाय नहीं, बल्कि एक सेवा है।
+                    </p>
+                </div>
+            </div>
+        </section>
+
     </div>
-  </div>
 
-  <footer>
-    <p>© 2026 Hotel Inder Paradise, Didwana Road, Nagaur, Rajasthan. All Rights Reserved.</p>
-  </footer>
+    <!-- फुटर -->
+    <footer>
+        <p>&copy; 2026 Hotel Inder Paradise, Choudary petrol pump Vijay Vallabh circle, Nagaur, Rajasthan 341001. All Rights Reserved.</p>
+    </footer>
+
 </body>
 </html>
-
