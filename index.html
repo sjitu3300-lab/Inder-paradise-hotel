@@ -8,26 +8,36 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-        :root {
-      --primary-gold: #f5a623;     /* रेस्टोरेंट की तरह सुनहरा रंग */
-      --primary-gold-dark: #d48b1d;
-      --gold-light: #ffc048;
-      --royal-dark: #09090b;       /* रेस्टोरेंट की तरह गहरा काला बैकग्राउंड */
-      --card-dark: #141418;
-      --bg-cream: #09090b;         /* क्रीम बैकग्राउंड को काले बैकग्राउंड से बदलना */
-      --text-dark: #f8f9fa;        /* टेक्स्ट का रंग सफेद/चमकीला करना */
+    :root {
+      --primary: #e63946;
+      --primary-hover: #ff4757;
+      --primary-glow: rgba(230, 57, 70, 0.35);
+      --gold: #f5a623;
+      --gold-hover: #ffc048;
+      --dark-bg: #09090b;
+      --card-bg: #141418;
+      --card-hover: #1b1b22;
+      --border-color: #24242c;
+      --text: #f8f9fa;
       --text-muted: #9e9ea7;
       --white: #ffffff;
+      
+      --primary-gold: #f5a623;
+      --primary-gold-dark: #d48b1d;
+      --gold-light: #ffc048;
+      --royal-dark: #09090b;
+      --bg-cream: #09090b;
+      --text-dark: #f8f9fa;
+      
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Montserrat', sans-serif;
       --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-    
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -35,12 +45,12 @@
     body {
       font-family: var(--font-sans);
       color: var(--text-dark);
-      background-color: var(--bg-cream);
+      background-color: var(--dark-bg);
       line-height: 1.6;
       overflow-x: hidden;
     }
 
-    h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 600; letter-spacing: 0.5px; }
+    h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 600; letter-spacing: 0.5px; color: #fff; }
     a { text-decoration: none; color: inherit; transition: var(--transition); }
     ul { list-style: none; }
     img { max-width: 100%; height: auto; display: block; }
@@ -54,9 +64,9 @@
       padding: 8px 15px;
       letter-spacing: 1px;
       text-transform: uppercase;
-      border-bottom: 1px solid rgba(197, 168, 128, 0.2);
+      border-bottom: 1px solid var(--border-color);
     }
-    .top-bar span { color: var(--primary-gold); font-weight: 600; }
+    .top-bar span { color: var(--gold); font-weight: 600; }
 
     /* Header Navigation Bar */
     header {
@@ -64,9 +74,9 @@
       top: 0;
       width: 100%;
       z-index: 1000;
-      background: rgba(12, 14, 18, 0.96);
+      background: rgba(9, 9, 11, 0.95);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(197, 168, 128, 0.25);
+      border-bottom: 1px solid var(--border-color);
     }
     .nav-container {
       max-width: 1350px;
@@ -84,11 +94,11 @@
       justify-content: flex-start;
     }
     .menu-toggle-btn {
-      background: rgba(197, 168, 128, 0.1);
-      border: 1px solid rgba(197, 168, 128, 0.35);
-      color: var(--primary-gold);
+      background: #18181f;
+      border: 1px solid var(--border-color);
+      color: var(--gold);
       padding: 8px 16px;
-      border-radius: 3px;
+      border-radius: 8px;
       font-size: 0.82rem;
       font-weight: 600;
       letter-spacing: 2px;
@@ -100,9 +110,9 @@
       transition: var(--transition);
     }
     .menu-toggle-btn:hover {
-      background: var(--primary-gold);
-      color: var(--royal-dark);
-      border-color: var(--primary-gold);
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
     }
     .menu-toggle-btn i {
       font-size: 1.1rem;
@@ -122,7 +132,7 @@
       font-size: 2rem;
       font-weight: 700;
       letter-spacing: 3.5px;
-      color: var(--primary-gold);
+      color: var(--gold);
       text-transform: uppercase;
       line-height: 1;
     }
@@ -142,56 +152,51 @@
       gap: 12px;
     }
 
-    .    .btn-gold {
-      background: linear-gradient(135deg, #e63946 0%, #d63031 100%);
+    .btn-gold {
+      background: linear-gradient(135deg, var(--primary) 0%, #d63031 100%);
       color: #fff;
       padding: 10px 22px;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       border: none;
       cursor: pointer;
       border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(230, 57, 70, 0.35);
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      box-shadow: 0 4px 15px var(--primary-glow);
       transition: var(--transition);
     }
     .btn-gold:hover {
-      background: linear-gradient(135deg, #ff4757 0%, #c0392b 100%);
-      box-shadow: 0 6px 20px rgba(230, 57, 70, 0.5);
-      transform: translateY(-2px);
-    }
-
-    .btn-gold:hover {
-      background: linear-gradient(135deg, #d8bc94 0%, #b89360 100%);
-      box-shadow: 0 4px 15px rgba(197, 168, 128, 0.4);
+      background: linear-gradient(135deg, var(--primary-hover) 0%, #c0392b 100%);
+      box-shadow: 0 6px 20px var(--primary-glow);
       transform: translateY(-2px);
     }
     .btn-outline {
-      border: 1px solid var(--primary-gold);
-      color: var(--primary-gold);
-      padding: 9px 20px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 10px 22px;
       font-size: 0.78rem;
       font-weight: 600;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      background: transparent;
+      background: rgba(20, 20, 26, 0.8);
       cursor: pointer;
+      border-radius: 8px;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       transition: var(--transition);
     }
-    .btn-outline:hover { background: var(--primary-gold); color: var(--royal-dark); }
+    .btn-outline:hover { background: var(--gold); color: #000; }
 
     /* Left Side Sliding Drawer Menu */
     .side-drawer-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(5px);
       z-index: 2000;
       opacity: 0;
@@ -210,8 +215,8 @@
       width: 360px;
       max-width: 85vw;
       height: 100vh;
-      background: #0d1015;
-      border-right: 1px solid rgba(197, 168, 128, 0.3);
+      background: #111116;
+      border-right: 1px solid var(--border-color);
       z-index: 2001;
       padding: 35px 28px;
       display: flex;
@@ -228,21 +233,21 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(197, 168, 128, 0.2);
+      border-bottom: 1px solid var(--border-color);
       padding-bottom: 20px;
       margin-bottom: 25px;
     }
     .drawer-logo {
       font-family: var(--font-serif);
       font-size: 1.4rem;
-      color: var(--primary-gold);
+      color: var(--gold);
       letter-spacing: 2px;
       text-transform: uppercase;
       font-weight: 700;
     }
     .close-drawer-btn {
       background: none;
-      border: 1px solid rgba(255,255,255,0.2);
+      border: 1px solid var(--border-color);
       color: #fff;
       font-size: 1.2rem;
       width: 36px;
@@ -255,16 +260,16 @@
       transition: var(--transition);
     }
     .close-drawer-btn:hover {
-      background: var(--primary-gold);
-      color: var(--royal-dark);
-      border-color: var(--primary-gold);
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
     }
 
     .drawer-links li {
       margin-bottom: 16px;
     }
     .drawer-links a {
-      color: #e0e0e0;
+      color: var(--text);
       font-size: 1rem;
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -274,30 +279,31 @@
       padding: 8px 12px;
       border-radius: 3px;
       font-weight: 500;
+      border-bottom: 1px solid #1a1a22;
     }
     .drawer-links a i {
-      color: var(--primary-gold);
+      color: var(--gold);
       width: 20px;
       font-size: 1.1rem;
     }
     .drawer-links a:hover {
-      background: rgba(197, 168, 128, 0.15);
-      color: var(--primary-gold);
+      background: rgba(230, 57, 70, 0.15);
+      color: var(--gold);
       padding-left: 18px;
     }
 
     .drawer-footer {
-      border-top: 1px solid rgba(197, 168, 128, 0.2);
+      border-top: 1px solid var(--border-color);
       padding-top: 20px;
       margin-top: 20px;
     }
     .drawer-footer p {
       font-size: 0.8rem;
-      color: #999;
+      color: var(--text-muted);
       margin-bottom: 12px;
     }
     .drawer-footer p i {
-      color: var(--primary-gold);
+      color: var(--gold);
       margin-right: 6px;
     }
 
@@ -310,92 +316,96 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      background: linear-gradient(rgba(12, 14, 18, 0.55), rgba(12, 14, 18, 0.75)),
+      background: linear-gradient(180deg, rgba(9, 9, 11, 0.65) 0%, rgba(9, 9, 11, 0.92) 100%),
                   url('hotel-exterior.jpg'),
-                  url('https://i.ibb.co/Q7dDJDts/Screenshot-2026-08-27-21-23-47-22-3d9111e2d3171bf4882369f490c087b4.jpgq=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+                  url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
     }
     .hero-content { max-width: 900px; padding: 0 20px; color: var(--white); }
-    .hero-subtitle { font-size: 0.95rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 15px; }
-    .hero-title { font-size: 3.8rem; line-height: 1.15; margin-bottom: 20px; font-weight: 400; }
-    .hero-title span { font-style: italic; color: var(--primary-gold); font-family: var(--font-serif); }
-    .hero-desc { font-size: 1.1rem; max-width: 680px; margin: 0 auto 30px; font-weight: 300; color: #e6e6e6; }
+    .hero-subtitle { font-size: 0.95rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 15px; }
+    .hero-title { font-size: 3.8rem; line-height: 1.15; margin-bottom: 20px; font-weight: 400; color: #fff; }
+    .hero-title span { font-style: italic; color: var(--gold); font-family: var(--font-serif); }
+    .hero-desc { font-size: 1.1rem; max-width: 680px; margin: 0 auto 30px; font-weight: 300; color: #e2e2e8; }
 
     /* Booking Bar */
     .booking-bar-wrapper { max-width: 1150px; margin: -50px auto 0; position: relative; z-index: 100; padding: 0 20px; }
     .booking-bar {
-      background: var(--white);
+      background: var(--card-bg);
       padding: 24px 30px;
-      border-radius: 4px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+      border-radius: 12px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
       display: grid;
       grid-template-columns: repeat(4, 1fr) auto;
       gap: 20px;
       align-items: center;
-      border-top: 3px solid var(--primary-gold);
+      border-top: 3px solid var(--primary);
+      border: 1px solid var(--border-color);
     }
     .booking-item { display: flex; flex-direction: column; }
-    .booking-item label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 6px; }
+    .booking-item label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 6px; }
     .booking-item input, .booking-item select {
-      border: 1px solid #e0e0e0;
+      border: 1px solid var(--border-color);
       padding: 10px 12px;
       font-size: 0.9rem;
-      border-radius: 2px;
+      border-radius: 8px;
       outline: none;
-      background: #fafafa;
+      background: #0d0d12;
+      color: #fff;
     }
 
     /* Sections */
-    section { padding: 85px 20px; }
+    section { padding: 85px 20px; background-color: var(--dark-bg); }
     .section-container { max-width: 1200px; margin: 0 auto; }
     .section-header { text-align: center; max-width: 750px; margin: 0 auto 50px; }
-    .section-tag { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--primary-gold-dark); font-weight: 600; margin-bottom: 8px; display: block; }
-    .section-title { font-size: 2.6rem; color: var(--royal-dark); margin-bottom: 15px; }
+    .section-tag { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); font-weight: 600; margin-bottom: 8px; display: block; }
+    .section-title { font-size: 2.6rem; color: #fff; margin-bottom: 15px; }
     .section-desc { color: var(--text-muted); font-size: 0.95rem; }
-    .divider { width: 60px; height: 2px; background: var(--primary-gold); margin: 15px auto 20px; }
+    .divider { width: 60px; height: 2px; background: var(--primary); margin: 15px auto 20px; }
 
     /* Overview Section */
     .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
     .overview-img-wrapper { position: relative; }
     .overview-img-wrapper img {
-      border-radius: 4px;
+      border-radius: 12px;
       width: 100%;
       height: 480px;
       object-fit: cover;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border-color);
     }
     .overview-badge {
       position: absolute;
       bottom: -20px;
       right: -20px;
-      background: var(--royal-dark);
-      color: var(--primary-gold);
+      background: var(--card-bg);
+      color: var(--gold);
       padding: 22px 28px;
-      border: 1px solid var(--primary-gold);
-      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
-    .overview-badge .num { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700; display: block; line-height: 1; }
+    .overview-badge .num { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700; display: block; line-height: 1; color: var(--primary); }
     .overview-badge .label { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: #fff; }
-    .overview-content h3 { font-size: 2.1rem; color: var(--royal-dark); margin-bottom: 18px; }
+    .overview-content h3 { font-size: 2.1rem; color: #fff; margin-bottom: 18px; }
     .overview-content p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.96rem; }
     .highlights-list { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 30px; }
-    .highlight-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 500; }
-    .highlight-item i { color: var(--primary-gold-dark); font-size: 1.1rem; }
+    .highlight-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 500; color: #e2e2e8; }
+    .highlight-item i { color: var(--gold); font-size: 1.1rem; }
 
     /* Rooms Section */
-    .rooms-section { background: #f4efe8; }
+    .rooms-section { background: #111116; }
     .rooms-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 35px; }
     .room-card {
-      background: var(--white);
-      border-radius: 4px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
       overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
       transition: var(--transition);
       display: flex;
       flex-direction: column;
     }
-    .room-card:hover { transform: translateY(-7px); box-shadow: 0 18px 35px rgba(0, 0, 0, 0.12); }
+    .room-card:hover { transform: translateY(-7px); background: var(--card-hover); border-color: var(--primary); box-shadow: 0 18px 35px rgba(230, 57, 70, 0.2); }
     .room-img { height: 290px; position: relative; overflow: hidden; }
     .room-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
     .room-card:hover .room-img img { transform: scale(1.05); }
@@ -403,44 +413,45 @@
       position: absolute;
       bottom: 12px;
       right: 12px;
-      background: rgba(12, 14, 18, 0.88);
-      color: var(--primary-gold);
+      background: rgba(9, 9, 11, 0.85);
+      backdrop-filter: blur(6px);
+      color: var(--gold);
       padding: 6px 14px;
       font-size: 0.88rem;
       font-weight: 600;
-      border-radius: 2px;
-      backdrop-filter: blur(4px);
+      border-radius: 20px;
+      border: 1px solid rgba(245, 166, 35, 0.3);
     }
     .room-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
     .room-meta { display: flex; gap: 16px; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; }
-    .room-title { font-size: 1.6rem; color: var(--royal-dark); margin-bottom: 10px; }
+    .room-title { font-size: 1.6rem; color: #fff; margin-bottom: 10px; }
     .room-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; }
-    .room-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 16px; }
+    .room-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 16px; }
 
     /* Dining Section */
-    .dining-section { background: var(--royal-dark); color: var(--white); }
+    .dining-section { background: var(--dark-bg); color: var(--white); }
     .dining-section .section-title { color: var(--white); }
-    .dining-section .section-desc { color: #b0b0b0; }
+    .dining-section .section-desc { color: var(--text-muted); }
     .dining-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
     .dining-card {
-      background: var(--card-dark);
-      border: 1px solid rgba(197, 168, 128, 0.25);
-      border-radius: 4px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
       overflow: hidden;
     }
     .dining-img { height: 350px; }
     .dining-img img { width: 100%; height: 100%; object-fit: cover; }
-    .dining-details h3 { font-size: 2.2rem; color: var(--primary-gold); margin-bottom: 15px; }
-    .dining-details p { color: #ccc; margin-bottom: 20px; font-size: 0.95rem; line-height: 1.7; }
+    .dining-details h3 { font-size: 2.2rem; color: var(--gold); margin-bottom: 15px; }
+    .dining-details p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem; line-height: 1.7; }
     .dining-features { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
-    .dining-feat-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #eee; }
-    .dining-feat-item i { color: var(--primary-gold); }
+    .dining-feat-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #e2e2e8; }
+    .dining-feat-item i { color: var(--gold); }
 
     /* Banquet & Celebrations Section */
-    .banquet-section { background: #faf8f5; }
+    .banquet-section { background: #111116; }
     .banquet-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; }
     .banquet-img-wrapper { position: relative; }
-    .banquet-img-wrapper img { width: 100%; height: 360px; object-fit: cover; border-radius: 4px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+    .banquet-img-wrapper img { width: 100%; height: 360px; object-fit: cover; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid var(--border-color); }
 
     /* Photo Gallery Section */
     .gallery-grid {
@@ -451,9 +462,10 @@
     .gallery-item {
       position: relative;
       height: 240px;
-      border-radius: 4px;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      border: 1px solid var(--border-color);
     }
     .gallery-item img {
       width: 100%;
@@ -465,7 +477,7 @@
     .gallery-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(12, 14, 18, 0.6);
+      background: rgba(9, 9, 11, 0.75);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -480,7 +492,7 @@
 
     /* FAQ Section */
     .faq-container { max-width: 850px; margin: 0 auto; }
-    .faq-item { background: var(--white); border: 1px solid #e8e8e8; border-radius: 4px; margin-bottom: 12px; }
+    .faq-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
     .faq-question {
       padding: 18px 22px;
       display: flex;
@@ -490,7 +502,7 @@
       font-family: var(--font-serif);
       font-size: 1.2rem;
       font-weight: 600;
-      color: var(--royal-dark);
+      color: #fff;
     }
     .faq-answer {
       padding: 0 22px 18px;
@@ -498,19 +510,20 @@
       color: var(--text-muted);
       display: none;
       line-height: 1.7;
-      border-top: 1px solid #f0f0f0;
+      border-top: 1px solid var(--border-color);
       padding-top: 12px;
     }
     .faq-item.active .faq-answer { display: block; }
     .faq-item.active .faq-question i { transform: rotate(180deg); }
 
     /* Contact Section */
-    .contact-section { background: var(--royal-dark); color: var(--white); }
+    .contact-section { background: var(--dark-bg); color: var(--white); }
     .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 45px; }
-    .contact-info h3 { font-size: 2.1rem; color: var(--primary-gold); margin-bottom: 16px; }
-    .contact-list li { display: flex; gap: 14px; margin-bottom: 18px; color: #ddd; font-size: 0.92rem; }
-    .contact-list i { color: var(--primary-gold); font-size: 1.2rem; margin-top: 3px; }
-    .map-frame { width: 100%; height: 360px; border: 1px solid rgba(197, 168, 128, 0.3); border-radius: 4px; overflow: hidden; }
+    .contact-info h3 { font-size: 2.1rem; color: var(--gold); margin-bottom: 16px; }
+    .contact-list li { display: flex; gap: 14px; margin-bottom: 18px; color: var(--text-muted); font-size: 0.92rem; }
+    .contact-list strong { color: #fff; }
+    .contact-list i { color: var(--gold); font-size: 1.2rem; margin-top: 3px; }
+    .map-frame { width: 100%; height: 360px; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; }
     .map-frame iframe { width: 100%; height: 100%; border: none; }
 
     /* Floating WhatsApp Button */
@@ -527,7 +540,7 @@
       gap: 10px;
       font-size: 0.9rem;
       font-weight: 600;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
       z-index: 999;
       transition: var(--transition);
     }
@@ -539,17 +552,17 @@
     .whatsapp-float i { font-size: 1.3rem; }
 
     /* Footer */
-    footer { background: #07080a; color: #a0a0a0; padding: 60px 20px 25px; border-top: 1px solid rgba(197, 168, 128, 0.2); }
+    footer { background: #060608; color: var(--text-muted); padding: 60px 20px 25px; border-top: 1px solid var(--border-color); }
     .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 35px; margin-bottom: 40px; }
     .footer-col h4 { font-size: 1.15rem; color: var(--white); margin-bottom: 16px; position: relative; padding-bottom: 6px; }
-    .footer-col h4::after { content: ''; position: absolute; bottom: 0; left: 0; width: 30px; height: 1px; background: var(--primary-gold); }
+    .footer-col h4::after { content: ''; position: absolute; bottom: 0; left: 0; width: 30px; height: 1px; background: var(--primary); }
     .footer-links li { margin-bottom: 8px; }
-    .footer-links a { color: #999; font-size: 0.85rem; }
-    .footer-links a:hover { color: var(--primary-gold); padding-left: 4px; }
+    .footer-links a { color: var(--text-muted); font-size: 0.85rem; }
+    .footer-links a:hover { color: var(--primary); padding-left: 4px; }
     .newsletter-form { display: flex; margin-top: 14px; }
-    .newsletter-form input { flex-grow: 1; padding: 10px 12px; border: 1px solid #333; background: #15181e; color: #fff; font-size: 0.85rem; outline: none; }
-    .newsletter-form button { background: var(--primary-gold); color: #0b0d10; border: none; padding: 0 16px; cursor: pointer; }
-    .footer-bottom { max-width: 1200px; margin: 0 auto; text-align: center; padding-top: 20px; border-top: 1px solid #15181e; font-size: 0.8rem; color: #666; }
+    .newsletter-form input { flex-grow: 1; padding: 10px 12px; border: 1px solid var(--border-color); background: #141418; color: #fff; font-size: 0.85rem; outline: none; border-radius: 6px 0 0 6px; }
+    .newsletter-form button { background: var(--primary); color: #fff; border: none; padding: 0 16px; cursor: pointer; border-radius: 0 6px 6px 0; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; text-align: center; padding-top: 20px; border-top: 1px solid #16161f; font-size: 0.8rem; color: #6c6c78; }
 
     /* Responsive */
     @media (max-width: 1024px) {
@@ -726,7 +739,7 @@
     <div class="section-container">
       <div class="overview-grid">
         <div class="overview-img-wrapper">
-          <img src="hotel-exterior.jpg" onerror="this.src='https://i.ibb.co/GfC7VNVC/IMG-20260827-205532.jpg?q=80&w=800&auto=format&fit=crop'" alt="Hotel Inder Paradise Building">
+          <img src="hotel-exterior.jpg" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop'" alt="Hotel Inder Paradise Building">
           <div class="overview-badge">
             <span class="num">100%</span>
             <span class="label">Comfort & Luxury</span>
@@ -814,7 +827,7 @@
   <section id="dining" class="dining-section">
     <div class="section-container">
       <div class="section-header">
-        <span class="section-tag" style="color: var(--primary-gold);">Culinary Excellence</span>
+        <span class="section-tag" style="color: var(--gold);">Culinary Excellence</span>
         <h2 class="section-title">Ashray Restaurant</h2>
         <div class="divider"></div>
         <p class="section-desc">Delight in mouth-watering multi-cuisine delicacies in our beautifully designed dining restaurant.</p>
@@ -843,47 +856,8 @@
         </div>
       </div>
     </div>
-          </section>
-    <!-- Bar & Lounge Section -->
-  <section id="bar" class="dining-section" style="background: #12151c;">
-    <div class="section-container">
-      <div class="section-header">
-        <span class="section-tag" style="color: var(--primary-gold);">Exquisite Beverages</span>
-        <h2 class="section-title" style="color: var(--white);">Hotel Bar & Lounge</h2>
-        <div class="divider"></div>
-        <p class="section-desc" style="color: #b0b0b0;">Unwind with our finest selection of wines, mocktails, and premium beverages in a sophisticated ambience.</p>
-      </div>
-
-      <div class="dining-grid">
-        <!-- यहाँ इमेज की जगह वीडियो लूप में लगाई गई है -->
-        <div class="dining-card">
-          <div class="dining-img" style="height: 350px; overflow: hidden; background: #000;">
-            <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
-              <source src="https://www.image2url.com/r2/default/videos/1787843541104-79f6ef39-0bef-40e6-838d-c6b6a1cd9566.mp4" type="video/mp4">
-              आपका ब्राउज़र वीडियो टैग को सपोर्ट नहीं करता है।
-            </video>
-          </div>
-        </div>
-
-        <div class="dining-details">
-          <h3>Signature Drinks & Luxury Vibe</h3>
-          <p>Indulge in a premium lounge experience at Hotel Inder Paradise. Whether you prefer classic cocktails, fine wines, or refreshing mocktails, our expert bartenders serve excellence in every glass.</p>
-          
-          <div class="dining-features">
-            <div class="dining-feat-item"><i class="fa-solid fa-circle-check"></i> Premium Wines & Spirits</div>
-            <div class="dining-feat-item"><i class="fa-solid fa-circle-check"></i> Expert Bartenders</div>
-            <div class="dining-feat-item"><i class="fa-solid fa-circle-check"></i> Elegant Lounge Seating</div>
-            <div class="dining-feat-item"><i class="fa-solid fa-circle-check"></i> Sophisticated Ambience</div>
-          </div>
-
-          <p style="color: var(--gold-light); font-size: 0.9rem;"><i class="fa-regular fa-clock"></i> <strong>Bar Timings:</strong> 11:00 AM – 11:00 PM Daily</p>
-          <a href="https://wa.me/919694469191?text=Hello,%20I%20want%20to%20know%20more%20about%20the%20Bar%20menu" target="_blank" class="btn-gold" style="margin-top: 15px;"><i class="fa-solid fa-wine-glass"></i> Explore Bar Menu</a>
-        </div>
-      </div>
-    </div>
   </section>
-  
-            <!-- Banquet & Celebrations Section -->
+  <!-- Banquet & Celebrations Section -->
   <section id="banquet" class="banquet-section">
     <div class="section-container">
       <div class="section-header">
@@ -895,7 +869,7 @@
 
       <div class="banquet-grid">
         <div class="banquet-content">
-          <h3 style="font-size: 2rem; color: var(--royal-dark); margin-bottom: 15px;">The Perfect Venue for Special Moments</h3>
+          <h3 style="font-size: 2rem; color: #fff; margin-bottom: 15px;">The Perfect Venue for Special Moments</h3>
           <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">Equipped with crystal chandeliers, floral backdrop stages, round-table dining setups, premium lighting, and customized multi-course catering.</p>
           
           <div class="highlights-list">
@@ -909,7 +883,7 @@
         </div>
 
         <div class="banquet-img-wrapper">
-          <img src="banquet-hall.jpg" onerror="this.src='https://i.ibb.co/GfC7VNVC/IMG-20260827-205532.jpg?q=80&w=800&auto=format&fit=crop'" alt="Inder Paradise Banquet Hall">
+          <img src="banquet-hall.jpg" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop'" alt="Inder Paradise Banquet Hall">
         </div>
       </div>
     </div>
@@ -926,7 +900,7 @@
 
       <div class="gallery-grid">
         <div class="gallery-item">
-          <img src="hotel-exterior.jpg" onerror="this.src='https://i.ibb.co/7JxGqTtV/1787850225187.png?q=80&w=600&auto=format&fit=crop'" alt="Hotel Exterior">
+          <img src="hotel-exterior.jpg" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=600&auto=format&fit=crop'" alt="Hotel Exterior">
           <div class="gallery-overlay">Building Front View</div>
         </div>
         <div class="gallery-item">
@@ -942,11 +916,11 @@
           <div class="gallery-overlay">Ashray Restaurant</div>
         </div>
         <div class="gallery-item">
-          <img src="banquet-hall.jpg" onerror="this.src='https://i.ibb.co/GfC7VNVC/IMG-20260827-205532.jpg?q=80&w=600&auto=format&fit=crop'" alt="Banquet Hall">
+          <img src="banquet-hall.jpg" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop'" alt="Banquet Hall">
           <div class="gallery-overlay">Banquet & Party Hall</div>
         </div>
         <div class="gallery-item">
-          <img src="hotel-logo.jpg" onerror="this.src='https://i.ibb.co/7JxGqTtV/1787850225187.png?q=80&w=600&auto=format&fit=crop'" alt="Inder Paradise">
+          <img src="hotel-logo.jpg" onerror="this.src='https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=600&auto=format&fit=crop'" alt="Inder Paradise">
           <div class="gallery-overlay">Hotel Inder Paradise</div>
         </div>
       </div>
@@ -988,7 +962,7 @@
     <div class="section-container">
       <div class="contact-grid">
         <div class="contact-info">
-          <span class="section-tag" style="color: var(--primary-gold);">Get in Touch</span>
+          <span class="section-tag" style="color: var(--gold);">Get in Touch</span>
           <h3>Hotel Inder Paradise</h3>
           <p>For direct room bookings, Ashray Restaurant table reservations, or banquet inquiries, connect with our team.</p>
           <ul class="contact-list">
@@ -1023,7 +997,7 @@
           <span class="logo-main" style="font-size: 1.4rem;">HOTEL INDER PARADISE</span>
           <span class="logo-sub">VIJAY VALLABH CIRCLE, NAGAUR</span>
         </a>
-        <p style="font-size: 0.85rem; line-height: 1.6; color: #888;">Experience premium stays, delightful dining at Ashray Restaurant, and grand banquet events in Nagaur, Rajasthan.</p>
+        <p style="font-size: 0.85rem; line-height: 1.6; color: var(--text-muted);">Experience premium stays, delightful dining at Ashray Restaurant, and grand banquet events in Nagaur, Rajasthan.</p>
       </div>
       
       <div class="footer-col">
@@ -1041,7 +1015,7 @@
         <h4>Our Services</h4>
         <ul class="footer-links">
           <li><a href="rooms.html" target="_blank">24/7 AC Rooms</a></li>
-          <li><a href="#" target="_blank">Weddings & Parties</a></li>
+          <li><a href="banquet.html" target="_blank">Weddings & Parties</a></li>
           <li><a href="restaurant.html" target="_blank">Family Restaurant</a></li>
           <li><a href="contact.html" target="_blank">Direct Assistance</a></li>
         </ul>
@@ -1102,4 +1076,4 @@
     });
   </script>
 </body>
-  </html>
+</html>
