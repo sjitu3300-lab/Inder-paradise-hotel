@@ -14,19 +14,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-    :root {
-      --primary-gold: #c5a880;
-      --primary-gold-dark: #a38153;
-      --gold-light: #e8d7be;
-      --royal-dark: #0c0e12;
-      --card-dark: #15181e;
-      --bg-cream: #faf8f5;
-      --text-dark: #222222;
-      --text-muted: #666666;
+        :root {
+      --primary-gold: #f5a623;     /* रेस्टोरेंट की तरह सुनहरा रंग */
+      --primary-gold-dark: #d48b1d;
+      --gold-light: #ffc048;
+      --royal-dark: #09090b;       /* रेस्टोरेंट की तरह गहरा काला बैकग्राउंड */
+      --card-dark: #141418;
+      --bg-cream: #09090b;         /* क्रीम बैकग्राउंड को काले बैकग्राउंड से बदलना */
+      --text-dark: #f8f9fa;        /* टेक्स्ट का रंग सफेद/चमकीला करना */
+      --text-muted: #9e9ea7;
       --white: #ffffff;
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Montserrat', sans-serif;
       --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -141,22 +142,29 @@
       gap: 12px;
     }
 
-    .btn-gold {
-      background: linear-gradient(135deg, #c5a880 0%, #a38153 100%);
-      color: #0b0d10;
-      padding: 9px 20px;
-      font-size: 0.78rem;
-      font-weight: 600;
+    .    .btn-gold {
+      background: linear-gradient(135deg, #e63946 0%, #d63031 100%);
+      color: #fff;
+      padding: 10px 22px;
+      font-size: 0.82rem;
+      font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       border: none;
       cursor: pointer;
-      border-radius: 2px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(230, 57, 70, 0.35);
       display: inline-flex;
       align-items: center;
       gap: 8px;
       transition: var(--transition);
     }
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #ff4757 0%, #c0392b 100%);
+      box-shadow: 0 6px 20px rgba(230, 57, 70, 0.5);
+      transform: translateY(-2px);
+    }
+
     .btn-gold:hover {
       background: linear-gradient(135deg, #d8bc94 0%, #b89360 100%);
       box-shadow: 0 4px 15px rgba(197, 168, 128, 0.4);
