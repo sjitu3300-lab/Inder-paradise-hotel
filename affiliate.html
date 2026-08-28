@@ -6,20 +6,32 @@
   <title>Affiliate Program | Hotel Inder Paradise Nagaur</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    :root { --primary-gold: #c5a880; --royal-dark: #0c0e12; --bg-cream: #faf8f5; }
+        :root { 
+      --primary: #e63946;
+      --primary-hover: #ff4757;
+      --primary-glow: rgba(230, 57, 70, 0.35);
+      --gold: #f5a623;
+      --gold-light: #ffc048;
+      --dark-bg: #09090b;
+      --card-bg: #141418;
+      --border-color: #24242c;
+      --text: #f8f9fa;
+      --text-muted: #9e9ea7;
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Montserrat', sans-serif; background: var(--bg-cream); color: #222; line-height: 1.7; }
-    header { background: rgba(12, 14, 18, 0.98); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: sticky; top:0; z-index:100; }
-    .logo { font-family: Georgia, serif; font-size: 1.5rem; color: var(--primary-gold); text-decoration: none; font-weight: bold; }
-    .btn-home { border: 1px solid var(--primary-gold); color: var(--primary-gold); padding: 7px 15px; text-decoration: none; font-size: 0.8rem; border-radius: 2px; }
-    .container { max-width: 950px; margin: 50px auto; background: #fff; padding: 45px; border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
-    h1 { font-family: Georgia, serif; color: var(--royal-dark); font-size: 2.3rem; margin-bottom: 20px; }
-    p { color: #555; margin-bottom: 20px; font-size: 0.98rem; }
-    .partner-box { background: #fdfbf7; border-left: 4px solid var(--primary-gold); padding: 25px; margin-top: 25px; }
-    .partner-box h3 { color: var(--royal-dark); margin-bottom: 10px; }
-    footer { background: #07080a; color: #888; text-align: center; padding: 30px; margin-top: 60px; font-size: 0.85rem; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--dark-bg); color: var(--text); line-height: 1.7; }
+    header { background: rgba(9, 9, 11, 0.95); backdrop-filter: blur(12px); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: sticky; top:0; z-index:100; border-bottom: 1px solid var(--border-color); }
+    .logo { font-family: Georgia, serif; font-size: 1.5rem; color: var(--gold); text-decoration: none; font-weight: bold; }
+    .btn-home { background: linear-gradient(135deg, var(--primary) 0%, #d63031 100%); color: #fff; padding: 8px 18px; text-decoration: none; font-size: 0.8rem; font-weight: 700; border-radius: 8px; box-shadow: 0 4px 15px var(--primary-glow); transition: 0.3s; }
+    .btn-home:hover { background: linear-gradient(135deg, var(--primary-hover) 0%, #c0392b 100%); transform: translateY(-2px); }
+    .container { max-width: 950px; margin: 50px auto; background: var(--card-bg); padding: 45px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+    h1 { font-family: Georgia, serif; color: #fff; font-size: 2.3rem; margin-bottom: 20px; }
+    p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.98rem; }
+    .partner-box { background: #111116; border-left: 4px solid var(--gold); padding: 25px; margin-top: 25px; border-radius: 0 8px 8px 0; border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+    .partner-box h3 { color: var(--gold); margin-bottom: 10px; }
+    footer { background: #060608; color: var(--text-muted); text-align: center; padding: 30px; margin-top: 60px; font-size: 0.85rem; border-top: 1px solid var(--border-color); }
     @media(max-width: 768px) { .container { padding: 20px; margin: 20px; } }
-  </style>
+ </style>
 </head>
 <body>
   <header>
