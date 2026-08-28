@@ -4,36 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us & Owner Profile | Hotel Inder Paradise</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --bg-main: #f4efe6;
-            --bg-card: #eae3d5;
-            --gold: #b38b3f;
-            --gold-light: #d4af37;
-            --text-main: #3a3531;
-            --text-gray: #6e655d;
-            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            --primary: #e63946;
+            --primary-hover: #ff4757;
+            --primary-glow: rgba(230, 57, 70, 0.35);
+            --gold: #f5a623;
+            --gold-light: #ffc048;
+            --dark-bg: #09090b;
+            --card-bg: #141418;
+            --card-hover: #1b1b22;
+            --border-color: #24242c;
+            --text: #f8f9fa;
+            --text-muted: #9e9ea7;
+            --white: #ffffff;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: var(--font-sans);
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
+            background-color: var(--dark-bg);
+            color: var(--text);
             overflow-x: hidden;
             line-height: 1.7;
         }
 
         h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 2px;
+            font-family: var(--font-serif);
+            letter-spacing: 0.5px;
+            color: var(--white);
         }
 
         /* --- हेडर सेक्शन --- */
@@ -45,9 +54,9 @@
             justify-content: space-between;
             align-items: center;
             padding: 18px 5%;
-            background: rgba(244, 239, 230, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(179, 139, 63, 0.3);
+            background: rgba(9, 9, 11, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
             z-index: 1000;
         }
 
@@ -57,34 +66,44 @@
         }
 
         .brand-logo h1 {
-            font-size: 18px;
-            color: var(--text-main);
+            font-size: 1.4rem;
+            color: var(--gold);
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
+            font-family: var(--font-serif);
+            font-weight: 700;
         }
 
         .brand-logo span {
-            font-size: 8px;
-            color: var(--gold);
-            letter-spacing: 4px;
+            font-size: 0.65rem;
+            color: var(--gold-light);
+            letter-spacing: 3px;
             text-transform: uppercase;
             display: block;
+            margin-top: 2px;
         }
 
         .back-home {
-            background-color: var(--gold);
-            color: var(--bg-main);
-            padding: 8px 18px;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--primary) 0%, #d63031 100%);
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px var(--primary-glow);
             transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .back-home:hover {
-            background-color: var(--gold-light);
+            background: linear-gradient(135deg, var(--primary-hover) 0%, #c0392b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--primary-glow);
         }
 
         /* --- मुख्य सेक्शन --- */
@@ -95,47 +114,50 @@
         }
 
         .section-box {
-            background: var(--bg-card);
-            border: 1px solid rgba(179, 139, 63, 0.3);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             padding: 40px;
             margin-bottom: 50px;
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 14px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
 
         .section-box h2 {
-            font-size: 28px;
-            color: var(--text-main);
+            font-size: 2.2rem;
+            color: var(--white);
             margin-bottom: 20px;
-            text-transform: uppercase;
-            border-bottom: 2px solid var(--gold);
+            border-bottom: 2px solid var(--primary);
             display: inline-block;
             padding-bottom: 5px;
         }
 
         .section-box p {
-            font-size: 15px;
-            color: var(--text-gray);
+            font-size: 0.95rem;
+            color: var(--text-muted);
             margin-bottom: 15px;
             line-height: 1.8;
-            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .section-box p strong {
+            color: var(--white);
         }
 
         /* --- ओनर प्रोफाइल लेआउट --- */
         .owner-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: 240px 1fr;
             gap: 40px;
             align-items: center;
         }
 
         .owner-img-box {
             width: 100%;
-            height: 320px;
-            background: #d4cfc4;
+            height: 280px;
+            background: #111;
             border: 2px solid var(--gold);
             overflow: hidden;
-            border-radius: 4px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(245, 166, 35, 0.2);
         }
 
         .owner-img-box img {
@@ -145,33 +167,41 @@
         }
 
         .owner-info h3 {
-            font-size: 24px;
+            font-size: 1.8rem;
             margin-bottom: 5px;
-            color: var(--text-main);
+            color: var(--white);
         }
 
         .owner-role {
-            font-size: 12px;
+            font-size: 0.85rem;
             color: var(--gold);
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 20px;
             font-weight: 600;
+            display: block;
         }
 
         /* --- फुटर --- */
         footer {
-            background: #1a1714;
-            color: #b5ada0;
-            padding: 30px 20px;
+            background: #060608;
+            color: var(--text-muted);
+            padding: 40px 20px;
             text-align: center;
-            font-size: 13px;
-            border-top: 1px solid rgba(179, 139, 63, 0.2);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
         }
 
         @media(max-width: 768px) {
             .owner-grid {
                 grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .owner-img-box {
+                margin: 0 auto;
+                max-width: 220px;
+                height: 220px;
+                border-radius: 50%;
             }
             .section-box {
                 padding: 25px;
@@ -183,7 +213,7 @@
 
     <!-- हेडर -->
     <header>
-        <a href="#" class="brand-logo">
+        <a href="index.html" class="brand-logo">
             <h1>Inder Paradise</h1>
             <span>Luxury Hotel & Restaurant</span>
         </a>
@@ -197,13 +227,13 @@
         <section class="section-box">
             <h2>About Hotel Inder Paradise</h2>
             <p>
-                नागौर की ऐतिहासिक भूमि पर स्थित, **Hotel Inder Paradise** आधुनिक विलासिता (Modern Luxury) और पारंपरिक राजस्थानी आतिथ्य का एक अनूठा संगम है[span_1](start_span)[span_1](end_span)। चौधरी पेट्रोल पंप के पास विजय वल्लभ सर्किल पर स्थित, यह होटल शहर के मुख्य व्यावसायिक और सांस्कृतिक केंद्रों से आसानी से जुड़ा हुआ है।
+                नागौर की ऐतिहासिक भूमि पर स्थित, **Hotel Inder Paradise** आधुनिक विलासिता (Modern Luxury) और पारंपरिक राजस्थानी आतिथ्य का एक अनूठा संगम है[span_0](start_span)[span_0](end_span)。 चौधरी पेट्रोल पंप के पास विजय वल्लभ सर्किल पर स्थित, यह होटल शहर के मुख्य व्यावसायिक और सांस्कृतिक केंद्रों से आसानी से जुड़ा हुआ है[span_1](start_span)[span_1](end_span)。
             </p>
             <p>
-                हमारा उद्देश्य हर मेहमान को एक शाही और आरामदायक अनुभव देना है। होटल में ठहरने के लिए अत्याधुनिक सुविधाओं से लैस **सुपर डीलक्स सुइट्स** और **डीलक्स एसी रूम्स** उपलब्ध हैं, जिनका इंटीरियर आधुनिक लकड़ी की फिनिश और सुंदर सजावट के साथ तैयार किया गया है[span_2](start_span)[span_2](end_span)। हर कमरे में आरामदायक किंग-साइज बेड, स्मार्ट टीवी और उच्च कोटि की स्वच्छता का विशेष ध्यान रखा जाता है[span_3](start_span)[span_3](end_span)।
+                हमारा उद्देश्य हर मेहमान को एक शाही और आरामदायक अनुभव देना है। होटल में ठहरने के लिए अत्याधुनिक सुविधाओं से लैस **सुपर डीलक्स सुइट्स** और **डीलक्स एसी रूम्स** उपलब्ध हैं, जिनका इंटीरियर आधुनिक लकड़ी की फिनिश और सुंदर सजावट के साथ तैयार किया गया है[span_2](start_span)[span_2](end_span)。 हर कमरे में आरामदायक किंग-साइज बेड, स्मार्ट टीवी और उच्च कोटि की स्वच्छता का विशेष ध्यान रखा जाता है[span_3](start_span)[span_3](end_span)。
             </p>
             <p>
-                भोजन के प्रेमियों के लिए हमारा **'आश्रय' (Ashray) रेस्टोरेंट** नागौर का एक प्रमुख आकर्षण है[span_4](start_span)[span_4](end_span)। यहाँ लकड़ी की खूबसूरत नक्काशीदार छत, आरामदायक बैठने की व्यवस्था और शांत पारिवारिक माहौल के बीच शुद्ध और लजीज मल्टी-क्यूज़ीन व्यंजन परोसे जाते हैं[span_5](start_span)[span_5](end_span)। इसके अलावा, हमारे विशाल और भव्य **बैंक्वेट हॉल** में शादियों, सगाई, जन्मदिन और कॉर्पोरेट आयोजनों के लिए शानदार व्यवस्था है[span_6](start_span)[span_6](end_span)।
+                भोजन के प्रेमियों के लिए हमारा **'आश्रय' (Ashray) रेस्टोरेंट** नागौर का एक प्रमुख आकर्षण है[span_4](start_span)[span_4](end_span)。 यहाँ लकड़ी की खूबसूरत नक्काशीदार छत, आरामदायक बैठने की व्यवस्था और शांत पारिवारिक माहौल के बीच शुद्ध और लजीज मल्टी-क्यूज़ीन व्यंजन परोसे जाते हैं[span_5](start_span)[span_5](end_span)。 इसके अलावा, हमारे विशाल और भव्य **बैंक्वेट हॉल** में शादियों, सगाई, जन्मदिन और कॉर्पोरेट आयोजनों के लिए शानदार व्यवस्था है[span_6](start_span)[span_6](end_span)。
             </p>
         </section>
 
@@ -212,12 +242,11 @@
             <h2>Founder & Owner Profile</h2>
             <div class="owner-grid">
                 <div class="owner-img-box">
-                    <!-- यहाँ ओनर की फोटो की लिंक या फाइल का नाम जोड़ें -->
                     <img src="owner.jpg" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop'" alt="Inder Kumar - Owner">
                 </div>
                 <div class="owner-info">
                     <h3>इन्द्र कुमार (Inder Kumar)</h3>
-                    <p class="owner-role">Founder & Visionary Director</p>
+                    <span class="owner-role">Founder & Visionary Director</span>
                     <p>
                         **इन्द्र कुमार**, जो Hotel Inder Paradise के संस्थापक और विजनरी ओनर हैं, की आतिथ्य सत्कार के क्षेत्र में गहरी सोच और अटूट समर्पण का परिणाम है यह होटल। नागौर की संस्कृति से जुड़ाव रखते हुए, उन्होंने इस बात की परिकल्पना की थी कि शहर में एक ऐसा स्थान होना चाहिए जहाँ आने वाले हर यात्री और पर्यटक को अपने घर जैसा सुकून और राजा-महाराजाओं जैसा सम्मान मिल सके।
                     </p>
