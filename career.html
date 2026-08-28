@@ -4,13 +4,30 @@
   <meta charset="UTF-8"><title>Career & Jobs | Hotel Inder Paradise</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    body { font-family: sans-serif; background: #faf8f5; color: #222; margin: 0; padding: 0; line-height: 1.7; }
-    .container { max-width: 900px; margin: 50px auto; background: #fff; padding: 40px; border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-    h1 { color: #c5a880; font-family: Georgia, serif; margin-bottom: 20px; }
-    p, li { color: #555; font-size: 0.95rem; margin-bottom: 15px; }
-    .job-box { background: #fdfbf7; border-left: 4px solid #c5a880; padding: 20px; margin-top: 20px; }
-    .back-btn { display:inline-block; margin-bottom:20px; color:#c5a880; text-decoration:none; font-weight:600; }
+      
+    :root { 
+      --primary: #e63946;
+      --primary-hover: #ff4757;
+      --primary-glow: rgba(230, 57, 70, 0.35);
+      --gold: #f5a623;
+      --gold-light: #ffc048;
+      --dark-bg: #09090b;
+      --card-bg: #141418;
+      --border-color: #24242c;
+      --text: #f8f9fa;
+      --text-muted: #9e9ea7;
+    }
+    body { font-family: sans-serif; background: var(--dark-bg); color: var(--text); margin: 0; padding: 0; line-height: 1.7; }
+    .container { max-width: 900px; margin: 50px auto; background: var(--card-bg); padding: 40px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+    h1 { color: var(--gold); font-family: Georgia, serif; margin-bottom: 20px; }
+    p, li { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px; }
+    strong { color: #fff; }
+    .job-box { background: #111116; border-left: 4px solid var(--gold); padding: 20px; margin-top: 20px; border-radius: 0 8px 8px 0; border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+    .job-box h3 { color: var(--gold); margin-bottom: 10px; font-family: Georgia, serif; }
+    .back-btn { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; background: linear-gradient(135deg, var(--primary) 0%, #d63031 100%); color: #fff; padding: 8px 18px; text-decoration: none; font-weight: 700; font-size: 0.85rem; border-radius: 8px; box-shadow: 0 4px 15px var(--primary-glow); transition: 0.3s; }
+    .back-btn:hover { background: linear-gradient(135deg, var(--primary-hover) 0%, #c0392b 100%); transform: translateY(-2px); }
   </style>
+  
 </head>
 <body>
   <div class="container">
