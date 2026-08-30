@@ -24,16 +24,46 @@
     .logo { font-family: Georgia, serif; font-size: 1.5rem; color: var(--gold); text-decoration: none; font-weight: bold; }
     .btn-home { background: linear-gradient(135deg, var(--primary) 0%, #d63031 100%); color: #fff; padding: 7px 15px; text-decoration: none; font-size: 0.8rem; font-weight: 700; border-radius: 8px; box-shadow: 0 4px 15px var(--primary-glow); transition: 0.3s; }
     .btn-home:hover { background: linear-gradient(135deg, var(--primary-hover) 0%, #c0392b 100%); transform: translateY(-2px); }
-    .container { max-width: 1100px; margin: 50px auto; background: var(--card-bg); padding: 45px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
-    h1 { font-family: Georgia, serif; color: #fff; font-size: 2.3rem; margin-bottom: 20px; }
-    p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.98rem; }
-    .rest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; margin-top: 30px; }
+    
+    .container { max-width: 1200px; margin: 40px auto; background: var(--card-bg); padding: 45px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+    h1 { font-family: Georgia, serif; color: #fff; font-size: 2.3rem; margin-bottom: 20px; text-align: center; }
+    p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.98rem; text-align: center; }
+    
+    .rest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; margin-top: 30px; margin-bottom: 50px; }
     .rest-grid img { width: 100%; height: 320px; object-fit: cover; border-radius: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.5); border: 1px solid var(--border-color); }
-    .menu-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
-    .menu-tag { background: #111116; border: 1px solid var(--border-color); padding: 6px 14px; font-size: 0.85rem; border-radius: 8px; color: var(--gold); font-weight: 500; }
+    
+    /* --- Menu Interactive Section --- */
+    .menu-section-title { font-family: Georgia, serif; font-size: 2rem; color: var(--gold); text-align: center; margin: 40px 0 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+    
+    /* Search Bar */
+    .menu-search-box { display: flex; justify-content: center; margin-bottom: 30px; }
+    .menu-search-box input { width: 100%; max-width: 500px; background: #111116; border: 1px solid var(--border-color); padding: 12px 20px; border-radius: 30px; color: #fff; font-size: 0.95rem; outline: none; transition: 0.3s; }
+    .menu-search-box input:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(245, 166, 35, 0.2); }
+
+    /* Category Tabs */
+    .menu-tabs { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 35px; }
+    .menu-tab { background: #111116; border: 1px solid var(--border-color); padding: 8px 18px; font-size: 0.85rem; border-radius: 20px; color: var(--text-muted); cursor: pointer; font-weight: 500; transition: 0.3s; }
+    .menu-tab:hover, .menu-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 15px var(--primary-glow); }
+
+    /* Food Items Grid with Animation */
+    .menu-items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .menu-item-card { background: #111116; border: 1px solid var(--border-color); padding: 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); animation: fadeInUp 0.5s ease forwards; }
+    .menu-item-card:hover { border-color: var(--gold); transform: translateY(-3px); background: #181820; }
+    
+    .item-info h4 { font-size: 1.05rem; color: #fff; margin-bottom: 4px; font-family: 'Montserrat', sans-serif; font-weight: 600; }
+    .item-info span { font-size: 0.75rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; }
+    .item-price { font-size: 1.1rem; font-weight: 700; color: var(--gold); background: rgba(245, 166, 35, 0.1); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(245, 166, 35, 0.2); }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--primary) 0%, #d63031 100%); color: #fff; padding: 10px 22px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-top: 20px; box-shadow: 0 4px 15px var(--primary-glow); transition: 0.3s; }
     .btn-wa:hover { background: linear-gradient(135deg, var(--primary-hover) 0%, #c0392b 100%); transform: translateY(-2px); }
+    
     footer { background: #060608; color: var(--text-muted); text-align: center; padding: 30px; margin-top: 60px; font-size: 0.85rem; border-top: 1px solid var(--border-color); }
+    
     @media(max-width: 768px) { .rest-grid { grid-template-columns: 1fr; } .container { padding: 20px; margin: 20px; } }
   </style>
 </head>
@@ -45,32 +75,220 @@
 
   <div class="container">
     <h1>Ashray Restaurant - Fine Dining in Nagaur</h1>
-    <p>Indulge in an exquisite culinary journey at <strong>Ashray Restaurant</strong>, located inside Hotel Inder Paradise on Didwana Road, Nagaur. We specialize in authentic regional delicacies, North Indian gravies, Chinese delights, and wholesome vegetarian thalis.</p>
+    <p>Indulge in an exquisite culinary journey at <strong>Ashray Restaurant</strong>, located inside Hotel Inder Paradise on Didwana Road, Nagaur. Explore our complete delicious menu below[span_1](start_span)[span_1](end_span):</p>
 
     <div class="rest-grid">
       <img src="restaurant.jpg" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop'" alt="Ashray Restaurant">
       <div>
         <h3 style="font-family: Georgia, serif; font-size: 1.6rem; color: #fff; margin-bottom: 10px;">Pure, Hygienic & Delicious</h3>
-        <p>Featuring beautiful false ceiling architecture, comfortable family seating booths, and warm lighting, Ashray Restaurant provides the ideal ambience for family dinners and couple gatherings.</p>
+        <p>Featuring beautiful false ceiling architecture, comfortable family seating booths, and warm lighting, Ashray Restaurant provides the ideal ambience for family dinners and couple gatherings[span_2](start_span)[span_2](end_span).</p>
         
-        <div class="menu-tags">
-          <span class="menu-tag">North Indian</span>
-          <span class="menu-tag">Rajasthani Thali</span>
-          <span class="menu-tag">Chinese Snacks</span>
-          <span class="menu-tag">Pure Veg</span>
-        </div>
-
-        <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-muted);"><i class="fa-regular fa-clock" style="color:var(--gold);"></i> <strong>Open Daily:</strong> 08:00 AM – 11:00 PM</p>
+        <div style="margin-top: 20px; font-size: 0.85rem; color: var(--text-muted);"><i class="fa-regular fa-clock" style="color:var(--gold);"></i> <strong>Open Daily:</strong> 08:00 AM – 11:00 PM[span_3](start_span)[span_3](end_span)</div>
         
         <a href="https://wa.me/919257090750?text=Hello,%20I%20want%20to%20reserve%20a%20table%20at%20Ashray%20Restaurant" target="_blank" class="btn-wa">
           <i class="fa-brands fa-whatsapp"></i> Reserve Table
         </a>
       </div>
     </div>
+
+    <!-- Interactive Menu Section -->
+    <h2 class="menu-section-title">Our Exquisite Menu</h2>
+    
+    <!-- Search Box -->
+    <div class="menu-search-box">
+      <input type="text5" id="menuSearch" placeholder="🔍 Apni pasand ka khana yahan search karein..." onkeyup="filterMenu()">
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="menu-tabs">
+      <button class="menu-tab active" onclick="filterCategory('all', this)">All Items</button>
+      <button class="menu-tab" onclick="filterCategory('starter', this)">Starters & Kabab</button>
+      <button class="menu-tab" onclick="filterCategory('main', this)">Indian Main Course</button>
+      <button class="menu-tab" onclick="filterCategory('chinese', this)">Chinese & Noodles</button>
+      <button class="menu-tab" onclick="filterCategory('soup', this)">Soups</button>
+      <button class="menu-tab" onclick="filterCategory('bread', this)">Breads & Roti</button>
+      <button class="menu-tab" onclick="filterCategory('rice', this)">Rice & Biryani</button>
+      <button class="menu-tab" onclick="filterCategory('raita', this)">Raita & Salad</button>
+      <button class="menu-tab" onclick="filterCategory('beverage', this)">Beverages & Shakes</button>
+      <button class="menu-tab" onclick="filterCategory('dessert', this)">Desserts & Icecreams</button>
+    </div>
+
+    <!-- Menu Items Container -->
+    <div class="menu-items-grid" id="menuGrid"></div>
+
   </div>
 
   <footer>
     <p>© 2026 Hotel Inder Paradise, Didwana Road, Nagaur, Rajasthan. All Rights Reserved.</p>
   </footer>
+
+  <script>
+    // Full Menu Data extracted from PDF Menu[span_4](start_span)[span_4](end_span)
+    const menuData = [
+      // Chinese & Noodles
+      { name: "Veg. Hakka Noodles", price: 220, category: "chinese" },
+      { name: "Veg. Schezwan Noodles", price: 230, category: "chinese" },
+      { name: "Brunt Garlic Noodles", price: 210, category: "chinese" },
+      { name: "Singapuri Noodles", price: 220, category: "chinese" },
+      { name: "Mashroom Noodle", price: 240, category: "chinese" },
+      { name: "American Chop Suey", price: 240, category: "chinese" },
+      { name: "Veg. Chow Mein", price: 200, category: "chinese" },
+      { name: "Veg. Fried Rice", price: 180, category: "chinese" },
+      { name: "Veg. Schezwan Fried Rice", price: 190, category: "chinese" },
+      { name: "Triple Schezwan Fried Rice", price: 280, category: "chinese" },
+      { name: "Brunt Garlic Fried Rice", price: 180, category: "chinese" },
+      { name: "Singapuri Fried Rice", price: 200, category: "chinese" },
+      { name: "Chilli Garlic Fried Rice", price: 180, category: "chinese" },
+      { name: "Mashroom Fried Rice", price: 230, category: "chinese" },
+      { name: "Ginger Fried Rice", price: 210, category: "chinese" },
+
+      // Starters & Kabab
+      { name: "Veg. Hara Bhara Kabab", price: 230, category: "starter" },
+      { name: "Veg. Seekh Kabab", price: 210, category: "starter" },
+      { name: "Veg. Shikampuri Kabab", price: 240, category: "starter" },
+      { name: "Makai Malai Seekh Kabab", price: 230, category: "starter" },
+      { name: "Inder Paradise's Special Kabab", price: 390, category: "starter" },
+      { name: "Tandoori Malai Broccoli", price: 290, category: "starter" },
+      { name: "Veg. Table Platter (16 Pcs)", price: 500, category: "starter" },
+      { name: "Aloo Nazakat", price: 350, category: "starter" },
+      { name: "Dahi Kabab", price: 300, category: "starter" },
+      { name: "Gobi Manchurian", price: 190, category: "starter" },
+      { name: "Veg. Spring Roll", price: 230, category: "starter" },
+      { name: "Paneer Peri Peri", price: 240, category: "starter" },
+      { name: "Chinese Potli", price: 320, category: "starter" },
+      { name: "Paneer Finger", price: 330, category: "starter" },
+      { name: "Paneer Spring Roll", price: 350, category: "starter" },
+      { name: "Chinese Sizzler", price: 450, category: "starter" },
+      { name: "Italian Sizzler", price: 380, category: "starter" },
+      { name: "Salt Crispy Vegetable", price: 300, category: "starter" },
+      { name: "Chinese Bhel", price: 200, category: "starter" },
+      { name: "Veg. Lollipop", price: 280, category: "starter" },
+      { name: "Mushroom Salt & Pepper", price: 250, category: "starter" },
+      { name: "Paneer Tikka", price: 320, category: "starter" },
+      { name: "Makhmali Paneer Tikka", price: 360, category: "starter" },
+      { name: "Multani Paneer Tikka", price: 360, category: "starter" },
+      { name: "Paneer Pahadi Tikka", price: 340, category: "starter" },
+      { name: "Soya Chaap", price: 320, category: "starter" },
+      { name: "Soya Malai Chaap", price: 350, category: "starter" },
+      { name: "Paneer Chilli Dry", price: 320, category: "starter" },
+      { name: "Paneer Chilli Gravy", price: 340, category: "starter" },
+      { name: "Honey Chilli Sesame Potato", price: 290, category: "starter" },
+      { name: "Veg. Manchurian Dry", price: 230, category: "starter" },
+      { name: "Paneer 65", price: 360, category: "starter" },
+
+      // Soups
+      { name: "Veg. Manchow Soup", price: 120, category: "soup" },
+      { name: "Veg. Minestrone Soup", price: 140, category: "soup" },
+      { name: "Lung Fung Soup", price: 120, category: "soup" },
+      { name: "Tomato Soup", price: 120, category: "soup" },
+      { name: "Hot & Sour Soup", price: 120, category: "soup" },
+      { name: "Lemon Coriander Soup", price: 120, category: "soup" },
+      { name: "Sweet Corn Soup", price: 160, category: "soup" },
+      { name: "Veg. Clear Soup", price: 140, category: "soup" },
+      { name: "Tomato Dhania Shorba", price: 120, category: "soup" },
+
+      // Indian Main Course (Paneer & Veg)
+      { name: "Paneer Angara Masala", price: 400, category: "main" },
+      { name: "Paneer Singapuri", price: 400, category: "main" },
+      { name: "Paneer Butter Masala", price: 360, category: "main" },
+      { name: "Paneer Lazeez", price: 390, category: "main" },
+      { name: "Paneer Lababdar", price: 320, category: "main" },
+      { name: "Kadai Paneer", price: 330, category: "main" },
+      { name: "Shahi Paneer", price: 290, category: "main" },
+      { name: "Palak Paneer", price: 230, category: "main" },
+      { name: "Mix Veg.", price: 240, category: "main" },
+      { name: "Veg. Handi", price: 280, category: "main" },
+      { name: "Malai Kofta", price: 260, category: "main" },
+      { name: "Kaju Curry", price: 360, category: "main" },
+      { name: "Ker Sangri (Rajasthani)", price: 450, category: "main" },
+      { name: "Sev Tamatar", price: 230, category: "main" },
+      { name: "Govind Gatta", price: 230, category: "main" },
+
+      // Breads & Roti
+      { name: "Tandoori Roti Plain", price: 20, category: "bread" },
+      { name: "Tandoori Roti Butter", price: 25, category: "bread" },
+      { name: "Tawa Roti Plain", price: 20, category: "bread" },
+      { name: "Butter Naan", price: 60, category: "bread" },
+      { name: "Garlic Naan", price: 70, category: "bread" },
+      { name: "Cheese Garlic Naan", price: 90, category: "bread" },
+      { name: "Lachha Paratha", price: 70, category: "bread" },
+      { name: "Aloo Paratha", price: 80, category: "bread" },
+      { name: "Paneer Paratha", price: 190, category: "bread" },
+      { name: "Amritsari Chur-Chur Naan", price: 80, category: "bread" },
+
+      // Rice & Biryani
+      { name: "Jeera Rice", price: 180, category: "rice" },
+      { name: "Steam Rice", price: 140, category: "rice" },
+      { name: "Veg. Pulao", price: 190, category: "rice" },
+      { name: "Kashmiri Pulao", price: 210, category: "rice" },
+      { name: "Veg. Biryani", price: 220, category: "rice" },
+      { name: "Veg. Dum Biryani", price: 240, category: "rice" },
+      { name: "Hyderabadi Dum Biryani", price: 260, category: "rice" },
+      { name: "Paneer Tikka Biryani", price: 290, category: "rice" },
+
+      // Raita & Salad
+      { name: "Boondi Raita", price: 120, category: "raita" },
+      { name: "Pineapple Raita", price: 140, category: "raita" },
+      { name: "Green Salad", price: 100, category: "raita" },
+      { name: "Greek Salad", price: 140, category: "raita" },
+      { name: "Roasted Masala Papad", price: 50, category: "raita" },
+
+      // Beverages & Shakes
+      { name: "Sweet Lassi", price: 80, category: "beverage" },
+      { name: "Fresh Lime Soda", price: 80, category: "beverage" },
+      { name: "Blueberry Martini", price: 190, category: "beverage" },
+      { name: "Mint Mojito", price: 130, category: "beverage" },
+      { name: "Cold Coffee with Icecream", price: 120, category: "beverage" },
+      { name: "Chocolate Shake", price: 100, category: "beverage" },
+      { name: "Dry Fruit Shake", price: 150, category: "beverage" },
+      { name: "Masala Tea", price: 50, category: "beverage" },
+
+      // Desserts & Icecreams
+      { name: "Pista Gulab Jamun", price: 80, category: "dessert" },
+      { name: "Gulab Jamun With Ice Cream", price: 120, category: "dessert" },
+      { name: "Chocolate Sizzling Brownie", price: 190, category: "dessert" },
+      { name: "Triple Sundae Icecream", price: 210, category: "dessert" },
+      { name: "American Nuts Icecream", price: 140, category: "dessert" },
+      { name: "Fruit Custard", price: 120, category: "dessert" }
+    ];
+
+    function renderMenu(items) {
+      const grid = document.getElementById('menuGrid');
+      if (items.length === 0) {
+        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Koi dish nahi mili. Kripya doosra naam search karein.</p>';
+        return;
+      }
+      grid.innerHTML = items.map((item, index) => `
+        <div class="menu-item-card" style="animation-delay: ${index * 0.03}s">
+          <div class="item-info">
+            <h4>${item.name}</h4>
+            <span>${item.category.toUpperCase()}</span>
+          </div>
+          <div class="item-price">₹${item.price}</div>
+        </div>
+      `).join('');
+    }
+
+    function filterCategory(category, btn) {
+      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (category === 'all') {
+        renderMenu(menuData);
+      } else {
+        const filtered = menuData.filter(i => i.category === category);
+        renderMenu(filtered);
+      }
+    }
+
+    function filterMenu() {
+      const query = document.getElementById('menuSearch').value.toLowerCase();
+      const filtered = menuData.filter(i => i.name.toLowerCase().includes(query));
+      renderMenu(filtered);
+    }
+
+    // Initial Load
+    renderMenu(menuData);
+  </script>
 </body>
 </html>
