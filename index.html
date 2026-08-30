@@ -87,12 +87,7 @@
       padding: 14px 24px;
     }
 
-    /* Left: 3-Line Menu Button */
-    .nav-left {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
+    .nav-left { display: flex; align-items: center; justify-content: flex-start; }
     .menu-toggle-btn {
       background: #18181f;
       border: 1px solid var(--border-color);
@@ -109,24 +104,11 @@
       gap: 10px;
       transition: var(--transition);
     }
-    .menu-toggle-btn:hover {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-    .menu-toggle-btn i {
-      font-size: 1.1rem;
-    }
+    .menu-toggle-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .menu-toggle-btn i { font-size: 1.1rem; }
 
-    /* Center: Logo / Hotel Name */
-    .nav-center {
-      text-align: center;
-    }
-    .logo {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    .nav-center { text-align: center; }
+    .logo { display: inline-flex; flex-direction: column; align-items: center; }
     .logo-main {
       font-family: var(--font-serif);
       font-size: 2rem;
@@ -136,21 +118,9 @@
       text-transform: uppercase;
       line-height: 1;
     }
-    .logo-sub {
-      font-size: 0.65rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      margin-top: 4px;
-    }
+    .logo-sub { font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-light); margin-top: 4px; }
 
-    /* Right: Quick Action */
-    .nav-right {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 12px;
-    }
+    .nav-right { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
 
     .btn-gold {
       background: linear-gradient(135deg, var(--primary) 0%, #d63031 100%);
@@ -169,11 +139,7 @@
       box-shadow: 0 4px 15px var(--primary-glow);
       transition: var(--transition);
     }
-    .btn-gold:hover {
-      background: linear-gradient(135deg, var(--primary-hover) 0%, #c0392b 100%);
-      box-shadow: 0 6px 20px var(--primary-glow);
-      transform: translateY(-2px);
-    }
+    .btn-gold:hover { background: linear-gradient(135deg, var(--primary-hover) 0%, #c0392b 100%); box-shadow: 0 6px 20px var(--primary-glow); transform: translateY(-2px); }
     .btn-outline {
       border: 1px solid var(--gold);
       color: var(--gold);
@@ -194,131 +160,36 @@
 
     /* Left Side Sliding Drawer Menu */
     .side-drawer-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(5px);
-      z-index: 2000;
-      opacity: 0;
-      visibility: hidden;
-      transition: var(--transition);
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(5px); z-index: 2000; opacity: 0; visibility: hidden; transition: var(--transition);
     }
-    .side-drawer-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
+    .side-drawer-overlay.active { opacity: 1; visibility: visible; }
 
     .side-drawer {
-      position: fixed;
-      top: 0;
-      left: -380px;
-      width: 360px;
-      max-width: 85vw;
-      height: 100vh;
-      background: #111116;
-      border-right: 1px solid var(--border-color);
-      z-index: 2001;
-      padding: 35px 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow-y: auto;
-      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: fixed; top: 0; left: -380px; width: 360px; max-width: 85vw; height: 100vh; background: #111116; border-right: 1px solid var(--border-color); z-index: 2001; padding: 35px 28px; display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
-    .side-drawer.active {
-      transform: translateX(380px);
-    }
+    .side-drawer.active { transform: translateX(380px); }
 
-    .drawer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 20px;
-      margin-bottom: 25px;
-    }
-    .drawer-logo {
-      font-family: var(--font-serif);
-      font-size: 1.4rem;
-      color: var(--gold);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
+    .drawer-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 25px; }
+    .drawer-logo { font-family: var(--font-serif); font-size: 1.4rem; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; }
     .close-drawer-btn {
-      background: none;
-      border: 1px solid var(--border-color);
-      color: #fff;
-      font-size: 1.2rem;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
+      background: none; border: 1px solid var(--border-color); color: #fff; font-size: 1.2rem; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition);
     }
-    .close-drawer-btn:hover {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
+    .close-drawer-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-    .drawer-links li {
-      margin-bottom: 16px;
-    }
+    .drawer-links li { margin-bottom: 16px; }
     .drawer-links a {
-      color: var(--text);
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 8px 12px;
-      border-radius: 3px;
-      font-weight: 500;
-      border-bottom: 1px solid #1a1a22;
+      color: var(--text); font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 14px; padding: 8px 12px; border-radius: 3px; font-weight: 500; border-bottom: 1px solid #1a1a22;
     }
-    .drawer-links a i {
-      color: var(--gold);
-      width: 20px;
-      font-size: 1.1rem;
-    }
-    .drawer-links a:hover {
-      background: rgba(230, 57, 70, 0.15);
-      color: var(--gold);
-      padding-left: 18px;
-    }
+    .drawer-links a i { color: var(--gold); width: 20px; font-size: 1.1rem; }
+    .drawer-links a:hover { background: rgba(230, 57, 70, 0.15); color: var(--gold); padding-left: 18px; }
 
-    .drawer-footer {
-      border-top: 1px solid var(--border-color);
-      padding-top: 20px;
-      margin-top: 20px;
-    }
-    .drawer-footer p {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
-    .drawer-footer p i {
-      color: var(--gold);
-      margin-right: 6px;
-    }
+    .drawer-footer { border-top: 1px solid var(--border-color); padding-top: 20px; margin-top: 20px; }
+    .drawer-footer p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; }
+    .drawer-footer p i { color: var(--gold); margin-right: 6px; }
 
     /* Hero Section */
     .hero {
-      position: relative;
-      height: 85vh;
-      min-height: 560px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: linear-gradient(180deg, rgba(9, 9, 11, 0.65) 0%, rgba(9, 9, 11, 0.92) 100%),
-                  url('hotel-exterior.jpg'),
-                  url('https://i.ibb.co/Q7dDJDts/Screenshot-2026-08-27-21-23-47-22-3d9111e2d3171bf4882369f490c087b4.jpgq=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+      position: relative; height: 85vh; min-height: 560px; display: flex; align-items: center; justify-content: center; text-align: center; background: linear-gradient(180deg, rgba(9, 9, 11, 0.65) 0%, rgba(9, 9, 11, 0.92) 100%), url('hotel-exterior.jpg') center/cover no-repeat;
     }
     .hero-content { max-width: 900px; padding: 0 20px; color: var(--white); }
     .hero-subtitle { font-size: 0.95rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 15px; }
@@ -329,27 +200,12 @@
     /* Booking Bar */
     .booking-bar-wrapper { max-width: 1150px; margin: -50px auto 0; position: relative; z-index: 100; padding: 0 20px; }
     .booking-bar {
-      background: var(--card-bg);
-      padding: 24px 30px;
-      border-radius: 12px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-      display: grid;
-      grid-template-columns: repeat(4, 1fr) auto;
-      gap: 20px;
-      align-items: center;
-      border-top: 3px solid var(--primary);
-      border: 1px solid var(--border-color);
+      background: var(--card-bg); padding: 24px 30px; border-radius: 12px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5); display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 20px; align-items: center; border-top: 3px solid var(--primary); border: 1px solid var(--border-color);
     }
     .booking-item { display: flex; flex-direction: column; }
     .booking-item label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 6px; }
     .booking-item input, .booking-item select {
-      border: 1px solid var(--border-color);
-      padding: 10px 12px;
-      font-size: 0.9rem;
-      border-radius: 8px;
-      outline: none;
-      background: #0d0d12;
-      color: #fff;
+      border: 1px solid var(--border-color); padding: 10px 12px; font-size: 0.9rem; border-radius: 8px; outline: none; background: #0d0d12; color: #fff;
     }
 
     /* Sections */
@@ -365,24 +221,10 @@
     .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
     .overview-img-wrapper { position: relative; }
     .overview-img-wrapper img {
-      border-radius: 12px;
-      width: 100%;
-      height: 480px;
-      object-fit: cover;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-      border: 1px solid var(--border-color);
+      border-radius: 12px; width: 100%; height: 480px; object-fit: cover; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); border: 1px solid var(--border-color);
     }
     .overview-badge {
-      position: absolute;
-      bottom: -20px;
-      right: -20px;
-      background: var(--card-bg);
-      color: var(--gold);
-      padding: 22px 28px;
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      position: absolute; bottom: -20px; right: -20px; background: var(--card-bg); color: var(--gold); padding: 22px 28px; border: 1px solid var(--border-color); border-radius: 12px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
     .overview-badge .num { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700; display: block; line-height: 1; color: var(--primary); }
     .overview-badge .label { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: #fff; }
@@ -396,31 +238,14 @@
     .rooms-section { background: #111116; }
     .rooms-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 35px; }
     .room-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-      transition: var(--transition);
-      display: flex;
-      flex-direction: column;
+      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; overflow: hidden; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); transition: var(--transition); display: flex; flex-direction: column;
     }
     .room-card:hover { transform: translateY(-7px); background: var(--card-hover); border-color: var(--primary); box-shadow: 0 18px 35px rgba(230, 57, 70, 0.2); }
     .room-img { height: 290px; position: relative; overflow: hidden; }
     .room-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
     .room-card:hover .room-img img { transform: scale(1.05); }
     .room-price {
-      position: absolute;
-      bottom: 12px;
-      right: 12px;
-      background: rgba(9, 9, 11, 0.85);
-      backdrop-filter: blur(6px);
-      color: var(--gold);
-      padding: 6px 14px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      border-radius: 20px;
-      border: 1px solid rgba(245, 166, 35, 0.3);
+      position: absolute; bottom: 12px; right: 12px; background: rgba(9, 9, 11, 0.85); backdrop-filter: blur(6px); color: var(--gold); padding: 6px 14px; font-size: 0.88rem; font-weight: 600; border-radius: 20px; border: 1px solid rgba(245, 166, 35, 0.3);
     }
     .room-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
     .room-meta { display: flex; gap: 16px; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; }
@@ -430,15 +255,8 @@
 
     /* Dining Section */
     .dining-section { background: var(--dark-bg); color: var(--white); }
-    .dining-section .section-title { color: var(--white); }
-    .dining-section .section-desc { color: var(--text-muted); }
     .dining-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
-    .dining-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      overflow: hidden;
-    }
+    .dining-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; overflow: hidden; }
     .dining-img { height: 350px; }
     .dining-img img { width: 100%; height: 100%; object-fit: cover; }
     .dining-details h3 { font-size: 2.2rem; color: var(--gold); margin-bottom: 15px; }
@@ -447,25 +265,41 @@
     .dining-feat-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #e2e2e8; }
     .dining-feat-item i { color: var(--gold); }
 
-    /* Banquet & Celebrations Section */
+    /* Banquet Section */
     .banquet-section { background: #111116; }
     .banquet-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; }
-    .banquet-img-wrapper { position: relative; }
     .banquet-img-wrapper img { width: 100%; height: 360px; object-fit: cover; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid var(--border-color); }
 
-    /* Photo Gallery Section */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    /* --- Photo Gallery Slider Styles --- */
+    .gallery-slider-wrapper {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow: hidden;
+      padding: 10px 0;
+    }
+    .gallery-slider-track {
+      display: flex;
       gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Firefox */
+    }
+    .gallery-slider-track::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
     }
     .gallery-item {
+      flex: 0 0 calc(33.333% - 14px);
+      min-width: 280px;
       position: relative;
-      height: 240px;
+      height: 260px;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 8px 20px rgba(0,0,0,0.4);
       border: 1px solid var(--border-color);
+      scroll-snap-align: start;
     }
     .gallery-item img {
       width: 100%;
@@ -475,43 +309,66 @@
     }
     .gallery-item:hover img { transform: scale(1.08); }
     .gallery-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(9, 9, 11, 0.75);
+      position: absolute; inset: 0; background: rgba(9, 9, 11, 0.75); display: flex; align-items: center; justify-content: center; opacity: 0; transition: var(--transition); color: var(--white); font-family: var(--font-serif); font-size: 1.2rem; letter-spacing: 1px;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    /* Slider Nav Buttons */
+    .slider-nav-btns {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .slider-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--gold);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0;
+      font-size: 1rem;
       transition: var(--transition);
-      color: var(--white);
-      font-family: var(--font-serif);
-      font-size: 1.2rem;
-      letter-spacing: 1px;
     }
-    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .slider-btn:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* --- AI Review System Styles --- */
+    .review-section-box {
+      max-width: 1200px; margin: 0 auto; background: var(--card-bg); padding: 45px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    }
+    .review-section-box h3 { font-family: var(--font-serif); font-size: 2.2rem; color: #fff; margin-bottom: 10px; text-align: center; }
+    .review-section-box p.rev-sub { text-align: center; color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; }
+    .index-stars-container { display: flex; justify-content: center; gap: 12px; font-size: 2.5rem; cursor: pointer; margin-bottom: 25px; }
+    .index-stars-container i { color: #444; transition: 0.3s; }
+    .ai-pills-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+    .r-pill {
+      background: #111116; border: 1px solid var(--border-color); padding: 15px 20px; border-radius: 8px; color: #ddd; cursor: pointer; font-size: 0.9rem; transition: 0.3s; position: relative;
+    }
+    .r-pill:hover { border-color: var(--gold); background: #1b1b22; color: #fff; transform: translateY(-2px); }
+    .r-pill span { display: block; font-size: 0.75rem; color: var(--gold); margin-top: 4px; font-weight: 600; }
+    .saved-reviews-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+    .review-card-item {
+      background: #111116; padding: 20px; border-radius: 10px; border-left: 4px solid var(--gold); border: 1px solid var(--border-color);
+    }
+    .review-card-item strong { color: #fff; display: block; margin-bottom: 8px; font-size: 0.95rem; }
+    .review-card-item p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
 
     /* FAQ Section */
     .faq-container { max-width: 850px; margin: 0 auto; }
     .faq-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
     .faq-question {
-      padding: 18px 22px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      font-family: var(--font-serif);
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #fff;
+      padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-family: var(--font-serif); font-size: 1.2rem; font-weight: 600; color: #fff;
     }
     .faq-answer {
-      padding: 0 22px 18px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      display: none;
-      line-height: 1.7;
-      border-top: 1px solid var(--border-color);
-      padding-top: 12px;
+      padding: 0 22px 18px; font-size: 0.9rem; color: var(--text-muted); display: none; line-height: 1.7; border-top: 1px solid var(--border-color); padding-top: 12px;
     }
     .faq-item.active .faq-answer { display: block; }
     .faq-item.active .faq-question i { transform: rotate(180deg); }
@@ -528,27 +385,9 @@
 
     /* Floating WhatsApp Button */
     .whatsapp-float {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background-color: #25d366;
-      color: white;
-      border-radius: 50px;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-      z-index: 999;
-      transition: var(--transition);
+      position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white; border-radius: 50px; padding: 12px 20px; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 999; transition: var(--transition);
     }
-    .whatsapp-float:hover {
-      background-color: #20ba5a;
-      transform: translateY(-3px);
-      color: white;
-    }
+    .whatsapp-float:hover { background-color: #20ba5a; transform: translateY(-3px); color: white; }
     .whatsapp-float i { font-size: 1.3rem; }
 
     /* Footer */
@@ -566,14 +405,14 @@
 
     /* Responsive */
     @media (max-width: 1024px) {
-      .booking-bar, .rooms-grid, .dining-grid, .banquet-grid, .gallery-grid, .footer-container { grid-template-columns: repeat(2, 1fr); }
+      .booking-bar, .rooms-grid, .dining-grid, .banquet-grid, .footer-container { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 768px) {
       .nav-container { grid-template-columns: auto 1fr auto; }
       .logo-main { font-size: 1.4rem; letter-spacing: 2px; }
       .logo-sub { font-size: 0.55rem; letter-spacing: 2px; }
       .hero-title { font-size: 2.4rem; }
-      .booking-bar, .overview-grid, .contact-grid, .rooms-grid, .dining-grid, .banquet-grid, .gallery-grid, .footer-container { grid-template-columns: 1fr; }
+      .booking-bar, .overview-grid, .contact-grid, .rooms-grid, .dining-grid, .banquet-grid, .footer-container { grid-template-columns: 1fr; }
       .overview-badge { position: static; margin-top: 15px; }
     }
   </style>
@@ -588,8 +427,6 @@
   <!-- Header & Navigation Bar -->
   <header>
     <div class="nav-container">
-      
-      <!-- Left: 3-Line Menu Button -->
       <div class="nav-left">
         <button class="menu-toggle-btn" id="openDrawerBtn" aria-label="Open Navigation Menu">
           <i class="fa-solid fa-bars"></i>
@@ -597,7 +434,6 @@
         </button>
       </div>
 
-      <!-- Center: Hotel Name / Logo (Link set to # as requested) -->
       <div class="nav-center">
         <a href="#" class="logo">
           <span class="logo-main">HOTEL INDER PARADISE</span>
@@ -605,17 +441,15 @@
         </a>
       </div>
 
-      <!-- Right: Direct Book / Call Action -->
       <div class="nav-right">
         <a href="rooms.html" target="_blank" class="btn-gold">
           <i class="fa-solid fa-calendar-check"></i> Book Now
         </a>
       </div>
-
     </div>
   </header>
 
-  <!-- Left Side Drawer (Navigation Bar Menu) -->
+  <!-- Left Side Drawer -->
   <div class="side-drawer-overlay" id="drawerOverlay"></div>
   <aside class="side-drawer" id="sideDrawer">
     <div>
@@ -627,54 +461,14 @@
       </div>
 
       <ul class="drawer-links">
-        <li>
-          <a href="#" target="_blank">
-            <span class="drawer-link-content"><i class="fa-solid fa-hotel link-icon"></i> The Hotel Overview</span>
-            <i class="fa-solid fa-arrow-up-right-from-square ext-icon"></i>
-          </a>
-        </li>
-        <li>
-          <a href="rooms.html" target="_blank">
-            <span class="drawer-link-content"><i class="fa-solid fa-bed link-icon"></i> Rooms & Suites</span>
-            <i class="fa-solid fa-arrow-up-right-from-square ext-icon"></i>
-          </a>
-        </li>
-        <li>
-          <a href="restaurant.html" target="_blank">
-            <span class="drawer-link-content"><i class="fa-solid fa-utensils link-icon"></i> Ashray Restaurant</span>
-            <i class="fa-solid fa-arrow-up-right-from-square ext-icon"></i>
-          </a>
-        </li>
-        <li>
-          <a href="banquet.html" target="_blank">
-            <span class="drawer-link-content"><i class="fa-solid fa-champagne-glasses link-icon"></i> Banquet & Events</span>
-            <i class="fa-solid fa-arrow-up-right-from-square ext-icon"></i>
-          </a>
-        </li>
-        <li>
-          <a href="gallery.html" target="_blank">
-            <span class="drawer-link-content"><i class="fa-solid fa-images link-icon"></i> Photo Gallery</span>
-            <i class="fa-solid fa-arrow-up-right-from-square ext-icon"></i>
-          </a>
-        </li>
-        <li>
-          <a href="career.html" target="_blank">
-            <span class="drawer-link-content"><i class="fa-solid fa-briefcase link-icon"></i> Career</span>
-            <i class="fa-solid fa-arrow-up-right-from-square ext-icon"></i>
-          </a>
-        </li>
-        <li>
-          <a href="affiliate.html" target="_blank">
-            <span class="drawer-link-content"><i class="fa-solid fa-handshake link-icon"></i> Affiliated Program</span>
-            <i class="fa-solid fa-arrow-up-right-from-square ext-icon"></i>
-          </a>
-        </li>
-        <li>
-          <a href="contact.html" target="_blank">
-            <span class="drawer-link-content"><i class="fa-solid fa-location-dot link-icon"></i> Contact & Location</span>
-            <i class="fa-solid fa-arrow-up-right-from-square ext-icon"></i>
-          </a>
-        </li>
+        <li><a href="#" target="_blank"><i class="fa-solid fa-hotel link-icon"></i> The Hotel Overview</a></li>
+        <li><a href="rooms.html" target="_blank"><i class="fa-solid fa-bed link-icon"></i> Rooms & Suites</a></li>
+        <li><a href="restaurant.html" target="_blank"><i class="fa-solid fa-utensils link-icon"></i> Ashray Restaurant</a></li>
+        <li><a href="banquet.html" target="_blank"><i class="fa-solid fa-champagne-glasses link-icon"></i> Banquet & Events</a></li>
+        <li><a href="gallery.html" target="_blank"><i class="fa-solid fa-images link-icon"></i> Photo Gallery</a></li>
+        <li><a href="career.html" target="_blank"><i class="fa-solid fa-briefcase link-icon"></i> Career</a></li>
+        <li><a href="affiliate.html" target="_blank"><i class="fa-solid fa-handshake link-icon"></i> Affiliated Program</a></li>
+        <li><a href="contact.html" target="_blank"><i class="fa-solid fa-location-dot link-icon"></i> Contact & Location</a></li>
       </ul>
     </div>
 
@@ -733,13 +527,12 @@
       </div>
     </form>
   </div>
-
-  <!-- Overview / About Section -->
+    <!-- Overview / About Section -->
   <section id="about">
     <div class="section-container">
       <div class="overview-grid">
         <div class="overview-img-wrapper">
-          <img src="hotel-exterior.jpg" onerror="this.src='https://i.ibb.co/GfC7VNVC/IMG-20260827-205532.jpg?q=80&w=800&auto=format&fit=crop'" alt="Hotel Inder Paradise Building">
+          <img src="hotel-exterior.jpg" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop'" alt="Hotel Inder Paradise Building">
           <div class="overview-badge">
             <span class="num">100%</span>
             <span class="label">Comfort & Luxury</span>
@@ -778,7 +571,6 @@
       </div>
 
       <div class="rooms-grid">
-        <!-- Room 1: Suite Room -->
         <div class="room-card">
           <div class="room-img">
             <img src="suite-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop'" alt="Super Deluxe Suite Room">
@@ -799,7 +591,6 @@
           </div>
         </div>
 
-        <!-- Room 2: Deluxe Executive Room -->
         <div class="room-card">
           <div class="room-img">
             <img src="deluxe-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=800&auto=format&fit=crop'" alt="Deluxe Executive AC Room">
@@ -857,7 +648,8 @@
       </div>
     </div>
   </section>
-  <!-- Banquet & Celebrations Section -->
+
+  <!-- Banquet Section -->
   <section id="banquet" class="banquet-section">
     <div class="section-container">
       <div class="section-header">
@@ -883,46 +675,83 @@
         </div>
 
         <div class="banquet-img-wrapper">
-          <img src="banquet-hall.jpg" onerror="this.src='https://i.ibb.co/GfC7VNVC/IMG-20260827-205532.jpgq=80&w=800&auto=format&fit=crop'" alt="Inder Paradise Banquet Hall">
+          <img src="banquet-hall.jpg" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop'" alt="Inder Paradise Banquet Hall">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Photo Gallery -->
+  <!-- ================= PHOTO GALLERY SLIDER SECTION ================= -->
   <section id="gallery">
     <div class="section-container">
       <div class="section-header">
         <span class="section-tag">Visual Tour</span>
         <h2 class="section-title">Hotel Gallery</h2>
         <div class="divider"></div>
+        <p class="section-desc">Swipe or use arrows to explore our complete hotel, rooms, restaurant, and banquet spaces.</p>
       </div>
 
-      <div class="gallery-grid">
-        <div class="gallery-item">
-          <img src="hotel-exterior.jpg" onerror="this.src='https://i.ibb.co/KzwLrPYQ/IMG-20260827-205710.jpgq=80&w=600&auto=format&fit=crop'" alt="Hotel Exterior">
-          <div class="gallery-overlay">Building Front View</div>
+      <!-- Slider Wrapper -->
+      <div class="gallery-slider-wrapper">
+        <div class="gallery-slider-track" id="galleryTrack">
+          <div class="gallery-item">
+            <img src="hotel-exterior.jpg" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=600&auto=format&fit=crop'" alt="Hotel Exterior">
+            <div class="gallery-overlay">Building Front View</div>
+          </div>
+          <div class="gallery-item">
+            <img src="suite-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=600&auto=format&fit=crop'" alt="Suite Bedroom">
+            <div class="gallery-overlay">Super Deluxe Suite</div>
+          </div>
+          <div class="gallery-item">
+            <img src="deluxe-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=600&auto=format&fit=crop'" alt="Deluxe Room">
+            <div class="gallery-overlay">Deluxe AC Room</div>
+          </div>
+          <div class="gallery-item">
+            <img src="restaurant.jpg" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600&auto=format&fit=crop'" alt="Restaurant">
+            <div class="gallery-overlay">Ashray Restaurant</div>
+          </div>
+          <div class="gallery-item">
+            <img src="banquet-hall.jpg" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop'" alt="Banquet Hall">
+            <div class="gallery-overlay">Banquet & Party Hall</div>
+          </div>
+          <div class="gallery-item">
+            <img src="hotel-logo.jpg" onerror="this.src='https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=600&auto=format&fit=crop'" alt="Inder Paradise">
+            <div class="gallery-overlay">Hotel Inder Paradise</div>
+          </div>
         </div>
-        <div class="gallery-item">
-          <img src="suite-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=600&auto=format&fit=crop'" alt="Suite Bedroom">
-          <div class="gallery-overlay">Super Deluxe Suite</div>
+
+        <!-- Slider Navigation Buttons -->
+        <div class="slider-nav-btns">
+          <button class="slider-btn" onclick="slideGallery('left')" aria-label="Previous Slide"><i class="fa-solid fa-arrow-left"></i></button>
+          <button class="slider-btn" onclick="slideGallery('right')" aria-label="Next Slide"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
-        <div class="gallery-item">
-          <img src="deluxe-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=600&auto=format&fit=crop'" alt="Deluxe Room">
-          <div class="gallery-overlay">Deluxe AC Room</div>
+      </div>
+    </div>
+              </section>
+              <!-- ================= CUSTOMER REVIEW & RATING SECTION ================= -->
+  <section id="reviews">
+    <div class="section-container">
+      <div class="review-section-box">
+        <h3>Customer Reviews & Ratings 🌟</h3>
+        <p class="rev-sub">Apna anubhav share karein! Rating select karein aur niche diye gaye AI options me se ek click me review submit karein:</p>
+        
+        <!-- Stars Selection -->
+        <div class="index-stars-container" id="indexStars">
+          <i class="fa-solid fa-star" onclick="setRating(1)"></i>
+          <i class="fa-solid fa-star" onclick="setRating(2)"></i>
+          <i class="fa-solid fa-star" onclick="setRating(3)"></i>
+          <i class="fa-solid fa-star" onclick="setRating(4)"></i>
+          <i class="fa-solid fa-star" onclick="setRating(5)"></i>
         </div>
-        <div class="gallery-item">
-          <img src="restaurant.jpg" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600&auto=format&fit=crop'" alt="Restaurant">
-          <div class="gallery-overlay">Ashray Restaurant</div>
+
+        <!-- AI Quick Review Pills Box -->
+        <div id="aiPillsBox" style="display:none;">
+          <p style="font-size: 0.85rem; color: var(--gold); margin-bottom: 10px; text-align: center; font-weight: 600;">✨ Tap any AI-Suggested Review for instant submission:</p>
+          <div class="ai-pills-container" id="pillsContainer"></div>
         </div>
-        <div class="gallery-item">
-          <img src="banquet-hall.jpg" onerror="this.src='https://i.ibb.co/GfC7VNVC/IMG-20260827-205532.jpgq=80&w=600&auto=format&fit=crop'" alt="Banquet Hall">
-          <div class="gallery-overlay">Banquet & Party Hall</div>
-        </div>
-        <div class="gallery-item">
-          <img src="hotel-logo.jpg" onerror="this.src='https://i.ibb.co/7JxGqTtV/1787850225187.pngq=80&w=600&auto=format&fit=crop'" alt="Inder Paradise">
-          <div class="gallery-overlay">Hotel Inder Paradise</div>
-        </div>
+
+        <!-- Permanent Saved Reviews Grid Display -->
+        <div class="saved-reviews-grid" id="savedReviewsContainer"></div>
       </div>
     </div>
   </section>
@@ -1066,6 +895,17 @@
     closeDrawerBtn.addEventListener('click', closeDrawer);
     drawerOverlay.addEventListener('click', closeDrawer);
 
+    // Gallery Slider Navigation Logic
+    function slideGallery(direction) {
+      const track = document.getElementById('galleryTrack');
+      const scrollAmount = 320;
+      if (direction === 'left') {
+        track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    }
+
     // FAQ Accordion
     document.querySelectorAll('.faq-item').forEach(item => {
       item.querySelector('.faq-question').addEventListener('click', () => {
@@ -1074,6 +914,77 @@
         if (!isActive) item.classList.add('active');
       });
     });
+
+    // --- AI Review Automation & Permanent LocalStorage Logic ---
+    const reviewDb = {
+      5: [
+        "Best hotel and restaurant in Nagaur! Rooms are extremely clean, AC works perfectly, and Ashray Restaurant food is super delicious. Highly recommended! 🌟",
+        "Amazing hospitality at Hotel Inder Paradise! Stayed in their Super Deluxe Suite and the experience was royal. Great staff and secure parking.",
+        "Nagaur me rukne ki sabse best jagah! Clean rooms, fast room service, and very tasty pure veg food at Ashray Restaurant.",
+        "Wonderful banquet hall experience for our family function. Elegant decoration, great lighting, and very cooperative management.",
+        "Top-class luxury hotel near Vijay Vallabh Circle, Nagaur. Very comfortable bedding, polite staff, and pocket-friendly tariffs.",
+        "Awesome food quality at Ashray Restaurant! Loved the North Indian thali and prompt service. Will visit again soon.",
+        "Safe, hygienic, and premium hotel in Nagaur. Perfect for both business travelers and families. 5/5 stars!"
+      ],
+      4: [
+        "Very nice hotel with good cleanliness and polite staff. Ashray restaurant food was also very tasty. Good experience!",
+        "Comfortable stay at Hotel Inder Paradise. Rooms are spacious and well-maintained. Location is very convenient near Vijay Vallabh Circle.",
+        "Good service and clean AC rooms. Restaurant food quality is great. Recommended for families visiting Nagaur.",
+        "Nice ambiance in the banquet hall. Attended a ring ceremony here and the arrangements were impressive.",
+        "Great hospitality, clean bathrooms, and helpful reception staff. Value for money stay in Nagaur."
+      ],
+      default: [
+        "Good location on Didwana Road and decent rooms. Satisfactory stay experience overall."
+      ]
+    };
+
+    function setRating(stars) {
+      document.querySelectorAll('#indexStars i').forEach((s, idx) => {
+        s.style.color = idx < stars ? '#f5a623' : '#444';
+      });
+
+      const box = document.getElementById('aiPillsBox');
+      const container = document.getElementById('pillsContainer');
+      box.style.display = 'block';
+
+      const texts = stars >= 4 ? reviewDb[5] : (stars === 4 ? reviewDb[4] : reviewDb.default);
+      container.innerHTML = texts.map(t => `
+        <div class="r-pill" onclick="saveReview('${t.replace(/'/g, "\\'")}', ${stars})">
+          "${t}"
+          <span>📋 Click to submit instantly to website</span>
+        </div>
+      `).join('');
+    }
+      function saveReview(text, stars) {
+      let allReviews = JSON.parse(localStorage.getItem('inderParadiseReviews')) || [];
+      allReviews.unshift({ text, stars, date: new Date().toLocaleDateString() });
+      localStorage.setItem('inderParadiseReviews', JSON.stringify(allReviews));
+      loadReviews();
+      alert("Review successfully saved on website permanently!");
+      document.getElementById('aiPillsBox').style.display = 'none';
+      document.querySelectorAll('#indexStars i').forEach(s => s.style.color = '#444');
+    }
+
+    function loadReviews() {
+      let allReviews = JSON.parse(localStorage.getItem('inderParadiseReviews')) || [
+        { text: "Best hotel and restaurant in Nagaur! Super clean rooms and delicious food at Ashray Restaurant. 🌟", stars: 5, date: "30/03/2026" },
+        { text: "Amazing hospitality at Hotel Inder Paradise! Stayed in their Super Deluxe Suite and the experience was royal.", stars: 5, date: "29/03/2026" }
+      ];
+      
+      let html = allReviews.map(r => `
+        <div class="review-card-item">
+          <strong>${'⭐'.repeat(r.stars)} <span style="font-size:0.75rem; color:#888; float:right;">${r.date}</span></strong>
+          <p>"${r.text}"</p>
+        </div>
+      `).join('');
+      
+      document.getElementById('savedReviewsContainer').innerHTML = html;
+    }
+
+    // Load saved reviews automatically when page opens
+    window.onload = function() {
+      loadReviews();
+    };
   </script>
 </body>
 </html>
