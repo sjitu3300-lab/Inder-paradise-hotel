@@ -68,7 +68,7 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* --- Modal Popup for Item Details --- */
+    /* Modal Popup */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
       display: flex; justify-content: center; align-items: center; z-index: 1000;
@@ -90,7 +90,7 @@
     .modal-price { font-size: 1.4rem; font-weight: 700; color: var(--gold); }
     .close-modal { background: #222; border: 1px solid var(--border-color); color: #fff; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
 
-    /* --- Cart Drawer --- */
+    /* Cart Drawer */
     .cart-drawer {
       position: fixed; top: 0; right: -400px; width: 380px; max-width: 90vw; height: 100vh;
       background: #111116; border-left: 1px solid var(--border-color); z-index: 2000;
@@ -119,7 +119,7 @@
 
   <div class="container">
     <h1>Ashray Restaurant Menu</h1>
-    <p class="subtitle">Indulge in an exquisite culinary journey at Ashray Restaurant, Hotel Inder Paradise, Nagaur. Click any item for details or add to cart[span_0](start_span)[span_0](end_span).</p>
+    <p class="subtitle">Indulge in an exquisite culinary journey at Ashray Restaurant, Hotel Inder Paradise, Nagaur. Click any item for details or add to cart[span_1](start_span)[span_1](end_span).</p>
 
     <!-- Search Box -->
     <div class="menu-search-box">
@@ -185,48 +185,109 @@
   </footer>
 
   <script>
-    // Full Menu Data with Images and Descriptions from PDF
+    // Complete Menu Data compiled from PDF Menu
     const menuData = [
+      // Chinese & Noodles
       { name: "Veg. Hakka Noodles", price: 220, category: "chinese", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=600&auto=format&fit=crop", desc: "Tossed noodles with fresh crispy vegetables and Oriental sauces." },
       { name: "Veg. Schezwan Noodles", price: 230, category: "chinese", img: "https://images.unsplash.com/photo-1612927601101-473289c56149?q=80&w=600&auto=format&fit=crop", desc: "Spicy Schezwan tossed noodles loaded with garlic and peppers." },
+      { name: "Brunt Garlic Noodles", price: 210, category: "chinese", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=600&auto=format&fit=crop", desc: "Noodles tossed with heavily burnt garlic aroma and tossed veggies." },
+      { name: "Singapuri Noodles", price: 220, category: "chinese", img: "https://images.unsplash.com/photo-1612927601101-473289c56149?q=80&w=600&auto=format&fit=crop", desc: "Stir-fried noodles with subtle curry spices and crisp bell peppers." },
+      { name: "Mashroom Noodle", price: 240, category: "chinese", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=600&auto=format&fit=crop", desc: "Stir-fried noodles tossed with succulent button mushrooms." },
+      { name: "American Chop Suey", price: 240, category: "chinese", img: "https://images.unsplash.com/photo-1541658016709-82535e94bc69?q=80&w=600&auto=format&fit=crop", desc: "Crispy fried noodles topped with sweet and tangy vegetable gravy." },
+      { name: "Veg. Chow Mein", price: 200, category: "chinese", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=600&auto=format&fit=crop", desc: "Classic stir-fried noodles tossed with julienned vegetables." },
       { name: "Veg. Fried Rice", price: 180, category: "chinese", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Fragrant basmati rice wok-tossed with garden-fresh veggies." },
+      { name: "Veg. Schezwan Fried Rice", price: 190, category: "chinese", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Spicy Schezwan wok-tossed rice with vegetables." },
       { name: "Triple Schezwan Fried Rice", price: 280, category: "chinese", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=600&auto=format&fit=crop", desc: "Served with rice, noodles, and fiery Schezwan gravy combination." },
-      
+      { name: "Brunt Garlic Fried Rice", price: 180, category: "chinese", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Rice tossed with roasted burnt garlic flakes." },
+      { name: "Singapuri Fried Rice", price: 200, category: "chinese", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Flavorful fried rice infused with Singapore spices." },
+      { name: "Chilli Garlic Fried Rice", price: 180, category: "chinese", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Spicy fried rice loaded with chillies and garlic." },
+      { name: "Mashroom Fried Rice", price: 230, category: "chinese", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Fried rice tossed with mushrooms and spring onions." },
+      { name: "Ginger Fried Rice", price: 210, category: "chinese", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Aromatic fried rice infused with fresh ginger flavor." },
+
+      // Starters & Kababs
       { name: "Veg. Hara Bhara Kabab", price: 230, category: "starter", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop", desc: "Healthy patties made of spinach, peas, and potatoes with aromatic spices." },
-      { name: "Paneer Tikka", price: 320, category: "starter", img: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=600&auto=format&fit=crop", desc: "Cottage cheese chunks marinated in spiced yogurt and grilled in tandoor." },
-      { name: "Paneer Chilli Dry", price: 320, category: "starter", img: "https://images.unsplash.com/photo-1599487488170-ded1ec95de52?q=80&w=600&auto=format&fit=crop", desc: "Crispy paneer tossed in soy garlic sauce with capsicum and onions." },
-      { name: "Veg. Spring Roll", price: 230, category: "starter", img: "https://images.unsplash.com/photo-1541658016709-82535e94bc69?q=80&w=600&auto=format&fit=crop", desc: "Crispy fried rolls stuffed with seasoned julienne vegetables." },
-      { name: "Honey Chilli Sesame Potato", price: 290, category: "starter", img: "https://images.unsplash.com/photo-1526318896980-cf78c08b247f?q=80&w=600&auto=format&fit=crop", desc: "Crispy potato fingers glazed in honey, chilli sauce, and sesame seeds." },
+      { name: "Veg. Seekh Kabab", price: 210, category: "starter", img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop", desc: "Minced vegetables skewered and grilled in tandoor." },
+      { name: "Veg. Shikampuri Kabab", price: 240, category: "starter", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop", desc: "Delicious spiced vegetarian kababs with rich texture." },
+      { name: "Makai Malai Seekh Kabab", price: 230, category: "starter", img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop", desc: "Corn and cream enriched melt-in-mouth seekh kababs." },
+      { name: "Inder Paradise's Special Kabab", price: 390, category: "starter", img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop", desc: "Chef's signature special royal vegetarian kabab preparation." },
+      { name: "Tandoori Malai Broccoli", price: 290, category: "starter", img: "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=600&auto=format&fit=crop", desc: "Broccoli florets marinated in rich malai and roasted in tandoor." },
+      { name: "Veg. Table Platter (16 Pcs)", price: 500, category: "starter", img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop", desc: "Assortment of 16 pieces of signature vegetarian tandoori starters." },
+      { name: "Aloo Nazakat", price: 350, category: "starter", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop", desc: "Hollowed potatoes stuffed with dry fruits and paneer, roasted." },
+      { name: "Dahi Kabab", price: 300, category: "starter", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop", desc: "Crispy outside, extremely soft hung curd kababs inside." },
+      { name: "Gobi Manchurian", price: 190, category: "starter", img: "https://images.unsplash.com/photo-1599487488170-ded1ec95de52?q=80&w=600&auto=format&fit=crop", desc: "Batter-fried cauliflower florets tossed in Manchurian sauce." },
+      { name: "Paneer Peri Peri", price: 240, category: "starter", img: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=600&auto=format&fit=crop", desc: "Zesty spicy peri peri flavored cottage cheese starter." },
+      { name: "Chinese Sizzler", price: 450, category: "starter", img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600&auto=format&fit=crop", desc: "Sizzling platter with noodles, fried rice, veggies, and Manchurian." },
+      { name: "Paneer Tikka", price: 320, category: "starter", img: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=600&auto=format&fit=crop", desc: "Classic tandoori paneer tikka marinated in spiced yogurt." },
+      { name: "Soya Malai Chaap", price: 350, category: "starter", img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop", desc: "Soya chaap soaked in rich cream and cashew paste marinade." },
+      { name: "Paneer Chilli Dry", price: 320, category: "starter", img: "https://images.unsplash.com/photo-1599487488170-ded1ec95de52?q=80&w=600&auto=format&fit=crop", desc: "Crispy paneer tossed in soy garlic sauce with bell peppers." },
+      { name: "Honey Chilli Sesame Potato", price: 290, category: "starter", img: "https://images.unsplash.com/photo-1526318896980-cf78c08b247f?q=80&w=600&auto=format&fit=crop", desc: "Crispy potato fingers glazed in honey, chilli, and sesame." },
 
+  // Soups
       { name: "Veg. Manchow Soup", price: 120, category: "soup", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=600&auto=format&fit=crop", desc: "Dark spicy soup topped with crispy fried noodles." },
+      { name: "Veg. Minestrone Soup", price: 140, category: "soup", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=600&auto=format&fit=crop", desc: "Italian vegetable soup with pasta and beans." },
+      { name: "Lung Fung Soup", price: 120, category: "soup", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=600&auto=format&fit=crop", desc: "Thick savory Asian soup with mushrooms and veggies." },
+      { name: "Tomato Soup", price: 120, category: "soup", img: "https://images.unsplash.com/photo-1594756202454-e42004210e9d?q=80&w=600&auto=format&fit=crop", desc: "Classic smooth and creamy tomato soup." },
+      { name: "Hot & Sour Soup", price: 120, category: "soup", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=600&auto=format&fit=crop", desc: "Spicy and tangy soup loaded with chopped vegetables." },
+      { name: "Lemon Coriander Soup", price: 120, category: "soup", img: "https://images.unsplash.com/photo-1594756202454-e42004210e9d?q=80&w=600&auto=format&fit=crop", desc: "Refreshing clear soup infused with lemon and coriander." },
       { name: "Sweet Corn Soup", price: 160, category: "soup", img: "https://images.unsplash.com/photo-1548943487-a2e4e43b4853?q=80&w=600&auto=format&fit=crop", desc: "Comforting creamy soup with sweet corn kernels." },
-      { name: "Tomato Dhania Shorba", price: 120, category: "soup", img: "https://images.unsplash.com/photo-1594756202454-e42004210e9d?q=80&w=600&auto=format&fit=crop", desc: "Traditional aromatic tomato soup infused with fresh coriander." },
+      { name: "Tomato Dhania Shorba", price: 120, category: "soup", img: "https://images.unsplash.com/photo-1594756202454-e42004210e9d?q=80&w=600&auto=format&fit=crop", desc: "Traditional aromatic tomato soup with coriander." },
 
-      { name: "Paneer Butter Masala", price: 360, category: "main", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=600&auto=format&fit=crop", desc: "Soft paneer cubes simmered in a rich, velvety tomato butter gravy." },
-      { name: "Paneer Angara Masala", price: 400, category: "main", img: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=600&auto=format&fit=crop", desc: "Smoky and fiery spicy gravy prepared with special charcoal dhungar." },
-      { name: "Kadai Paneer", price: 330, category: "main", img: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=600&auto=format&fit=crop", desc: "Paneer cooked with freshly pounded kadai masala, bell peppers, and onions." },
-      { name: "Kaju Curry", price: 360, category: "main", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=600&auto=format&fit=crop", desc: "Roasted cashews cooked in a luscious, aromatic onion-tomato gravy." },
+      // Indian Main Course (Paneer & Veg)
+      { name: "Paneer Butter Masala", price: 360, category: "main", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=600&auto=format&fit=crop", desc: "Soft paneer cubes simmered in a rich tomato butter gravy." },
+      { name: "Paneer Angara Masala", price: 400, category: "main", img: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=600&auto=format&fit=crop", desc: "Smoky and fiery spicy gravy prepared with charcoal dhungar." },
+      { name: "Kadai Paneer", price: 330, category: "main", img: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=600&auto=format&fit=crop", desc: "Paneer cooked with freshly pounded kadai masala and bell peppers." },
+      { name: "Paneer Lazeez", price: 390, category: "main", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=600&auto=format&fit=crop", desc: "Delightful rich paneer preparation in special gravy." },
+      { name: "Kaju Curry", price: 360, category: "main", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=600&auto=format&fit=crop", desc: "Roasted cashews cooked in a luscious onion-tomato gravy." },
       { name: "Ker Sangri (Rajasthani)", price: 450, category: "main", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Authentic desert beans and berries cooked in traditional spices." },
       { name: "Sev Tamatar", price: 230, category: "main", img: "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?q=80&w=600&auto=format&fit=crop", desc: "Tangy tomato gravy topped with crunchy spicy sev." },
+      { name: "Govind Gatta", price: 230, category: "main", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=600&auto=format&fit=crop", desc: "Traditional Rajasthani besan gatta in rich yogurt gravy." },
+      { name: "Mix Veg.", price: 240, category: "main", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Assorted seasonal vegetables cooked in onion tomato masala." },
+      { name: "Malai Kofta", price: 260, category: "main", img: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=600&auto=format&fit=crop", desc: "Melt-in-mouth cottage cheese dumplings in rich creamy gravy." },
 
-      { name: "Tandoori Roti Butter", price: 25, category: "bread", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop", desc: "Whole wheat bread baked in clay tandoor and brushed with butter." },
-      { name: "Butter Naan", price: 60, category: "bread", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop", desc: "Soft leavened refined flour bread topped with butter." },
-      { name: "Cheese Garlic Naan", price: 90, category: "bread", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop", desc: "Garlic flavored naan stuffed with melting cheese." },
-      { name: "Amritsari Chur-Chur Naan", price: 80, category: "bread", img: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=600&auto=format&fit=crop", desc: "Crushed flaky layered bread baked to crispy perfection." },
+      // Breads & Roti
+      { name: "Tandoori Roti Plain", price: 20, category: "bread", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop", desc: "Whole wheat tandoori roti." },
+      { name: "Tandoori Roti Butter", price: 25, category: "bread", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop", desc: "Tandoori roti brushed with butter." },
+      { name: "Butter Naan", price: 60, category: "bread", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop", desc: "Soft leavened flour naan with butter." },
+      { name: "Garlic Naan", price: 70, category: "bread", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop", desc: "Naan topped with chopped garlic and coriander." },
+      { name: "Cheese Garlic Naan", price: 90, category: "bread", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop", desc: "Garlic naan stuffed with molten cheese." },
+      { name: "Lachha Paratha", price: 70, category: "bread", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop", desc: "Multi-layered crispy whole wheat paratha." },
+      { name: "Aloo Paratha", price: 80, category: "bread", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop", desc: "Stuffed spiced potato paratha." },
+      { name: "Paneer Paratha", price: 190, category: "bread", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop", desc: "Stuffed grated paneer paratha." },
+      { name: "Amritsari Chur-Chur Naan", price: 80, category: "bread", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop", desc: "Crushed flaky layered naan." },
 
-      { name: "Jeera Rice", price: 180, category: "rice", img: "https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?q=80&w=600&auto=format&fit=crop", desc: "Basmati rice tempered with cumin seeds and ghee." },
-      { name: "Veg. Dum Biryani", price: 240, category: "rice", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=600&auto=format&fit=crop", desc: "Fragrant rice layered with mixed vegetables and sealed with dough for dum." },
-      { name: "Paneer Tikka Biryani", price: 290, category: "rice", img: "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?q=80&w=600&auto=format&fit=crop", desc: "Smoky paneer tikka combined with spiced basmati biryani rice." },
+      // Rice & Biryani
+      { name: "Jeera Rice", price: 180, category: "rice", img: "https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?q=80&w=600&auto=format&fit=crop", desc: "Basmati rice tempered with cumin seeds." },
+      { name: "Steam Rice", price: 140, category: "rice", img: "https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?q=80&w=600&auto=format&fit=crop", desc: "Steamed plain basmati rice." },
+      { name: "Veg. Pulao", price: 190, category: "rice", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Rice tossed with vegetables and mild spices." },
+      { name: "Kashmiri Pulao", price: 210, category: "rice", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Sweet and rich pulao with dry fruits and fresh fruits." },
+      { name: "Veg. Biryani", price: 220, category: "rice", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=600&auto=format&fit=crop", desc: "Layered rice preparation with vegetables and biryani spices." },
+      { name: "Veg. Dum Biryani", price: 240, category: "rice", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=600&auto=format&fit=crop", desc: "Sealed pot slow-cooked dum biryani with vegetables." },
+      { name: "Hyderabadi Dum Biryani", price: 260, category: "rice", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=600&auto=format&fit=crop", desc: "Authentic spicy Hyderabadi dum biryani." },
+      { name: "Paneer Tikka Biryani", price: 290, category: "rice", img: "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?q=80&w=600&auto=format&fit=crop", desc: "Smoky paneer tikka mixed with biryani rice." },
 
-      { name: "Boondi Raita", price: 120, category: "raita", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Whisked yogurt spiced with roasted cumin and crispy boondi." },
-      { name: "Green Salad", price: 100, category: "raita", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Fresh seasonal sliced vegetables with lemon and green chillies." },
+      // Raita & Salad
+      { name: "Boondi Raita", price: 120, category: "raita", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Yogurt with crispy boondi and spices." },
+      { name: "Pineapple Raita", price: 140, category: "raita", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Sweet and tangy pineapple chunks in beaten yogurt." },
+      { name: "Green Salad", price: 100, category: "raita", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Fresh raw sliced vegetables." },
+      { name: "Greek Salad", price: 140, category: "raita", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Salad with lettuce, tomatoes, cucumbers, and olives." },
+      { name: "Roasted Masala Papad", price: 50, category: "raita", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Roasted papad topped with spicy onion-tomato masala." },
 
-      { name: "Sweet Lassi", price: 80, category: "beverage", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=600&auto=format&fit=crop", desc: "Traditional chilled sweet yogurt drink blended to frothy perfection." },
-      { name: "Mint Mojito", price: 130, category: "beverage", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=600&auto=format&fit=crop", desc: "Refreshing cooler with fresh mint leaves, lime, and soda." },
-      { name: "Cold Coffee with Icecream", price: 120, category: "beverage", img: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=600&auto=format&fit=crop", desc: "Blended cold coffee topped with a scoop of vanilla ice cream." },
+      // Beverages & Shakes
+      { name: "Sweet Lassi", price: 80, category: "beverage", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=600&auto=format&fit=crop", desc: "Traditional sweet yogurt drink." },
+      { name: "Fresh Lime Soda", price: 80, category: "beverage", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=600&auto=format&fit=crop", desc: "Refreshing sweet & salted lime soda." },
+      { name: "Mint Mojito", price: 130, category: "beverage", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=600&auto=format&fit=crop", desc: "Refreshing mint and lime cooler." },
+      { name: "Cold Coffee with Icecream", price: 120, category: "beverage", img: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=600&auto=format&fit=crop", desc: "Cold coffee topped with ice cream." },
+      { name: "Chocolate Shake", price: 100, category: "beverage", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=600&auto=format&fit=crop", desc: "Rich chocolate milkshake." },
+      { name: "Dry Fruit Shake", price: 150, category: "beverage", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=600&auto=format&fit=crop", desc: "Nutritious shake blended with assorted dry fruits." },
+      { name: "Masala Tea", price: 50, category: "beverage", img: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=600&auto=format&fit=crop", desc: "Indian spiced hot tea." },
 
-      { name: "Gulab Jamun With Ice Cream", price: 120, category: "dessert", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop", desc: "Warm spongy milk dumplings served with cold vanilla ice cream." },
-      { name: "Chocolate Sizzling Brownie", price: 190, category: "dessert", img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=600&auto=format&fit=crop", desc: "Fudgy brownie served sizzling hot with chocolate sauce and ice cream." }
+      // Desserts & Icecreams
+      { name: "Pista Gulab Jamun", price: 80, category: "dessert", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop", desc: "Warm gulab jamun stuffed with pistachio." },
+      { name: "Gulab Jamun With Ice Cream", price: 120, category: "dessert", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop", desc: "Gulab jamun served with a scoop of ice cream." },
+      { name: "Chocolate Sizzling Brownie", price: 190, category: "dessert", img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=600&auto=format&fit=crop", desc: "Brownie served sizzling with hot chocolate and ice cream." },
+      { name: "Triple Sundae Icecream", price: 210, category: "dessert", img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=600&auto=format&fit=crop", desc: "Three scoops of ice cream with toppings and syrups." },
+      { name: "American Nuts Icecream", price: 140, category: "dessert", img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=600&auto=format&fit=crop", desc: "Rich ice cream loaded with American nuts." },
+      { name: "Fruit Custard", price: 120, category: "dessert", img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=600&auto=format&fit=crop", desc: "Mixed seasonal fruits in creamy vanilla custard." }
     ];
 
     let cart = [];
@@ -239,7 +300,7 @@
         return;
       }
       grid.innerHTML = items.map((item, index) => `
-        <div class="menu-item-card" style="animation-delay: ${index * 0.04}s" onclick="openModal('${item.name.replace(/'/g, "\\'")}')">
+        <div class="menu-item-card" style="animation-delay: ${index * 0.03}s" onclick="openModal('${item.name.replace(/'/g, "\\'")}')">
           <div class="item-img-box">
             <img src="${item.img}" onerror="this.src='https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=600&auto=format&fit=crop'" alt="${item.name}">
           </div>
@@ -302,7 +363,6 @@
         document.getElementById('itemModal').classList.remove('active');
       }
     }
-
     // Cart Management
     function addToCart(name, price) {
       const existing = cart.find(i => i.name === name);
@@ -345,7 +405,7 @@
 
       totalElem.innerText = `₹${totalPrice}`;
 
-      // WhatsApp Checkout Link Generation
+      // WhatsApp Checkout Link
       let waText = "Hello Hotel Inder Paradise, I want to place a food order from Ashray Restaurant:%0A";
       cart.forEach(i => {
         waText += `- ${i.name} (x${i.qty}) : ₹${i.price * i.qty}%0A`;
@@ -368,3 +428,4 @@
   </script>
 </body>
 </html>
+    
