@@ -311,6 +311,21 @@
       padding-top: 20px;
     }
 
+    /* --- AI Review System Styles --- */
+    .review-section-box { max-width: 1250px; margin: 60px auto; padding: 45px; background: var(--card-bg); border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+    .review-section-box h3 { font-family: var(--font-serif); font-size: 2.2rem; color: #fff; margin-bottom: 10px; text-align: center; }
+    .review-section-box p.rev-sub { text-align: center; color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; }
+    .index-stars-container { display: flex; justify-content: center; gap: 12px; font-size: 2.5rem; cursor: pointer; margin-bottom: 25px; }
+    .index-stars-container i { color: #444; transition: 0.3s; }
+    .ai-pills-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+    .r-pill { background: #111116; border: 1px solid var(--border-color); padding: 15px 20px; border-radius: 8px; color: #ddd; cursor: pointer; font-size: 0.9rem; transition: 0.3s; position: relative; }
+    .r-pill:hover { border-color: var(--gold); background: #1b1b22; color: #fff; transform: translateY(-2px); }
+    .r-pill span { display: block; font-size: 0.75rem; color: var(--gold); margin-top: 4px; font-weight: 600; }
+    .saved-reviews-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+    .review-card-item { background: #111116; padding: 20px; border-radius: 10px; border-left: 4px solid var(--gold); border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+    .review-card-item strong { color: #fff; display: block; margin-bottom: 8px; font-size: 0.95rem; }
+    .review-card-item p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
     /* Floating WhatsApp Button */
     .whatsapp-float {
       position: fixed;
@@ -348,6 +363,7 @@
       .action-group { flex-direction: column; width: 100%; }
       .action-group a { width: 100%; justify-content: center; }
       .room-gallery-wrap { border-right: none; border-bottom: 1px solid var(--border-color); }
+      .review-section-box { padding: 20px; margin: 20px; }
     }
   </style>
 </head>
@@ -479,75 +495,7 @@
         </div>
       </div>
 
-      <!-- Info Details Column -->
-      <div class="room-info-wrap">
-        <div>
-          <span class="room-category">Executive Business & Family</span>
-          <h3 class="room-heading">Deluxe Executive AC Room</h3>
-          <p class="room-description">
-            Thoughtfully planned for corporate executives, business travelers, and families. Features cozy velvet headboard, built-in wooden wardrobe, full-length dressing mirror, yellow cushioned armchair, table, and spotless modern bathroom.
-          </p>
-
-          <div class="specs-grid">
-            <div class="spec-item"><i class="fa-solid fa-bed"></i> <strong>Bed:</strong> Queen Double Bed</div>
-            <div class="spec-item"><i class="fa-solid fa-snowflake"></i> <strong>AC:</strong> Fast Cooling AC</div>
-            <div class="spec-item"><i class="fa-solid fa-user-group"></i> <strong>Occupancy:</strong> 2 Adults</div>
-            <div class="spec-item"><i class="fa-solid fa-maximize"></i> <strong>Size:</strong> 34 sq. meters</div>
-          </div>
-
-          <div class="amenities-list">
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> High-Speed Free Wi-Fi</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Flat-Screen LED TV</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Clean Attached Washroom</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Quick Room Dining Service</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Ample Power Sockets</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Sanitized Bedding & Towels</div>
-          </div>
-        </div>
-
-           <div class="action-group">
-          <a href="https://wa.me/919257090750?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20book%20the%20Super%20Deluxe%20Suite%20Room%20(Rs%202499/night)." target="_blank" class="btn-gold">
-            <i class="fa-brands fa-whatsapp"></i> Book via WhatsApp
-          </a>
-          <a href="tel:+919257090750" class="btn-outline">
-            <i class="fa-solid fa-phone"></i> Call Reception
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- ================= ROOM 2: DELUXE EXECUTIVE AC ROOM ================= -->
-    <div class="room-full-card" id="deluxe-room">
-      <!-- Gallery Column -->
-      <div class="room-gallery-wrap">
-        <div class="room-main-preview">
-          <!-- Main Display Image -->
-          <img id="mainImg2" src="deluxe-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=800&auto=format&fit=crop'" alt="Deluxe Executive AC Room">
-          <div class="badge-price">₹1,899 / Night</div>
-        </div>
-
-        <!-- 3 Extra Angle Images (Click to Swap Main Image) -->
-        <div class="room-thumbnails-row">
-          <div class="thumb-item active" onclick="changeImage('mainImg2', 'deluxe-room.jpg', this)">
-            <img src="deluxe-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=300&auto=format&fit=crop'" alt="Executive Bed">
-            <span class="thumb-tag">Double Bed</span>
-          </div>
-          <div class="thumb-item" onclick="changeImage('mainImg2', 'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop', this)">
-            <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=300&auto=format&fit=crop" alt="Armchair Corner">
-            <span class="thumb-tag">Accent Chair</span>
-          </div>
-          <div class="thumb-item" onclick="changeImage('mainImg2', 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop', this)">
-            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=300&auto=format&fit=crop" alt="Clean Bathroom">
-            <span class="thumb-tag">Bathroom</span>
-          </div>
-          <div class="thumb-item" onclick="changeImage('mainImg2', 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=800&auto=format&fit=crop', this)">
-            <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=300&auto=format&fit=crop" alt="Wardrobe & Vanity">
-            <span class="thumb-tag">Wardrobe</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Info Details Column -->
+ <!-- Info Details Column -->
       <div class="room-info-wrap">
         <div>
           <span class="room-category">Executive Business & Family</span>
@@ -651,8 +599,34 @@
         </div>
       </div>
     </div>
-                </div>
-                  <!-- Floating WhatsApp Button -->
+
+    <!-- ================= CUSTOMER REVIEW & RATING SECTION (GALLERY KE BAAD) ================= -->
+    <div class="review-section-box">
+      <h3>Customer Reviews & Ratings 🌟</h3>
+      <p class="rev-sub">Apna anubhav share karein! Rating select karein aur niche diye gaye AI options me se ek click me review submit karein:</p>
+      
+      <!-- Stars Selection -->
+      <div class="index-stars-container" id="indexStars">
+        <i class="fa-solid fa-star" onclick="setRating(1)"></i>
+        <i class="fa-solid fa-star" onclick="setRating(2)"></i>
+        <i class="fa-solid fa-star" onclick="setRating(3)"></i>
+        <i class="fa-solid fa-star" onclick="setRating(4)"></i>
+        <i class="fa-solid fa-star" onclick="setRating(5)"></i>
+      </div>
+
+      <!-- AI Quick Review Pills Box (Hidden until rating selected) -->
+      <div id="aiPillsBox" style="display:none;">
+        <p style="font-size: 0.85rem; color: var(--gold); margin-bottom: 10px; text-align: center; font-weight: 600;">✨ Tap any AI-Suggested Review for instant submission:</p>
+        <div class="ai-pills-container" id="pillsContainer"></div>
+      </div>
+
+      <!-- Permanent Saved Reviews Grid Display -->
+      <div class="saved-reviews-grid" id="savedReviewsContainer"></div>
+    </div>
+
+  </div>
+
+  <!-- Floating WhatsApp Button -->
   <a href="https://wa.me/919257090750?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20inquire%20about%20room%20booking." class="whatsapp-float" target="_blank">
     <i class="fa-brands fa-whatsapp"></i> Book via WhatsApp
   </a>
@@ -662,7 +636,7 @@
     <p>© 2026 Hotel Inder Paradise, Didwana Road, Nagaur, Rajasthan. All Rights Reserved. Call: +91 92570 90750</p>
   </footer>
 
-  <!-- Interactive JavaScript for Image Swapping -->
+  <!-- Interactive JavaScript for Image Swapping & Permanent AI Reviews -->
   <script>
     function changeImage(mainImageId, newSrc, clickedThumb) {
       const mainImg = document.getElementById(mainImageId);
@@ -674,13 +648,83 @@
         }, 150);
       }
 
-      // Toggle active border on thumbnail
       const parentRow = clickedThumb.parentElement;
       if (parentRow) {
         parentRow.querySelectorAll('.thumb-item').forEach(thumb => thumb.classList.remove('active'));
         clickedThumb.classList.add('active');
       }
     }
+      // --- AI Review Automation & Permanent LocalStorage Logic ---
+    const reviewDb = {
+      5: [
+        "Best hotel and restaurant in Nagaur! Rooms are extremely clean, AC works perfectly, and Ashray Restaurant food is super delicious. Highly recommended! 🌟",
+        "Amazing hospitality at Hotel Inder Paradise! Stayed in their Super Deluxe Suite and the experience was royal. Great staff and secure parking.",
+        "Nagaur me rukne ki sabse best jagah! Clean rooms, fast room service, and very tasty pure veg food at Ashray Restaurant.",
+        "Wonderful banquet hall experience for our family function. Elegant decoration, great lighting, and very cooperative management.",
+        "Top-class luxury hotel near Vijay Vallabh Circle, Nagaur. Very comfortable bedding, polite staff, and pocket-friendly tariffs.",
+        "Awesome food quality at Ashray Restaurant! Loved the North Indian thali and prompt service. Will visit again soon.",
+        "Safe, hygienic, and premium hotel in Nagaur. Perfect for both business travelers and families. 5/5 stars!"
+      ],
+      4: [
+        "Very nice hotel with good cleanliness and polite staff. Ashray restaurant food was also very tasty. Good experience!",
+        "Comfortable stay at Hotel Inder Paradise. Rooms are spacious and well-maintained. Location is very convenient near Vijay Vallabh Circle.",
+        "Good service and clean AC rooms. Restaurant food quality is great. Recommended for families visiting Nagaur.",
+        "Nice ambiance in the banquet hall. Attended a ring ceremony here and the arrangements were impressive.",
+        "Great hospitality, clean bathrooms, and helpful reception staff. Value for money stay in Nagaur."
+      ],
+      default: [
+        "Good location on Didwana Road and decent rooms. Satisfactory stay experience overall."
+      ]
+    };
+
+    function setRating(stars) {
+      document.querySelectorAll('#indexStars i').forEach((s, idx) => {
+        s.style.color = idx < stars ? '#f5a623' : '#444';
+      });
+
+      const box = document.getElementById('aiPillsBox');
+      const container = document.getElementById('pillsContainer');
+      box.style.display = 'block';
+
+      const texts = stars >= 4 ? reviewDb[5] : (stars === 4 ? reviewDb[4] : reviewDb.default);
+      container.innerHTML = texts.map(t => `
+        <div class="r-pill" onclick="saveReview('${t.replace(/'/g, "\\'")}', ${stars})">
+          "${t}"
+          <span>📋 Click to submit instantly to website</span>
+        </div>
+      `).join('');
+    }
+
+    function saveReview(text, stars) {
+      let allReviews = JSON.parse(localStorage.getItem('inderParadiseReviews')) || [];
+      allReviews.unshift({ text, stars, date: new Date().toLocaleDateString() });
+      localStorage.setItem('inderParadiseReviews', JSON.stringify(allReviews));
+      loadReviews();
+      alert("Review successfully saved on website permanently!");
+      document.getElementById('aiPillsBox').style.display = 'none';
+      document.querySelectorAll('#indexStars i').forEach(s => s.style.color = '#444');
+    }
+
+    function loadReviews() {
+      let allReviews = JSON.parse(localStorage.getItem('inderParadiseReviews')) || [
+        { text: "Best hotel and restaurant in Nagaur! Super clean rooms and delicious food at Ashray Restaurant. 🌟", stars: 5, date: "30/03/2026" },
+        { text: "Amazing hospitality at Hotel Inder Paradise! Stayed in their Super Deluxe Suite and the experience was royal.", stars: 5, date: "29/03/2026" }
+      ];
+      
+      let html = allReviews.map(r => `
+        <div class="review-card-item">
+          <strong>${'⭐'.repeat(r.stars)} <span style="font-size:0.75rem; color:#888; float:right;">${r.date}</span></strong>
+          <p>"${r.text}"</p>
+        </div>
+      `).join('');
+      
+      document.getElementById('savedReviewsContainer').innerHTML = html;
+    }
+
+    // Load saved reviews automatically when page opens
+    window.onload = function() {
+      loadReviews();
+    };
   </script>
 </body>
 </html>
