@@ -23,160 +23,183 @@
     
     header { background: rgba(9, 9, 11, 0.95); backdrop-filter: blur(12px); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: sticky; top:0; z-index:100; border-bottom: 1px solid var(--border-color); }
     .logo { font-family: Georgia, serif; font-size: 1.5rem; color: var(--gold); text-decoration: none; font-weight: bold; }
-    .nav-actions { display: flex; gap: 12px; align-items: center; }
-    .btn-home, .cart-toggle-btn { background: linear-gradient(135deg, var(--primary) 0%, #d63031 100%); color: #fff; padding: 7px 15px; text-decoration: none; font-size: 0.8rem; font-weight: 700; border-radius: 8px; box-shadow: 0 4px 15px var(--primary-glow); transition: 0.3s; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-home:hover, .cart-toggle-btn:hover { background: linear-gradient(135deg, var(--primary-hover) 0%, #c0392b 100%); transform: translateY(-2px); }
+    .btn-home { background: linear-gradient(135deg, var(--primary) 0%, #d63031 100%); color: #fff; padding: 7px 18px; text-decoration: none; font-size: 0.8rem; font-weight: 700; border-radius: 8px; box-shadow: 0 4px 15px var(--primary-glow); transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-home:hover { background: linear-gradient(135deg, var(--primary-hover) 0%, #c0392b 100%); transform: translateY(-2px); }
 
-    .container { max-width: 1200px; margin: 40px auto; background: var(--card-bg); padding: 45px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
-    h1 { font-family: Georgia, serif; color: #fff; font-size: 2.3rem; margin-bottom: 15px; text-align: center; }
-    p.subtitle { color: var(--text-muted); margin-bottom: 30px; font-size: 0.98rem; text-align: center; }
+    .container { max-width: 1100px; margin: 40px auto; background: var(--card-bg); padding: 45px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+    h1 { font-family: Georgia, serif; color: #fff; font-size: 2.3rem; margin-bottom: 10px; text-align: center; }
+    p.subtitle { color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem; text-align: center; }
 
-    /* Search Box & Tabs */
+    /* Search Box */
     .menu-search-box { display: flex; justify-content: center; margin-bottom: 25px; }
-    .menu-search-box input { width: 100%; max-width: 500px; background: #111116; border: 1px solid var(--border-color); padding: 12px 20px; border-radius: 30px; color: #fff; font-size: 0.95rem; outline: none; transition: 0.3s; }
+    .menu-search-box input { width: 100%; max-width: 450px; background: #111116; border: 1px solid var(--border-color); padding: 12px 20px; border-radius: 30px; color: #fff; font-size: 0.95rem; outline: none; transition: 0.3s; }
     .menu-search-box input:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(245, 166, 35, 0.2); }
 
-    .menu-tabs { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 35px; }
-    .menu-tab { background: #111116; border: 1px solid var(--border-color); padding: 8px 18px; font-size: 0.85rem; border-radius: 20px; color: var(--text-muted); cursor: pointer; font-weight: 500; transition: 0.3s; }
+    /* Category Filter Tabs */
+    .menu-tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
+    .menu-tab { background: #111116; border: 1px solid var(--border-color); padding: 8px 16px; font-size: 0.82rem; border-radius: 20px; color: var(--text-muted); cursor: pointer; font-weight: 500; transition: 0.3s; }
     .menu-tab:hover, .menu-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 15px var(--primary-glow); }
 
-    /* Food Grid & Animation */
-    .menu-items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-    .menu-item-card { 
-      background: #111116; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; 
-      display: flex; flex-direction: column; cursor: pointer; 
-      transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
-      animation: fadeInCard 0.5s ease forwards;
-    }
-    .menu-item-card:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 10px 25px rgba(245, 166, 35, 0.15); }
-    
-    .item-img-box { width: 100%; height: 160px; overflow: hidden; background: #1a1a22; position: relative; }
-    .item-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .menu-item-card:hover .item-img-box img { transform: scale(1.1); }
-    
-    .item-content { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
-    .item-info h4 { font-size: 1.05rem; color: #fff; margin-bottom: 4px; font-weight: 600; }
-    .item-info span { font-size: 0.75rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 8px; }
-    
-    .item-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid var(--border-color); padding-top: 10px; }
-    .item-price { font-size: 1.05rem; font-weight: 700; color: var(--gold); }
-    .btn-add-cart { background: var(--gold); color: #000; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: 0.3s; }
-    .btn-add-cart:hover { background: var(--gold-light); transform: scale(1.05); }
-
-    @keyframes fadeInCard {
-      from { opacity: 0; transform: translateY(25px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+    /* --- Unique Swipe / Scroll Menu Card Book Feel --- */
+    .menu-book-viewport {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      background: #111116;
+      padding: 25px;
     }
 
-    /* Modal Popup */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
-      display: flex; justify-content: center; align-items: center; z-index: 1000;
-      opacity: 0; visibility: hidden; transition: 0.3s ease;
+    .menu-scroll-track {
+      display: flex;
+      gap: 30px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 15px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) var(--border-color);
     }
-    .modal-overlay.active { opacity: 1; visibility: visible; }
-    .modal-card {
-      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px;
-      max-width: 450px; width: 90%; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-      transform: scale(0.8); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .modal-overlay.active .modal-card { transform: scale(1); }
-    .modal-img { width: 100%; height: 220px; object-fit: cover; }
-    .modal-body { padding: 25px; }
-    .modal-body h2 { font-family: Georgia, serif; color: #fff; font-size: 1.8rem; margin-bottom: 8px; }
-    .modal-body .cat { font-size: 0.8rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: block; }
-    .modal-body p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.6; }
-    .modal-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 15px; }
-    .modal-price { font-size: 1.4rem; font-weight: 700; color: var(--gold); }
-    .close-modal { background: #222; border: 1px solid var(--border-color); color: #fff; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
+    .menu-scroll-track::-webkit-scrollbar { height: 8px; }
+    .menu-scroll-track::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
 
-    /* Cart Drawer */
-    .cart-drawer {
-      position: fixed; top: 0; right: -400px; width: 380px; max-width: 90vw; height: 100vh;
-      background: #111116; border-left: 1px solid var(--border-color); z-index: 2000;
-      padding: 25px; display: flex; flex-direction: column; justify-content: space-between;
-      transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    .menu-category-page {
+      flex: 0 0 100%;
+      min-width: 100%;
+      scroll-snap-align: start;
+      animation: fadeInPage 0.5s ease forwards;
     }
-    .cart-drawer.active { right: 0; }
-    .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
-    .cart-items-list { flex-grow: 1; overflow-y: auto; margin: 15px 0; display: flex; flex-direction: column; gap: 10px; }
-    .cart-item-row { background: #181820; padding: 10px 14px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 0.88rem; }
-    .cart-footer { border-top: 1px solid var(--border-color); padding-top: 15px; }
-    .btn-checkout { display: block; width: 100%; text-align: center; background: #25d366; color: #fff; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: 700; margin-top: 10px; }
+
+    .category-title {
+      font-family: Georgia, serif;
+      font-size: 1.8rem;
+      color: var(--gold);
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--primary);
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .items-table-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 15px;
+    }
+
+    .menu-row-item {
+      background: #181820;
+      border: 1px solid var(--border-color);
+      padding: 14px 18px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.3s;
+    }
+    .menu-row-item:hover {
+      border-color: var(--gold);
+      transform: translateX(4px);
+      background: #1f1f2a;
+    }
+
+    .menu-row-item .item-name {
+      font-size: 0.98rem;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .menu-row-item .item-price {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--gold);
+      background: rgba(245, 166, 35, 0.1);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(245, 166, 35, 0.2);
+    }
+
+    /* Scroll Navigation Hint / Buttons */
+    .menu-nav-instructions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .scroll-arrows {
+      display: flex;
+      gap: 10px;
+    }
+    .scroll-btn {
+      background: #181820;
+      border: 1px solid var(--border-color);
+      color: var(--gold);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+    }
+    .scroll-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    @keyframes fadeInPage {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
 
     footer { background: #060608; color: var(--text-muted); text-align: center; padding: 30px; margin-top: 60px; font-size: 0.85rem; border-top: 1px solid var(--border-color); }
-    @media(max-width: 768px) { .container { padding: 20px; margin: 20px; } }
+    @media(max-width: 768px) { .container { padding: 20px; margin: 20px; } .items-table-list { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <header>
     <a href="index.html" class="logo">INDER PARADISE</a>
-    <div class="nav-actions">
-      <button class="cart-toggle-btn" onclick="toggleCart()"><i class="fa-solid fa-cart-shopping"></i> Cart (<span id="cartCount">0</span>)</button>
-      <a href="index.html" class="btn-home"><i class="fa-solid fa-house"></i> Home</a>
-    </div>
+    <a href="index.html" class="btn-home"><i class="fa-solid fa-house"></i> Home Page</a>
   </header>
 
   <div class="container">
-    <h1>Ashray Restaurant Menu</h1>
-    <p class="subtitle">Indulge in an exquisite culinary journey at Ashray Restaurant, Hotel Inder Paradise, Nagaur. Click any item for details or add to cart[span_1](start_span)[span_1](end_span).</p>
+    <h1>Ashray Restaurant Digital Menu Card</h1>
+    <p class="subtitle">Hotel Inder Paradise, Nagaur ke shandar menu card ke sabhi items yahan dekhein. Right se left swipe karke pन्ने (pages) paltein[span_5](start_span)[span_5](end_span).</p>
 
     <!-- Search Box -->
     <div class="menu-search-box">
-      <input type="text" id="menuSearch" placeholder="🔍 Apni pasand ka khana yahan search karein..." onkeyup="filterMenu()">
+      <input type="text" id="menuSearch" placeholder="🔍 Koi bhi dish search karein (e.g. Paneer Tikka)..." onkeyup="filterMenu()">
     </div>
 
-    <!-- Category Filter Tabs -->
+    <!-- Category Filter Quick Tabs -->
     <div class="menu-tabs">
-      <button class="menu-tab active" onclick="filterCategory('all', this)">All Items</button>
-      <button class="menu-tab" onclick="filterCategory('starter', this)">Starters & Kabab</button>
-      <button class="menu-tab" onclick="filterCategory('main', this)">Indian Main Course</button>
-      <button class="menu-tab" onclick="filterCategory('chinese', this)">Chinese & Noodles</button>
-      <button class="menu-tab" onclick="filterCategory('soup', this)">Soups</button>
-      <button class="menu-tab" onclick="filterCategory('bread', this)">Breads & Roti</button>
-      <button class="menu-tab" onclick="filterCategory('rice', this)">Rice & Biryani</button>
-      <button class="menu-tab" onclick="filterCategory('raita', this)">Raita & Salad</button>
-      <button class="menu-tab" onclick="filterCategory('beverage', this)">Beverages</button>
-      <button class="menu-tab" onclick="filterCategory('dessert', this)">Desserts & Icecreams</button>
+      <button class="menu-tab active" onclick="scrollToCategory('all', this)">All Categories</button>
+      <button class="menu-tab" onclick="scrollToCategory('chinese', this)">Chinese & Noodles</button>
+      <button class="menu-tab" onclick="scrollToCategory('starter', this)">Starters & Kabab</button>
+      <button class="menu-tab" onclick="scrollToCategory('soup', this)">Soups</button>
+      <button class="menu-tab" onclick="scrollToCategory('main', this)">Main Course (Paneer & Veg)</button>
+      <button class="menu-tab" onclick="scrollToCategory('rajasthani', this)">Rajasthani Rasoi & Dal</button>
+      <button class="menu-tab" onclick="scrollToCategory('bread', this)">Breads & Roti</button>
+      <button class="menu-tab" onclick="scrollToCategory('rice', this)">Rice & Biryani</button>
+      <button class="menu-tab" onclick="scrollToCategory('raita', this)">Raita & Salad</button>
+      <button class="menu-tab" onclick="scrollToCategory('beverage', this)">Beverages & Shakes</button>
+      <button class="menu-tab" onclick="scrollToCategory('dessert', this)">Desserts & Icecreams</button>
     </div>
 
-    <!-- Menu Items Grid -->
-    <div class="menu-items-grid" id="menuGrid"></div>
-  </div>
+    <!-- Unique Swipeable Menu Book Viewport -->
+    <div class="menu-book-viewport">
+      <div class="menu-scroll-track" id="menuScrollTrack">
+        <!-- Categories will be dynamically injected here with pure names and rates -->
+      </div>
 
-  <!-- Item Details Modal -->
-  <div class="modal-overlay" id="itemModal" onclick="closeModal(event)">
-    <div class="modal-card" id="modalCard">
-      <img src="" id="modalImg" class="modal-img" alt="Food Item">
-      <div class="modal-body">
-        <span class="cat" id="modalCat"></span>
-        <h2 id="modalTitle"></h2>
-        <p id="modalDesc">Authentic preparation made with pure ingredients, fresh spices, and expert culinary craftsmanship at Ashray Restaurant.</p>
-        <div class="modal-footer">
-          <div class="modal-price" id="modalPrice"></div>
-          <button class="btn-add-cart" id="modalAddBtn" style="padding: 10px 18px; font-size: 0.85rem;" onclick="addCurrentItemFromModal()">Add to Cart</button>
+      <div class="menu-nav-instructions">
+        <span>💡 Tip: Left ya Right scroll karke menu ke pne paltein</span>
+        <div class="scroll-arrows">
+          <button class="scroll-btn" onclick="slideMenu('left')"><i class="fa-solid fa-arrow-left"></i></button>
+          <button class="scroll-btn" onclick="slideMenu('right')"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Cart Drawer -->
-  <div class="cart-drawer" id="cartDrawer">
-    <div>
-      <div class="cart-header">
-        <h3 style="color:#fff; font-family:Georgia,serif;">Your Food Cart</h3>
-        <button class="close-modal" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="cart-items-list" id="cartItemsList">
-        <p style="color:var(--text-muted); text-align:center; margin-top:20px;">Cart is empty!</p>
-      </div>
-    </div>
-    <div class="cart-footer">
-      <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:600;">
-        <span>Total Amount:</span>
-        <span id="cartTotal" style="color:var(--gold);">₹0</span>
-      </div>
-      <a href="#" id="whatsappCheckout" target="_blank" class="btn-checkout"><i class="fa-brands fa-whatsapp"></i> Order via WhatsApp</a>
     </div>
   </div>
 
@@ -185,247 +208,435 @@
   </footer>
 
   <script>
-    // Complete Menu Data compiled from PDF Menu
-    const menuData = [
-      // Chinese & Noodles
-      { name: "Veg. Hakka Noodles", price: 220, category: "chinese", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=600&auto=format&fit=crop", desc: "Tossed noodles with fresh crispy vegetables and Oriental sauces." },
-      { name: "Veg. Schezwan Noodles", price: 230, category: "chinese", img: "https://images.unsplash.com/photo-1612927601101-473289c56149?q=80&w=600&auto=format&fit=crop", desc: "Spicy Schezwan tossed noodles loaded with garlic and peppers." },
-      { name: "Brunt Garlic Noodles", price: 210, category: "chinese", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=600&auto=format&fit=crop", desc: "Noodles tossed with heavily burnt garlic aroma and tossed veggies." },
-      { name: "Singapuri Noodles", price: 220, category: "chinese", img: "https://images.unsplash.com/photo-1612927601101-473289c56149?q=80&w=600&auto=format&fit=crop", desc: "Stir-fried noodles with subtle curry spices and crisp bell peppers." },
-      { name: "Mashroom Noodle", price: 240, category: "chinese", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=600&auto=format&fit=crop", desc: "Stir-fried noodles tossed with succulent button mushrooms." },
-      { name: "American Chop Suey", price: 240, category: "chinese", img: "https://images.unsplash.com/photo-1541658016709-82535e94bc69?q=80&w=600&auto=format&fit=crop", desc: "Crispy fried noodles topped with sweet and tangy vegetable gravy." },
-      { name: "Veg. Chow Mein", price: 200, category: "chinese", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=600&auto=format&fit=crop", desc: "Classic stir-fried noodles tossed with julienned vegetables." },
-      { name: "Veg. Fried Rice", price: 180, category: "chinese", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Fragrant basmati rice wok-tossed with garden-fresh veggies." },
-      { name: "Veg. Schezwan Fried Rice", price: 190, category: "chinese", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Spicy Schezwan wok-tossed rice with vegetables." },
-      { name: "Triple Schezwan Fried Rice", price: 280, category: "chinese", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=600&auto=format&fit=crop", desc: "Served with rice, noodles, and fiery Schezwan gravy combination." },
-      { name: "Brunt Garlic Fried Rice", price: 180, category: "chinese", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Rice tossed with roasted burnt garlic flakes." },
-      { name: "Singapuri Fried Rice", price: 200, category: "chinese", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Flavorful fried rice infused with Singapore spices." },
-      { name: "Chilli Garlic Fried Rice", price: 180, category: "chinese", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Spicy fried rice loaded with chillies and garlic." },
-      { name: "Mashroom Fried Rice", price: 230, category: "chinese", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Fried rice tossed with mushrooms and spring onions." },
-      { name: "Ginger Fried Rice", price: 210, category: "chinese", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Aromatic fried rice infused with fresh ginger flavor." },
-
-      // Starters & Kababs
-      { name: "Veg. Hara Bhara Kabab", price: 230, category: "starter", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop", desc: "Healthy patties made of spinach, peas, and potatoes with aromatic spices." },
-      { name: "Veg. Seekh Kabab", price: 210, category: "starter", img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop", desc: "Minced vegetables skewered and grilled in tandoor." },
-      { name: "Veg. Shikampuri Kabab", price: 240, category: "starter", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop", desc: "Delicious spiced vegetarian kababs with rich texture." },
-      { name: "Makai Malai Seekh Kabab", price: 230, category: "starter", img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop", desc: "Corn and cream enriched melt-in-mouth seekh kababs." },
-      { name: "Inder Paradise's Special Kabab", price: 390, category: "starter", img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop", desc: "Chef's signature special royal vegetarian kabab preparation." },
-      { name: "Tandoori Malai Broccoli", price: 290, category: "starter", img: "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=600&auto=format&fit=crop", desc: "Broccoli florets marinated in rich malai and roasted in tandoor." },
-      { name: "Veg. Table Platter (16 Pcs)", price: 500, category: "starter", img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop", desc: "Assortment of 16 pieces of signature vegetarian tandoori starters." },
-      { name: "Aloo Nazakat", price: 350, category: "starter", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop", desc: "Hollowed potatoes stuffed with dry fruits and paneer, roasted." },
-      { name: "Dahi Kabab", price: 300, category: "starter", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop", desc: "Crispy outside, extremely soft hung curd kababs inside." },
-      { name: "Gobi Manchurian", price: 190, category: "starter", img: "https://images.unsplash.com/photo-1599487488170-ded1ec95de52?q=80&w=600&auto=format&fit=crop", desc: "Batter-fried cauliflower florets tossed in Manchurian sauce." },
-      { name: "Paneer Peri Peri", price: 240, category: "starter", img: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=600&auto=format&fit=crop", desc: "Zesty spicy peri peri flavored cottage cheese starter." },
-      { name: "Chinese Sizzler", price: 450, category: "starter", img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600&auto=format&fit=crop", desc: "Sizzling platter with noodles, fried rice, veggies, and Manchurian." },
-      { name: "Paneer Tikka", price: 320, category: "starter", img: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=600&auto=format&fit=crop", desc: "Classic tandoori paneer tikka marinated in spiced yogurt." },
-      { name: "Soya Malai Chaap", price: 350, category: "starter", img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop", desc: "Soya chaap soaked in rich cream and cashew paste marinade." },
-      { name: "Paneer Chilli Dry", price: 320, category: "starter", img: "https://images.unsplash.com/photo-1599487488170-ded1ec95de52?q=80&w=600&auto=format&fit=crop", desc: "Crispy paneer tossed in soy garlic sauce with bell peppers." },
-      { name: "Honey Chilli Sesame Potato", price: 290, category: "starter", img: "https://images.unsplash.com/photo-1526318896980-cf78c08b247f?q=80&w=600&auto=format&fit=crop", desc: "Crispy potato fingers glazed in honey, chilli, and sesame." },
-
-  // Soups
-      { name: "Veg. Manchow Soup", price: 120, category: "soup", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=600&auto=format&fit=crop", desc: "Dark spicy soup topped with crispy fried noodles." },
-      { name: "Veg. Minestrone Soup", price: 140, category: "soup", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=600&auto=format&fit=crop", desc: "Italian vegetable soup with pasta and beans." },
-      { name: "Lung Fung Soup", price: 120, category: "soup", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=600&auto=format&fit=crop", desc: "Thick savory Asian soup with mushrooms and veggies." },
-      { name: "Tomato Soup", price: 120, category: "soup", img: "https://images.unsplash.com/photo-1594756202454-e42004210e9d?q=80&w=600&auto=format&fit=crop", desc: "Classic smooth and creamy tomato soup." },
-      { name: "Hot & Sour Soup", price: 120, category: "soup", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=600&auto=format&fit=crop", desc: "Spicy and tangy soup loaded with chopped vegetables." },
-      { name: "Lemon Coriander Soup", price: 120, category: "soup", img: "https://images.unsplash.com/photo-1594756202454-e42004210e9d?q=80&w=600&auto=format&fit=crop", desc: "Refreshing clear soup infused with lemon and coriander." },
-      { name: "Sweet Corn Soup", price: 160, category: "soup", img: "https://images.unsplash.com/photo-1548943487-a2e4e43b4853?q=80&w=600&auto=format&fit=crop", desc: "Comforting creamy soup with sweet corn kernels." },
-      { name: "Tomato Dhania Shorba", price: 120, category: "soup", img: "https://images.unsplash.com/photo-1594756202454-e42004210e9d?q=80&w=600&auto=format&fit=crop", desc: "Traditional aromatic tomato soup with coriander." },
-
-      // Indian Main Course (Paneer & Veg)
-      { name: "Paneer Butter Masala", price: 360, category: "main", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=600&auto=format&fit=crop", desc: "Soft paneer cubes simmered in a rich tomato butter gravy." },
-      { name: "Paneer Angara Masala", price: 400, category: "main", img: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=600&auto=format&fit=crop", desc: "Smoky and fiery spicy gravy prepared with charcoal dhungar." },
-      { name: "Kadai Paneer", price: 330, category: "main", img: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=600&auto=format&fit=crop", desc: "Paneer cooked with freshly pounded kadai masala and bell peppers." },
-      { name: "Paneer Lazeez", price: 390, category: "main", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=600&auto=format&fit=crop", desc: "Delightful rich paneer preparation in special gravy." },
-      { name: "Kaju Curry", price: 360, category: "main", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=600&auto=format&fit=crop", desc: "Roasted cashews cooked in a luscious onion-tomato gravy." },
-      { name: "Ker Sangri (Rajasthani)", price: 450, category: "main", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Authentic desert beans and berries cooked in traditional spices." },
-      { name: "Sev Tamatar", price: 230, category: "main", img: "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?q=80&w=600&auto=format&fit=crop", desc: "Tangy tomato gravy topped with crunchy spicy sev." },
-      { name: "Govind Gatta", price: 230, category: "main", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=600&auto=format&fit=crop", desc: "Traditional Rajasthani besan gatta in rich yogurt gravy." },
-      { name: "Mix Veg.", price: 240, category: "main", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Assorted seasonal vegetables cooked in onion tomato masala." },
-      { name: "Malai Kofta", price: 260, category: "main", img: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=600&auto=format&fit=crop", desc: "Melt-in-mouth cottage cheese dumplings in rich creamy gravy." },
-
-      // Breads & Roti
-      { name: "Tandoori Roti Plain", price: 20, category: "bread", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop", desc: "Whole wheat tandoori roti." },
-      { name: "Tandoori Roti Butter", price: 25, category: "bread", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop", desc: "Tandoori roti brushed with butter." },
-      { name: "Butter Naan", price: 60, category: "bread", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop", desc: "Soft leavened flour naan with butter." },
-      { name: "Garlic Naan", price: 70, category: "bread", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop", desc: "Naan topped with chopped garlic and coriander." },
-      { name: "Cheese Garlic Naan", price: 90, category: "bread", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop", desc: "Garlic naan stuffed with molten cheese." },
-      { name: "Lachha Paratha", price: 70, category: "bread", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop", desc: "Multi-layered crispy whole wheat paratha." },
-      { name: "Aloo Paratha", price: 80, category: "bread", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop", desc: "Stuffed spiced potato paratha." },
-      { name: "Paneer Paratha", price: 190, category: "bread", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop", desc: "Stuffed grated paneer paratha." },
-      { name: "Amritsari Chur-Chur Naan", price: 80, category: "bread", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop", desc: "Crushed flaky layered naan." },
-
-      // Rice & Biryani
-      { name: "Jeera Rice", price: 180, category: "rice", img: "https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?q=80&w=600&auto=format&fit=crop", desc: "Basmati rice tempered with cumin seeds." },
-      { name: "Steam Rice", price: 140, category: "rice", img: "https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?q=80&w=600&auto=format&fit=crop", desc: "Steamed plain basmati rice." },
-      { name: "Veg. Pulao", price: 190, category: "rice", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Rice tossed with vegetables and mild spices." },
-      { name: "Kashmiri Pulao", price: 210, category: "rice", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=600&auto=format&fit=crop", desc: "Sweet and rich pulao with dry fruits and fresh fruits." },
-      { name: "Veg. Biryani", price: 220, category: "rice", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=600&auto=format&fit=crop", desc: "Layered rice preparation with vegetables and biryani spices." },
-      { name: "Veg. Dum Biryani", price: 240, category: "rice", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=600&auto=format&fit=crop", desc: "Sealed pot slow-cooked dum biryani with vegetables." },
-      { name: "Hyderabadi Dum Biryani", price: 260, category: "rice", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=600&auto=format&fit=crop", desc: "Authentic spicy Hyderabadi dum biryani." },
-      { name: "Paneer Tikka Biryani", price: 290, category: "rice", img: "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?q=80&w=600&auto=format&fit=crop", desc: "Smoky paneer tikka mixed with biryani rice." },
-
-      // Raita & Salad
-      { name: "Boondi Raita", price: 120, category: "raita", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Yogurt with crispy boondi and spices." },
-      { name: "Pineapple Raita", price: 140, category: "raita", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Sweet and tangy pineapple chunks in beaten yogurt." },
-      { name: "Green Salad", price: 100, category: "raita", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Fresh raw sliced vegetables." },
-      { name: "Greek Salad", price: 140, category: "raita", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Salad with lettuce, tomatoes, cucumbers, and olives." },
-      { name: "Roasted Masala Papad", price: 50, category: "raita", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop", desc: "Roasted papad topped with spicy onion-tomato masala." },
-
-      // Beverages & Shakes
-      { name: "Sweet Lassi", price: 80, category: "beverage", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=600&auto=format&fit=crop", desc: "Traditional sweet yogurt drink." },
-      { name: "Fresh Lime Soda", price: 80, category: "beverage", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=600&auto=format&fit=crop", desc: "Refreshing sweet & salted lime soda." },
-      { name: "Mint Mojito", price: 130, category: "beverage", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=600&auto=format&fit=crop", desc: "Refreshing mint and lime cooler." },
-      { name: "Cold Coffee with Icecream", price: 120, category: "beverage", img: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=600&auto=format&fit=crop", desc: "Cold coffee topped with ice cream." },
-      { name: "Chocolate Shake", price: 100, category: "beverage", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=600&auto=format&fit=crop", desc: "Rich chocolate milkshake." },
-      { name: "Dry Fruit Shake", price: 150, category: "beverage", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=600&auto=format&fit=crop", desc: "Nutritious shake blended with assorted dry fruits." },
-      { name: "Masala Tea", price: 50, category: "beverage", img: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=600&auto=format&fit=crop", desc: "Indian spiced hot tea." },
-
-      // Desserts & Icecreams
-      { name: "Pista Gulab Jamun", price: 80, category: "dessert", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop", desc: "Warm gulab jamun stuffed with pistachio." },
-      { name: "Gulab Jamun With Ice Cream", price: 120, category: "dessert", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop", desc: "Gulab jamun served with a scoop of ice cream." },
-      { name: "Chocolate Sizzling Brownie", price: 190, category: "dessert", img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=600&auto=format&fit=crop", desc: "Brownie served sizzling with hot chocolate and ice cream." },
-      { name: "Triple Sundae Icecream", price: 210, category: "dessert", img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=600&auto=format&fit=crop", desc: "Three scoops of ice cream with toppings and syrups." },
-      { name: "American Nuts Icecream", price: 140, category: "dessert", img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=600&auto=format&fit=crop", desc: "Rich ice cream loaded with American nuts." },
-      { name: "Fruit Custard", price: 120, category: "dessert", img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=600&auto=format&fit=crop", desc: "Mixed seasonal fruits in creamy vanilla custard." }
+    // Complete Menu Database categorized accurately from PDF
+    const menuCategories = [
+      {
+        id: "chinese",
+        title: "Chinese Noodles & Rice",
+        items: [
+          { name: "Veg. Hakka Noodles", price: 220 },
+          { name: "Veg. Schezwan Noodles", price: 230 },
+          { name: "Brunt Garlic Noodles", price: 210 },
+          { name: "Singapuri Noodles", price: 220 },
+          { name: "Mashroom Noodle", price: 240 },
+          { name: "American Chop Suey", price: 240 },
+          { name: "Veg. Chow Mein", price: 200 },
+          { name: "Veg. Fried Rice", price: 180 },
+          { name: "Veg. Schezwan Fried Rice", price: 190 },
+          { name: "Tripple Schezwan Fried Rice", price: 280 },
+          { name: "Brunt Garlic Fried Rice", price: 180 },
+          { name: "Singapuri Fried Rice", price: 200 },
+          { name: "Chilli Garlic Fried Rice", price: 180 },
+          { name: "Mashroom Fried Rice", price: 230 },
+          { name: "Ginger Fried Rice", price: 210 }
+        ]
+      },
+      {
+        id: "starter",
+        title: "Veg Starters & Tandoori Kababs",
+        items: [
+          { name: "Veg. Hara Bhara Kabab", price: 230 },
+          { name: "Veg. Seekh Kabab", price: 210 },
+          { name: "Veg. Shikampuri Kabab", price: 240 },
+          { name: "Makai Malai Seekh Kabab", price: 230 },
+          { name: "Inder Paradise's Special Kabab", price: 390 },
+          { name: "Tandoori Malai Broccoli", price: 290 },
+          { name: "Veg. Table Platter 16 Piece", price: 500 },
+          { name: "Aloo Nazakat", price: 350 },
+          { name: "Dahi Kabab", price: 300 },
+          { name: "Veg. Pakora", price: 200 },
+          { name: "Paneer Pakora", price: 220 },
+          { name: "Cheese Pakora", price: 240 },
+          { name: "Gobi Manchurian", price: 190 },
+          { name: "Veg. Spring Roll", price: 230 },
+          { name: "Paneer Peri Peri", price: 240 },
+          { name: "Chinese Potli", price: 320 },
+          { name: "Paneer Finger", price: 330 },
+          { name: "Paneer Spring Roll", price: 350 },
+          { name: "Chinese Sizzler", price: 450 },
+          { name: "Italian Sizzler", price: 380 },
+          { name: "Salt Crispy Vegetable", price: 300 },
+          { name: "Chinese Bhel", price: 200 },
+          { name: "Veg. Lolipop", price: 280 },
+          { name: "Mashroom Salt & Papper", price: 250 },
+          { name: "Veg Ching Pong", price: 380 },
+          { name: "Veg Coriander", price: 260 },
+          { name: "Paneer Justice", price: 350 },
+          { name: "Paneer Coriander", price: 350 },
+          { name: "Baby Corn Golden Fry", price: 250 },
+          { name: "Baby Corn Manchurian Dry", price: 250 },
+          { name: "Baby Corn Salt & Pepper", price: 300 },
+          { name: "Stuffed Mushroom Dry/Fry", price: 350 },
+          { name: "Veg Crispy", price: 280 },
+          { name: "Paneer Manchurian Dry", price: 300 },
+          { name: "Paneer Shashlik", price: 400 },
+          { name: "Paneer Papdi", price: 360 },
+          { name: "Veg. Momos", price: 180 },
+          { name: "Veg. Paneer Momos", price: 200 },
+          { name: "Paneer Chilli Dry", price: 320 },
+          { name: "Paneer Chilli Gravy", price: 340 },
+          { name: "Honey Chilli Sesame Patato", price: 290 },
+          { name: "Veg. Manchurian Dry.", price: 230 },
+          { name: "Veg. Manchurian Gravy.", price: 240 },
+          { name: "Paneer 65", price: 360 },
+          { name: "Veg. 65.", price: 200 },
+          { name: "Paneer Hilltop", price: 240 },
+          { name: "Paneer Satay.", price: 240 },
+          { name: "Crispy Corn.", price: 200 },
+          { name: "Baby Corn Manchurian", price: 220 },
+          { name: "Chilli Soya Chaap", price: 260 },
+          { name: "Chilli Mashroom", price: 220 },
+          { name: "Paneer Tikka", price: 320 },
+          { name: "Makhmali Paneer Tikka", price: 360 },
+          { name: "Multani Paneer Tikka", price: 360 },
+          { name: "Paneer Pahadi Tikka", price: 340 },
+          { name: "Soya Chaap", price: 320 },
+          { name: "Soya Malai Chaap", price: 350 },
+          { name: "Gulati Kabab", price: 250 },
+          { name: "Gilafi Seekh Kabab", price: 230 },
+          { name: "Paneer Hilltop Tikka", price: 380 },
+          { name: "Mashroom Duplex", price: 350 },
+          { name: "Mashroom Tikka", price: 320 },
+          { name: "Lemon Seekh Chilli Kabab", price: 290 },
+          { name: "Paneer Basil Tikka", price: 320 },
+          { name: "Paneer Amritsari Tikka", price: 320 },
+          { name: "Lasooni Paneer Tikka", price: 310 },
+          { name: "Paneer Peshawari Tikka", price: 350 },
+          { name: "Panner Stuff Tikka", price: 350 },
+          { name: "Beetroot Kabab", price: 260 },
+          { name: "Paneer Malai Tikka", price: 330 },
+          { name: "Paneer Banjara Tikka", price: 325 },
+          { name: "Paneer Pudina Tikka", price: 320 },
+          { name: "Paneer Achari Tikka", price: 340 },
+          { name: "Paneer Sufiana Tikka", price: 315 },
+          { name: "Paneer Afghani Tikka", price: 320 },
+          { name: "Paneer Hariyali Tikka", price: 330 }
+        ]
+      },
+      {
+        id: "soup",
+        title: "Soups & Shorba",
+        items: [
+          { name: "Veg. Manchow Soup", price: 120 },
+          { name: "Veg. Minestrone Soup", price: 140 },
+          { name: "Lung Fung Soup", price: 120 },
+          { name: "Tomato Soup", price: 120 },
+          { name: "Hot & Sour Soup", price: 120 },
+          { name: "Brunt Garlic Soup", price: 120 },
+          { name: "Lemon Coriander Soup", price: 120 },
+          { name: "Sweet Corn Soup", price: 160 },
+          { name: "Veg. Clear Soup", price: 140 },
+          { name: "Tomato Dhania Shorba", price: 120 },
+          { name: "Palak Shorba", price: 120 }
+        ]
+      },
+      {
+        id: "main",
+        title: "Indian Main Course (Paneer & Veg)",
+        items: [
+          { name: "Paneer Angara Masala", price: 400 },
+          { name: "Paneer Singapuri", price: 400 },
+          { name: "Paneer Butter Masala", price: 360 },
+          { name: "Paneer Laziz", price: 390 },
+          { name: "Paneer Lababdar", price: 320 },
+          { name: "Rj 21 Special", price: 310 },
+          { name: "Veg. Handi.", price: 280 },
+          { name: "Malai Kofta", price: 260 },
+          { name: "Kaju Curry.", price: 360 },
+          { name: "Inder Paradise Special", price: 400 },
+          { name: "Paneer Lazeez", price: 390 },
+          { name: "Paneer Bhurji", price: 390 },
+          { name: "Paneer Shabnami Masala", price: 300 },
+          { name: "Cheese Paneer Butter Masala", price: 320 },
+          { name: "Shahi Paneer (Red Gravy)", price: 290 },
+          { name: "Kaju Shahi Paneer", price: 360 },
+          { name: "Paneer Do Pyaja", price: 310 },
+          { name: "Khoya Kaju & Paneer.", price: 350 },
+          { name: "Paneer Pasanda", price: 300 },
+          { name: "Cheese Butter Masala", price: 360 },
+          { name: "Paneer Pink City", price: 390 },
+          { name: "Paneer Taka Tak", price: 390 },
+          { name: "Matar Paneer", price: 290 },
+          { name: "Lasooni Palak", price: 230 },
+          { name: "Vegetable Miloni", price: 210 },
+          { name: "Methi Matar Malai", price: 250 },
+          { name: "Veg. Diwani Handi", price: 260 },
+          { name: "Veg. Jalfrezi", price: 210 },
+          { name: "Kaju Curry Masala", price: 360 },
+          { name: "Kaju Butter Masala", price: 390 },
+          { name: "Zafran Mix Vegetable", price: 310 },
+          { name: "Veg. Makhanwala", price: 290 },
+          { name: "Veg. Bhuna Masala", price: 220 },
+          { name: "Veg. Patiyala", price: 230 },
+          { name: "Amritsari Aloo Gobi", price: 210 },
+          { name: "Palak Corn", price: 280 },
+          { name: "Vegetable Tawa Sabji", price: 250 },
+          { name: "Paneer Kolhapuri", price: 340 },
+          { name: "Paneer Makhanwala", price: 340 },
+          { name: "Kadai Paneer", price: 330 },
+          { name: "Paneer Jalfrezi", price: 320 },
+          { name: "Paneer Peshawari", price: 360 },
+          { name: "Paneer Handi", price: 320 },
+          { name: "Paneer Tikka Masala", price: 370 },
+          { name: "Palak Paneer", price: 230 },
+          { name: "Paneer Khurchan", price: 340 },
+          { name: "Mix Veg.", price: 240 },
+          { name: "Veg. Kadai", price: 220 },
+          { name: "Mashroom Matar Masala", price: 230 },
+          { name: "Mashroom Butter Masala", price: 270 },
+          { name: "Palak Mashroom", price: 240 }
+        ]
+      },
+      {
+        id: "rajasthani",
+        title: "Authentic Rajasthani Rasoi & Dal",
+        items: [
+          { name: "Dal Fry", price: 160 },
+          { name: "Dal Tadka", price: 180 },
+          { name: "Dal Palak", price: 160 },
+          { name: "Dal Makhani", price: 210 },
+          { name: "Dal Bhukhara", price: 200 },
+          { name: "Ker Sangri", price: 450 },
+          { name: "Ker Dakh", price: 480 },
+          { name: "Methi Malai", price: 310 },
+          { name: "Kadai Pakora", price: 200 },
+          { name: "Haldi (Only Winter)", price: 550 },
+          { name: "Haldi Sabji With Sogra (2 Pcs.)", price: 650 },
+          { name: "Jodhpuri Gutta Curry", price: 240 },
+          { name: "Bhindi Do Pyaza", price: 230 },
+          { name: "Dum Aloo", price: 200 },
+          { name: "Navratan Korma", price: 290 },
+          { name: "Veg. Jaipuri", price: 240 },
+          { name: "Nargisi Kofta", price: 230 },
+          { name: "Palak Cofta", price: 250 },
+          { name: "Baby Corn Masala", price: 300 },
+          { name: "Punjabi Kofta", price: 280 },
+          { name: "Baby Corn Cream Curry", price: 450 },
+          { name: "Palak Korma", price: 340 },
+          { name: "Veg. Kolhapuri", price: 260 },
+          { name: "RJ 21 Special.", price: 310 },
+          { name: "Aloo Matar", price: 220 },
+          { name: "Sev Tamatar", price: 230 },
+          { name: "Bhindi Rajasthani", price: 200 },
+          { name: "Palak Tamatar", price: 240 },
+          { name: "Aloo Chole", price: 210 },
+          { name: "Aloo Bhaji", price: 180 },
+          { name: "Jeera Aloo", price: 190 },
+          { name: "Govind Gatta", price: 230 },
+          { name: "Besan Gatta Masala", price: 260 },
+          { name: "Veg. Nagauri", price: 250 },
+          { name: "Sev Bhaji (With Cream)", price: 250 },
+          { name: "Lahsuni Chutney", price: 190 },
+          { name: "Tomato Chutney", price: 180 }
+        ]
+      },
+      {
+ id: "bread",
+        title: "Tandoori Breads & Parathas",
+        items: [
+          { name: "Tandoori Roti Plain", price: 20 },
+          { name: "Tandoori Roti Butter", price: 25 },
+          { name: "Tawa Roti Plain", price: 20 },
+          { name: "Tawa Roti Butter", price: 25 },
+          { name: "Naan", price: 50 },
+          { name: "Butter Naan", price: 60 },
+          { name: "Garlic Naan", price: 70 },
+          { name: "Zaffrani Naan", price: 120 },
+          { name: "Cheese Naan", price: 80 },
+          { name: "Cheese Garlic Naan", price: 90 },
+          { name: "Lachha Paratha", price: 70 },
+          { name: "Onion Kulcha", price: 90 },
+          { name: "Veg. Kulcha", price: 90 },
+          { name: "Missi Roti", price: 50 },
+          { name: "Paneer Kulcha", price: 90 },
+          { name: "Assorted Indian Breads", price: 310 },
+          { name: "Amritsari Chur-Chur Naan", price: 80 },
+          { name: "Aloo Paratha", price: 80 },
+          { name: "Methi Paratha", price: 150 },
+          { name: "Paneer Paratha", price: 190 },
+          { name: "Mix Paratha", price: 210 },
+          { name: "Gobi Paratha", price: 140 }
+        ]
+      },
+      {
+        id: "rice",
+        title: "Rice & Biryani",
+        items: [
+          { name: "Jeera Rice", price: 180 },
+          { name: "Steam Rice", price: 140 },
+          { name: "Veg. Pulao", price: 190 },
+          { name: "Kashmiri Pulao", price: 210 },
+          { name: "Green Peas Pulao", price: 170 },
+          { name: "Paneer Pulao", price: 240 },
+          { name: "Dal Khichdi", price: 190 },
+          { name: "Masala Khichdi", price: 200 },
+          { name: "Kadi Khichdi", price: 180 },
+          { name: "Curd Rice", price: 190 },
+          { name: "Veg. Biryani", price: 220 },
+          { name: "Veg. Dum Biryani", price: 240 },
+          { name: "Hyderabadi Biryani", price: 230 },
+          { name: "Hyderabadi Dum Biryani", price: 260 },
+          { name: "Awadhi Dum Biryani", price: 220 },
+          { name: "Smoke Dum Biryani", price: 210 },
+          { name: "Paneer Tikka Biryani", price: 290 },
+          { name: "Lucknowi Biryani", price: 240 },
+          { name: "Lucknowi Dum Biryani", price: 260 }
+        ]
+      },
+      {
+        id: "raita",
+        title: "Raita, Salad & Papad",
+        items: [
+          { name: "Boondi Raita", price: 120 },
+          { name: "Veg. Raita", price: 130 },
+          { name: "Pineapple Raita", price: 140 },
+          { name: "Fry Raita", price: 140 },
+          { name: "Curd Plain", price: 90 },
+          { name: "Curd Fry", price: 120 },
+          { name: "Masala Butter Milk", price: 40 },
+          { name: "Green Salad", price: 100 },
+          { name: "Onion Salad", price: 70 },
+          { name: "Cucumber Salad", price: 70 },
+          { name: "Tomato Salad", price: 80 },
+          { name: "Sprouts Salad", price: 180 },
+          { name: "Masala Salad", price: 80 },
+          { name: "Greek Salad", price: 140 },
+          { name: "Russian Salad", price: 160 },
+          { name: "Roasted Papad", price: 30 },
+          { name: "Roasted Masala Papad", price: 50 },
+          { name: "Fry Papad", price: 40 },
+          { name: "Fry Masala Papad", price: 60 }
+        ]
+      },
+      {
+        id: "beverage",
+        title: "Hot & Cold Beverages, Shakes & Juices",
+        items: [
+          { name: "Sweet Lassi", price: 80 },
+          { name: "Fresh Lime Soda Sweet & Salted", price: 80 },
+          { name: "Fresh Lime Water", price: 40 },
+          { name: "Blueberry Martini", price: 190 },
+          { name: "Mint Mojito", price: 130 },
+          { name: "Evening in the Paradise", price: 200 },
+          { name: "Strawberry Shake", price: 100 },
+          { name: "Strawberry Shake with Icecream", price: 120 },
+          { name: "Butterscotch Shake", price: 120 },
+          { name: "Butterscotch Shake with Icecream", price: 150 },
+          { name: "Pineapple Shake", price: 140 },
+          { name: "Pineapple Shake with Icecream", price: 160 },
+          { name: "Badam Shake", price: 140 },
+          { name: "Papaya Shake", price: 120 },
+          { name: "Banana Shake", price: 60 },
+          { name: "Kesar Pista Shake", price: 120 },
+          { name: "Dry Fruit Shake", price: 150 },
+          { name: "Real Mango Juice", price: 80 },
+          { name: "Gulkand Shake", price: 60 },
+          { name: "Real Pineapple Juice", price: 60 },
+          { name: "Real Mix Juice", price: 80 },
+          { name: "Vanilla Shake", price: 90 },
+          { name: "Vanilla Shake with Icecream", price: 110 },
+          { name: "Chocolate Shake", price: 100 },
+          { name: "Chocolate Shake with Icecream", price: 120 },
+          { name: "Masala Tea", price: 50 },
+          { name: "Kesar Tea", price: 100 },
+          { name: "Coffee", price: 60 },
+          { name: "Kesar Coffee", price: 120 },
+          { name: "Hot Milk", price: 80 },
+          { name: "Hot Chocolate", price: 100 },
+          { name: "Bournvita Milk", price: 100 },
+          { name: "Kesar Milk", price: 140 },
+          { name: "Corn Flakes With Milk", price: 150 },
+          { name: "Chocoflakes with Milk", price: 90 },
+          { name: "Cold Coffee", price: 100 },
+          { name: "Cold Coffee with Icecream", price: 120 }
+        ]
+      },
+      {
+        id: "dessert",
+        title: "Desserts & Icecreams",
+        items: [
+          { name: "Choco Chips Icecream", price: 140 },
+          { name: "Fruit Custard", price: 120 },
+          { name: "Chocolate Sizzling Brownie", price: 190 },
+          { name: "Triple Sundae Icecream", price: 210 },
+          { name: "Tutti Frutti Icecream", price: 150 },
+          { name: "Banana Split Icecream", price: 250 },
+          { name: "Pista Gulab Jamun", price: 80 },
+          { name: "Gulab Jamun With Ice Cream", price: 120 },
+          { name: "Zaffrani Gulab Jamun", price: 120 },
+          { name: "Chocolate Ice Cream", price: 80 },
+          { name: "Vanilla Ice Cream", price: 80 },
+          { name: "Strawberry Icecream", price: 80 },
+          { name: "Butter Scotch Ice Cream", price: 90 },
+          { name: "Kesar Pista Icecream", price: 100 },
+          { name: "American Nuts Icecream", price: 140 },
+          { name: "Rajbhog Icecream", price: 150 },
+          { name: "Pan Icecream", price: 120 },
+          { name: "Pineapple Icecream", price: 130 }
+        ]
+      }
     ];
 
-    let cart = [];
-    let currentModalItem = null;
-
-    function renderMenu(items) {
-      const grid = document.getElementById('menuGrid');
-      if (items.length === 0) {
-        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">Koi dish nahi mili. Kripya doosra naam search karein.</p>';
-        return;
-      }
-      grid.innerHTML = items.map((item, index) => `
-        <div class="menu-item-card" style="animation-delay: ${index * 0.03}s" onclick="openModal('${item.name.replace(/'/g, "\\'")}')">
-          <div class="item-img-box">
-            <img src="${item.img}" onerror="this.src='https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=600&auto=format&fit=crop'" alt="${item.name}">
-          </div>
-          <div class="item-content">
-            <div class="item-info">
-              <span>${item.category.toUpperCase()}</span>
-              <h4>${item.name}</h4>
-            </div>
-            <div class="item-footer">
-              <span class="item-price">₹${item.price}</span>
-              <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart('${item.name.replace(/'/g, "\\'")}', ${item.price})">+ Add</button>
-            </div>
+    function renderMenuBook(categories) {
+      const track = document.getElementById('menuScrollTrack');
+      track.innerHTML = categories.map(cat => `
+        <div class="menu-category-page" id="page-${cat.id}">
+          <h2 class="category-title">${cat.title}</h2>
+          <div class="items-table-list">
+            ${cat.items.map(item => `
+              <div class="menu-row-item">
+                <span class="item-name">${item.name}</span>
+                <span class="item-price">₹${item.price}</span>
+              </div>
+            `).join('')}
           </div>
         </div>
       `).join('');
     }
 
-    function filterCategory(category, btn) {
+    function scrollToCategory(catId, btn) {
       document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
       btn.classList.add('active');
 
-      if (category === 'all') {
-        renderMenu(menuData);
+      if (catId === 'all') {
+        document.getElementById('menuScrollTrack').scrollTo({ left: 0, behavior: 'smooth' });
+        return;
+      }
+
+      const pageElem = document.getElementById(`page-${catId}`);
+      if (pageElem) {
+        pageElem.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+      }
+    }
+
+    function slideMenu(direction) {
+      const track = document.getElementById('menuScrollTrack');
+      const scrollAmount = 400;
+      if (direction === 'left') {
+        track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
       } else {
-        const filtered = menuData.filter(i => i.category === category);
-        renderMenu(filtered);
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
       }
     }
 
     function filterMenu() {
       const query = document.getElementById('menuSearch').value.toLowerCase();
-      const filtered = menuData.filter(i => i.name.toLowerCase().includes(query));
-      renderMenu(filtered);
-    }
-
-    // Modal Control
-    function openModal(itemName) {
-      const item = menuData.find(i => i.name === itemName);
-      if (!item) return;
-      currentModalItem = item;
-
-      document.getElementById('modalImg').src = item.img;
-      document.getElementById('modalCat').innerText = item.category.toUpperCase();
-      document.getElementById('modalTitle').innerText = item.name;
-      document.getElementById('modalDesc').innerText = item.desc;
-      document.getElementById('modalPrice').innerText = `₹${item.price}`;
-
-      document.getElementById('itemModal').classList.add('active');
-    }
-
-    function closeModal(e) {
-      if (e.target.id === 'itemModal' || e.target.classList.contains('close-modal')) {
-        document.getElementById('itemModal').classList.remove('active');
-      }
-    }
-
-    function addCurrentItemFromModal() {
-      if (currentModalItem) {
-        addToCart(currentModalItem.name, currentModalItem.price);
-        document.getElementById('itemModal').classList.remove('active');
-      }
-    }
-    // Cart Management
-    function addToCart(name, price) {
-      const existing = cart.find(i => i.name === name);
-      if (existing) {
-        existing.qty += 1;
-      } else {
-        cart.push({ name, price, qty: 1 });
-      }
-      updateCartUI();
-    }
-
-    function updateCartUI() {
-      const countElem = document.getElementById('cartCount');
-      const listElem = document.getElementById('cartItemsList');
-      const totalElem = document.getElementById('cartTotal');
-
-      const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
-      countElem.innerText = totalCount;
-
-      if (cart.length === 0) {
-        listElem.innerHTML = '<p style="color:var(--text-muted); text-align:center; margin-top:20px;">Cart is empty!</p>';
-        totalElem.innerText = '₹0';
-        document.getElementById('whatsappCheckout').href = '#';
+      if (!query) {
+        renderMenuBook(menuCategories);
         return;
       }
 
-      let totalPrice = 0;
-      listElem.innerHTML = cart.map((item, idx) => {
-        totalPrice += item.price * item.qty;
-        return `
-          <div class="cart-item-row">
-            <div>
-              <strong>${item.name}</strong><br>
-              <span style="color:var(--gold);">₹${item.price} × ${item.qty}</span>
-            </div>
-            <button onclick="removeFromCart(${idx})" style="background:none; border:none; color:#e63946; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
-          </div>
-        `;
-      }).join('');
+      // Filter items across all categories
+      const filteredCategories = menuCategories.map(cat => {
+        const filteredItems = cat.items.filter(item => item.name.toLowerCase().includes(query));
+        return { ...cat, items: filteredItems };
+      }).filter(cat => cat.items.length > 0);
 
-      totalElem.innerText = `₹${totalPrice}`;
-
-      // WhatsApp Checkout Link
-      let waText = "Hello Hotel Inder Paradise, I want to place a food order from Ashray Restaurant:%0A";
-      cart.forEach(i => {
-        waText += `- ${i.name} (x${i.qty}) : ₹${i.price * i.qty}%0A`;
-      });
-      waText += `%0ATotal Amount: ₹${totalPrice}`;
-      document.getElementById('whatsappCheckout').href = `https://wa.me/919257090750?text=${waText}`;
-    }
-
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      updateCartUI();
-    }
-
-    function toggleCart() {
-      document.getElementById('cartDrawer').classList.toggle('active');
+      renderMenuBook(filteredCategories);
     }
 
     // Initial Load
-    renderMenu(menuData);
+    renderMenuBook(menuCategories);
   </script>
 </body>
 </html>
-    
