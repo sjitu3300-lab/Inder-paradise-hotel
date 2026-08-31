@@ -12,6 +12,15 @@
   
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- EmailJS Library for sending Gmail -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      // Yahan apna EmailJS Public Key dalein (jaise 'YOUR_PUBLIC_KEY')
+      emailjs.init("YOUR_PUBLIC_KEY");
+    })();
+  </script>
 
   <style>
     :root {
@@ -126,7 +135,6 @@
     /* Page Hero */
     .page-hero {
       background: linear-gradient(180deg, rgba(9, 9, 11, 0.65) 0%, rgba(9, 9, 11, 0.92) 100%),
-                  url('suite-room.jpg'),
                   url('https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
       padding: 85px 20px 65px;
       text-align: center;
@@ -154,6 +162,18 @@
     }
     .section-info-badge h2 { font-size: 2.4rem; color: #fff; margin-bottom: 12px; }
     .section-info-badge p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* Note Banner */
+    .rate-note-banner {
+      background: #111116;
+      border: 1px solid var(--gold);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 40px;
+      text-align: center;
+      color: var(--gold-light);
+      font-size: 0.92rem;
+    }
 
     /* Room Full Card */
     .room-full-card {
@@ -205,13 +225,12 @@
       backdrop-filter: blur(6px);
       color: var(--gold);
       padding: 7px 16px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 700;
       border-radius: 20px;
       border: 1px solid rgba(245, 166, 35, 0.3);
     }
 
-    /* 3 Sub-images Thumbnails Row */
     .room-thumbnails-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -270,23 +289,18 @@
     .specs-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
       background: #111116;
-      padding: 16px;
+      padding: 14px;
       border-radius: 10px;
       border: 1px solid var(--border-color);
       margin-bottom: 22px;
     }
     .spec-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
       font-size: 0.88rem;
       color: var(--text-muted);
-      font-weight: 500;
     }
-    .spec-item strong { color: #fff; }
-    .spec-item i { color: var(--gold); font-size: 1.05rem; }
+    .spec-item strong { color: var(--gold); }
 
     .amenities-list {
       display: grid;
@@ -311,40 +325,29 @@
       padding-top: 20px;
     }
 
-    /* --- AI Review System Styles --- */
-    .review-section-box { max-width: 1250px; margin: 60px auto; padding: 45px; background: var(--card-bg); border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
-    .review-section-box h3 { font-family: var(--font-serif); font-size: 2.2rem; color: #fff; margin-bottom: 10px; text-align: center; }
-    .review-section-box p.rev-sub { text-align: center; color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; }
-    .index-stars-container { display: flex; justify-content: center; gap: 12px; font-size: 2.5rem; cursor: pointer; margin-bottom: 25px; }
-    .index-stars-container i { color: #444; transition: 0.3s; }
-    .ai-pills-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
-    .r-pill { background: #111116; border: 1px solid var(--border-color); padding: 15px 20px; border-radius: 8px; color: #ddd; cursor: pointer; font-size: 0.9rem; transition: 0.3s; position: relative; }
-    .r-pill:hover { border-color: var(--gold); background: #1b1b22; color: #fff; transform: translateY(-2px); }
-    .r-pill span { display: block; font-size: 0.75rem; color: var(--gold); margin-top: 4px; font-weight: 600; }
-    .saved-reviews-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-    .review-card-item { background: #111116; padding: 20px; border-radius: 10px; border-left: 4px solid var(--gold); border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
-    .review-card-item strong { color: #fff; display: block; margin-bottom: 8px; font-size: 0.95rem; }
-    .review-card-item p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
-
-    /* Floating WhatsApp Button */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background-color: #25d366;
-      color: white;
-      border-radius: 50px;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-      z-index: 999;
-      transition: var(--transition);
+    /* --- Booking Modal Popup --- */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(6px);
+      display: flex; justify-content: center; align-items: center; z-index: 2000;
+      opacity: 0; visibility: hidden; transition: 0.3s ease;
     }
-    .whatsapp-float:hover { background-color: #20ba5a; transform: translateY(-3px); color: white; }
+    .modal-overlay.active { opacity: 1; visibility: visible; }
+    .modal-card {
+      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px;
+      max-width: 500px; width: 90%; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      transform: scale(0.8); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .modal-overlay.active .modal-card { transform: scale(1); }
+    .modal-card h3 { font-family: var(--font-serif); font-size: 1.8rem; color: #fff; margin-bottom: 15px; text-align: center; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-size: 0.8rem; color: var(--gold); text-transform: uppercase; margin-bottom: 5px; font-weight: 600; }
+    .form-group input, .form-group select {
+      width: 100%; background: #111116; border: 1px solid var(--border-color); padding: 10px 14px;
+      border-radius: 8px; color: #fff; font-size: 0.9rem; outline: none;
+    }
+    .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+    .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+    .close-modal-btn { background: #222; border: 1px solid var(--border-color); color: #fff; padding: 10px 20px; border-radius: 8px; cursor: pointer; flex: 1; }
 
     /* Footer */
     footer {
@@ -361,9 +364,8 @@
       .room-full-card { grid-template-columns: 1fr; }
       .room-main-preview { height: 280px; }
       .action-group { flex-direction: column; width: 100%; }
-      .action-group a { width: 100%; justify-content: center; }
+      .action-group a, .action-group button { width: 100%; justify-content: center; }
       .room-gallery-wrap { border-right: none; border-bottom: 1px solid var(--border-color); }
-      .review-section-box { padding: 20px; margin: 20px; }
     }
   </style>
 </head>
@@ -386,257 +388,344 @@
   <!-- Page Hero Banner -->
   <div class="page-hero">
     <h1>Luxury Rooms & Suites</h1>
-    <p>Click on any photo thumbnail below to view complete room angles, interiors & washrooms</p>
+    <p>Explore our 5 exclusive room categories crafted for ultimate comfort in Nagaur</p>
   </div>
 
   <div class="container">
     <div class="section-info-badge">
       <span>Accommodation In Nagaur</span>
       <h2>Handcrafted Comfort & Premium Amenities</h2>
-      <p>Every room at Hotel Inder Paradise is fully air-conditioned, featuring modern aesthetic wood finishes, ultra-comfortable bedding, split AC, and attached luxury washrooms.</p>
+      <p>Every room at Hotel Inder Paradise features aesthetic wood finishes, split AC, and luxury washrooms.</p>
     </div>
 
-    <!-- ================= ROOM 1: SUPER DELUXE SUITE ROOM ================= -->
-    <div class="room-full-card" id="suite-room">
-      <!-- Gallery Column -->
+    <!-- Rate Note Banner -->
+    <div class="rate-note-banner">
+      <i class="fa-solid fa-circle-info"></i> <strong>Important Note:</strong> Extra person (above 5 years): <strong>₹700</strong>. All rates include <strong>GST and Complimentary Breakfast</strong>[span_1](start_span)[span_1](end_span).
+    </div>
+
+    <!-- ================= 1. DELUXE ROOM ================= -->
+    <div class="room-full-card">
       <div class="room-gallery-wrap">
         <div class="room-main-preview">
-          <!-- Main Display Image -->
-          <img id="mainImg1" src="suite-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop'" alt="Super Deluxe Suite Room">
-          <div class="badge-price">₹2,499 / Night</div>
+          <img id="mainImg1" src="deluxe-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=800&auto=format&fit=crop'" alt="Deluxe Room">
+          <div class="badge-price">Single: ₹2,400 | Double: ₹3,000</div>
         </div>
-
-        <!-- 3 Extra Angle Images (Click to Swap Main Image) -->
         <div class="room-thumbnails-row">
-          <div class="thumb-item active" onclick="changeImage('mainImg1', 'suite-room.jpg', this)">
-            <img src="suite-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=300&auto=format&fit=crop'" alt="Master Bed">
-            <span class="thumb-tag">Master Bed</span>
+          <div class="thumb-item active" onclick="changeImage('mainImg1', 'deluxe-room.jpg', this)">
+            <img src="deluxe-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=300&auto=format&fit=crop'" alt="Bed">
+            <span class="thumb-tag">Bed View</span>
           </div>
-          <div class="thumb-item" onclick="changeImage('mainImg1', 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800&auto=format&fit=crop', this)">
-            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=300&auto=format&fit=crop" alt="Sitting Area">
-            <span class="thumb-tag">Lounge Area</span>
+          <div class="thumb-item" onclick="changeImage('mainImg1', 'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop', this)">
+            <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=300&auto=format&fit=crop" alt="Interior">
+            <span class="thumb-tag">Interior</span>
           </div>
           <div class="thumb-item" onclick="changeImage('mainImg1', 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop', this)">
-            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=300&auto=format&fit=crop" alt="Attached Washroom">
-            <span class="thumb-tag">Washroom</span>
-          </div>
-          <div class="thumb-item" onclick="changeImage('mainImg1', 'https://images.unsplash.com/photo-1591088398332-8a7791972843?q=80&w=800&auto=format&fit=crop', this)">
-            <img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?q=80&w=300&auto=format&fit=crop" alt="Interior Details">
-            <span class="thumb-tag">Wall Paneling</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Info Details Column -->
-      <div class="room-info-wrap">
-        <div>
-          <span class="room-category">Premium Super Luxury</span>
-          <h3 class="room-heading">Super Deluxe Suite Room</h3>
-          <p class="room-description">
-            Experience the royal comfort of Nagaur. Features full wooden wall panelling, custom designer wallpaper headboard, plush orthopedic King-size bed, private sofa sitting corner with tea table, mood lighting, and modern attached bathroom.
-          </p>
-
-          <div class="specs-grid">
-            <div class="spec-item"><i class="fa-solid fa-bed"></i> <strong>Bed:</strong> King Size Plush Bed</div>
-            <div class="spec-item"><i class="fa-solid fa-snowflake"></i> <strong>AC:</strong> Silent Split AC</div>
-            <div class="spec-item"><i class="fa-solid fa-user-group"></i> <strong>Occupancy:</strong> 2-3 Adults</div>
-            <div class="spec-item"><i class="fa-solid fa-maximize"></i> <strong>Size:</strong> 42 sq. meters</div>
-          </div>
-
-          <div class="amenities-list">
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> High-Speed Free Wi-Fi</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> HD Smart LED TV</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> 24/7 Hot & Cold Geyser</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> 24-Hour Room Service</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Mineral Water & Tea Maker</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Daily Housekeeping</div>
-          </div>
-        </div>
-
-        <div class="action-group">
-          <a href="https://wa.me/919257090750?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20book%20the%20Super%20Deluxe%20Suite%20Room%20(Rs%202499/night)." target="_blank" class="btn-gold">
-            <i class="fa-brands fa-whatsapp"></i> Book via WhatsApp
-          </a>
-          <a href="tel:+919257090750" class="btn-outline">
-            <i class="fa-solid fa-phone"></i> Call Reception
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- ================= ROOM 2: DELUXE EXECUTIVE AC ROOM ================= -->
-    <div class="room-full-card" id="deluxe-room">
-      <!-- Gallery Column -->
-      <div class="room-gallery-wrap">
-        <div class="room-main-preview">
-          <!-- Main Display Image -->
-          <img id="mainImg2" src="deluxe-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=800&auto=format&fit=crop'" alt="Deluxe Executive AC Room">
-          <div class="badge-price">₹1,899 / Night</div>
-        </div>
-
-        <!-- 3 Extra Angle Images (Click to Swap Main Image) -->
-        <div class="room-thumbnails-row">
-          <div class="thumb-item active" onclick="changeImage('mainImg2', 'deluxe-room.jpg', this)">
-            <img src="deluxe-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=300&auto=format&fit=crop'" alt="Executive Bed">
-            <span class="thumb-tag">Double Bed</span>
-          </div>
-          <div class="thumb-item" onclick="changeImage('mainImg2', 'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop', this)">
-            <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=300&auto=format&fit=crop" alt="Armchair Corner">
-            <span class="thumb-tag">Accent Chair</span>
-          </div>
-          <div class="thumb-item" onclick="changeImage('mainImg2', 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop', this)">
-            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=300&auto=format&fit=crop" alt="Clean Bathroom">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=300&auto=format&fit=crop" alt="Bathroom">
             <span class="thumb-tag">Bathroom</span>
           </div>
-          <div class="thumb-item" onclick="changeImage('mainImg2', 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=800&auto=format&fit=crop', this)">
-            <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=300&auto=format&fit=crop" alt="Wardrobe & Vanity">
-            <span class="thumb-tag">Wardrobe</span>
+          <div class="thumb-item" onclick="changeImage('mainImg1', 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=800&auto=format&fit=crop', this)">
+            <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=300&auto=format&fit=crop" alt="Amenities">
+            <span class="thumb-tag">Amenities</span>
           </div>
         </div>
       </div>
 
- <!-- Info Details Column -->
       <div class="room-info-wrap">
         <div>
-          <span class="room-category">Executive Business & Family</span>
-          <h3 class="room-heading">Deluxe Executive AC Room</h3>
-          <p class="room-description">
-            Thoughtfully planned for corporate executives, business travelers, and families. Features cozy velvet headboard, built-in wooden wardrobe, full-length dressing mirror, yellow cushioned armchair, table, and spotless modern bathroom.
-          </p>
+          <span class="room-category">Standard Luxury</span>
+          <h3 class="room-heading">Deluxe Room</h3>
+          <p class="room-description">Comfortable and cozy stay featuring modern aesthetic wood finishes, split AC, clean bedding, and attached modern washroom.</p>
 
           <div class="specs-grid">
-            <div class="spec-item"><i class="fa-solid fa-bed"></i> <strong>Bed:</strong> Queen Double Bed</div>
-            <div class="spec-item"><i class="fa-solid fa-snowflake"></i> <strong>AC:</strong> Fast Cooling AC</div>
-            <div class="spec-item"><i class="fa-solid fa-user-group"></i> <strong>Occupancy:</strong> 2 Adults</div>
-            <div class="spec-item"><i class="fa-solid fa-maximize"></i> <strong>Size:</strong> 34 sq. meters</div>
+            <div class="spec-item"><strong>Single Rate:</strong> ₹2,400 / Night</div>
+            <div class="spec-item"><strong>Double Rate:</strong> ₹3,000 / Night</div>
           </div>
 
           <div class="amenities-list">
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> High-Speed Free Wi-Fi</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Flat-Screen LED TV</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Clean Attached Washroom</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Quick Room Dining Service</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Ample Power Sockets</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Sanitized Bedding & Towels</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Free Wi-Fi</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Split AC</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Hot & Cold Geyser</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Breakfast Included</div>
           </div>
         </div>
 
         <div class="action-group">
-          <a href="https://wa.me/919257090750?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20book%20the%20Deluxe%20Executive%20AC%20Room%20(Rs%201899/night)." target="_blank" class="btn-gold">
-            <i class="fa-brands fa-whatsapp"></i> Book via WhatsApp
-          </a>
-          <a href="tel:+919257090750" class="btn-outline">
-            <i class="fa-solid fa-phone"></i> Call Reception
-          </a>
+          <button class="btn-gold" onclick="openBookingModal('Deluxe Room')"><i class="fa-solid fa-envelope"></i> Book Now (Gmail)</button>
+          <a href="https://wa.me/919257090750?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20book%20Deluxe%20Room." target="_blank" class="btn-outline"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
         </div>
       </div>
     </div>
 
-    <!-- ================= ROOM 3: ROYAL FAMILY 4-BEDDED SUITE ================= -->
-    <div class="room-full-card" id="family-suite">
-      <!-- Gallery Column -->
+    <!-- ================= 2. SUPER DELUXE ================= -->
+    <div class="room-full-card">
       <div class="room-gallery-wrap">
         <div class="room-main-preview">
-          <!-- Main Display Image -->
-          <img id="mainImg3" src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=800&auto=format&fit=crop" alt="Royal Family Suite">
-          <div class="badge-price">₹3,499 / Night</div>
+          <img id="mainImg2" src="suite-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop'" alt="Super Deluxe">
+          <div class="badge-price">Single: ₹2,700 | Double: ₹3,300</div>
+        </div>
+        <div class="room-thumbnails-row">
+          <div class="thumb-item active" onclick="changeImage('mainImg2', 'suite-room.jpg', this)">
+            <img src="suite-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=300&auto=format&fit=crop'" alt="Bed">
+            <span class="thumb-tag">Bed View</span>
+          </div>
+          <div class="thumb-item" onclick="changeImage('mainImg2', 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800&auto=format&fit=crop', this)">
+            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=300&auto=format&fit=crop" alt="Lounge">
+            <span class="thumb-tag">Lounge</span>
+          </div>
+          <div class="thumb-item" onclick="changeImage('mainImg2', 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop', this)">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=300&auto=format&fit=crop" alt="Bathroom">
+            <span class="thumb-tag">Bathroom</span>
+          </div>
+          <div class="thumb-item" onclick="changeImage('mainImg2', 'https://images.unsplash.com/photo-1591088398332-8a7791972843?q=80&w=800&auto=format&fit=crop', this)">
+            <img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?q=80&w=300&auto=format&fit=crop" alt="Paneling">
+            <span class="thumb-tag">Paneling</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="room-info-wrap">
+        <div>
+          <span class="room-category">Premium Comfort</span>
+          <h3 class="room-heading">Super Deluxe</h3>
+          <p class="room-description">Enhanced luxury with custom designer wallpaper headboard, plush King-size bed, and premium amenities.</p>
+
+          <div class="specs-grid">
+            <div class="spec-item"><strong>Single Rate:</strong> ₹2,700 / Night</div>
+            <div class="spec-item"><strong>Double Rate:</strong> ₹3,300 / Night</div>
+          </div>
+
+          <div class="amenities-list">
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> High-Speed Wi-Fi</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Smart LED TV</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Tea Maker</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Breakfast Included</div>
+          </div>
         </div>
 
-        <!-- 3 Extra Angle Images -->
+        <div class="action-group">
+          <button class="btn-gold" onclick="openBookingModal('Super Deluxe')"><i class="fa-solid fa-envelope"></i> Book Now (Gmail)</button>
+          <a href="https://wa.me/919257090750?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20book%20Super%20Deluxe." target="_blank" class="btn-outline"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 3. TRIPPLE EXECUTIVE ROOM ================= -->
+    <div class="room-full-card">
+      <div class="room-gallery-wrap">
+        <div class="room-main-preview">
+          <img id="mainImg3" src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=800&auto=format&fit=crop" alt="Triple Executive Room">
+          <div class="badge-price">Single: ₹3,000 | Double: ₹3,500 | Triple: ₹4,000</div>
+        </div>
         <div class="room-thumbnails-row">
           <div class="thumb-item active" onclick="changeImage('mainImg3', 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=800&auto=format&fit=crop', this)">
-            <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=300&auto=format&fit=crop" alt="Main Family Beds">
-            <span class="thumb-tag">Family Bed</span>
+            <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=300&auto=format&fit=crop" alt="Bed">
+            <span class="thumb-tag">Beds</span>
           </div>
           <div class="thumb-item" onclick="changeImage('mainImg3', 'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop', this)">
-            <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=300&auto=format&fit=crop" alt="Living Lounge">
-            <span class="thumb-tag">Living Area</span>
+            <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=300&auto=format&fit=crop" alt="Interior">
+            <span class="thumb-tag">Interior</span>
           </div>
           <div class="thumb-item" onclick="changeImage('mainImg3', 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop', this)">
-            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=300&auto=format&fit=crop" alt="Spacious Bathroom">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=300&auto=format&fit=crop" alt="Bathroom">
             <span class="thumb-tag">Bathroom</span>
           </div>
           <div class="thumb-item" onclick="changeImage('mainImg3', 'suite-room.jpg', this)">
-            <img src="suite-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=300&auto=format&fit=crop'" alt="Decor Details">
-            <span class="thumb-tag">Decor View</span>
+            <img src="suite-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=300&auto=format&fit=crop'" alt="Decor">
+            <span class="thumb-tag">Decor</span>
           </div>
         </div>
       </div>
 
-      <!-- Info Details Column -->
       <div class="room-info-wrap">
         <div>
-          <span class="room-category">Spacious Family Accommodation</span>
-          <h3 class="room-heading">Royal Family Suite (4 Bedded)</h3>
-          <p class="room-description">
-            Perfect for large families and tourist groups visiting Nagaur. Provides extra-large space with two double beds, large wardrobe, wide balcony view, smart TV with entertainment channels, and prompt housekeeping.
-          </p>
+          <span class="room-category">Family & Group Stay</span>
+          <h3 class="room-heading">Tripple Executive Room</h3>
+          <p class="room-description">Spacious room designed for small groups and families, offering triple occupancy comfort with premium furnishings.</p>
 
           <div class="specs-grid">
-            <div class="spec-item"><i class="fa-solid fa-bed"></i> <strong>Beds:</strong> 2 Large Double Beds</div>
-            <div class="spec-item"><i class="fa-solid fa-snowflake"></i> <strong>AC:</strong> Heavy-Duty AC</div>
-            <div class="spec-item"><i class="fa-solid fa-user-group"></i> <strong>Occupancy:</strong> 4-5 Persons</div>
-            <div class="spec-item"><i class="fa-solid fa-maximize"></i> <strong>Size:</strong> 55 sq. meters</div>
+            <div class="spec-item"><strong>Single:</strong> ₹3,000 | <strong>Double:</strong> ₹3,500</div>
+            <div class="spec-item"><strong>Triple:</strong> ₹4,000 / Night</div>
           </div>
 
           <div class="amenities-list">
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> High-Speed Free Wi-Fi</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Extra Mattress Available</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Big Luxury Washroom</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> In-Room Breakfast Service</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Luggage Storage Racks</div>
-            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Dedicated Concierge Desk</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Free Wi-Fi</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Extra Space</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Room Service</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Breakfast Included</div>
           </div>
         </div>
 
         <div class="action-group">
-          <a href="https://wa.me/919257090750?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20book%20the%20Royal%20Family%20Suite%20(Rs%203499/night)." target="_blank" class="btn-gold">
-            <i class="fa-brands fa-whatsapp"></i> Book via WhatsApp
-          </a>
-          <a href="tel:+919257090750" class="btn-outline">
-            <i class="fa-solid fa-phone"></i> Call Reception
-          </a>
+          <button class="btn-gold" onclick="openBookingModal('Tripple Executive Room')"><i class="fa-solid fa-envelope"></i> Book Now (Gmail)</button>
+          <a href="https://wa.me/919257090750?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20book%20Tripple%20Executive%20Room." target="_blank" class="btn-outline"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
         </div>
       </div>
     </div>
 
-    <!-- ================= CUSTOMER REVIEW & RATING SECTION (GALLERY KE BAAD) ================= -->
-    <div class="review-section-box">
-      <h3>Customer Reviews & Ratings 🌟</h3>
-      <p class="rev-sub">Apna anubhav share karein! Rating select karein aur niche diye gaye AI options me se ek click me review submit karein:</p>
-      
-      <!-- Stars Selection -->
-      <div class="index-stars-container" id="indexStars">
-        <i class="fa-solid fa-star" onclick="setRating(1)"></i>
-        <i class="fa-solid fa-star" onclick="setRating(2)"></i>
-        <i class="fa-solid fa-star" onclick="setRating(3)"></i>
-        <i class="fa-solid fa-star" onclick="setRating(4)"></i>
-        <i class="fa-solid fa-star" onclick="setRating(5)"></i>
+    <!-- ================= 4. SUITE GOLD ================= -->
+    <div class="room-full-card">
+      <div class="room-gallery-wrap">
+        <div class="room-main-preview">
+          <img id="mainImg4" src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800&auto=format&fit=crop" alt="Suite Gold">
+          <div class="badge-price">Single: ₹4,200 | Double: ₹5,200</div>
+        </div>
+        <div class="room-thumbnails-row">
+          <div class="thumb-item active" onclick="changeImage('mainImg4', 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800&auto=format&fit=crop', this)">
+            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=300&auto=format&fit=crop" alt="Lounge">
+            <span class="thumb-tag">Lounge</span>
+          </div>
+          <div class="thumb-item" onclick="changeImage('mainImg4', 'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop', this)">
+            <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=300&auto=format&fit=crop" alt="Bed">
+            <span class="thumb-tag">Bed</span>
+          </div>
+          <div class="thumb-item" onclick="changeImage('mainImg4', 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop', this)">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=300&auto=format&fit=crop" alt="Bath">
+            <span class="thumb-tag">Bath</span>
+          </div>
+          <div class="thumb-item" onclick="changeImage('mainImg4', 'suite-room.jpg', this)">
+            <img src="suite-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=300&auto=format&fit=crop'" alt="Interior">
+            <span class="thumb-tag">Interior</span>
+          </div>
+        </div>
       </div>
 
-      <!-- AI Quick Review Pills Box (Hidden until rating selected) -->
-      <div id="aiPillsBox" style="display:none;">
-        <p style="font-size: 0.85rem; color: var(--gold); margin-bottom: 10px; text-align: center; font-weight: 600;">✨ Tap any AI-Suggested Review for instant submission:</p>
-        <div class="ai-pills-container" id="pillsContainer"></div>
+      <div class="room-info-wrap">
+        <div>
+          <span class="room-category">Elite Luxury Suite</span>
+          <h3 class="room-heading">Suite Gold</h3>
+          <p class="room-description">Exquisite gold-themed suite offering separate living lounge, royal bedding, and premium hospitality services.</p>
+
+          <div class="specs-grid">
+            <div class="spec-item"><strong>Single Rate:</strong> ₹4,200 / Night</div>
+            <div class="spec-item"><strong>Double Rate:</strong> ₹5,200 / Night</div>
+          </div>
+
+          <div class="amenities-list">
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Living Lounge</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Mini Bar Setup</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Premium Toiletries</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Breakfast Included</div>
+          </div>
+        </div>
+
+        <div class="action-group">
+          <button class="btn-gold" onclick="openBookingModal('Suite Gold')"><i class="fa-solid fa-envelope"></i> Book Now (Gmail)</button>
+          <a href="https://wa.me/919257090750?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20book%20Suite%20Gold." target="_blank" class="btn-outline"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 5. SUITE PLATINUM ================= -->
+    <div class="room-full-card">
+      <div class="room-gallery-wrap">
+        <div class="room-main-preview">
+          <img id="mainImg5" src="https://images.unsplash.com/photo-1591088398332-8a7791972843?q=80&w=800&auto=format&fit=crop" alt="Suite Platinum">
+          <div class="badge-price">Single: ₹4,500 | Double: ₹5,500</div>
+        </div>
+        <div class="room-thumbnails-row">
+          <div class="thumb-item active" onclick="changeImage('mainImg5', 'https://images.unsplash.com/photo-1591088398332-8a7791972843?q=80&w=800&auto=format&fit=crop', this)">
+            <img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?q=80&w=300&auto=format&fit=crop" alt="Platinum Suite">
+            <span class="thumb-tag">Master</span>
+          </div>
+          <div class="thumb-item" onclick="changeImage('mainImg5', 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800&auto=format&fit=crop', this)">
+            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=300&auto=format&fit=crop" alt="Lounge">
+            <span class="thumb-tag">Lounge</span>
+          </div>
+          <div class="thumb-item" onclick="changeImage('mainImg5', 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop', this)">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=300&auto=format&fit=crop" alt="Bath">
+            <span class="thumb-tag">Bath</span>
+          </div>
+          <div class="thumb-item" onclick="changeImage('mainImg5', 'suite-room.jpg', this)">
+            <img src="suite-room.jpg" onerror="this.src='https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=300&auto=format&fit=crop'" alt="Interior">
+            <span class="thumb-tag">Interior</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Permanent Saved Reviews Grid Display -->
-      <div class="saved-reviews-grid" id="savedReviewsContainer"></div>
+      <div class="room-info-wrap">
+        <div>
+          <span class="room-category">Ultimate Presidential Luxury</span>
+          <h3 class="room-heading">Suite Platinum</h3>
+          <p class="room-description">Our most opulent and grand suite, featuring top-tier interior styling, elite amenities, and unparalleled royal comfort.</p>
+
+          <div class="specs-grid">
+            <div class="spec-item"><strong>Single Rate:</strong> ₹4,500 / Night</div>
+            <div class="spec-item"><strong>Double Rate:</strong> ₹5,500 / Night</div>
+          </div>
+
+          <div class="amenities-list">
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Presidential Decor</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Butler Service</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Jacuzzi Access</div>
+            <div class="amenity-bullet"><i class="fa-solid fa-check"></i> Breakfast Included</div>
+          </div>
+        </div>
+
+        <div class="action-group">
+          <button class="btn-gold" onclick="openBookingModal('Suite Platinum')"><i class="fa-solid fa-envelope"></i> Book Now (Gmail)</button>
+          <a href="https://wa.me/919257090750?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20book%20Suite%20Platinum." target="_blank" class="btn-outline"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
     </div>
 
   </div>
 
-  <!-- Floating WhatsApp Button -->
-  <a href="https://wa.me/919257090750?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20inquire%20about%20room%20booking." class="whatsapp-float" target="_blank">
-    <i class="fa-brands fa-whatsapp"></i> Book via WhatsApp
-  </a>
+  <!-- Booking Modal Form -->
+  <div class="modal-overlay" id="bookingModal" onclick="closeModal(event)">
+    <div class="modal-card">
+      <h3 id="modalRoomTitle">Book Room</h3>
+      <form id="bookingForm" onsubmit="sendBookingEmail(event)">
+        <input type="hidden" id="selectedRoomName">
+        
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="clientName" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="clientPhone" placeholder="Enter phone number" required>
+        </div>
+
+        <div class="form-group">
+          <label>Gmail Address (For Confirmation)</label>
+          <input type="email" id="clientEmail" placeholder="Enter your email" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label>Check-in Date</label>
+            <input type="date" id="checkInDate" required>
+          </div>
+          <div class="form-group">
+            <label>Check-out Date</label>
+            <input type="date" id="checkOutDate" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Occupancy Type</label>
+          <select id="roomOccupancy" required>
+            <option value="Single">Single Occupancy</option>
+            <option value="Double">Double Occupancy</option>
+            <option value="Triple">Triple Occupancy (Applicable for Triple Executive)</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="close-modal-btn" onclick="toggleModal(false)">Cancel</button>
+          <button type="submit" class="btn-gold" id="submitBtn" style="flex: 1; justify-content: center;">Confirm & Send Booking</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer>
     <p>© 2026 Hotel Inder Paradise, Didwana Road, Nagaur, Rajasthan. All Rights Reserved. Call: +91 92570 90750</p>
   </footer>
 
-  <!-- Interactive JavaScript for Image Swapping & Permanent AI Reviews -->
+  <!-- JavaScript Logic -->
   <script>
     function changeImage(mainImageId, newSrc, clickedThumb) {
       const mainImg = document.getElementById(mainImageId);
@@ -647,84 +736,63 @@
           mainImg.style.opacity = '1';
         }, 150);
       }
-
       const parentRow = clickedThumb.parentElement;
       if (parentRow) {
         parentRow.querySelectorAll('.thumb-item').forEach(thumb => thumb.classList.remove('active'));
         clickedThumb.classList.add('active');
       }
     }
-      // --- AI Review Automation & Permanent LocalStorage Logic ---
-    const reviewDb = {
-      5: [
-        "Best hotel and restaurant in Nagaur! Rooms are extremely clean, AC works perfectly, and Ashray Restaurant food is super delicious. Highly recommended! 🌟",
-        "Amazing hospitality at Hotel Inder Paradise! Stayed in their Super Deluxe Suite and the experience was royal. Great staff and secure parking.",
-        "Nagaur me rukne ki sabse best jagah! Clean rooms, fast room service, and very tasty pure veg food at Ashray Restaurant.",
-        "Wonderful banquet hall experience for our family function. Elegant decoration, great lighting, and very cooperative management.",
-        "Top-class luxury hotel near Vijay Vallabh Circle, Nagaur. Very comfortable bedding, polite staff, and pocket-friendly tariffs.",
-        "Awesome food quality at Ashray Restaurant! Loved the North Indian thali and prompt service. Will visit again soon.",
-        "Safe, hygienic, and premium hotel in Nagaur. Perfect for both business travelers and families. 5/5 stars!"
-      ],
-      4: [
-        "Very nice hotel with good cleanliness and polite staff. Ashray restaurant food was also very tasty. Good experience!",
-        "Comfortable stay at Hotel Inder Paradise. Rooms are spacious and well-maintained. Location is very convenient near Vijay Vallabh Circle.",
-        "Good service and clean AC rooms. Restaurant food quality is great. Recommended for families visiting Nagaur.",
-        "Nice ambiance in the banquet hall. Attended a ring ceremony here and the arrangements were impressive.",
-        "Great hospitality, clean bathrooms, and helpful reception staff. Value for money stay in Nagaur."
-      ],
-      default: [
-        "Good location on Didwana Road and decent rooms. Satisfactory stay experience overall."
-      ]
-    };
 
-    function setRating(stars) {
-      document.querySelectorAll('#indexStars i').forEach((s, idx) => {
-        s.style.color = idx < stars ? '#f5a623' : '#444';
-      });
-
-      const box = document.getElementById('aiPillsBox');
-      const container = document.getElementById('pillsContainer');
-      box.style.display = 'block';
-
-      const texts = stars >= 4 ? reviewDb[5] : (stars === 4 ? reviewDb[4] : reviewDb.default);
-      container.innerHTML = texts.map(t => `
-        <div class="r-pill" onclick="saveReview('${t.replace(/'/g, "\\'")}', ${stars})">
-          "${t}"
-          <span>📋 Click to submit instantly to website</span>
-        </div>
-      `).join('');
+    // Modal Control
+    function openBookingModal(roomName) {
+      document.getElementById('selectedRoomName').value = roomName;
+      document.getElementById('modalRoomTitle').innerText = `Book: ${roomName}`;
+      document.getElementById('bookingModal').classList.add('active');
     }
 
-    function saveReview(text, stars) {
-      let allReviews = JSON.parse(localStorage.getItem('inderParadiseReviews')) || [];
-      allReviews.unshift({ text, stars, date: new Date().toLocaleDateString() });
-      localStorage.setItem('inderParadiseReviews', JSON.stringify(allReviews));
-      loadReviews();
-      alert("Review successfully saved on website permanently!");
-      document.getElementById('aiPillsBox').style.display = 'none';
-      document.querySelectorAll('#indexStars i').forEach(s => s.style.color = '#444');
+    function toggleModal(show) {
+      const modal = document.getElementById('bookingModal');
+      if (show) modal.classList.add('active');
+      else modal.classList.remove('active');
     }
 
-    function loadReviews() {
-      let allReviews = JSON.parse(localStorage.getItem('inderParadiseReviews')) || [
-        { text: "Best hotel and restaurant in Nagaur! Super clean rooms and delicious food at Ashray Restaurant. 🌟", stars: 5, date: "30/03/2026" },
-        { text: "Amazing hospitality at Hotel Inder Paradise! Stayed in their Super Deluxe Suite and the experience was royal.", stars: 5, date: "29/03/2026" }
-      ];
+    function closeModal(e) {
+      if (e.target.id === 'bookingModal') toggleModal(false);
+    }
+
+    // EmailJS Submission Logic
+    function sendBookingEmail(e) {
+      e.preventDefault();
       
-      let html = allReviews.map(r => `
-        <div class="review-card-item">
-          <strong>${'⭐'.repeat(r.stars)} <span style="font-size:0.75rem; color:#888; float:right;">${r.date}</span></strong>
-          <p>"${r.text}"</p>
-        </div>
-      `).join('');
-      
-      document.getElementById('savedReviewsContainer').innerHTML = html;
-    }
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.innerText = "Sending Booking...";
+      submitBtn.disabled = true;
 
-    // Load saved reviews automatically when page opens
-    window.onload = function() {
-      loadReviews();
-    };
+      const templateParams = {
+        room_name: document.getElementById('selectedRoomName').value,
+        client_name: document.getElementById('clientName').value,
+        client_phone: document.getElementById('clientPhone').value,
+        client_email: document.getElementById('clientEmail').value,
+        check_in: document.getElementById('checkInDate').value,
+        check_out: document.getElementById('checkOutDate').value,
+        occupancy: document.getElementById('roomOccupancy').value,
+        hotel_email: "hotelip2022@gmail.com" // Aapka official hotel gmail
+      };
+
+      // Yahan EmailJS service ID aur template ID dalein
+      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        .then(function(response) {
+           alert("Booking request sent successfully to hotel official Gmail! Confirmation email sent to your mail.");
+           submitBtn.innerText = "Confirm & Send Booking";
+           submitBtn.disabled = false;
+           document.getElementById('bookingForm').reset();
+           toggleModal(false);
+        }, function(error) {
+           alert("Failed to send booking. Please try via WhatsApp.");
+           submitBtn.innerText = "Confirm & Send Booking";
+           submitBtn.disabled = false;
+        });
+    }
   </script>
 </body>
-</html>
+  </html>
