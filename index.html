@@ -36,13 +36,6 @@
       --text-muted: #9e9ea7;
       --white: #ffffff;
       
-      --primary-gold: #f5a623;
-      --primary-gold-dark: #d48b1d;
-      --gold-light: #ffc048;
-      --royal-dark: #09090b;
-      --bg-cream: #09090b;
-      --text-dark: #f8f9fa;
-      
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Montserrat', sans-serif;
       --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -52,7 +45,7 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: var(--font-sans);
-      color: var(--text-dark);
+      color: var(--text);
       background-color: var(--dark-bg);
       line-height: 1.6;
       overflow-x: hidden;
@@ -63,7 +56,7 @@
     ul { list-style: none; }
     img { max-width: 100%; height: auto; display: block; }
 
-    /* Top Announcement Bar (Updated for Center Bold & Subtitle) */
+    /* Top Announcement Bar */
     .top-bar {
       background-color: #050608;
       color: var(--gold-light);
@@ -107,11 +100,7 @@
       padding: 14px 24px;
     }
 
-    .nav-left {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
+    .nav-left { display: flex; align-items: center; justify-content: flex-start; }
     .menu-toggle-btn {
       background: #18181f;
       border: 1px solid var(--border-color);
@@ -128,23 +117,11 @@
       gap: 10px;
       transition: var(--transition);
     }
-    .menu-toggle-btn:hover {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-    .menu-toggle-btn i {
-      font-size: 1.1rem;
-    }
+    .menu-toggle-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .menu-toggle-btn i { font-size: 1.1rem; }
 
-    .nav-center {
-      text-align: center;
-    }
-    .logo {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    .nav-center { text-align: center; }
+    .logo { display: inline-flex; flex-direction: column; align-items: center; }
     .logo-main {
       font-family: var(--font-serif);
       font-size: 2rem;
@@ -162,12 +139,7 @@
       margin-top: 4px;
     }
 
-    .nav-right {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 12px;
-    }
+    .nav-right { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
 
     .btn-gold {
       background: linear-gradient(135deg, var(--primary) 0%, #d63031 100%);
@@ -211,128 +183,38 @@
 
     /* Left Side Sliding Drawer Menu */
     .side-drawer-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(5px);
-      z-index: 2000;
-      opacity: 0;
-      visibility: hidden;
-      transition: var(--transition);
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(5px);
+      z-index: 2000; opacity: 0; visibility: hidden; transition: var(--transition);
     }
-    .side-drawer-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
+    .side-drawer-overlay.active { opacity: 1; visibility: visible; }
     .side-drawer {
-      position: fixed;
-      top: 0;
-      left: -380px;
-      width: 360px;
-      max-width: 85vw;
-      height: 100vh;
-      background: #111116;
-      border-right: 1px solid var(--border-color);
-      z-index: 2001;
-      padding: 35px 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow-y: auto;
-      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: fixed; top: 0; left: -380px; width: 360px; max-width: 85vw; height: 100vh;
+      background: #111116; border-right: 1px solid var(--border-color); z-index: 2001;
+      padding: 35px 28px; display: flex; flex-direction: column; justify-content: space-between;
+      overflow-y: auto; transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
-    .side-drawer.active {
-      transform: translateX(380px);
-    }
-
-    .drawer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 20px;
-      margin-bottom: 25px;
-    }
-    .drawer-logo {
-      font-family: var(--font-serif);
-      font-size: 1.4rem;
-      color: var(--gold);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
+    .side-drawer.active { transform: translateX(380px); }
+    .drawer-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 25px; }
+    .drawer-logo { font-family: var(--font-serif); font-size: 1.4rem; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; }
     .close-drawer-btn {
-      background: none;
-      border: 1px solid var(--border-color);
-      color: #fff;
-      font-size: 1.2rem;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
+      background: none; border: 1px solid var(--border-color); color: #fff; font-size: 1.2rem;
+      width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition);
     }
-    .close-drawer-btn:hover {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-
-    .drawer-links li {
-      margin-bottom: 16px;
-    }
+    .close-drawer-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .drawer-links li { margin-bottom: 16px; }
     .drawer-links a {
-      color: var(--text);
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 8px 12px;
-      border-radius: 3px;
-      font-weight: 500;
-      border-bottom: 1px solid #1a1a22;
+      color: var(--text); font-size: 1rem; text-transform: uppercase; letter-spacing: 2px;
+      display: flex; align-items: center; gap: 14px; padding: 8px 12px; border-radius: 3px; font-weight: 500; border-bottom: 1px solid #1a1a22;
     }
-    .drawer-links a i {
-      color: var(--gold);
-      width: 20px;
-      font-size: 1.1rem;
-    }
-    .drawer-links a:hover {
-      background: rgba(230, 57, 70, 0.15);
-      color: var(--gold);
-      padding-left: 18px;
-    }
-
-    .drawer-footer {
-      border-top: 1px solid var(--border-color);
-      padding-top: 20px;
-      margin-top: 20px;
-    }
-    .drawer-footer p {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
-    .drawer-footer p i {
-      color: var(--gold);
-      margin-right: 6px;
-    }
+    .drawer-links a i { color: var(--gold); width: 20px; font-size: 1.1rem; }
+    .drawer-links a:hover { background: rgba(230, 57, 70, 0.15); color: var(--gold); padding-left: 18px; }
+    .drawer-footer { border-top: 1px solid var(--border-color); padding-top: 20px; margin-top: 20px; }
+    .drawer-footer p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; }
+    .drawer-footer p i { color: var(--gold); margin-right: 6px; }
 
     /* Hero Section */
     .hero {
-      position: relative;
-      height: 85vh;
-      min-height: 560px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      position: relative; height: 85vh; min-height: 560px; display: flex; align-items: center; justify-content: center; text-align: center;
       background: linear-gradient(180deg, rgba(9, 9, 11, 0.65) 0%, rgba(9, 9, 11, 0.92) 100%),
                   url('hotel-exterior.jpg'),
                   url('https://i.ibb.co/Q7dDJDts/Screenshot-2026-08-27-21-23-47-22-3d9111e2d3171bf4882369f490c087b4.jpg') center/cover no-repeat;
@@ -346,27 +228,13 @@
     /* Booking Bar */
     .booking-bar-wrapper { max-width: 1150px; margin: -50px auto 0; position: relative; z-index: 100; padding: 0 20px; }
     .booking-bar {
-      background: var(--card-bg);
-      padding: 24px 30px;
-      border-radius: 12px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-      display: grid;
-      grid-template-columns: repeat(4, 1fr) auto;
-      gap: 20px;
-      align-items: center;
-      border-top: 3px solid var(--primary);
-      border: 1px solid var(--border-color);
+      background: var(--card-bg); padding: 24px 30px; border-radius: 12px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 20px; align-items: center; border-top: 3px solid var(--primary); border: 1px solid var(--border-color);
     }
     .booking-item { display: flex; flex-direction: column; }
     .booking-item label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 6px; }
     .booking-item input, .booking-item select {
-      border: 1px solid var(--border-color);
-      padding: 10px 12px;
-      font-size: 0.9rem;
-      border-radius: 8px;
-      outline: none;
-      background: #0d0d12;
-      color: #fff;
+      border: 1px solid var(--border-color); padding: 10px 12px; font-size: 0.9rem; border-radius: 8px; outline: none; background: #0d0d12; color: #fff;
     }
 
     /* Sections */
@@ -382,24 +250,11 @@
     .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
     .overview-img-wrapper { position: relative; }
     .overview-img-wrapper img {
-      border-radius: 12px;
-      width: 100%;
-      height: 480px;
-      object-fit: cover;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-      border: 1px solid var(--border-color);
+      border-radius: 12px; width: 100%; height: 480px; object-fit: cover; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); border: 1px solid var(--border-color);
     }
     .overview-badge {
-      position: absolute;
-      bottom: -20px;
-      right: -20px;
-      background: var(--card-bg);
-      color: var(--gold);
-      padding: 22px 28px;
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      position: absolute; bottom: -20px; right: -20px; background: var(--card-bg); color: var(--gold);
+      padding: 22px 28px; border: 1px solid var(--border-color); border-radius: 12px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
     .overview-badge .num { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700; display: block; line-height: 1; color: var(--primary); }
     .overview-badge .label { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: #fff; }
@@ -413,31 +268,16 @@
     .rooms-section { background: #111116; }
     .rooms-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 35px; }
     .room-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-      transition: var(--transition);
-      display: flex;
-      flex-direction: column;
+      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); transition: var(--transition); display: flex; flex-direction: column;
     }
     .room-card:hover { transform: translateY(-7px); background: var(--card-hover); border-color: var(--primary); box-shadow: 0 18px 35px rgba(230, 57, 70, 0.2); }
     .room-img { height: 290px; position: relative; overflow: hidden; }
     .room-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
     .room-card:hover .room-img img { transform: scale(1.05); }
     .room-price {
-      position: absolute;
-      bottom: 12px;
-      right: 12px;
-      background: rgba(9, 9, 11, 0.85);
-      backdrop-filter: blur(6px);
-      color: var(--gold);
-      padding: 6px 14px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      border-radius: 20px;
-      border: 1px solid rgba(245, 166, 35, 0.3);
+      position: absolute; bottom: 12px; right: 12px; background: rgba(9, 9, 11, 0.85); backdrop-filter: blur(6px); color: var(--gold);
+      padding: 6px 14px; font-size: 0.88rem; font-weight: 600; border-radius: 20px; border: 1px solid rgba(245, 166, 35, 0.3);
     }
     .room-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
     .room-meta { display: flex; gap: 16px; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; }
@@ -450,12 +290,7 @@
     .dining-section .section-title { color: var(--white); }
     .dining-section .section-desc { color: var(--text-muted); }
     .dining-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
-    .dining-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      overflow: hidden;
-    }
+    .dining-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; overflow: hidden; }
     .dining-img { height: 350px; }
     .dining-img img { width: 100%; height: 100%; object-fit: cover; }
     .dining-details h3 { font-size: 2.2rem; color: var(--gold); margin-bottom: 15px; }
@@ -464,193 +299,122 @@
     .dining-feat-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #e2e2e8; }
     .dining-feat-item i { color: var(--gold); }
 
+    /* Dining Bar Section (New Step 4) */
+    .bar-section { background: #111116; }
+    .bar-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+    .bar-video-wrapper {
+      position: relative; height: 360px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); background: #0d0d12;
+    }
+    .bar-video-wrapper video, .bar-video-wrapper iframe { width: 100%; height: 100%; object-fit: cover; border: none; }
+    .bar-content h3 { font-size: 2.2rem; color: var(--gold); margin-bottom: 15px; }
+    .bar-content p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem; line-height: 1.7; }
+    .bar-btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
+
     /* Banquet & Celebrations Section */
-    .banquet-section { background: #111116; }
+    .banquet-section { background: var(--dark-bg); }
     .banquet-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; }
     .banquet-img-wrapper { position: relative; }
     .banquet-img-wrapper img { width: 100%; height: 360px; object-fit: cover; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid var(--border-color); }
 
+    /* --- Bottle Clash Animation Overlay (Step 4) --- */
+    .bottle-clash-overlay {
+      position: fixed; inset: 0; background: #000; z-index: 9999;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden; transition: 0.3s ease;
+    }
+    .bottle-clash-overlay.active { opacity: 1; visibility: visible; }
+    .bottle-container { display: flex; gap: 80px; font-size: 5rem; color: var(--gold); position: relative; }
+    .bottle-left { animation: clashLeft 0.8s ease forwards; }
+    .bottle-right { animation: clashRight 0.8s ease forwards; }
+    .clash-text { color: #fff; margin-top: 30px; font-size: 1.5rem; font-family: var(--font-serif); letter-spacing: 2px; }
+    @keyframes clashLeft {
+      0% { transform: translateX(-300px) rotate(-45deg); opacity: 0; }
+      50% { transform: translateX(0) rotate(0deg); opacity: 1; }
+      70% { transform: translateX(-15px) rotate(-10deg); }
+      100% { transform: translateX(0) rotate(0deg); opacity: 1; }
+    }
+    @keyframes clashRight {
+      0% { transform: translateX(300px) rotate(45deg); opacity: 0; }
+      50% { transform: translateX(0) rotate(0deg); opacity: 1; }
+      70% { transform: translateX(15px) rotate(10deg); }
+      100% { transform: translateX(0) rotate(0deg); opacity: 1; }
+    }
+
     /* --- Gallery Slider Styles --- */
     .gallery-slider-wrapper {
-      position: relative;
-      max-width: 1200px;
-      margin: 0 auto;
-      overflow: hidden;
-      padding: 10px 0;
+      position: relative; max-width: 1200px; margin: 0 auto; overflow: hidden; padding: 10px 0;
     }
     .gallery-slider-track {
-      display: flex;
-      gap: 20px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+      display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; scrollbar-width: none;
     }
     .gallery-slider-track::-webkit-scrollbar { display: none; }
     .gallery-item {
-      flex: 0 0 calc(33.333% - 14px);
-      min-width: 280px;
-      position: relative;
-      height: 260px;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      border: 1px solid var(--border-color);
-      scroll-snap-align: start;
+      flex: 0 0 calc(33.333% - 14px); min-width: 280px; position: relative; height: 260px; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4); border: 1px solid var(--border-color); scroll-snap-align: start;
     }
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
     .gallery-item:hover img { transform: scale(1.08); }
     .gallery-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(9, 9, 11, 0.75);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: var(--transition);
-      color: var(--white);
-      font-family: var(--font-serif);
-      font-size: 1.2rem;
-      letter-spacing: 1px;
+      position: absolute; inset: 0; background: rgba(9, 9, 11, 0.75); display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: var(--transition); color: var(--white); font-family: var(--font-serif); font-size: 1.2rem; letter-spacing: 1px;
     }
     .gallery-item:hover .gallery-overlay { opacity: 1; }
-    .slider-nav-btns {
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-      margin-top: 20px;
-    }
+    .slider-nav-btns { display: flex; justify-content: flex-end; gap: 12px; margin-top: 20px; }
     .slider-btn {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      color: var(--gold);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      transition: var(--transition);
+      background: var(--card-bg); border: 1px solid var(--border-color); color: var(--gold); width: 44px; height: 44px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: var(--transition);
     }
     .slider-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-    /* --- AI Review System Styles with Unique Animation & Name Input --- */
+    /* --- AI Review System Styles --- */
     .review-section-box {
-      max-width: 1200px;
-      margin: 0 auto;
-      background: var(--card-bg);
-      padding: 45px;
-      border-radius: 14px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-      position: relative;
-      overflow: hidden;
+      max-width: 1200px; margin: 0 auto; background: var(--card-bg); padding: 45px; border-radius: 14px;
+      border: 1px solid var(--border-color); box-shadow: 0 15px 35px rgba(0,0,0,0.5); position: relative; overflow: hidden;
     }
     .review-section-box h3 { font-family: var(--font-serif); font-size: 2.2rem; color: #fff; margin-bottom: 10px; text-align: center; }
     .review-section-box p.rev-sub { text-align: center; color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; }
-    
-    .customer-name-box {
-      max-width: 400px;
-      margin: 0 auto 20px;
-    }
+    .customer-name-box { max-width: 400px; margin: 0 auto 20px; }
     .customer-name-box input {
-      width: 100%;
-      background: #111116;
-      border: 1px solid var(--border-color);
-      padding: 12px 16px;
-      border-radius: 8px;
-      color: #fff;
-      font-size: 0.95rem;
-      outline: none;
-      text-align: center;
-      transition: var(--transition);
+      width: 100%; background: #111116; border: 1px solid var(--border-color); padding: 12px 16px; border-radius: 8px;
+      color: #fff; font-size: 0.95rem; outline: none; text-align: center; transition: var(--transition);
     }
-    .customer-name-box input:focus { border-color: var(--gold); }
-
+        .customer-name-box input:focus { border-color: var(--gold); }
     .index-stars-container { display: flex; justify-content: center; gap: 12px; font-size: 2.5rem; cursor: pointer; margin-bottom: 25px; }
     .index-stars-container i { color: #444; transition: 0.3s; }
-    
     .ai-pills-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
     .r-pill {
-      background: #111116;
-      border: 1px solid var(--border-color);
-      padding: 15px 20px;
-      border-radius: 8px;
-      color: #ddd;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: var(--transition);
-      position: relative;
+      background: #111116; border: 1px solid var(--border-color); padding: 15px 20px; border-radius: 8px; color: #ddd; cursor: pointer; font-size: 0.9rem; transition: var(--transition); position: relative;
     }
     .r-pill:hover { border-color: var(--gold); background: #1b1b22; color: #fff; transform: translateY(-2px); }
     .r-pill span { display: block; font-size: 0.75rem; color: var(--gold); margin-top: 4px; font-weight: 600; }
-
-      .saved-reviews-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+    .saved-reviews-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
     .review-card-item {
-      background: #111116;
-      padding: 20px;
-      border-radius: 10px;
-      border-left: 4px solid var(--gold);
-      border: 1px solid var(--border-color);
-      animation: fadeInReview 0.6s ease-in-out;
+      background: #111116; padding: 20px; border-radius: 10px; border-left: 4px solid var(--gold); border: 1px solid var(--border-color); animation: fadeInReview 0.6s ease-in-out;
     }
     .review-card-item strong { color: #fff; display: block; margin-bottom: 8px; font-size: 0.95rem; }
     .review-card-item p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
     .review-card-item span.author { display: block; margin-top: 10px; font-size: 0.8rem; color: var(--gold); font-weight: 600; }
 
-    /* Unique Submit Animation Overlay */
+    /* Success Popup Overlay */
     .success-popup {
-      position: absolute;
-      inset: 0;
-      background: rgba(9, 9, 11, 0.95);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.4s ease;
+      position: absolute; inset: 0; background: rgba(9, 9, 11, 0.95); display: flex; flex-direction: column; align-items: center; justify-content: center;
+      z-index: 10; opacity: 0; visibility: hidden; transition: all 0.4s ease;
     }
-    .success-popup.active {
-      opacity: 1;
-      visibility: visible;
-    }
+    .success-popup.active { opacity: 1; visibility: visible; }
     .success-popup i {
-      font-size: 4rem;
-      color: #2ed573;
-      margin-bottom: 15px;
-      animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+      font-size: 4rem; color: #2ed573; margin-bottom: 15px; animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
     }
-    .success-popup h4 {
-      font-size: 1.8rem;
-      color: #fff;
-      margin-bottom: 5px;
-    }
-    .success-popup p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
+    .success-popup h4 { font-size: 1.8rem; color: #fff; margin-bottom: 5px; }
+    .success-popup p { color: var(--text-muted); font-size: 0.95rem; }
 
     /* --- Booking Modal Styles --- */
     .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(6px);
-      display: flex; justify-content: center; align-items: center; z-index: 2000;
+      position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(6px); display: flex; justify-content: center; align-items: center; z-index: 2000;
       opacity: 0; visibility: hidden; transition: 0.3s ease;
     }
     .modal-overlay.active { opacity: 1; visibility: visible; }
     .modal-card {
-      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px;
-      max-width: 500px; width: 90%; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; max-width: 500px; width: 90%; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
       transform: scale(0.8); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .modal-overlay.active .modal-card { transform: scale(1); }
@@ -658,8 +422,7 @@
     .form-group { margin-bottom: 15px; }
     .form-group label { display: block; font-size: 0.8rem; color: var(--gold); text-transform: uppercase; margin-bottom: 5px; font-weight: 600; }
     .form-group input, .form-group select {
-      width: 100%; background: #111116; border: 1px solid var(--border-color); padding: 10px 14px;
-      border-radius: 8px; color: #fff; font-size: 0.9rem; outline: none;
+      width: 100%; background: #111116; border: 1px solid var(--border-color); padding: 10px 14px; border-radius: 8px; color: #fff; font-size: 0.9rem; outline: none;
     }
     .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
     .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
@@ -670,7 +433,6 @@
       60% { transform: scale(1.1); opacity: 1; }
       100% { transform: scale(1); }
     }
-
     @keyframes fadeInReview {
       from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
@@ -680,24 +442,11 @@
     .faq-container { max-width: 850px; margin: 0 auto; }
     .faq-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
     .faq-question {
-      padding: 18px 22px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      font-family: var(--font-serif);
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #fff;
+      padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+      font-family: var(--font-serif); font-size: 1.2rem; font-weight: 600; color: #fff;
     }
     .faq-answer {
-      padding: 0 22px 18px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      display: none;
-      line-height: 1.7;
-      border-top: 1px solid var(--border-color);
-      padding-top: 12px;
+      padding: 0 22px 18px; font-size: 0.9rem; color: var(--text-muted); display: none; line-height: 1.7; border-top: 1px solid var(--border-color); padding-top: 12px;
     }
     .faq-item.active .faq-answer { display: block; }
     .faq-item.active .faq-question i { transform: rotate(180deg); }
@@ -714,27 +463,11 @@
 
     /* Floating WhatsApp Button */
     .whatsapp-float {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background-color: #25d366;
-      color: white;
-      border-radius: 50px;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-      z-index: 999;
-      transition: var(--transition);
+      position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white; border-radius: 50px;
+      padding: 12px 20px; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 999; transition: var(--transition);
     }
-    .whatsapp-float:hover {
-      background-color: #20ba5a;
-      transform: translateY(-3px);
-      color: white;
-    }
+    .whatsapp-float:hover { background-color: #20ba5a; transform: translateY(-3px); color: white; }
     .whatsapp-float i { font-size: 1.3rem; }
 
     /* Footer */
@@ -752,21 +485,21 @@
 
     /* Responsive */
     @media (max-width: 1024px) {
-      .booking-bar, .rooms-grid, .dining-grid, .banquet-grid, .footer-container { grid-template-columns: repeat(2, 1fr); }
+      .booking-bar, .rooms-grid, .dining-grid, .bar-grid, .banquet-grid, .footer-container { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 768px) {
       .nav-container { grid-template-columns: auto 1fr auto; }
       .logo-main { font-size: 1.4rem; letter-spacing: 2px; }
       .logo-sub { font-size: 0.55rem; letter-spacing: 2px; }
       .hero-title { font-size: 2.4rem; }
-      .booking-bar, .overview-grid, .contact-grid, .rooms-grid, .dining-grid, .banquet-grid, .gallery-grid, .footer-container { grid-template-columns: 1fr; }
+      .booking-bar, .overview-grid, .contact-grid, .rooms-grid, .dining-grid, .bar-grid, .banquet-grid, .footer-container { grid-template-columns: 1fr; }
       .overview-badge { position: static; margin-top: 15px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Announcement Bar (Updated: Center Bold & Subtitle) -->
+  <!-- Top Announcement Bar -->
   <div class="top-bar">
     <span class="top-title">HOTEL INDER PARADISE</span>
     <span class="top-details">OPP. CHOUDARY PETROL PUMP, VIJAY VALLABH CIRCLE, NAGAUR, RAJASTHAN 341001 | DIRECT BOOKING CALLS: +91 9694469191, +91 7230887576</span>
@@ -873,6 +606,7 @@
       </a>
     </div>
   </aside>
+
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
@@ -886,9 +620,9 @@
     </div>
   </section>
 
-  <!-- Booking Bar -->
+  <!-- Booking Bar (Step 1: Updated to trigger Gmail booking modal) -->
   <div class="booking-bar-wrapper" id="booking">
-    <form class="booking-bar" onsubmit="event.preventDefault(); window.open('https://wa.me/919694469191?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20check%20room%20availability.', '_blank');">
+    <form class="booking-bar" onsubmit="event.preventDefault(); openBookingModal(document.getElementById('barRoomType').value);">
       <div class="booking-item">
         <label><i class="fa-regular fa-calendar"></i> Check-in Date</label>
         <input type="date" id="checkinDate" required>
@@ -899,7 +633,7 @@
       </div>
       <div class="booking-item">
         <label><i class="fa-solid fa-bed"></i> Room Type</label>
-        <select>
+        <select id="barRoomType">
           <option>Super Deluxe Suite Room</option>
           <option>Deluxe Executive AC Room</option>
           <option>Standard AC Room</option>
@@ -907,7 +641,7 @@
       </div>
       <div class="booking-item">
         <label><i class="fa-solid fa-user-group"></i> Guests</label>
-        <select>
+        <select id="barGuests">
           <option>1 Adult</option>
           <option selected>2 Adults</option>
           <option>2 Adults, 1 Child</option>
@@ -915,12 +649,11 @@
         </select>
       </div>
       <div class="booking-item">
-        <button type="submit" class="btn-gold" style="height: 42px; margin-top: 18px;"><i class="fa-brands fa-whatsapp"></i> Check on WhatsApp</button>
+        <button type="submit" class="btn-gold" style="height: 42px; margin-top: 18px;"><i class="fa-solid fa-envelope"></i> Book via Gmail</button>
       </div>
     </form>
   </div>
-
-  <!-- Overview / About Section -->
+    <!-- Overview / About Section -->
   <section id="about">
     <div class="section-container">
       <div class="overview-grid">
@@ -953,7 +686,7 @@
     </div>
   </section>
 
-  <!-- Rooms & Suites Section (Updated with Gmail Booking Modal Trigger) -->
+  <!-- Rooms & Suites Section (Step 1: Gmail Booking Modal Trigger) -->
   <section id="rooms" class="rooms-section">
     <div class="section-container">
       <div class="section-header">
@@ -1009,7 +742,7 @@
     </div>
   </section>
 
-  <!-- Dining Section -->
+  <!-- Dining Section (Step 2: Added Menu Button alongside Reserve Table) -->
   <section id="dining" class="dining-section">
     <div class="section-container">
       <div class="section-header">
@@ -1038,13 +771,46 @@
           </div>
 
           <p style="color: var(--gold-light); font-size: 0.9rem;"><i class="fa-regular fa-clock"></i> <strong>Timings:</strong> 08:00 AM – 11:00 PM Daily</p>
-          <a href="https://wa.me/919694469191?text=Hello,%20I%20want%20to%20reserve%20a%20table%20at%20Ashray%20Restaurant" target="_blank" class="btn-gold" style="margin-top: 15px;"><i class="fa-solid fa-utensils"></i> Reserve Table</a>
+          <div style="display: flex; gap: 12px; margin-top: 15px; flex-wrap: wrap;">
+            <button class="btn-gold" onclick="openBookingModal('Ashray Restaurant Table')"><i class="fa-solid fa-utensils"></i> Reserve Table</button>
+            <a href="restaurant.html" class="btn-outline"><i class="fa-solid fa-book-open"></i> Menu</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Banquet & Celebrations Section -->
+  <!-- Dining Bar Section (Step 4: Added between Banquet and Gallery with Video and Buttons + Bottle Clash Animation) -->
+  <section id="bar" class="bar-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-tag" style="color: var(--gold);">Exclusive Lounge</span>
+        <h2 class="section-title">The Bar & Beverage Lounge</h2>
+        <div class="divider"></div>
+        <p class="section-desc">Unwind in style with premium beverages, mocktails, and sophisticated ambiance.</p>
+      </div>
+
+      <div class="bar-grid">
+        <div class="bar-video-wrapper">
+          <video autoplay muted loop playsinline>
+            <source src="bar-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <div class="bar-content">
+          <h3>Sip, Savor & Celebrate</h3>
+          <p>Experience an exquisite selection of mocktails, fine beverages, and lounge appetizers in a vibrant and luxurious atmosphere.</p>
+          <div class="bar-btn-group">
+            <button class="btn-gold" onclick="openBookingModal('Bar Table')"><i class="fa-solid fa-wine-glass"></i> Reserve Table</button>
+            <button class="btn-outline" onclick="triggerBottleClashAndRedirect()"><i class="fa-solid fa-book-open"></i> Menu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Banquet & Celebrations Section (Step 3: Replaced WhatsApp with Gmail Booking Modal) -->
   <section id="banquet" class="banquet-section">
     <div class="section-container">
       <div class="section-header">
@@ -1066,7 +832,7 @@
             <div class="highlight-item"><i class="fa-solid fa-cake-candles"></i> Tailored Catering</div>
           </div>
 
-          <a href="https://wa.me/919694469191?text=Hello,%20I%20want%20to%20enquire%20about%20Banquet%20Hall%20booking%20in%20Nagaur" target="_blank" class="btn-gold"><i class="fa-brands fa-whatsapp"></i> Enquire for Event</a>
+          <button class="btn-gold" onclick="openBookingModal('Banquet Hall Event')"><i class="fa-solid fa-envelope"></i> Enquire via Gmail</button>
         </div>
 
         <div class="banquet-img-wrapper">
@@ -1120,8 +886,9 @@
         </div>
       </div>
     </div>
-              </section>
-    <!-- ================= CUSTOMER REVIEW & RATING SECTION ================= -->
+  </section>
+
+  <!-- ================= CUSTOMER REVIEW & RATING SECTION ================= -->
   <section id="reviews">
     <div class="section-container">
       <div class="review-section-box">
@@ -1180,13 +947,12 @@
         </div>
         <div class="faq-item">
           <div class="faq-question"><span>How can I reserve a room or banquet hall quickly?</span><i class="fa-solid fa-chevron-down"></i></div>
-          <div class="faq-answer">You can instantly book by clicking on our WhatsApp button or calling our reception desk directly at +91 9694469191 / +91 7230887576.</div>
+          <div class="faq-answer">You can instantly book by clicking on our booking button or calling our reception desk directly at +91 9694469191 / +91 7230887576.</div>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- Contact & Location Section -->
+              </section>
+   <!-- Contact & Location Section -->
   <section id="contact" class="contact-section">
     <div class="section-container">
       <div class="contact-grid">
@@ -1216,7 +982,7 @@
   <!-- Booking Modal Popup Form -->
   <div class="modal-overlay" id="bookingModal" onclick="closeModal(event)">
     <div class="modal-card">
-      <h3 id="modalRoomTitle">Book Room</h3>
+      <h3 id="modalRoomTitle">Book / Reserve</h3>
       <form id="bookingForm" onsubmit="sendBookingEmail(event)">
         <input type="hidden" id="selectedRoomName">
         
@@ -1237,20 +1003,21 @@
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
           <div class="form-group">
-            <label>Check-in Date</label>
+            <label>Check-in / Date</label>
             <input type="date" id="checkInDate" required>
           </div>
           <div class="form-group">
-            <label>Check-out Date</label>
+            <label>Check-out / Time</label>
             <input type="date" id="checkOutDate" required>
           </div>
         </div>
 
         <div class="form-group">
-          <label>Occupancy Type</label>
+          <label>Category / Occupancy</label>
           <select id="roomOccupancy" required>
-            <option value="Single">Single Occupancy</option>
-            <option value="Double">Double Occupancy</option>
+            <option value="Single">Single</option>
+            <option value="Double">Double</option>
+            <option value="Event/Table Booking">Event / Table Reservation</option>
           </select>
         </div>
 
@@ -1262,8 +1029,17 @@
     </div>
   </div>
 
+  <!-- Bottle Clash Animation Overlay (Step 4) -->
+  <div class="bottle-clash-overlay" id="bottleClashOverlay">
+    <div class="bottle-container">
+      <i class="fa-solid fa-wine-bottle bottle-left"></i>
+      <i class="fa-solid fa-wine-bottle bottle-right"></i>
+    </div>
+    <div class="clash-text">Opening Bar Menu...</div>
+  </div>
+
   <!-- Floating WhatsApp Button -->
-  <a href="https://wa.me/919694469191?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20inquire%20about%20room%20booking." class="whatsapp-float" target="_blank">
+  <a href="https://wa.me/919694469191?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20inquire%20about%20booking." class="whatsapp-float" target="_blank">
     <i class="fa-brands fa-whatsapp"></i> Book via WhatsApp
   </a>
 
@@ -1364,10 +1140,19 @@
       });
     });
 
-    // --- Modal Form & EmailJS Logic for Rooms ---
-    function openBookingModal(roomName) {
-      document.getElementById('selectedRoomName').value = roomName;
-      document.getElementById('modalRoomTitle').innerText = `Book: ${roomName}`;
+    // --- Bottle Clash Animation & Redirect Logic (Step 4) ---
+    function triggerBottleClashAndRedirect() {
+      const overlay = document.getElementById('bottleClashOverlay');
+      overlay.classList.add('active');
+      setTimeout(() => {
+        window.location.href = 'restaurant.html';
+      }, 1000);
+    }
+
+    // --- Modal Form & EmailJS Logic ---
+    function openBookingModal(itemTitle) {
+      document.getElementById('selectedRoomName').value = itemTitle;
+      document.getElementById('modalRoomTitle').innerText = `Book / Reserve: ${itemTitle}`;
       document.getElementById('bookingModal').classList.add('active');
     }
 
@@ -1399,7 +1184,6 @@
         hotel_email: "hotelip2022@gmail.com"
       };
 
-      // Yahan apni EmailJS Service ID aur Template ID dalein
       emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
         .then(function(response) {
            alert("Booking request sent successfully to hotel official Gmail!");
@@ -1414,23 +1198,16 @@
         });
     }
 
-    // --- AI Review Automation & Permanent LocalStorage Logic ---
+    // --- AI Review System ---
     const reviewDb = {
       5: [
         "Best hotel and restaurant in Nagaur! Rooms are extremely clean, AC works perfectly, and Ashray Restaurant food is super delicious. Highly recommended! 🌟",
         "Amazing hospitality at Hotel Inder Paradise! Stayed in their Super Deluxe Suite and the experience was royal. Great staff and secure parking.",
-        "Nagaur me rukne ki sabse best jagah! Clean rooms, fast room service, and very tasty pure veg food at Ashray Restaurant.",
-        "Wonderful banquet hall experience for our family function. Elegant decoration, great lighting, and very cooperative management.",
-        "Top-class luxury hotel near Vijay Vallabh Circle, Nagaur. Very comfortable bedding, polite staff, and pocket-friendly tariffs.",
-        "Awesome food quality at Ashray Restaurant! Loved the North Indian thali and prompt service. Will visit again soon.",
-        "Safe, hygienic, and premium hotel in Nagaur. Perfect for both business travelers and families. 5/5 stars!"
+        "Nagaur me rukne ki sabse best jagah! Clean rooms, fast room service, and very tasty pure veg food at Ashray Restaurant."
       ],
       4: [
         "Very nice hotel with good cleanliness and polite staff. Ashray restaurant food was also very tasty. Good experience!",
-        "Comfortable stay at Hotel Inder Paradise. Rooms are spacious and well-maintained. Location is very convenient near Vijay Vallabh Circle.",
-        "Good service and clean AC rooms. Restaurant food quality is great. Recommended for families visiting Nagaur.",
-        "Nice ambiance in the banquet hall. Attended a ring ceremony here and the arrangements were impressive.",
-        "Great hospitality, clean bathrooms, and helpful reception staff. Value for money stay in Nagaur."
+        "Comfortable stay at Hotel Inder Paradise. Rooms are spacious and well-maintained. Location is very convenient near Vijay Vallabh Circle."
       ],
       default: [
         "Good location on Didwana Road and decent rooms. Satisfactory stay experience overall."
@@ -1444,11 +1221,9 @@
         document.getElementById('customerNameInput').focus();
         return;
       }
-
       document.querySelectorAll('#indexStars i').forEach((s, idx) => {
         s.style.color = idx < stars ? '#f5a623' : '#444';
       });
-
       const box = document.getElementById('aiPillsBox');
       const container = document.getElementById('pillsContainer');
       box.style.display = 'block';
@@ -1485,10 +1260,8 @@
 
     function loadReviews() {
       let allReviews = JSON.parse(localStorage.getItem('inderParadiseReviews')) || [
-        { text: "Best hotel and restaurant in Nagaur! Super clean rooms and delicious food at Ashray Restaurant. 🌟", stars: 5, name: "Rahul Sharma", date: "30/03/2026" },
-        { text: "Amazing hospitality at Hotel Inder Paradise! Stayed in their Super Deluxe Suite and the experience was royal.", stars: 5, name: "Priya Verma", date: "29/03/2026" }
+        { text: "Best hotel and restaurant in Nagaur! Super clean rooms and delicious food at Ashray Restaurant. 🌟", stars: 5, name: "Rahul Sharma", date: "30/03/2026" }
       ];
-      
       let html = allReviews.map(r => `
         <div class="review-card-item">
           <strong>${'⭐'.repeat(r.stars)} <span style="font-size:0.75rem; color:#888; float:right;">${r.date}</span></strong>
@@ -1496,7 +1269,6 @@
           <span class="author">— ${r.name || 'Guest'}</span>
         </div>
       `).join('');
-      
       document.getElementById('savedReviewsContainer').innerHTML = html;
     }
 
@@ -1505,4 +1277,5 @@
     };
   </script>
 </body>
-</html>
+              </html>
+                                            
