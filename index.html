@@ -13,6 +13,14 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+  <!-- EmailJS Library for Gmail Submission -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      emailjs.init("YOUR_PUBLIC_KEY"); // Yahan apni EmailJS public key dalein
+    })();
+  </script>
+
   <style>
     :root {
       --primary: #e63946;
@@ -55,18 +63,30 @@
     ul { list-style: none; }
     img { max-width: 100%; height: auto; display: block; }
 
-    /* Top Announcement Bar */
+    /* Top Announcement Bar (Updated for Center Bold & Subtitle) */
     .top-bar {
       background-color: #050608;
       color: var(--gold-light);
-      font-size: 0.8rem;
       text-align: center;
-      padding: 8px 15px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      padding: 10px 15px;
       border-bottom: 1px solid var(--border-color);
+      line-height: 1.4;
     }
-    .top-bar span { color: var(--gold); font-weight: 600; }
+    .top-bar .top-title {
+      display: block;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+    }
+    .top-bar .top-details {
+      display: block;
+      font-size: 0.72rem;
+      opacity: 0.9;
+      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
 
     /* Header Navigation Bar */
     header {
@@ -87,7 +107,6 @@
       padding: 14px 24px;
     }
 
-    /* Left: 3-Line Menu Button */
     .nav-left {
       display: flex;
       align-items: center;
@@ -118,7 +137,6 @@
       font-size: 1.1rem;
     }
 
-    /* Center: Logo / Hotel Name */
     .nav-center {
       text-align: center;
     }
@@ -144,7 +162,6 @@
       margin-top: 4px;
     }
 
-    /* Right: Quick Action */
     .nav-right {
       display: flex;
       justify-content: flex-end;
@@ -577,7 +594,7 @@
     .r-pill:hover { border-color: var(--gold); background: #1b1b22; color: #fff; transform: translateY(-2px); }
     .r-pill span { display: block; font-size: 0.75rem; color: var(--gold); margin-top: 4px; font-weight: 600; }
 
-    .saved-reviews-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+      .saved-reviews-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
     .review-card-item {
       background: #111116;
       padding: 20px;
@@ -590,7 +607,7 @@
     .review-card-item p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
     .review-card-item span.author { display: block; margin-top: 10px; font-size: 0.8rem; color: var(--gold); font-weight: 600; }
 
-       /* Unique Submit Animation Overlay */
+    /* Unique Submit Animation Overlay */
     .success-popup {
       position: absolute;
       inset: 0;
@@ -623,6 +640,30 @@
       color: var(--text-muted);
       font-size: 0.95rem;
     }
+
+    /* --- Booking Modal Styles --- */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(6px);
+      display: flex; justify-content: center; align-items: center; z-index: 2000;
+      opacity: 0; visibility: hidden; transition: 0.3s ease;
+    }
+    .modal-overlay.active { opacity: 1; visibility: visible; }
+    .modal-card {
+      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px;
+      max-width: 500px; width: 90%; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      transform: scale(0.8); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .modal-overlay.active .modal-card { transform: scale(1); }
+    .modal-card h3 { font-family: var(--font-serif); font-size: 1.8rem; color: #fff; margin-bottom: 15px; text-align: center; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-size: 0.8rem; color: var(--gold); text-transform: uppercase; margin-bottom: 5px; font-weight: 600; }
+    .form-group input, .form-group select {
+      width: 100%; background: #111116; border: 1px solid var(--border-color); padding: 10px 14px;
+      border-radius: 8px; color: #fff; font-size: 0.9rem; outline: none;
+    }
+    .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+    .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+    .close-modal-btn { background: #222; border: 1px solid var(--border-color); color: #fff; padding: 10px 20px; border-radius: 8px; cursor: pointer; flex: 1; }
 
     @keyframes bounceIn {
       0% { transform: scale(0); opacity: 0; }
@@ -718,37 +759,18 @@
       .logo-main { font-size: 1.4rem; letter-spacing: 2px; }
       .logo-sub { font-size: 0.55rem; letter-spacing: 2px; }
       .hero-title { font-size: 2.4rem; }
-      .booking-bar, .overview-grid, .contact-grid, .rooms-grid, .dining-grid, .banquet-grid, .footer-container { grid-template-columns: 1fr; }
+      .booking-bar, .overview-grid, .contact-grid, .rooms-grid, .dining-grid, .banquet-grid, .gallery-grid, .footer-container { grid-template-columns: 1fr; }
       .overview-badge { position: static; margin-top: 15px; }
     }
-    /* Top bar ko center aur multi-line banane ke liye */
-.top-bar {
-  line-height: 1.4;
-  padding: 10px 15px;
-}
-.top-bar .top-title {
-  display: block;
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 1.5px;
-}
-.top-bar .top-details {
-  display: block;
-  font-size: 0.72rem;
-  opacity: 0.9;
-  margin-top: 2px;
-}
-    
   </style>
 </head>
 <body>
 
-    <!-- Top Announcement Bar -->
+  <!-- Top Announcement Bar (Updated: Center Bold & Subtitle) -->
   <div class="top-bar">
     <span class="top-title">HOTEL INDER PARADISE</span>
     <span class="top-details">OPP. CHOUDARY PETROL PUMP, VIJAY VALLABH CIRCLE, NAGAUR, RAJASTHAN 341001 | DIRECT BOOKING CALLS: +91 9694469191, +91 7230887576</span>
   </div>
-
 
   <!-- Header & Navigation Bar -->
   <header>
@@ -851,7 +873,7 @@
       </a>
     </div>
   </aside>
-    <!-- Hero Section -->
+  <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
       <p class="hero-subtitle">Premium Comfort & Royal Hospitality</p>
@@ -931,7 +953,7 @@
     </div>
   </section>
 
-  <!-- Rooms & Suites Section -->
+  <!-- Rooms & Suites Section (Updated with Gmail Booking Modal Trigger) -->
   <section id="rooms" class="rooms-section">
     <div class="section-container">
       <div class="section-header">
@@ -958,9 +980,8 @@
             <h3 class="room-title">Super Deluxe Suite Room</h3>
             <p class="room-desc">Designer wood-panelled headboard wall, custom floral wallpaper, comfortable lounge seating, mood lighting, and modern attached bathroom.</p>
             <div class="room-footer">
-  <button class="btn-gold" style="padding: 8px 18px; font-size: 0.8rem;" onclick="openBookingModal('Super Deluxe Suite Room')"><i class="fa-solid fa-envelope"></i> Book Now</button>
-</div>
-
+              <button class="btn-gold" style="padding: 8px 18px; font-size: 0.8rem;" onclick="openBookingModal('Super Deluxe Suite Room')"><i class="fa-solid fa-envelope"></i> Book Now</button>
+            </div>
           </div>
         </div>
 
@@ -980,9 +1001,8 @@
             <h3 class="room-title">Deluxe Executive AC Room</h3>
             <p class="room-desc">Plush velvet headboard bed, wooden wardrobe, full-length mirror, comfortable accent chair with tea table, and prompt room service.</p>
             <div class="room-footer">
-  <button class="btn-gold" style="padding: 8px 18px; font-size: 0.8rem;" onclick="openBookingModal('Deluxe Executive AC Room')"><i class="fa-solid fa-envelope"></i> Book Now</button>
-</div>
-
+              <button class="btn-gold" style="padding: 8px 18px; font-size: 0.8rem;" onclick="openBookingModal('Deluxe Executive AC Room')"><i class="fa-solid fa-envelope"></i> Book Now</button>
+            </div>
           </div>
         </div>
       </div>
@@ -1100,12 +1120,11 @@
         </div>
       </div>
     </div>
-  </section>
+              </section>
     <!-- ================= CUSTOMER REVIEW & RATING SECTION ================= -->
   <section id="reviews">
     <div class="section-container">
       <div class="review-section-box">
-        <!-- Success Animation Popup Overlay -->
         <div class="success-popup" id="successPopup">
           <i class="fa-solid fa-circle-check"></i>
           <h4>Thank You!</h4>
@@ -1115,12 +1134,10 @@
         <h3>Customer Reviews & Ratings 🌟</h3>
         <p class="rev-sub">Apna anubhav share karein! Apna naam likhein, rating select karein aur niche diye gaye AI options me se ek click me review submit karein:</p>
         
-        <!-- Customer Name Input -->
         <div class="customer-name-box">
           <input type="text" id="customerNameInput" placeholder="Apna Naam Yahan Likhein (e.g., Rahul Sharma)" required>
         </div>
 
-        <!-- Stars Selection -->
         <div class="index-stars-container" id="indexStars">
           <i class="fa-solid fa-star" onclick="setRating(1)"></i>
           <i class="fa-solid fa-star" onclick="setRating(2)"></i>
@@ -1129,13 +1146,11 @@
           <i class="fa-solid fa-star" onclick="setRating(5)"></i>
         </div>
 
-        <!-- AI Quick Review Pills Box -->
         <div id="aiPillsBox" style="display:none;">
           <p style="font-size: 0.85rem; color: var(--gold); margin-bottom: 10px; text-align: center; font-weight: 600;">✨ Tap any AI-Suggested Review for instant submission:</p>
           <div class="ai-pills-container" id="pillsContainer"></div>
         </div>
 
-        <!-- Permanent Saved Reviews Grid Display -->
         <div class="saved-reviews-grid" id="savedReviewsContainer"></div>
       </div>
     </div>
@@ -1197,6 +1212,55 @@
       </div>
     </div>
   </section>
+
+  <!-- Booking Modal Popup Form -->
+  <div class="modal-overlay" id="bookingModal" onclick="closeModal(event)">
+    <div class="modal-card">
+      <h3 id="modalRoomTitle">Book Room</h3>
+      <form id="bookingForm" onsubmit="sendBookingEmail(event)">
+        <input type="hidden" id="selectedRoomName">
+        
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="clientName" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="clientPhone" placeholder="Enter phone number" required>
+        </div>
+
+        <div class="form-group">
+          <label>Gmail Address (For Confirmation)</label>
+          <input type="email" id="clientEmail" placeholder="Enter your email" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label>Check-in Date</label>
+            <input type="date" id="checkInDate" required>
+          </div>
+          <div class="form-group">
+            <label>Check-out Date</label>
+            <input type="date" id="checkOutDate" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Occupancy Type</label>
+          <select id="roomOccupancy" required>
+            <option value="Single">Single Occupancy</option>
+            <option value="Double">Double Occupancy</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="close-modal-btn" onclick="toggleModal(false)">Cancel</button>
+          <button type="submit" class="btn-gold" id="submitBtn" style="flex: 1; justify-content: center;">Confirm & Send Booking</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- Floating WhatsApp Button -->
   <a href="https://wa.me/919694469191?text=Hello%20Hotel%20Inder%20Paradise,%20I%20want%20to%20inquire%20about%20room%20booking." class="whatsapp-float" target="_blank">
@@ -1299,7 +1363,58 @@
         if (!isActive) item.classList.add('active');
       });
     });
-           // --- AI Review Automation & Permanent LocalStorage Logic with Name & Unique Animation ---
+
+    // --- Modal Form & EmailJS Logic for Rooms ---
+    function openBookingModal(roomName) {
+      document.getElementById('selectedRoomName').value = roomName;
+      document.getElementById('modalRoomTitle').innerText = `Book: ${roomName}`;
+      document.getElementById('bookingModal').classList.add('active');
+    }
+
+    function toggleModal(show) {
+      const modal = document.getElementById('bookingModal');
+      if (show) modal.classList.add('active');
+      else modal.classList.remove('active');
+    }
+
+    function closeModal(e) {
+      if (e.target.id === 'bookingModal') toggleModal(false);
+    }
+
+    function sendBookingEmail(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.innerText = "Sending Booking...";
+      submitBtn.disabled = true;
+
+      const templateParams = {
+        room_name: document.getElementById('selectedRoomName').value,
+        client_name: document.getElementById('clientName').value,
+        client_phone: document.getElementById('clientPhone').value,
+        client_email: document.getElementById('clientEmail').value,
+        check_in: document.getElementById('checkInDate').value,
+        check_out: document.getElementById('checkOutDate').value,
+        occupancy: document.getElementById('roomOccupancy').value,
+        hotel_email: "hotelip2022@gmail.com"
+      };
+
+      // Yahan apni EmailJS Service ID aur Template ID dalein
+      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        .then(function(response) {
+           alert("Booking request sent successfully to hotel official Gmail!");
+           submitBtn.innerText = "Confirm & Send Booking";
+           submitBtn.disabled = false;
+           document.getElementById('bookingForm').reset();
+           toggleModal(false);
+        }, function(error) {
+           alert("Failed to send booking. Please configure EmailJS ID keys.");
+           submitBtn.innerText = "Confirm & Send Booking";
+           submitBtn.disabled = false;
+        });
+    }
+
+    // --- AI Review Automation & Permanent LocalStorage Logic ---
     const reviewDb = {
       5: [
         "Best hotel and restaurant in Nagaur! Rooms are extremely clean, AC works perfectly, and Ashray Restaurant food is super delicious. Highly recommended! 🌟",
@@ -1357,7 +1472,6 @@
       
       loadReviews();
 
-      // Trigger Unique Submit Animation Popup
       const popup = document.getElementById('successPopup');
       popup.classList.add('active');
 
@@ -1386,10 +1500,9 @@
       document.getElementById('savedReviewsContainer').innerHTML = html;
     }
 
-    // Load saved reviews automatically when page opens
     window.onload = function() {
       loadReviews();
     };
   </script>
 </body>
-</html>       
+</html>
