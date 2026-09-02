@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ashray Bar Menu | Hotel Inder Paradise Nagaur</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root { 
+      --primary: #e63946;
+      --primary-hover: #ff4757;
+      --primary-glow: rgba(230, 57, 70, 0.35);
+      --gold: #f5a623;
+      --gold-light: #ffc048;
+      --dark-bg: #09090b;
+      --card-bg: #141418;
+      --border-color: #24242c;
+      --text: #f8f9fa;
+      --text-muted: #9e9ea7;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+    body { background: var(--dark-bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+    
+    header { background: rgba(9, 9, 11, 0.95); backdrop-filter: blur(12px); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: sticky; top:0; z-index:100; border-bottom: 1px solid var(--border-color); }
+    .logo { font-family: Georgia, serif; font-size: 1.5rem; color: var(--gold); text-decoration: none; font-weight: bold; }
+    .btn-home { background: linear-gradient(135deg, var(--primary) 0%, #d63031 100%); color: #fff; padding: 7px 18px; text-decoration: none; font-size: 0.8rem; font-weight: 700; border-radius: 8px; box-shadow: 0 4px 15px var(--primary-glow); transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-home:hover { background: linear-gradient(135deg, var(--primary-hover) 0%, #c0392b 100%); transform: translateY(-2px); }
+
+    .container { max-width: 1100px; margin: 40px auto; background: var(--card-bg); padding: 45px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+    h1 { font-family: Georgia, serif; color: #fff; font-size: 2.3rem; margin-bottom: 10px; text-align: center; }
+    p.subtitle { color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem; text-align: center; }
+
+    /* Search Box */
+    .menu-search-box { display: flex; justify-content: center; margin-bottom: 25px; }
+    .menu-search-box input { width: 100%; max-width: 450px; background: #111116; border: 1px solid var(--border-color); padding: 12px 20px; border-radius: 30px; color: #fff; font-size: 0.95rem; outline: none; transition: 0.3s; }
+    .menu-search-box input:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(245, 166, 35, 0.2); }
+
+    /* Category Filter Tabs */
+    .menu-tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
+    .menu-tab { background: #111116; border: 1px solid var(--border-color); padding: 8px 16px; font-size: 0.82rem; border-radius: 20px; color: var(--text-muted); cursor: pointer; font-weight: 500; transition: 0.3s; }
+    .menu-tab:hover, .menu-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 15px var(--primary-glow); }
+
+    /* Swipe / Scroll Menu Card Book Feel */
+    .menu-book-viewport {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      background: #111116;
+      padding: 25px;
+    }
+
+    .menu-scroll-track {
+      display: flex;
+      gap: 30px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 15px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) var(--border-color);
+    }
+    .menu-scroll-track::-webkit-scrollbar { height: 8px; }
+    .menu-scroll-track::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+    .menu-category-page {
+      flex: 0 0 100%;
+      min-width: 100%;
+      scroll-snap-align: start;
+      animation: fadeInPage 0.5s ease forwards;
+    }
+
+    .category-title {
+      font-family: Georgia, serif;
+      font-size: 1.8rem;
+      color: var(--gold);
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--primary);
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .items-table-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 15px;
+    }
+
+    .menu-row-item {
+      background: #181820;
+      border: 1px solid var(--border-color);
+      padding: 14px 18px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.3s;
+    }
+    .menu-row-item:hover {
+      border-color: var(--gold);
+      transform: translateX(4px);
+      background: #1f1f2a;
+    }
+
+    .menu-row-item .item-name {
+      font-size: 0.98rem;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .menu-row-item .item-price {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--gold);
+      background: rgba(245, 166, 35, 0.1);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(245, 166, 35, 0.2);
+    }
+
+    .menu-nav-instructions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .scroll-arrows { display: flex; gap: 10px; }
+    .scroll-btn {
+      background: #181820; border: 1px solid var(--border-color); color: var(--gold); width: 38px; height: 38px;
+      border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s;
+    }
+    .scroll-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    @keyframes fadeInPage {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    footer { background: #060608; color: var(--text-muted); text-align: center; padding: 30px; margin-top: 60px; font-size: 0.85rem; border-top: 1px solid var(--border-color); }
+    @media(max-width: 768px) { .container { padding: 20px; margin: 20px; } .items-table-list { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">INDER PARADISE</a>
+    <a href="index.html" class="btn-home"><i class="fa-solid fa-house"></i> Home Page</a>
+  </header>
+
+  <div class="container">
+    <h1>Ashray Bar & Beverage Menu</h1>
+    <p class="subtitle">Hotel Inder Paradise, Nagaur ke bar menu ke sabhi items yahan dekhein. Right se left swipe karke pne paltein.</p>
+
+    <!-- Search Box -->
+    <div class="menu-search-box">
+      <input type="text" id="menuSearch" placeholder="🔍 Koi bhi drink ya beverage search karein..." onkeyup="filterMenu()">
+    </div>
+
+    <!-- Category Filter Quick Tabs -->
+    <div class="menu-tabs" id="menuTabsContainer">
+      <!-- Tabs will be generated dynamically -->
+    </div>
+
+    <!-- Swipeable Menu Book Viewport -->
+    <div class="menu-book-viewport">
+      <div class="menu-scroll-track" id="menuScrollTrack">
+        <!-- Categories will be dynamically injected here -->
+      </div>
+
+      <div class="menu-nav-instructions">
+        <span>💡 Tip: Left ya Right scroll karke menu ke pne paltein</span>
+        <div class="scroll-arrows">
+          <button class="scroll-btn" onclick="slideMenu('left')"><i class="fa-solid fa-arrow-left"></i></button>
+          <button class="scroll-btn" onclick="slideMenu('right')"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Hotel Inder Paradise, Didwana Road, Nagaur, Rajasthan. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // Complete Bar Menu Database extracted directly from your hotel menu images
+    const barMenuCategories = [
+      {
+        id: "indian-beer",
+        title: "Indian Beer (650 ML)",
+        items: [
+          { name: "Kingfisher Strong", price: "260" },
+          { name: "Kingfisher Ultra", price: "400" },
+          { name: "Kingfisher Ultra Max", price: "410" },
+          { name: "Kingfisher Storm", price: "410" },
+          { name: "King Fisher Lager", price: "260" },
+          { name: "Tuborg Strong", price: "260" },
+          { name: "Tuborg Green", price: "290" },
+          { name: "Tuborg Classic", price: "310" },
+          { name: "Haywards 5000", price: "280" },
+          { name: "Budweiser Magnum", price: "480" },
+          { name: "Budweiser Beer", price: "430" },
+          { name: "Carlsberg (Elephant)", price: "350" },
+          { name: "Carlsberg (Lager)", price: "340" },
+          { name: "Foster (Lager)", price: "370" },
+          { name: "Foster (Strong)", price: "360" }
+        ]
+      },
+      {
+        id: "important-beer",
+        title: "Important Beer (330 ML)",
+        items: [
+          { name: "Corona Beer", price: "400" },
+          { name: "Hoegaarden Beer", price: "300" },
+          { name: "Bira White Beer", price: "200" },
+          { name: "Heineken Beer", price: "350" }
+        ]
+      },
+      {
+        id: "alcoholic-drink",
+        title: "Alcoholic Drink / Breezer (275 ML)",
+        items: [
+          { name: "Bacardi Pre. + Cranberry", price: "220" },
+          { name: "Bacardi Pre. + Lemonade", price: "220" },
+          { name: "Bacardi Pre. + Orange", price: "220" },
+          { name: "Bacardi Pre. + J/P", price: "220" }
+        ]
+      },
+      {
+        id: "aerated-drinks",
+        title: "Aerated Drinks & Juice",
+        items: [
+          { name: "Coke Can", price: "50" },
+          { name: "Sprite Can", price: "50" },
+          { name: "Thums Up", price: "50" },
+          { name: "Diet Coke", price: "50" },
+          { name: "Fanta", price: "50" },
+          { name: "Water Bottle", price: "30" },
+          { name: "Tonic / Soda / Water", price: "50" },
+          { name: "Guava Juice", price: "60" },
+          { name: "Mango Juice", price: "50" },
+          { name: "Orange Juice", price: "50" },
+          { name: "Pine Apple Juice", price: "50" },
+          { name: "Mix Fruit Juice", price: "60" },
+          { name: "Red Bull", price: "200" },
+          { name: "Power Horse", price: "150" }
+        ]
+      },
+      {
+        id: "red-wine",
+        title: "Red Wine",
+        items: [
+          { name: "Sula Satori Merlot (Bottle)", price: "2400" },
+          { name: "Sula Satori Merlot (By The Glass)", price: "500" },
+          { name: "Grover La Reserve (Bottle)", price: "2400" },
+          { name: "Grover La Reserve (By The Glass)", price: "500" },
+          { name: "Sula Shiraz Cabernet (Bottle)", price: "2300" },
+          { name: "Sula Shiraz Cabernet (By The Glass)", price: "500" }
+        ]
+      },
+      {
+        id: "sparkling-wine",
+        title: "Sparkling Wine",
+        items: [
+          { name: "Sula Brut (Bottle)", price: "3100" },
+          { name: "Sula Sauvignon Blanc (Bottle)", price: "1800" },
+          { name: "Sula Sauvignon Blanc (By The Glass)", price: "400" },
+          { name: "Grover Blanc De Blanc (Bottle)", price: "2400" },
+          { name: "Grover Blanc De Blanc (By The Glass)", price: "500" }
+        ]
+      },
+      {
+        id: "scotch-whisky",
+        title: "Blended Scotch Whisky (30 ML / 60 ML)",
+        items: [
+          { name: "The Glenlivet 12 Year", price: "450 / 900" },
+          { name: "Chivas Regal 12 Year", price: "350 / 650" },
+          { name: "Johnnie Walker B/L", price: "350 / 650" },
+          { name: "Teacher's Highland Cream", price: "180 / 350" },
+          { name: "Johnnie Walker R/L", price: "180 / 350" },
+          { name: "Teacher's 50", price: "230 / 450" },
+          { name: "Black Dog Reserve", price: "180 / 350" },
+          { name: "Black Dog 12 Years", price: "250 / 490" },
+          { name: "100 Piper Whisky", price: "250 / 490" },
+          { name: "Ballantine 12 Years", price: "180 / 350" },
+          { name: "Black & White", price: "210 / 400" },
+          { name: "Vat 69", price: "180 / 350" }
+        ]
+      },
+      {
+        id: "premium-whisky",
+        title: "Premium Whisky (30 ML / 60 ML)",
+        items: [
+          { name: "Blenders Pride (Premium)", price: "110 / 200" },
+          { name: "Blender Pried (Reserve)", price: "120 / 210" },
+          { name: "Antiquity Blue Whisky", price: "110 / 200" },
+          { name: "Singnature Whisky", price: "110 / 200" },
+          { name: "Royal Stag Whisky", price: "90 / 160" },
+          { name: "Royal Challenge Whisky", price: "110 / 200" },
+          { name: "MC Dowell's No.1 Deluxe Whisky", price: "70 / 130" },
+          { name: "Imperial Blue Whisky", price: "90 / 160" }
+        ]
+      },
+      {
+        id: "vodka",
+        title: "Vodka (30 ML / 60 ML)",
+        items: [
+          { name: "Grey Goose", price: "350 / 650" },
+          { name: "Absolut", price: "210 / 400" },
+          { name: "Sim-off", price: "120 / 230" },
+          { name: "Sim-off Apple", price: "120 / 230" },
+          { name: "Sim-off Orange", price: "120 / 230" },
+          { name: "Romanov-off", price: "100 / 190" },
+          { name: "Magic Moments", price: "100 / 190" }
+        ]
+      },
+      {
+        id: "gin-rum",
+        title: "Gin & Rum (30 ML / 60 ML)",
+        items: [
+          { name: "Bombay Sapphire (Gin)", price: "180 / 350" },
+          { name: "Blue Riband (Gin)", price: "90 / 170" },
+          { name: "Bacardi White Rum", price: "110 / 200" },
+          { name: "Bacardi Dark Rum", price: "80 / 150" },
+          { name: "Captain Morgan Rum", price: "80 / 150" },
+          { name: "Old Monk Rum", price: "80 / 150" },
+          { name: "MC Dowell's No. 1 Celebration", price: "70 / 150" }
+        ]
+      },
+      {
+        id: "tequila-shot",
+        title: "Tequila Shot",
+        items: [
+          { name: "Camino Gold Tequila", price: "220" },
+          { name: "Camino Silver Tequila", price: "220" },
+          { name: "Komakali Gold Tequila", price: "220" },
+          { name: "Broinhemta Tequila", price: "220" }
+        ]
+      },
+      {
+        id: "cocktail",
+        title: "Cocktail Alcoholic Drink",
+        items: [
+          { name: "Mojito", price: "350" },
+          { name: "Screwdriver", price: "260" },
+          { name: "Sex On The Beach", price: "300" },
+          { name: "Cosmopolitan", price: "300" },
+          { name: "Pina Colada", price: "260" },
+          { name: "Sangria", price: "450" }
+        ]
+      },
+      {
+        id: "mocktail",
+        title: "Mocktail Non Alcoholic Drink",
+        items: [
+          { name: "Fresh Lime Soda", price: "70" },
+          { name: "Virgin Mojito", price: "180" },
+          { name: "Blue Lagoon", price: "180" },
+          { name: "Virgin Margarita", price: "180" },
+          { name: "Guava Punch", price: "180" },
+          { name: "Virgin Mary", price: "180" },
+          { name: "Virgin Mango Mojito", price: "180" },
+          { name: "Virgin Orange Mojito", price: "180" }
+        ]
+      },
+      {
+        id: "snacks",
+        title: "Bar Snacks Menu",
+        items: [
+          { name: "Chilly Paneer (Dry/Gravy)", price: "320 / 340" },
+          { name: "Veg. Manchurian (Dry/Gravy)", price: "230 / 240" },
+          { name: "Paneer 65", price: "360" },
+          { name: "Veg Crispy Corn", price: "200" },
+          { name: "Veg Spring Roll", price: "230" },
+          { name: "French Fry", price: "200" },
+          { name: "Masala Peanut", price: "100" },
+          { name: "Paneer Bhuji", price: "390" },
+          { name: "Amritsari Paneer Tikka", price: "320" },
+          { name: "Lasauni Paneer Tikka", price: "310" },
+          { name: "Achari Paneer Tikka", price: "340" },
+          { name: "Haryali Paneer Tikka", price: "330" },
+          { name: "Malai Paneer Tikka", price: "330" },
+          { name: "Paneer Tikka", price: "320" },
+          { name: "Hara Bhara Kabab", price: "230" },
+          { name: "Veg Seekh Kabab", price: "210" },
+          { name: "Inder Paradise's Special Kabab", price: "390" },
+          { name: "Roasted Masala Papad", price: "60" },
+          { name: "Fry Masala Papad", price: "70" },
+          { name: "Green Salad", price: "100" }
+        ]
+      }
+    ];
+
+    function renderMenuBook(categories) {
+      const track = document.getElementById('menuScrollTrack');
+      const tabsContainer = document.getElementById('menuTabsContainer');
+
+      // Render Tabs
+      tabsContainer.innerHTML = `
+        <button class="menu-tab active" onclick="scrollToCategory('all', this)">All Categories</button>
+        ${categories.map(cat => `<button class="menu-tab" onclick="scrollToCategory('${cat.id}', this)">${cat.title}</button>`).join('')}
+      `;
+
+      // Render Pages
+      track.innerHTML = categories.map(cat => `
+        <div class="menu-category-page" id="page-${cat.id}">
+          <h2 class="category-title">${cat.title}</h2>
+          <div class="items-table-list">
+            ${cat.items.map(item => `
+              <div class="menu-row-item">
+                <span class="item-name">${item.name}</span>
+                <span class="item-price">₹${item.price}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function scrollToCategory(catId, btn) {
+      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (catId === 'all') {
+        document.getElementById('menuScrollTrack').scrollTo({ left: 0, behavior: 'smooth' });
+        return;
+      }
+
+      const pageElem = document.getElementById(`page-${catId}`);
+      if (pageElem) {
+        pageElem.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+      }
+    }
+
+    function slideMenu(direction) {
+      const track = document.getElementById('menuScrollTrack');
+      const scrollAmount = 400;
+      if (direction === 'left') {
+        track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    }
+
+    function filterMenu() {
+      const query = document.getElementById('menuSearch').value.toLowerCase();
+      if (!query) {
+        renderMenuBook(barMenuCategories);
+        return;
+      }
+
+      const filteredCategories = barMenuCategories.map(cat => {
+        const filteredItems = cat.items.filter(item => item.name.toLowerCase().includes(query));
+        return { ...cat, items: filteredItems };
+      }).filter(cat => cat.items.length > 0);
+
+      renderMenuBook(filteredCategories);
+    }
+
+    // Initial Load
+    renderMenuBook(barMenuCategories);
+  </script>
+</body>
+  </html>
+
