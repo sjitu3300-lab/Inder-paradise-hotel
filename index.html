@@ -1191,18 +1191,35 @@
         hotel_email: "hotelip2022@gmail.com"
       };
 
-      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-        .then(function(response) {
-           alert("Booking request sent successfully to hotel official Gmail!");
-           submitBtn.innerText = "Confirm & Send Booking";
-           submitBtn.disabled = false;
-           document.getElementById('bookingForm').reset();
-           toggleModal(false);
-        }, function(error) {
-           alert("Failed to send booking. Please configure EmailJS ID keys.");
-           submitBtn.innerText = "Confirm & Send Booking";
-           submitBtn.disabled = false;
-        });
+      function submitBookingForm(event) {
+  event.preventDefault();
+  
+  // फॉर्म से डेटा एकत्र करना
+  const bookingData = {
+    name: document.getElementById('clientName').value,
+    email: document.getElementById('clientEmail').value,
+    phone: document.getElementById('clientPhone').value,
+    checkin: document.getElementById('checkinDate').value,
+    roomType: document.getElementById('barRoomType').value
+  };
+
+  // नीचे 'YOUR_WEB_APP_URL' की जगह अपना कॉपी किया हुआ गूगल स्क्रिप्ट यूआरएल पेस्ट करें
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbyU3orsDtE0b76YI6pcBLvYVUG64XpuQYkB2MTOxWJXUI20vpw7Hfe3A1z1vg1FkFq7/exec';
+  
+  fetch(scriptURL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(bookingData)
+  })
+  .then(response => {
+    alert("आपकी बुकिंग रिक्वेस्ट सफलतापूर्वक भेज दी गई है!");
+  })
+  .catch(error => {
+    console.error('Error!', error);
+  });
+}
+
     }
 
     // --- AI Review System ---
