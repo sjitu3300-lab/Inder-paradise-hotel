@@ -377,9 +377,9 @@
     .r-pill {
       background: #111116; border: 1px solid var(--border-color); padding: 15px 20px; border-radius: 8px; color: #ddd; cursor: pointer; font-size: 0.9rem; transition: var(--transition); position: relative;
     }
-    .r-pill:hover { border-color: var(--gold); background: #1b1b22; color: #fff; transform: translateY(-2px); }
+     .r-pill:hover { border-color: var(--gold); background: #1b1b22; color: #fff; transform: translateY(-2px); }
     .r-pill span { display: block; font-size: 0.75rem; color: var(--gold); margin-top: 4px; font-weight: 600; }
-    .saved-reviews-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    .saved-reviews-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
     .review-card-item {
       background: #111116; padding: 20px; border-radius: 10px; border-left: 4px solid var(--gold); border: 1px solid var(--border-color); animation: fadeInReview 0.6s ease-in-out;
     }
@@ -490,8 +490,7 @@
   </style>
 </head>
 <body>
-
-  <!-- Top Announcement Bar -->
+    <!-- Top Announcement Bar -->
   <div class="top-bar">
     <span class="top-title">HOTEL INDER PARADISE</span>
     <span class="top-details">OPP. CHOUDARY PETROL PUMP, VIJAY VALLABH CIRCLE, NAGAUR, RAJASTHAN 341001 | DIRECT BOOKING CALLS: +91 9694469191, +91 7230887576</span>
@@ -650,8 +649,9 @@
         <button type="submit" class="btn-gold" style="height: 42px; margin-top: 18px;"><i class="fa-solid fa-envelope"></i> Book via Gmail</button>
       </div>
     </form>
-          </div>
-            <!-- Overview / About Section -->
+  </div>
+
+  <!-- Overview / About Section -->
   <section id="about">
     <div class="section-container">
       <div class="overview-grid">
@@ -738,9 +738,8 @@
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- Dining Section -->
+                                                                                          </section>
+      <!-- Dining Section -->
   <section id="dining" class="dining-section">
     <div class="section-container">
       <div class="section-header">
@@ -950,8 +949,7 @@
       </div>
     </div>
   </section>
-
-  <!-- Contact & Location Section -->
+    <!-- Contact & Location Section -->
   <section id="contact" class="contact-section">
     <div class="section-container">
       <div class="contact-grid">
@@ -977,7 +975,8 @@
       </div>
     </div>
   </section>
-    <!-- Booking Modal Popup Form -->
+
+  <!-- Booking Modal Popup Form -->
   <div class="modal-overlay" id="bookingModal" onclick="closeModal(event)">
     <div class="modal-card">
       <h3 id="modalRoomTitle">Book / Reserve</h3>
@@ -1146,8 +1145,7 @@
         window.location.href = 'bar.html';
       }, 1000);
     }
-
-    // --- Modal Form & Google Apps Script Logic ---
+        // --- Modal Form & Google Apps Script Logic ---
     function openBookingModal(itemTitle) {
       document.getElementById('selectedRoomName').value = itemTitle;
       document.getElementById('modalRoomTitle').innerText = `Book / Reserve: ${itemTitle}`;
