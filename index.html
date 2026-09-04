@@ -13,14 +13,6 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- EmailJS Library for Gmail Submission -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function() {
-      emailjs.init("YOUR_PUBLIC_KEY"); // Yahan apni EmailJS public key dalein
-    })();
-  </script>
-
   <style>
     :root {
       --primary: #e63946;
@@ -1173,24 +1165,7 @@
       if (e.target.id === 'bookingModal') toggleModal(false);
     }
 
-    function sendBookingEmail(e) {
-      e.preventDefault();
-      
-      const submitBtn = document.getElementById('submitBtn');
-      submitBtn.innerText = "Sending Booking...";
-      submitBtn.disabled = true;
-
-      const templateParams = {
-        room_name: document.getElementById('selectedRoomName').value,
-        client_name: document.getElementById('clientName').value,
-        client_phone: document.getElementById('clientPhone').value,
-        client_email: document.getElementById('clientEmail').value,
-        check_in: document.getElementById('checkInDate').value,
-        check_out: document.getElementById('checkOutDate').value,
-        occupancy: document.getElementById('roomOccupancy').value,
-        hotel_email: "hotelip2022@gmail.com"
-      };
-
+    
       function submitBookingForm(event) {
   event.preventDefault();
   
