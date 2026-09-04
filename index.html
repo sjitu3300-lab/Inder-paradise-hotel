@@ -291,7 +291,7 @@
     .dining-feat-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #e2e2e8; }
     .dining-feat-item i { color: var(--gold); }
 
-    /* Dining Bar Section (New Step 4) */
+    /* Dining Bar Section */
     .bar-section { background: #111116; }
     .bar-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
     .bar-video-wrapper {
@@ -308,7 +308,7 @@
     .banquet-img-wrapper { position: relative; }
     .banquet-img-wrapper img { width: 100%; height: 360px; object-fit: cover; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid var(--border-color); }
 
-    /* --- Bottle Clash Animation Overlay (Step 4) --- */
+    /* Bottle Clash Animation Overlay */
     .bottle-clash-overlay {
       position: fixed; inset: 0; background: #000; z-index: 9999;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -332,7 +332,7 @@
       100% { transform: translateX(0) rotate(0deg); opacity: 1; }
     }
 
-    /* --- Gallery Slider Styles --- */
+    /* Gallery Slider Styles */
     .gallery-slider-wrapper {
       position: relative; max-width: 1200px; margin: 0 auto; overflow: hidden; padding: 10px 0;
     }
@@ -358,7 +358,7 @@
     }
     .slider-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-    /* --- AI Review System Styles --- */
+    /* AI Review System Styles */
     .review-section-box {
       max-width: 1200px; margin: 0 auto; background: var(--card-bg); padding: 45px; border-radius: 14px;
       border: 1px solid var(--border-color); box-shadow: 0 15px 35px rgba(0,0,0,0.5); position: relative; overflow: hidden;
@@ -370,7 +370,7 @@
       width: 100%; background: #111116; border: 1px solid var(--border-color); padding: 12px 16px; border-radius: 8px;
       color: #fff; font-size: 0.95rem; outline: none; text-align: center; transition: var(--transition);
     }
-        .customer-name-box input:focus { border-color: var(--gold); }
+    .customer-name-box input:focus { border-color: var(--gold); }
     .index-stars-container { display: flex; justify-content: center; gap: 12px; font-size: 2.5rem; cursor: pointer; margin-bottom: 25px; }
     .index-stars-container i { color: #444; transition: 0.3s; }
     .ai-pills-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
@@ -379,8 +379,8 @@
     }
     .r-pill:hover { border-color: var(--gold); background: #1b1b22; color: #fff; transform: translateY(-2px); }
     .r-pill span { display: block; font-size: 0.75rem; color: var(--gold); margin-top: 4px; font-weight: 600; }
-    .saved-reviews-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-    .review-card-item {
+    .saved-reviews-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));               
+     .review-card-item {
       background: #111116; padding: 20px; border-radius: 10px; border-left: 4px solid var(--gold); border: 1px solid var(--border-color); animation: fadeInReview 0.6s ease-in-out;
     }
     .review-card-item strong { color: #fff; display: block; margin-bottom: 8px; font-size: 0.95rem; }
@@ -399,7 +399,7 @@
     .success-popup h4 { font-size: 1.8rem; color: #fff; margin-bottom: 5px; }
     .success-popup p { color: var(--text-muted); font-size: 0.95rem; }
 
-    /* --- Booking Modal Styles --- */
+    /* Booking Modal Styles */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(6px); display: flex; justify-content: center; align-items: center; z-index: 2000;
       opacity: 0; visibility: hidden; transition: 0.3s ease;
@@ -489,7 +489,7 @@
     }
   </style>
 </head>
-<body>
+  <body>
 
   <!-- Top Announcement Bar -->
   <div class="top-bar">
@@ -557,13 +557,12 @@
             <i class="fa-solid fa-arrow-up-right-from-square ext-icon"></i>
           </a>
         </li>
-                <li>
+        <li>
           <a href="bar.html" target="_blank">
             <span class="drawer-link-content"><i class="fa-solid fa-wine-glass link-icon"></i> Ashray Bar & Lounge</span>
             <i class="fa-solid fa-arrow-up-right-from-square ext-icon"></i>
           </a>
-                </li>
-        
+        </li>
         <li>
           <a href="banquet.html" target="_blank">
             <span class="drawer-link-content"><i class="fa-solid fa-champagne-glasses link-icon"></i> Banquet & Events</span>
@@ -619,7 +618,7 @@
     </div>
   </section>
 
-  <!-- Booking Bar (Step 1: Updated to trigger Gmail booking modal) -->
+  <!-- Booking Bar -->
   <div class="booking-bar-wrapper" id="booking">
     <form class="booking-bar" onsubmit="event.preventDefault(); openBookingModal(document.getElementById('barRoomType').value);">
       <div class="booking-item">
@@ -651,8 +650,8 @@
         <button type="submit" class="btn-gold" style="height: 42px; margin-top: 18px;"><i class="fa-solid fa-envelope"></i> Book via Gmail</button>
       </div>
     </form>
-  </div>
-    <!-- Overview / About Section -->
+          </div>
+          <!-- Overview / About Section -->
   <section id="about">
     <div class="section-container">
       <div class="overview-grid">
@@ -685,7 +684,7 @@
     </div>
   </section>
 
-  <!-- Rooms & Suites Section (Step 1: Gmail Booking Modal Trigger) -->
+  <!-- Rooms & Suites Section -->
   <section id="rooms" class="rooms-section">
     <div class="section-container">
       <div class="section-header">
@@ -741,7 +740,7 @@
     </div>
   </section>
 
-  <!-- Dining Section (Step 2: Added Menu Button alongside Reserve Table) -->
+  <!-- Dining Section -->
   <section id="dining" class="dining-section">
     <div class="section-container">
       <div class="section-header">
@@ -779,7 +778,7 @@
     </div>
   </section>
 
-  <!-- Dining Bar Section (Step 4: Added between Banquet and Gallery with Video and Buttons + Bottle Clash Animation) -->
+  <!-- Dining Bar Section -->
   <section id="bar" class="bar-section">
     <div class="section-container">
       <div class="section-header">
@@ -809,7 +808,7 @@
     </div>
   </section>
 
-  <!-- Banquet & Celebrations Section (Step 3: Replaced WhatsApp with Gmail Booking Modal) -->
+  <!-- Banquet & Celebrations Section -->
   <section id="banquet" class="banquet-section">
     <div class="section-container">
       <div class="section-header">
@@ -887,7 +886,7 @@
     </div>
   </section>
 
-  <!-- ================= CUSTOMER REVIEW & RATING SECTION ================= -->
+  <!-- CUSTOMER REVIEW & RATING SECTION -->
   <section id="reviews">
     <div class="section-container">
       <div class="review-section-box">
@@ -950,8 +949,9 @@
         </div>
       </div>
     </div>
-              </section>
-   <!-- Contact & Location Section -->
+  </section>
+
+  <!-- Contact & Location Section -->
   <section id="contact" class="contact-section">
     <div class="section-container">
       <div class="contact-grid">
@@ -977,8 +977,7 @@
       </div>
     </div>
   </section>
-
-  <!-- Booking Modal Popup Form -->
+    <!-- Booking Modal Popup Form -->
   <div class="modal-overlay" id="bookingModal" onclick="closeModal(event)">
     <div class="modal-card">
       <h3 id="modalRoomTitle">Book / Reserve</h3>
@@ -1028,7 +1027,7 @@
     </div>
   </div>
 
-  <!-- Bottle Clash Animation Overlay (Step 4) -->
+  <!-- Bottle Clash Animation Overlay -->
   <div class="bottle-clash-overlay" id="bottleClashOverlay">
     <div class="bottle-container">
       <i class="fa-solid fa-wine-bottle bottle-left"></i>
@@ -1139,7 +1138,7 @@
       });
     });
 
-    // --- Bottle Clash Animation & Redirect Logic (Step 4) ---
+    // --- Bottle Clash Animation & Redirect Logic ---
     function triggerBottleClashAndRedirect() {
       const overlay = document.getElementById('bottleClashOverlay');
       overlay.classList.add('active');
@@ -1148,7 +1147,7 @@
       }, 1000);
     }
 
-    // --- Modal Form & EmailJS Logic ---
+    // --- Modal Form & Google Apps Script Logic ---
     function openBookingModal(itemTitle) {
       document.getElementById('selectedRoomName').value = itemTitle;
       document.getElementById('modalRoomTitle').innerText = `Book / Reserve: ${itemTitle}`;
@@ -1165,36 +1164,43 @@
       if (e.target.id === 'bookingModal') toggleModal(false);
     }
 
-    
-      function submitBookingForm(event) {
-  event.preventDefault();
-  
-  // फॉर्म से डेटा एकत्र करना
-  const bookingData = {
-    name: document.getElementById('clientName').value,
-    email: document.getElementById('clientEmail').value,
-    phone: document.getElementById('clientPhone').value,
-    checkin: document.getElementById('checkinDate').value,
-    roomType: document.getElementById('barRoomType').value
-  };
+    function sendBookingEmail(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.innerText = "Sending Booking...";
+      submitBtn.disabled = true;
 
-  // नीचे 'YOUR_WEB_APP_URL' की जगह अपना कॉपी किया हुआ गूगल स्क्रिप्ट यूआरएल पेस्ट करें
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbyU3orsDtE0b76YI6pcBLvYVUG64XpuQYkB2MTOxWJXUI20vpw7Hfe3A1z1vg1FkFq7/exec';
-  
-  fetch(scriptURL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(bookingData)
-  })
-  .then(response => {
-    alert("आपकी बुकिंग रिक्वेस्ट सफलतापूर्वक भेज दी गई है!");
-  })
-  .catch(error => {
-    console.error('Error!', error);
-  });
-}
+      const bookingData = {
+        name: document.getElementById('clientName').value,
+        phone: document.getElementById('clientPhone').value,
+        email: document.getElementById('clientEmail').value,
+        checkin: document.getElementById('checkInDate').value,
+        checkout: document.getElementById('checkOutDate').value,
+        roomType: document.getElementById('selectedRoomName').value,
+        occupancy: document.getElementById('roomOccupancy').value
+      };
 
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbyU3orsDtE0b76YI6pcBLvYVUG64XpuQYkB2MTOxWJXUI20vpw7Hfe3A1z1vg1FkFq7/exec';
+      
+      fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bookingData)
+      })
+      .then(response => {
+        alert("आपकी बुकिंग रिक्वेस्ट सफलतापूर्वक भेज दी गई है!");
+        submitBtn.innerText = "Confirm & Send Booking";
+        submitBtn.disabled = false;
+        toggleModal(false);
+      })
+      .catch(error => {
+        console.error('Error!', error);
+        alert("कुछ त्रुटि हुई, कृपया पुनः प्रयास करें।");
+        submitBtn.innerText = "Confirm & Send Booking";
+        submitBtn.disabled = false;
+      });
     }
 
     // --- AI Review System ---
@@ -1276,5 +1282,5 @@
     };
   </script>
 </body>
-              </html>
-                                            
+  </html>
+  
