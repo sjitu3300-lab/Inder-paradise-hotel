@@ -12,15 +12,6 @@
   
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
-  <!-- EmailJS Library for sending Gmail -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function() {
-      // Yahan apna EmailJS Public Key dalein (jaise 'YOUR_PUBLIC_KEY')
-      emailjs.init("YOUR_PUBLIC_KEY");
-    })();
-  </script>
 
   <style>
     :root {
@@ -400,7 +391,7 @@
 
     <!-- Rate Note Banner -->
     <div class="rate-note-banner">
-      <i class="fa-solid fa-circle-info"></i> <strong>Important Note:</strong> Extra person (above 5 years): <strong>₹700</strong>. All rates include <strong>GST and Complimentary Breakfast</strong>[span_1](start_span)[span_1](end_span).
+      <i class="fa-solid fa-circle-info"></i> <strong>Important Note:</strong> Extra person (above 5 years): <strong>₹700</strong>. All rates include <strong>GST and Complimentary Breakfast</strong>[span_0](start_span)[span_0](end_span).
     </div>
 
     <!-- ================= 1. DELUXE ROOM ================= -->
@@ -508,8 +499,7 @@
         </div>
       </div>
     </div>
-
-    <!-- ================= 3. TRIPPLE EXECUTIVE ROOM ================= -->
+<!-- ================= 3. TRIPPLE EXECUTIVE ROOM ================= -->
     <div class="room-full-card">
       <div class="room-gallery-wrap">
         <div class="room-main-preview">
@@ -627,7 +617,7 @@
             <img src="https://i.ibb.co/TxdYdg8L/IMG-20260831-120036.jpg?q=80&w=300&auto=format&fit=crop" alt="Platinum Suite">
             <span class="thumb-tag">Master</span>
           </div>
-          <div class="thumb-item" onclick="changeImage('mainImg5', https://i.ibb.co/3t7hxy6/Screenshot-2026-08-31-12-54-55-95-99c04817c0de5652397fc8b56c3b3817.jpg'?q=80&w=800&auto=format&fit=crop', this)">
+          <div class="thumb-item" onclick="changeImage('mainImg5', 'https://i.ibb.co/3t7hxy6/Screenshot-2026-08-31-12-54-55-95-99c04817c0de5652397fc8b56c3b3817.jpg?q=80&w=800&auto=format&fit=crop', this)">
             <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=300&auto=format&fit=crop" alt="Lounge">
             <span class="thumb-tag">Lounge</span>
           </div>
@@ -760,7 +750,7 @@
       if (e.target.id === 'bookingModal') toggleModal(false);
     }
 
-    // EmailJS Submission Logic
+    // Google Apps Script Submission Logic
     function sendBookingEmail(e) {
       e.preventDefault();
       
@@ -768,31 +758,39 @@
       submitBtn.innerText = "Sending Booking...";
       submitBtn.disabled = true;
 
-      const templateParams = {
-        room_name: document.getElementById('selectedRoomName').value,
-        client_name: document.getElementById('clientName').value,
-        client_phone: document.getElementById('clientPhone').value,
-        client_email: document.getElementById('clientEmail').value,
-        check_in: document.getElementById('checkInDate').value,
-        check_out: document.getElementById('checkOutDate').value,
-        occupancy: document.getElementById('roomOccupancy').value,
-        hotel_email: "hotelip2022@gmail.com" // Aapka official hotel gmail
+      const bookingData = {
+        name: document.getElementById('clientName').value,
+        phone: document.getElementById('clientPhone').value,
+        email: document.getElementById('clientEmail').value,
+        checkin: document.getElementById('checkInDate').value,
+        checkout: document.getElementById('checkOutDate').value,
+        roomType: document.getElementById('selectedRoomName').value,
+        occupancy: document.getElementById('roomOccupancy').value
       };
 
-      // Yahan EmailJS service ID aur template ID dalein
-      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-        .then(function(response) {
-           alert("Booking request sent successfully to hotel official Gmail! Confirmation email sent to your mail.");
-           submitBtn.innerText = "Confirm & Send Booking";
-           submitBtn.disabled = false;
-           document.getElementById('bookingForm').reset();
-           toggleModal(false);
-        }, function(error) {
-           alert("Failed to send booking. Please try via WhatsApp.");
-           submitBtn.innerText = "Confirm & Send Booking";
-           submitBtn.disabled = false;
-        });
+      // अपना Google Apps Script वाला Web App URL यहाँ डालें
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbyU3orsDtE0b76YI6pcBLvYVUG64XpuQYkB2MTOxWJXUI20vpw7Hfe3A1z1vg1FkFq7/exec';
+      
+      fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bookingData)
+      })
+      .then(response => {
+        alert("Booking request sent successfully to hotel official Gmail!");
+        submitBtn.innerText = "Confirm & Send Booking";
+        submitBtn.disabled = false;
+        document.getElementById('bookingForm').reset();
+        toggleModal(false);
+      })
+      .catch(error => {
+        console.error('Error!', error);
+        alert("Failed to send booking. Please try via WhatsApp.");
+        submitBtn.innerText = "Confirm & Send Booking";
+        submitBtn.disabled = false;
+      });
     }
   </script>
 </body>
-  </html>
+          </html>
