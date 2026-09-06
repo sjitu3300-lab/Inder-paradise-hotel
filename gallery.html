@@ -79,6 +79,25 @@
     }
     .nav-actions { display: flex; gap: 12px; align-items: center; }
 
+    .btn-gold {
+      background: linear-gradient(135deg, var(--primary) 0%, #d63031 100%);
+      color: #fff;
+      padding: 9px 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(230, 57, 70, 0.35);
+      transition: var(--transition);
+    }
+    .btn-gold:hover { background: #ff4757; transform: translateY(-2px); }
+
     .btn-outline {
       border: 1px solid var(--gold);
       color: var(--gold);
@@ -107,6 +126,31 @@
     }
     .page-hero h1 { font-size: 3.4rem; margin-bottom: 12px; color: var(--white); }
     .page-hero p { color: var(--gold-light); font-size: 1.05rem; letter-spacing: 1px; }
+
+    /* Upload Box Section */
+    .upload-box {
+      max-width: 600px;
+      margin: 40px auto 0;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      text-align: center;
+    }
+    .upload-box h3 { font-size: 1.5rem; color: var(--gold); margin-bottom: 15px; }
+    .upload-box input[type="text"], .upload-box input[type="file"] {
+      width: 100%;
+      background: #0d0d12;
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+      outline: none;
+    }
+    .upload-box input[type="file"] { padding: 8px; cursor: pointer; }
 
     /* Gallery Container */
     .container { max-width: 1250px; margin: 60px auto; padding: 0 20px; }
@@ -186,12 +230,20 @@
   <div class="page-hero">
     <h1>Photo Gallery 📸</h1>
     <p>Explore the royal hospitality, rooms, and dining spaces at Hotel Inder Paradise</p>
+    
+    <!-- Upload Box -->
+    <div class="upload-box">
+      <h3>✨ Add New Gallery Image</h3>
+      <input type="text" id="imgTitle" placeholder="Image Title (e.g., Royal Suite)">
+      <input type="file" id="imgFile" accept="image/*">
+      <button class="btn-gold" onclick="uploadNewImage()"><i class="fa-solid fa-upload"></i> Upload Image</button>
+    </div>
   </div>
 
   <!-- Gallery Grid Section -->
   <div class="container">
-    <div class="gallery-grid">
-      
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Default Images -->
       <div class="gallery-card">
         <div class="gallery-img-box">
           <img src="https://i.ibb.co/KzwLrPYQ/IMG-20260827-205710.jpg" alt="Hotel Building Exterior">
@@ -233,7 +285,6 @@
         </div>
         <div class="gallery-caption">🍷 Bar & Beverage Lounge</div>
       </div>
-
     </div>
   </div>
 
@@ -242,5 +293,55 @@
     <p>© 2026 Hotel Inder Paradise, Vijay Vallabh Circle, Nagaur, Rajasthan. All Rights Reserved.</p>
   </footer>
 
+  <!-- JavaScript for LocalStorage Upload -->
+  <script>
+    function uploadNewImage() {
+      const title = document.getElementById('imgTitle').value.trim();
+      const fileInput = document.getElementById('imgFile');
+      
+      if (!title || fileInput.files.length === 0) {
+        alert("कृपया इमेज का टाइटल और फाइल दोनों चुनें!");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const imageData = e.target.result;
+        
+        let savedGallery = JSON.parse(localStorage.getItem('hotelGallery')) || [];
+        savedGallery.unshift({ title: title, src: imageData });
+        
+        localStorage.setItem('hotelGallery', JSON.stringify(savedGallery));
+        
+        alert("इमेज गैलरी में सफलतापूर्वक जोड़ दी गई है!");
+        location.reload();
+      };
+      
+      reader.readAsDataURL(fileInput.files[0]);
+    }
+
+    function loadSavedGallery() {
+      const savedGallery = JSON.parse(localStorage.getItem('hotelGallery')) || [];
+      const grid = document.getElementById('galleryGrid');
+      
+      savedGallery.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'gallery-card';
+        card.innerHTML = `
+          <div class="gallery-img-box">
+            <img src="${item.src}" alt="${item.title}">
+          </div>
+          <div class="gallery-caption">${item.title}</div>
+        `;
+        grid.prepend(card);
+      });
+    }
+
+    window.onload = function() {
+      loadSavedGallery();
+    };
+  </script>
+
 </body>
 </html>
+
