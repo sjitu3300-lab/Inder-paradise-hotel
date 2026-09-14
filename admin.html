@@ -12,31 +12,35 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         /* Top Header Title */
         .portal-title {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
             color: #334155;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
             letter-spacing: 0.5px;
         }
 
-        /* Embossed Neumorphic Card */
+        /* Responsive Embossed Neumorphic Card */
         .login-card {
             background: #e6ecf5;
-            width: 380px;
-            padding: 40px 30px;
+            width: 90%;
+            max-width: 380px;
+            padding: 30px 20px;
             border-radius: 25px;
             box-shadow: 14px 14px 25px #babecc, -14px -14px 25px #ffffff;
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
+            box-sizing: border-box;
         }
 
         /* Top Icon Circle inside Card */
@@ -63,21 +67,21 @@
         .subtitle {
             font-size: 12px;
             color: #64748b;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-align: center;
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             width: 100%;
             position: relative;
             border-radius: 12px;
-            padding: 2px; /* For lighting border space */
+            padding: 2px;
         }
 
         .input-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: #475569;
             font-size: 12px;
             font-weight: bold;
@@ -86,7 +90,7 @@
         /* Debossed Input Fields with Blue text color */
         .input-group input {
             width: 100%;
-            padding: 14px 16px;
+            padding: 12px 14px;
             border: none;
             border-radius: 12px;
             background: #e6ecf5;
@@ -94,7 +98,7 @@
             box-sizing: border-box;
             font-size: 14px;
             outline: none;
-            color: #0056b3; /* Blue text color as requested */
+            color: #0056b3; 
             font-weight: 600;
             transition: all 0.3s ease;
             position: relative;
@@ -106,7 +110,6 @@
             box-shadow: inset 4px 4px 8px #babecc, inset -4px -4px 8px #ffffff, 0 0 12px rgba(0, 123, 255, 0.9);
         }
 
-        /* Create a fast lighting glowing border on hover */
         .input-group::before {
             content: '';
             position: absolute;
@@ -133,7 +136,7 @@
         /* Login Button with Bottom-to-Top Liquid Fill Animation */
         .login-btn {
             width: 100%;
-            padding: 14px;
+            padding: 13px;
             border: 2px solid #007bff;
             border-radius: 12px;
             background-color: transparent;
@@ -146,10 +149,9 @@
             overflow: hidden;
             z-index: 1;
             transition: color 0.4s ease, border-color 0.4s ease;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
-        /* Liquid fill pseudo element */
         .login-btn::before {
             content: "";
             position: absolute;
@@ -162,7 +164,6 @@
             transition: height 0.35s ease-in-out;
         }
 
-        /* When mouse hovers, liquid fills from bottom to top */
         .login-btn:hover::before {
             height: 100%;
         }
@@ -174,7 +175,7 @@
 
         #errorMsg {
             color: #e11d48;
-            margin-top: 15px;
+            margin-top: 12px;
             text-align: center;
             font-size: 12px;
             font-weight: 500;
@@ -222,11 +223,9 @@
           measurementId: "G-TZKY0W3PYV"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Login Button Click Event & Redirection Logic
         document.getElementById("loginBtn").addEventListener("click", () => {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
