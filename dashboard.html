@@ -3,111 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Inder Paradise - Luxury Admin Dashboard</title>
+    <title>Hotel Inder Paradise - Luxury Admin Portal</title>
     <!-- Google Fonts & Tailwind CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f1f5f9; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.4s ease, color 0.4s ease; }
+        /* Smooth Fade Animation for Tabs */
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out forwards; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body id="page-body" class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Top Navigation Bar 🏨 -->
-    <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-50 border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <span class="text-3xl">🏨</span>
-                <div>
-                    <h1 class="text-xl font-bold tracking-wide text-amber-400">Hotel Inder Paradise</h1>
-                    <p class="text-xs text-slate-400">Luxury Management Dashboard</p>
-                </div>
+    <!-- Top Header -->
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50 px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3 border-b border-slate-800">
+        <!-- Center Title -->
+        <div class="sm:absolute sm:left-1/2 sm:-translate-x-1/2 text-center">
+            <h1 class="text-lg sm:text-xl font-bold tracking-wider text-amber-400">Hotel Inder Paradise</h1>
+            <p class="text-[10px] text-slate-400">Admin Management Dashboard</p>
+        </div>
+
+        <!-- Left: Menu Trigger -->
+        <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-start">
+            <button onclick="toggleSidebar()" class="bg-slate-800 hover:bg-slate-700 p-2 rounded-xl text-amber-400 font-bold text-sm flex items-center space-x-2 border border-slate-700 transition">
+                <span>☰ Menu</span>
+            </button>
+            <span id="admin-badge" class="text-xs bg-slate-800 px-3 py-1 rounded-full text-indigo-300 font-medium sm:hidden"></span>
+        </div>
+
+        <!-- Right / Bottom Navigation Bar items: Search, Notification, Lighting, Profile -->
+        <div class="flex items-center space-x-3 w-full sm:w-auto justify-end">
+            <!-- Search Bar -->
+            <div class="relative">
+                <input type="text" id="global-search" placeholder="Search rooms, guest..." class="bg-slate-800 text-xs text-white placeholder-slate-400 px-3 py-1.5 rounded-xl outline-none border border-slate-700 w-36 sm:w-48 focus:w-56 transition-all">
             </div>
-            <div class="flex items-center space-x-4">
-                <span id="admin-email" class="text-xs bg-slate-800 px-3 py-1.5 rounded-full text-indigo-300 font-medium border border-slate-700"></span>
-                <button id="logout-btn" class="bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-xl text-xs font-semibold transition shadow-sm">Logout 🚪</button>
+
+            <!-- Notification Bell -->
+            <div class="relative">
+                <button onclick="alert('No new notifications!')" class="bg-slate-800 hover:bg-slate-700 p-2 rounded-xl text-slate-300 relative border border-slate-700">
+                    🔔<span class="absolute -top-1 -right-1 bg-rose-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">2</span>
+                </button>
+            </div>
+
+            <!-- Theme / Lighting Selector (6-8 Colors & Dark/Light) -->
+            <select id="theme-selector" onchange="changeTheme(this.value)" class="bg-slate-800 text-xs text-amber-300 px-2 py-1.5 rounded-xl border border-slate-700 outline-none cursor-pointer">
+                <option value="default">💡 Default Slate</option>
+                <option value="dark">🌑 Dark Midnight</option>
+                <option value="emerald">🟢 Royal Emerald</option>
+                <option value="indigo">🔵 Deep Indigo</option>
+                <option value="amber">🟠 Sunset Amber</option>
+                <option value="rose">🌸 Luxury Rose</option>
+                <option value="cyan">❄️ Ice Cyan</option>
+                <option value="light">☀️ Clean White</option>
+            </select>
+
+            <!-- Profile Image / Login Avatar -->
+            <div class="flex items-center space-x-2 border-l border-slate-700 pl-3">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces" alt="Admin" class="w-8 h-8 rounded-full border-2 border-amber-400 object-cover">
+                <button id="logout-btn" class="hidden sm:inline-block bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition">Logout</button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Area 📊 -->
-    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full grid grid-cols-1 lg:grid-cols-4 gap-8">
-        
-        <!-- Left Sidebar: Live Counters & Offline Booking Form 📝 -->
-        <div class="lg:col-span-1 space-y-6">
-            <!-- Live Statistics Cards -->
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80">
-                <h2 class="text-base font-bold text-slate-800 mb-4 flex items-center">📊 <span class="ml-2">Live Status</span></h2>
-                <div class="space-y-3">
-                    <div class="flex justify-between items-center bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
-                        <span class="text-xs font-semibold text-slate-600">Total Rooms</span>
-                        <span class="font-bold text-slate-900 text-base">24</span>
-                    </div>
-                    <div class="flex justify-between items-center bg-emerald-50 p-3.5 rounded-2xl border border-emerald-100">
-                        <span class="text-xs font-semibold text-emerald-700">Available</span>
-                        <span id="count-available" class="font-bold text-emerald-800 text-base">0</span>
-                    </div>
-                    <div class="flex justify-between items-center bg-rose-50 p-3.5 rounded-2xl border border-rose-100">
-                        <span class="text-xs font-semibold text-rose-700">Booked</span>
-                        <span id="count-booked" class="font-bold text-rose-800 text-base">0</span>
-                    </div>
+    <!-- Animated Slide Sidebar Menu -->
+    <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity"></div>
+    <aside id="sidebar-menu" class="fixed top-0 left-0 bottom-0 w-72 bg-slate-900 text-white z-50 p-6 shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col justify-between border-r border-slate-800">
+        <div>
+            <div class="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
+                <h2 class="text-base font-bold text-amber-400">🏨 Inder Paradise</h2>
+                <button onclick="toggleSidebar()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+            </div>
+            <nav class="space-y-2">
+                <button onclick="switchTab('dashboard')" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 transition nav-btn bg-indigo-600 text-white shadow-md" data-tab="dashboard">
+                    <span>📊</span> <span>Dashboard</span>
+                </button>
+                <button onclick="switchTab('rooms-list')" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 transition nav-btn text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="rooms-list">
+                    <span>🛏️</span> <span>Rooms List</span>
+                </button>
+                <button onclick="switchTab('rooms-status')" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 transition nav-btn text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="rooms-status">
+                    <span>🟢</span> <span>Rooms Status</span>
+                </button>
+                <button onclick="switchTab('banquet')" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 transition nav-btn text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="banquet">
+                    <span>🎊</span> <span>Banquet</span>
+                </button>
+            </nav>
+        </div>
+        <div class="border-t border-slate-800 pt-4">
+            <button onclick="document.getElementById('logout-btn').click()" class="w-full bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white py-2 rounded-xl text-xs font-semibold transition border border-rose-600/30">Logout Portal 🚪</button>
+        </div>
+    </aside>
+
+    <!-- Main Dynamic Container -->
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
+
+        <!-- TAB 1: DASHBOARD -->
+        <section id="tab-dashboard" class="tab-content active space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Total Rooms</h3>
+                    <p class="text-3xl font-extrabold text-slate-900">24</p>
+                    <p class="text-[11px] text-indigo-600 mt-1 font-semibold">Fully Automated Setup</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Available Rooms</h3>
+                    <p id="dash-avail" class="text-3xl font-extrabold text-emerald-600">0</p>
+                    <p class="text-[11px] text-emerald-500 mt-1 font-semibold">Ready for Check-in</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Booked Rooms</h3>
+                    <p id="dash-booked" class="text-3xl font-extrabold text-rose-600">0</p>
+                    <p class="text-[11px] text-rose-500 mt-1 font-semibold">Active Guest Stays</p>
                 </div>
             </div>
 
-            <!-- Offline Booking with Date & Time Selection -->
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80">
-                <h2 class="text-base font-bold text-slate-800 mb-4 flex items-center">📝 <span class="ml-2">Offline Booking</span></h2>
-                <form id="offline-booking-form" class="space-y-3.5">
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-600 mb-1">Select Room</label>
-                        <select id="book-room-select" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-indigo-500 outline-none font-medium" required>
-                            <option value="">-- Choose Available Room --</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-600 mb-1">Guest Name</label>
-                        <input type="text" id="guest-name" placeholder="Enter guest name" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none font-medium" required>
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-600 mb-1">Check-In Date & Time</label>
-                        <input type="datetime-local" id="check-in-time" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none font-medium" required>
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-600 mb-1">Check-Out Date & Time</label>
-                        <input type="datetime-local" id="check-out-time" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none font-medium" required>
-                    </div>
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-xs transition shadow-lg shadow-indigo-100 mt-2">Confirm Booking 🚀</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Right Section: 24 Rooms Grid View with Custom Bed Icon 🛏️ -->
-        <div class="lg:col-span-3 space-y-6">
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80">
+            <!-- Live 24 Rooms Grid with Bed Icon -->
+            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-lg font-bold text-slate-800 flex items-center">🚪 <span class="ml-2">All 24 Rooms Live Grid</span></h2>
-                    <span class="text-xs text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full font-bold border border-indigo-100">Room Rent + GST 🧾</span>
+                    <h2 class="text-base font-bold text-slate-800 flex items-center">🚪 <span class="ml-2">Live Room Cards Status</span></h2>
+                    <span class="text-xs text-slate-500 bg-slate-100 px-3 py-1 rounded-full font-medium">Bed Icon View 🛏️</span>
                 </div>
-
-                <!-- Rooms Grid Container -->
-                <div id="rooms-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                    <!-- Dynamic Rooms Loaded Here -->
+                <div id="dashboard-rooms-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                    <!-- Dynamic Cards -->
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- TAB 2: ROOMS LIST (Screenshot Layout: Left Table, Right Add Form + Pencil Update) -->
+        <section id="tab-rooms-list" class="tab-content space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left Side: Rooms List Table -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-3xl shadow-sm border border-slate-200 overflow-x-auto">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-base font-bold text-slate-800">📋 Rooms Master List</h2>
+                        <input type="text" id="room-list-search" placeholder="Search room..." onkeyup="filterRoomList()" class="bg-slate-50 border border-slate-200 text-xs px-3 py-1.5 rounded-xl outline-none">
+                    </div>
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="border-b border-slate-200 text-slate-500 font-bold bg-slate-50">
+                                <th class="p-3">ID</th>
+                                <th class="p-3">Room Type</th>
+                                <th class="p-3">Price</th>
+                                <th class="p-3">Capacity</th>
+                                <th class="p-3">Bed Size</th>
+                                <th class="p-3 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rooms-table-body" class="divide-y divide-slate-100">
+                            <!-- Rows loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Right Side: Add / Update Room Form -->
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 h-fit">
+                    <h2 id="form-title" class="text-base font-bold text-slate-800 mb-4">➕ Add New Room</h2>
+                    <form id="add-room-form" class="space-y-3.5">
+                        <input type="hidden" id="edit-room-doc-id">
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-600 mb-1">Room Number / ID</label>
+                            <input type="text" id="input-room-no" placeholder="e.g. 101" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none" required>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-600 mb-1">Room Category / Type</label>
+                            <input type="text" id="input-room-type" placeholder="Deluxe Room" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none" required>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-600 mb-1">Single Price (₹)</label>
+                                <input type="number" id="input-room-price" placeholder="2400" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-600 mb-1">Double Price (₹)</label>
+                                <input type="number" id="input-room-double" placeholder="3000" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-600 mb-1">Capacity</label>
+                                <input type="number" id="input-room-capacity" placeholder="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-600 mb-1">Bed Size</label>
+                                <input type="text" id="input-room-size" placeholder="Queen / King" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none">
+                            </div>
+                        </div>
+                        <button type="submit" id="save-room-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-xs transition shadow-md">Save Room 🚀</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: ROOMS STATUS (Screenshot Style Table with Status Badges & Pencil Update) -->
+        <section id="tab-rooms-status" class="tab-content space-y-6">
+            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-base font-bold text-slate-800">📊 Rooms Live Status Management</h2>
+                    <span class="text-xs text-slate-500 bg-slate-100 px-3 py-1 rounded-full font-medium">Click Pencil ✏️ to Modify Status</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="border-b border-slate-200 text-slate-500 font-bold bg-slate-50">
+                                <th class="p-3">Room Number</th>
+                                <th class="p-3">Room Type</th>
+                                <th class="p-3">Floor</th>
+                                <th class="p-3">Check Out Time</th>
+                                <th class="p-3">Current Status</th>
+                                <th class="p-3 text-center">Modify (✏️)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rooms-status-tbody" class="divide-y divide-slate-100">
+                            <!-- Loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: BANQUET -->
+        <section id="tab-banquet" class="tab-content space-y-6">
+            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-base font-bold text-slate-800">🎊 Banquet Hall Bookings & Status</h2>
+                    <button onclick="openBanquetModal()" class="bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition shadow-sm">+ Book Banquet</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="banquet-grid">
+                    <!-- Banquet Cards -->
+                </div>
+            </div>
+        </section>
 
     </main>
 
-    <!-- Footer Note -->
-    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
-        Hotel Inder Paradise Management Dashboard &copy; 2026. Automated Time-Sync Active.
-    </footer>
+    <!-- Modal for Status/Room Quick Edit via Pencil -->
+    <div id="edit-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white p-6 rounded-3xl max-w-md w-full shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-sm">✏️ Update Room Status & Details</h3>
+                <button onclick="closeEditModal()" class="text-slate-400 font-bold">✕</button>
+            </div>
+            <form id="quick-edit-form" class="space-y-3">
+                <input type="hidden" id="modal-room-id">
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-1">Status</label>
+                    <select id="modal-status" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none font-medium">
+                        <option value="Available">Available</option>
+                        <option value="Booked">Booked</option>
+                        <option value="On Works">On Works</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-1">Guest Name (If Booked)</label>
+                    <input type="text" id="modal-guest" placeholder="Guest Name" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-1">Check-Out Date & Time</label>
+                    <input type="datetime-local" id="modal-checkout" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none">
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl text-xs transition">Update Changes 💾</button>
+            </form>
+        </div>
+    </div>
 
-    <!-- Firebase SDK (v12.19.0) & Smart Automation Logic -->
+    <!-- Firebase SDK (v12.19.0) & Script Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-        import { getFirestore, collection, getDocs, doc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyDSk5NYb9Wm3fMnhrIsEvY1YmQKemXKB-Q",
@@ -125,185 +295,257 @@
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                document.getElementById('admin-email').innerText = user.email;
+                document.getElementById('admin-badge').innerText = user.email;
                 initRoomsDatabase();
             } else {
-                window.location.href = "admin.html"; //[span_2](start_span)[span_2](end_span)[span_3](start_span)[span_3](end_span)
+                window.location.href = "admin.html";
             }
         });
 
         document.getElementById('logout-btn').addEventListener('click', () => {
-            signOut(auth).then(() => { window.location.href = "admin.html"; }); //[span_4](start_span)[span_4](end_span)[span_5](start_span)[span_5](end_span)
+            signOut(auth).then(() => { window.location.href = "admin.html"; });
         });
-
-        // 24 Master Rooms Setup with Exact Categories & Rates
+        // 24 Master Rooms Setup
         const masterRooms = [
-            { id: "101", category: "Deluxe Room", single: 2400, double: 3000 },
-            { id: "102", category: "Deluxe Room", single: 2400, double: 3000 },
-            { id: "103", category: "Deluxe Room", single: 2400, double: 3000 },
-            { id: "104", category: "Deluxe Room", single: 2400, double: 3000 },
-            { id: "105", category: "Deluxe Room", single: 2400, double: 3000 },
-            { id: "106", category: "Deluxe Room", single: 2400, double: 3000 },
-            { id: "107", category: "Deluxe Room", single: 2400, double: 3000 },
-            { id: "108", category: "Deluxe Room", single: 2400, double: 3000 },
-            { id: "201", category: "Super Deluxe", single: 2700, double: 3300 },
-            { id: "202", category: "Super Deluxe", single: 2700, double: 3300 },
-            { id: "203", category: "Super Deluxe", single: 2700, double: 3300 },
-            { id: "204", category: "Super Deluxe", single: 2700, double: 3300 },
-            { id: "205", category: "Super Deluxe", single: 2700, double: 3300 },
-            { id: "206", category: "Super Deluxe", single: 2700, double: 3300 },
-            { id: "207", category: "Super Deluxe", single: 2700, double: 3300 },
-            { id: "208", category: "Super Deluxe", single: 2700, double: 3300 },
-            { id: "209", category: "Super Deluxe", single: 2700, double: 3300 },
-            { id: "210", category: "Super Deluxe", single: 2700, double: 3300 },
-            { id: "211", category: "Super Deluxe", single: 2700, double: 3300 },
-            { id: "301", category: "Triple Executive", single: 3000, double: 3500, triple: 4000 },
-            { id: "401", category: "Suite Gold", single: 4200, double: 5200 },
-            { id: "402", category: "Suite Gold", single: 4200, double: 5200 },
-            { id: "501", category: "Suite Platinum", single: 4500, double: 5500 },
-            { id: "502", category: "Suite Platinum", single: 4500, double: 5500 }
+            { id: "101", category: "Deluxe Room", single: 2400, double: 3000, capacity: 2, size: "Queen", floor: "First Floor" },
+            { id: "102", category: "Deluxe Room", single: 2400, double: 3000, capacity: 2, size: "Queen", floor: "First Floor" },
+            { id: "103", category: "Deluxe Room", single: 2400, double: 3000, capacity: 2, size: "Queen", floor: "First Floor" },
+            { id: "104", category: "Deluxe Room", single: 2400, double: 3000, capacity: 2, size: "Queen", floor: "First Floor" },
+            { id: "105", category: "Deluxe Room", single: 2400, double: 3000, capacity: 2, size: "Queen", floor: "First Floor" },
+            { id: "106", category: "Deluxe Room", single: 2400, double: 3000, capacity: 2, size: "Queen", floor: "First Floor" },
+            { id: "107", category: "Deluxe Room", single: 2400, double: 3000, capacity: 2, size: "Queen", floor: "First Floor" },
+            { id: "108", category: "Deluxe Room", single: 2400, double: 3000, capacity: 2, size: "Queen", floor: "First Floor" },
+            { id: "201", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King", floor: "Second Floor" },
+            { id: "202", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King", floor: "Second Floor" },
+            { id: "203", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King", floor: "Second Floor" },
+            { id: "204", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King", floor: "Second Floor" },
+            { id: "205", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King", floor: "Second Floor" },
+            { id: "206", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King", floor: "Second Floor" },
+            { id: "207", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King", floor: "Second Floor" },
+            { id: "208", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King", floor: "Second Floor" },
+            { id: "209", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King", floor: "Second Floor" },
+            { id: "210", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King", floor: "Second Floor" },
+            { id: "211", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King", floor: "Second Floor" },
+            { id: "301", category: "Triple Executive", single: 3000, double: 3500, triple: 4000, capacity: 4, size: "Luxury King", floor: "Third Floor" },
+            { id: "401", category: "Suite Gold", single: 4200, double: 5200, capacity: 5, size: "King", floor: "Fourth Floor" },
+            { id: "402", category: "Suite Gold", single: 4200, double: 5200, capacity: 5, size: "King", floor: "Fourth Floor" },
+            { id: "501", category: "Suite Platinum", single: 4500, double: 5500, capacity: 6, size: "Luxury King", floor: "Fifth Floor" },
+            { id: "502", category: "Suite Platinum", single: 4500, double: 5500, capacity: 6, size: "Luxury King", floor: "Fifth Floor" }
         ];
 
         async function initRoomsDatabase() {
-            for (let room of masterRooms) {
-                const roomRef = doc(db, "rooms", room.id);
-                
-                // Force update/initialize each room with proper category and details
-                await setDoc(roomRef, {
-                    id: room.id,
-                    category: room.category,
-                    single: room.single,
-                    double: room.double,
-                    triple: room.triple || null,
-                    status: "Available",
-                    guest: "",
-                    checkIn: "",
-                    checkOut: "",
-                    type: "None"
-                }, { merge: true });
+            const querySnapshot = await getDocs(collection(db, "rooms"));
+            if (querySnapshot.empty) {
+                for (let room of masterRooms) {
+                    await setDoc(doc(db, "rooms", room.id), {
+                        ...room,
+                        status: "Available",
+                        guest: "",
+                        checkOut: ""
+                    });
+                }
             }
-            loadDashboardData();
-            setInterval(checkRoomExpirations, 10000); 
+            loadAllData();
+            setInterval(checkAutoCheckout, 10000);
         }
 
-        async function loadDashboardData() {
-            const grid = document.getElementById('rooms-grid');
-            const selectDropdown = document.getElementById('book-room-select');
-            grid.innerHTML = "";
-            selectDropdown.innerHTML = '<option value="">-- Choose Available Room --</option>';
-
+        async function loadAllData() {
             const querySnapshot = await getDocs(collection(db, "rooms"));
             let availableCount = 0;
             let bookedCount = 0;
             const currentTime = new Date();
 
+            let dashGrid = document.getElementById('dashboard-rooms-grid');
+            let listTbody = document.getElementById('rooms-table-body');
+            let statusTbody = document.getElementById('rooms-status-tbody');
+
+            dashGrid.innerHTML = "";
+            listTbody.innerHTML = "";
+            statusTbody.innerHTML = "";
+
             for (let docSnap of querySnapshot.docs) {
                 let room = docSnap.data();
 
-                // Auto checkout logic if time expired
+                // Auto checkout logic
                 if (room.status === "Booked" && room.checkOut) {
-                    const outTime = new Date(room.checkOut);
-                    if (currentTime >= outTime) {
-                        await updateDoc(doc(db, "rooms", docSnap.id), {
-                            status: "Available",
-                            guest: "",
-                            checkIn: "",
-                            checkOut: "",
-                            type: "None"
-                        });
+                    if (currentTime >= new Date(room.checkOut)) {
+                        await updateDoc(doc(db, "rooms", docSnap.id), { status: "Available", guest: "", checkOut: "" });
                         room.status = "Available";
-                        alert(`🔔 Checkout Alert: Room #${docSnap.id} time is up! Room marked as Available.`);
+                        alert(`🔔 Checkout Notice: Room #${docSnap.id} time ended. Marked Available.`);
                     }
                 }
 
-                const isBooked = room.status === "Booked";
-                if (isBooked) bookedCount++;
+                if (room.status === "Booked") bookedCount++;
                 else availableCount++;
 
-                // Populate Dropdown cleanly with ID and Category
-                if (!isBooked) {
-                    selectDropdown.innerHTML += `<option value="${room.id}">Room #${room.id} - ${room.category}</option>`;
-                }
-
-                // Room Card with Custom Bed Icon 🛏️
-                grid.innerHTML += `
-                    <div class="p-5 rounded-3xl border ${isBooked ? 'bg-rose-50/60 border-rose-200' : 'bg-white border-slate-200'} shadow-sm flex flex-col justify-between transition-all hover:shadow-md">
+                // 1. Dashboard Card with Bed Icon 🛏️
+                const isBooked = room.status === "Booked";
+                dashGrid.innerHTML += `
+                    <div class="p-5 rounded-3xl border ${isBooked ? 'bg-rose-50/60 border-rose-200' : 'bg-white border-slate-200'} shadow-sm flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-center mb-3">
                                 <div class="flex items-center space-x-2.5">
                                     <div class="w-10 h-10 rounded-2xl bg-indigo-50 flex items-center justify-center text-xl shadow-inner border border-indigo-100">🛏️</div>
                                     <span class="font-bold text-sm text-slate-800">Room #${room.id}</span>
                                 </div>
-                                <span class="text-[11px] px-3 py-1 rounded-full font-bold ${isBooked ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'}">
-                                    ${room.status}
-                                </span>
+                                <span class="text-[11px] px-3 py-1 rounded-full font-bold ${isBooked ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'}">${room.status}</span>
                             </div>
                             <p class="text-[11px] font-bold text-indigo-600 mb-3 bg-indigo-50/80 px-2.5 py-1 rounded-lg inline-block">${room.category}</p>
-                            <div class="text-xs text-slate-600 space-y-1 mb-3">
-                                <p>Single: ₹${room.single} <span class="text-[10px] text-slate-500 font-bold">+ GST</span></p>
-                                <p>Double: ₹${room.double} <span class="text-[10px] text-slate-500 font-bold">+ GST</span></p>
-                                ${room.triple ? `<p>Triple: ₹${room.triple} <span class="text-[10px] text-slate-500 font-bold">+ GST</span></p>` : ''}
-                            </div>
-                            ${isBooked ? `
-                                <div class="text-[11px] text-rose-700 bg-rose-100/60 p-2.5 rounded-xl space-y-0.5 mb-3 border border-rose-200/50">
-                                    <p class="font-bold">👤 ${room.guest} (${room.type})</p>
-                                    <p class="text-[10px] text-slate-600">IN: ${new Date(room.checkIn).toLocaleString()}</p>
-                                    <p class="text-[10px] text-slate-600">OUT: ${new Date(room.checkOut).toLocaleString()}</p>
-                                </div>` : ''}
+                            <p class="text-xs text-slate-600 mb-2">Price: ₹${room.single} + GST</p>
+                            ${isBooked ? `<p class="text-[11px] text-rose-700 bg-rose-100/60 p-2 rounded-xl mb-3">👤 ${room.guest} (Out: ${room.checkOut ? new Date(room.checkOut).toLocaleString() : 'N/A'})</p>` : ''}
                         </div>
-                        <div>
-                            ${isBooked ? 
-                                `<button onclick="freeRoom('${room.id}')" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-2 rounded-xl transition shadow-sm">Checkout / Free</button>` : 
-                                `<span class="text-xs text-emerald-600 font-bold flex items-center justify-center bg-emerald-50 py-2 rounded-xl border border-emerald-100">Ready to Book</span>`
-                            }
-                        </div>
+                        <span class="text-xs text-center font-bold py-2 rounded-xl ${isBooked ? 'bg-slate-800 text-white' : 'bg-emerald-50 text-emerald-600 border border-emerald-100'}">${isBooked ? 'Occupied' : 'Ready Available'}</span>
                     </div>
+                `;
+
+                // 2. Rooms List Table Row with Pencil Action ✏️
+                listTbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="p-3 font-bold">#${room.id}</td>
+                        <td class="p-3 font-semibold text-indigo-600">${room.category}</td>
+                        <td class="p-3">₹${room.single}</td>
+                        <td class="p-3">${room.capacity || 2} Persons</td>
+                        <td class="p-3">${room.size || 'King'}</td>
+                        <td class="p-3 text-center space-x-2">
+                            <button onclick="editRoomData('${room.id}', '${room.category}', '${room.single}', '${room.capacity || 2}', '${room.size || 'King'}')" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-600 p-1.5 rounded-lg transition" title="Edit Room">✏️</button>
+                        </td>
+                    </tr>
+                `;
+
+                // 3. Rooms Status Table Row
+                statusTbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="p-3 font-bold">#${room.id}</td>
+                        <td class="p-3 font-semibold text-slate-700">${room.category}</td>
+                        <td class="p-3">${room.floor || 'First Floor'}</td>
+                        <td class="p-3">${room.checkOut ? new Date(room.checkOut).toLocaleString() : 'None'}</td>
+                        <td class="p-3">
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${room.status === 'Available' ? 'bg-emerald-100 text-emerald-700' : room.status === 'Booked' ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'}">${room.status}</span>
+                        </td>
+                        <td class="p-3 text-center">
+                            <button onclick="openStatusModal('${room.id}', '${room.status}', '${room.guest || ''}', '${room.checkOut || ''}')" class="bg-slate-100 hover:bg-slate-200 p-1.5 rounded-lg transition">✏️ Modify</button>
+                        </td>
+                    </tr>
                 `;
             }
 
-            document.getElementById('count-available').innerText = availableCount;
-            document.getElementById('count-booked').innerText = bookedCount;
+            document.getElementById('dash-avail').innerText = availableCount;
+            document.getElementById('dash-booked').innerText = bookedCount;
+            loadBanquetData();
         }
 
-        async function checkRoomExpirations() {
-            loadDashboardData();
+        async function loadBanquetData() {
+            let banquetGrid = document.getElementById('banquet-grid');
+            banquetGrid.innerHTML = `
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-5 rounded-3xl border border-amber-200 shadow-sm">
+                    <span class="text-xs bg-amber-200 text-amber-800 px-2.5 py-1 rounded-full font-bold">Grand Ballroom</span>
+                    <h3 class="font-bold text-slate-800 text-base mt-3">Inder Paradise Banquet Hall</h3>
+                    <p class="text-xs text-slate-600 mt-1">Capacity: 300+ Guests</p>
+                    <div class="mt-4 pt-3 border-t border-amber-200/60 flex justify-between items-center text-xs">
+                        <span class="font-bold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">Available Today</span>
+                        <button onclick="alert('Banquet Booking Window Opened!')" class="bg-amber-600 text-white px-3 py-1.5 rounded-xl font-bold">Book Now</button>
+                    </div>
+                </div>
+            `;
         }
 
-        document.getElementById('offline-booking-form').addEventListener('submit', async (e) => {
+        // Add or Update Room Handler
+        document.getElementById('add-room-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const roomId = document.getElementById('book-room-select').value;
-            const guestName = document.getElementById('guest-name').value;
-            const checkIn = document.getElementById('check-in-time').value;
-            const checkOut = document.getElementById('check-out-time').value;
+            const id = document.getElementById('input-room-no').value;
+            const category = document.getElementById('input-room-type').value;
+            const single = document.getElementById('input-room-price').value;
+            const capacity = document.getElementById('input-room-capacity').value;
+            const size = document.getElementById('input-room-size').value;
 
-            if (!roomId) return alert("Please select a room!");
-            if (new Date(checkIn) >= new Date(checkOut)) return alert("Check-out time must be after Check-in time!");
+            await setDoc(doc(db, "rooms", id), {
+                id, category, single, capacity, size, status: "Available", floor: "First Floor"
+            }, { merge: true });
 
-            await updateDoc(doc(db, "rooms", roomId), {
-                status: "Booked",
-                guest: guestName,
-                checkIn: checkIn,
-                checkOut: checkOut,
-                type: "Offline"
-            });
-
-            document.getElementById('offline-booking-form').reset();
-            loadDashboardData();
-            alert(`Room #${roomId} successfully booked for ${guestName}! 🎉`);
+            document.getElementById('add-room-form').reset();
+            loadAllData();
+            alert(`Room #${id} successfully saved! 🎉`);
         });
 
-        window.freeRoom = async function(roomId) {
-            if(confirm(`Are you sure you want to checkout Room #${roomId}?`)) {
-                await updateDoc(doc(db, "rooms", roomId), {
-                    status: "Available",
-                    guest: "",
-                    checkIn: "",
-                    checkOut: "",
-                    type: "None"
-                });
-                loadDashboardData();
+        window.editRoomData = function(id, cat, price, cap, sz) {
+            document.getElementById('input-room-no').value = id;
+            document.getElementById('input-room-type').value = cat;
+            document.getElementById('input-room-price').value = price;
+            document.getElementById('input-room-capacity').value = cap;
+            document.getElementById('input-room-size').value = sz;
+            document.getElementById('form-title').innerText = `✏️ Update Room #${id}`;
+            switchTab('rooms-list');
+        };
+
+        window.openStatusModal = function(id, status, guest, checkout) {
+            document.getElementById('modal-room-id').value = id;
+            document.getElementById('modal-status').value = status;
+            document.getElementById('modal-guest').value = guest;
+            document.getElementById('modal-checkout').value = checkout;
+            document.getElementById('edit-modal').classList.remove('hidden');
+        };
+
+        window.closeEditModal = function() {
+            document.getElementById('edit-modal').classList.add('hidden');
+        };
+
+        document.getElementById('quick-edit-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('modal-room-id').value;
+            const status = document.getElementById('modal-status').value;
+            const guest = document.getElementById('modal-guest').value;
+            const checkOut = document.getElementById('modal-checkout').value;
+
+            await updateDoc(doc(db, "rooms", id), { status, guest, checkOut });
+            closeEditModal();
+            loadAllData();
+            alert(`Room #${id} status updated successfully! ✅`);
+        });
+
+        async function checkAutoCheckout() { loadAllData(); }
+
+        // Global UI Nav / Menu / Theme Switchers
+        window.toggleSidebar = function() {
+            const menu = document.getElementById('sidebar-menu');
+            const overlay = document.getElementById('sidebar-overlay');
+            menu.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        };
+
+        window.switchTab = function(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => {
+                el.classList.remove('bg-indigo-600', 'text-white', 'shadow-md');
+                el.classList.add('text-slate-300', 'hover:bg-slate-800');
+            });
+            
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            const activeBtn = document.querySelector(`[data-tab="${tabName}"]`);
+            if(activeBtn) {
+                activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-md');
+                activeBtn.classList.remove('text-slate-300', 'hover:bg-slate-800');
             }
-        }
+            toggleSidebar();
+        };
+
+        // 6-8 Theme Lighting Selector Logic
+        window.changeTheme = function(theme) {
+            const body = document.getElementById('page-body');
+            if(theme === 'dark') { body.className = "bg-slate-950 text-slate-100 min-h-screen flex flex-col"; }
+            else if(theme === 'emerald') { body.className = "bg-emerald-950 text-emerald-50 min-h-screen flex flex-col"; }
+            else if(theme === 'indigo') { body.className = "bg-indigo-950 text-indigo-50 min-h-screen flex flex-col"; }
+            else if(theme === 'amber') { body.className = "bg-amber-950 text-amber-50 min-h-screen flex flex-col"; }
+            else if(theme === 'rose') { body.className = "bg-rose-950 text-rose-50 min-h-screen flex flex-col"; }
+            else if(theme === 'cyan') { body.className = "bg-cyan-950 text-cyan-50 min-h-screen flex flex-col"; }
+            else if(theme === 'light') { body.className = "bg-white text-slate-900 min-h-screen flex flex-col"; }
+            else { body.className = "bg-slate-100 text-slate-800 min-h-screen flex flex-col"; }
+        };
+
+        window.filterRoomList = function() {
+            let filter = document.getElementById('global-search').value.toLowerCase();
+            // simple global search trigger
+        };
     </script>
 </body>
 </html>
+        
