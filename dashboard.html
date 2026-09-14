@@ -75,7 +75,7 @@
             </div>
         </div>
 
-        <!-- Right Section: 24 Rooms Grid View with Bed Icon 🛏️ -->
+        <!-- Right Section: All 24 Rooms Grid View with Bed Icons 🛏️ -->
         <div class="lg:col-span-3 space-y-6">
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
                 <div class="flex justify-between items-center mb-6">
@@ -85,7 +85,7 @@
 
                 <!-- Room Grid Container -->
                 <div id="rooms-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                    <!-- Dynamic Rooms will load here -->
+                    <!-- Dynamic 24 Rooms will load here -->
                 </div>
             </div>
         </div>
@@ -117,7 +117,6 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Check Admin Auth State
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById('admin-email').innerText = user.email;
@@ -127,14 +126,13 @@
             }
         });
 
-        // Logout Action
         document.getElementById('logout-btn').addEventListener('click', () => {
             signOut(auth).then(() => { window.location.href = "admin.html"; });
         });
 
-        // 24 Rooms Master Data Structure with Categories & Rates
+        // Exact 24 Rooms Master Data Setup
         const masterRooms = [
-            // Deluxe (8 Rooms: 101 - 108)
+            // Deluxe Rooms (8)
             { id: "101", category: "Deluxe Room", single: 2400, double: 3000 },
             { id: "102", category: "Deluxe Room", single: 2400, double: 3000 },
             { id: "103", category: "Deluxe Room", single: 2400, double: 3000 },
@@ -144,7 +142,7 @@
             { id: "107", category: "Deluxe Room", single: 2400, double: 3000 },
             { id: "108", category: "Deluxe Room", single: 2400, double: 3000 },
 
-            // Super Deluxe (11 Rooms: 201 - 211)
+            // Super Deluxe Rooms (11)
             { id: "201", category: "Super Deluxe", single: 2700, double: 3300 },
             { id: "202", category: "Super Deluxe", single: 2700, double: 3300 },
             { id: "203", category: "Super Deluxe", single: 2700, double: 3300 },
@@ -157,29 +155,30 @@
             { id: "210", category: "Super Deluxe", single: 2700, double: 3300 },
             { id: "211", category: "Super Deluxe", single: 2700, double: 3300 },
 
-            // Triple Executive (1 Room: 301)
+            // Triple Executive Room (1)
             { id: "301", category: "Triple Executive", single: 3000, double: 3500, triple: 4000 },
 
-            // Suite Gold (2 Rooms: 401 - 402)
+            // Suite Gold Rooms (2)
             { id: "401", category: "Suite Gold", single: 4200, double: 5200 },
             { id: "402", category: "Suite Gold", single: 4200, double: 5200 },
 
-            // Suite Platinum (2 Rooms: 501 - 502)
+            // Suite Platinum Rooms (2)
             { id: "501", category: "Suite Platinum", single: 4500, double: 5500 },
             { id: "502", category: "Suite Platinum", single: 4500, double: 5500 }
         ];
 
         async function initRoomsDatabase() {
-            const querySnapshot = await getDocs(collection(db, "rooms"));
-            if (querySnapshot.empty) {
-                for (let room of masterRooms) {
-                    await setDoc(doc(db, "rooms", room.id), {
-                        ...room,
-                        status: "Available",
-                        guest: "",
-                        type: "None"
-                    });
-                }
+            for (let room of masterRooms) {
+                const roomRef = doc(db, "rooms", room.id);
+                const querySnapshot = await getDocs(collection(db, "rooms"));
+                
+                // Ensure every room exists and has proper category details in Firestore
+                await setDoc(roomRef, {
+                    ...room,
+                    status: "Available",
+                    guest: "",
+                    type: "None"
+                }, { merge: true });
             }
             loadDashboardData();
         }
@@ -201,12 +200,12 @@
                 if (isBooked) bookedCount++;
                 else availableCount++;
 
-                // Dropdown me sirf available rooms add honge sath me category dikhegi
+                // Populate Dropdown with Categories and Room IDs properly
                 if (!isBooked) {
                     selectDropdown.innerHTML += `<option value="${room.id}">Room #${room.id} - ${room.category}</option>`;
                 }
 
-                // Room Card with Bed Icon 🛏️ and Room Rent + GST text update
+                // Render all 24 Room Cards with Bed Icon 🛏️
                 grid.innerHTML += `
                     <div class="p-5 rounded-2xl border ${isBooked ? 'bg-rose-50/50 border-rose-200' : 'bg-white border-slate-200'} shadow-sm flex flex-col justify-between transition-all hover:shadow-md">
                         <div>
