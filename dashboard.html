@@ -80,7 +80,7 @@
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-bold text-slate-800 flex items-center">🚪 <span>All 24 Rooms Live Status</span></h2>
-                    <span class="text-xs text-slate-500 bg-slate-100 px-3 py-1 rounded-full font-medium">Rates include GST + Breakfast 🍳</span>
+                    <span class="text-xs text-slate-500 bg-slate-100 px-3 py-1 rounded-full font-medium">Room Rent + GST 🧾</span>
                 </div>
 
                 <!-- Room Grid Container -->
@@ -94,7 +94,7 @@
 
     <!-- Footer Note -->
     <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
-        Hotel Inder Paradise Management Dashboard &copy; 2026. All rates inclusive of taxes.
+        Hotel Inder Paradise Management Dashboard &copy; 2026. Room Rent + GST applicable.
     </footer>
 
     <!-- Firebase SDK (v12.19.0) & Dashboard Logic -->
@@ -132,7 +132,7 @@
             signOut(auth).then(() => { window.location.href = "admin.html"; });
         });
 
-        // 24 Rooms Master Data Structure
+        // 24 Rooms Master Data Structure with Categories & Rates
         const masterRooms = [
             // Deluxe (8 Rooms: 101 - 108)
             { id: "101", category: "Deluxe Room", single: 2400, double: 3000 },
@@ -201,11 +201,12 @@
                 if (isBooked) bookedCount++;
                 else availableCount++;
 
+                // Dropdown me sirf available rooms add honge sath me category dikhegi
                 if (!isBooked) {
-                    selectDropdown.innerHTML += `<option value="${room.id}">Room ${room.id} (${room.category})</option>`;
+                    selectDropdown.innerHTML += `<option value="${room.id}">Room #${room.id} - ${room.category}</option>`;
                 }
 
-                // Room Card with Bed Icon 🛏️
+                // Room Card with Bed Icon 🛏️ and Room Rent + GST text update
                 grid.innerHTML += `
                     <div class="p-5 rounded-2xl border ${isBooked ? 'bg-rose-50/50 border-rose-200' : 'bg-white border-slate-200'} shadow-sm flex flex-col justify-between transition-all hover:shadow-md">
                         <div>
@@ -220,9 +221,9 @@
                             </div>
                             <p class="text-xs font-semibold text-indigo-600 mb-3 bg-indigo-50/50 px-2.5 py-1 rounded-md inline-block">${room.category}</p>
                             <div class="text-xs text-slate-600 space-y-1 mb-4">
-                                <p>Single: ₹${room.single} <span class="text-[10px] text-slate-400">(+GST)</span></p>
-                                <p>Double: ₹${room.double} <span class="text-[10px] text-slate-400">(+GST)</span></p>
-                                ${room.triple ? `<p>Triple: ₹${room.triple} <span class="text-[10px] text-slate-400">(+GST)</span></p>` : ''}
+                                <p>Single: ₹${room.single} <span class="text-[10px] text-slate-500 font-semibold">+ GST</span></p>
+                                <p>Double: ₹${room.double} <span class="text-[10px] text-slate-500 font-semibold">+ GST</span></p>
+                                ${room.triple ? `<p>Triple: ₹${room.triple} <span class="text-[10px] text-slate-500 font-semibold">+ GST</span></p>` : ''}
                             </div>
                             ${isBooked ? `<p class="text-xs text-rose-600 font-semibold mb-3 bg-rose-50 p-2 rounded-lg">👤 Guest: ${room.guest} (${room.type})</p>` : ''}
                         </div>
