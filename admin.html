@@ -20,7 +20,7 @@
         .portal-title {
             font-size: 26px;
             font-weight: bold;
-            color: #0056b3;
+            color: #334155;
             margin-bottom: 25px;
             text-align: center;
             letter-spacing: 0.5px;
@@ -55,37 +55,35 @@
 
         .login-card h2 {
             margin-bottom: 5px;
-            color: #0056b3;
+            color: #1e293b;
             font-size: 22px;
             text-align: center;
         }
 
         .subtitle {
             font-size: 12px;
-            color: #007bff;
+            color: #64748b;
             margin-bottom: 30px;
             text-align: center;
-            font-weight: 600;
         }
 
         .input-group {
             margin-bottom: 20px;
             width: 100%;
             position: relative;
-            border-radius: 14px;
-            padding: 2px;
-            transition: all 0.3s ease;
+            border-radius: 12px;
+            padding: 2px; /* For lighting border space */
         }
 
         .input-group label {
             display: block;
             margin-bottom: 8px;
-            color: #0056b3;
+            color: #475569;
             font-size: 12px;
             font-weight: bold;
         }
 
-        /* Debossed Input Fields */
+        /* Debossed Input Fields with Blue text color */
         .input-group input {
             width: 100%;
             padding: 14px 16px;
@@ -96,20 +94,43 @@
             box-sizing: border-box;
             font-size: 14px;
             outline: none;
-            color: #003366;
+            color: #0056b3; /* Blue text color as requested */
+            font-weight: 600;
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
         }
 
-        /* Animation: Fast rotating/glowing light border around input box on hover */
-        .input-group:hover {
-            box-shadow: 0 0 12px rgba(0, 123, 255, 0.9), 0 0 20px rgba(0, 123, 255, 0.4);
-        }
-
+        /* Fast lighting running around the input box on hover */
         .input-group:hover input {
-            box-shadow: inset 2px 2px 5px #babecc, inset -2px -2px 5px #ffffff;
+            box-shadow: inset 4px 4px 8px #babecc, inset -4px -4px 8px #ffffff, 0 0 12px rgba(0, 123, 255, 0.9);
         }
 
-        /* Login Button with Bottom-to-Top Blue Liquid Fill Animation */
+        /* Create a fast lighting glowing border on hover */
+        .input-group::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border-radius: 14px;
+            background: linear-gradient(45deg, #007bff, #00d2ff, #0056b3, #007bff);
+            background-size: 400%;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .input-group:hover::before {
+            opacity: 1;
+            animation: fastLighting 0.6s linear infinite;
+        }
+
+        @keyframes fastLighting {
+            0% { background-position: 0 0; }
+            50% { background-position: 100% 0; }
+            100% { background-position: 0 0; }
+        }
+
+        /* Login Button with Bottom-to-Top Liquid Fill Animation */
         .login-btn {
             width: 100%;
             padding: 14px;
@@ -128,7 +149,7 @@
             margin-top: 10px;
         }
 
-        /* Liquid fill pseudo-element */
+        /* Liquid fill pseudo element */
         .login-btn::before {
             content: "";
             position: absolute;
@@ -138,10 +159,10 @@
             height: 0%;
             background-color: #007bff;
             z-index: -1;
-            transition: height 0.4s ease-in-out;
+            transition: height 0.35s ease-in-out;
         }
 
-        /* Hover trigger for liquid fill */
+        /* When mouse hovers, liquid fills from bottom to top */
         .login-btn:hover::before {
             height: 100%;
         }
@@ -151,12 +172,8 @@
             border-color: #0056b3;
         }
 
-        .login-btn:active {
-            box-shadow: inset 4px 4px 8px #004085;
-        }
-
         #errorMsg {
-            color: #dc3545;
+            color: #e11d48;
             margin-top: 15px;
             text-align: center;
             font-size: 12px;
