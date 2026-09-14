@@ -1,113 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Inder Paradise - Admin Portal</title>
-    <!-- Google Fonts & Tailwind CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Hotel Inder Paradise - Admin Login</title>
     <style>
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-        .glass-box {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+
+        /* Top Header Title as requested */
+        .portal-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        /* Big White Center Circle Container */
+        .login-container {
+            background: white;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.12);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .login-container h2 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 12px;
+            width: 85%;
+            position: relative;
+            border-radius: 6px;
+            /* Glowing wrapper effect container */
+            padding: 2px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 3px;
+            color: #555;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Input field with fast light border on hover */
+        .input-group input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        /* Hover effect: fast light running around the input box */
+        .input-group:hover input {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.8), inset 0 0 4px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Login Button with Liquid Fill Effect from bottom to top */
+        .login-btn {
+            width: 85%;
+            padding: 9px;
+            background-color: transparent;
+            color: #007bff;
+            border: 2px solid #007bff;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: color 0.4s ease;
+            margin-top: 5px;
+        }
+
+        /* Liquid fill pseudo element */
+        .login-btn::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background-color: #007bff;
+            z-index: -1;
+            transition: height 0.35s ease-in-out;
+        }
+
+        /* When mouse hovers, liquid fills from bottom to top */
+        .login-btn:hover::before {
+            height: 100%;
+        }
+
+        .login-btn:hover {
+            color: white;
+        }
+
+        #errorMsg {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 12px;
+            max-width: 80%;
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body>
 
-    <!-- Login Container -->
-    <div class="w-full max-w-md">
-        
-        <!-- Brand Header -->
-        <div class="text-center mb-8">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-500/10 text-indigo-400 text-3xl mb-4 border border-indigo-500/20 shadow-inner">
-                🏨
-            </div>
-            <h1 class="text-2xl font-bold text-white tracking-wide">Hotel Inder Paradise</h1>
-            <p class="text-xs text-indigo-300 mt-1 uppercase tracking-widest font-semibold">Secure Admin Portal</p>
+    <!-- Inder Paradise title text above the circle -->
+    <div class="portal-title">Inder Paradise Admin</div>
+
+    <div class="login-container">
+        <h2>Admin Login</h2>
+        <div class="input-group">
+            <label for="email">Admin Email</label>
+            <input type="email" id="email" placeholder="admin@inderparadise.com">
         </div>
-
-        <!-- Glassmorphism Card -->
-        <div class="glass-box p-8 rounded-3xl shadow-2xl">
-            <h2 class="text-xl font-bold text-white mb-6 text-center">Admin Login</h2>
-
-            <!-- Error Message Box -->
-            <div id="error-msg" class="hidden mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs text-center font-medium"></div>
-
-            <!-- Login Form -->
-            <form id="admin-login-form" class="space-y-5">
-                <div>
-                    <label class="block text-xs font-semibold text-indigo-200 mb-2">Admin Email</label>
-                    <input type="email" id="admin-email" placeholder="admin@inderparadise.com" 
-                        class="w-full bg-slate-900/50 border border-slate-700/60 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition" required>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-indigo-200 mb-2">Password</label>
-                    <input type="password" id="admin-password" placeholder="••••••••" 
-                        class="w-full bg-slate-900/50 border border-slate-700/60 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition" required>
-                </div>
-
-                <button type="submit" id="login-btn" 
-                    class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-xl text-sm transition shadow-lg shadow-indigo-600/30 flex items-center justify-center space-x-2">
-                    <span>Login to Dashboard</span>
-                    <span>🚀</span>
-                </button>
-            </form>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="********">
         </div>
-
-        <!-- Footer Note -->
-        <p class="text-center text-xs text-slate-500 mt-6">&copy; 2026 Hotel Inder Paradise. All rights reserved.</p>
+        <button class="login-btn" id="loginBtn">Login</button>
+        <p id="errorMsg"></p>
     </div>
 
-    <!-- Firebase SDK & Login Script -->
+    <!-- Firebase Authentication Script (Original Config & Version Intact) -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
-        // Apna Firebase Config yahan dalein
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+          apiKey: "AIzaSyDSk5NYb9Wm3fMnhrIsEvY1YmQKemXKB-Q",
+          authDomain: "hotel-authentication-9724f.firebaseapp.com",
+          projectId: "hotel-authentication-9724f",
+          storageBucket: "hotel-authentication-9724f.firebasestorage.app",
+          messagingSenderId: "35809047972",
+          appId: "1:35809047972:web:72e58da986b020e07a7d31",
+          measurementId: "G-TZKY0W3PYV"
         };
 
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        const loginForm = document.getElementById('admin-login-form');
-        const errorBox = document.getElementById('error-msg');
-        const loginBtn = document.getElementById('login-btn');
+        // Login Button Click Event with Dashboard Redirection Logic
+        document.getElementById("loginBtn").addEventListener("click", () => {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
 
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('admin-email').value;
-            const password = document.getElementById('admin-password').value;
-
-            errorBox.classList.add('hidden');
-            loginBtn.innerText = "Signing in...";
-
-            try {
-                // Firebase Authentication
-                await signInWithEmailAndPassword(auth, email, password);
-                
-                // Login successful hone par seedhe dashboard par bhej denge
-                window.location.href = "dashboard.html";
-            } catch (error) {
-                errorBox.innerText = `Login Failed: ${error.message}`;
-                errorBox.classList.remove('hidden');
-                loginBtn.innerText = "Login to Dashboard 🚀";
-            }
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("Login Successful! Welcome Admin.");
+                    // Safely redirect to dashboard once created
+                    window.location.href = "dashboard.html";
+                })
+                .catch((error) => {
+                    document.getElementById("errorMsg").innerText = "Login Failed: " + error.message;
+                });
         });
     </script>
 </body>
