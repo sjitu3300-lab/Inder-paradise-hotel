@@ -6,8 +6,8 @@
     <title>Hotel Inder Paradise - Admin Login</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e6ecf5;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -16,144 +16,149 @@
             margin: 0;
         }
 
-        /* Top Header Title as requested */
+        /* Top Header Title */
         .portal-title {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
-            color: #333;
-            margin-bottom: 20px;
+            color: #334155;
+            margin-bottom: 25px;
             text-align: center;
             letter-spacing: 0.5px;
         }
 
-        /* Big White Center Circle Container */
-        .login-container {
-            background: white;
+        /* Embossed Neumorphic Card */
+        .login-card {
+            background: #e6ecf5;
             width: 380px;
-            height: 380px;
-            border-radius: 50%;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.12);
+            padding: 40px 30px;
+            border-radius: 25px;
+            box-shadow: 14px 14px 25px #babecc, -14px -14px 25px #ffffff;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            padding: 40px;
-            box-sizing: border-box;
             position: relative;
         }
 
-        .login-container h2 {
-            margin-bottom: 15px;
-            color: #333;
-            font-size: 20px;
+        /* Top Icon Circle inside Card */
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            background: #e6ecf5;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 6px 6px 12px #babecc, -6px -6px 12px #ffffff;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .login-card h2 {
+            margin-bottom: 5px;
+            color: #1e293b;
+            font-size: 22px;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 30px;
             text-align: center;
         }
 
         .input-group {
-            margin-bottom: 12px;
-            width: 85%;
-            position: relative;
-            border-radius: 6px;
-            /* Glowing wrapper effect container */
-            padding: 2px;
+            margin-bottom: 20px;
+            width: 100%;
         }
 
         .input-group label {
             display: block;
-            margin-bottom: 3px;
-            color: #555;
+            margin-bottom: 8px;
+            color: #475569;
             font-size: 12px;
             font-weight: bold;
         }
 
-        /* Input field with fast light border on hover */
+        /* Debossed Input Fields (Inside depressed look) */
         .input-group input {
             width: 100%;
-            padding: 8px 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 14px 16px;
+            border: none;
+            border-radius: 12px;
+            background: #e6ecf5;
+            box-shadow: inset 4px 4px 8px #babecc, inset -4px -4px 8px #ffffff;
             box-sizing: border-box;
             font-size: 14px;
             outline: none;
-            transition: all 0.3s ease;
-            background: #fff;
+            color: #334155;
+            transition: all 0.2s ease;
         }
 
-        /* Hover effect: fast light running around the input box */
-        .input-group:hover input {
-            border-color: #007bff;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.8), inset 0 0 4px rgba(0, 123, 255, 0.3);
+        .input-group input:focus {
+            box-shadow: inset 6px 6px 10px #babecc, inset -6px -6px 10px #ffffff;
         }
 
-        /* Login Button with Liquid Fill Effect from bottom to top */
+        /* Embossed Login Button */
         .login-btn {
-            width: 85%;
-            padding: 9px;
-            background-color: transparent;
-            color: #007bff;
-            border: 2px solid #007bff;
-            border-radius: 4px;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background-color: #4f46e5;
+            color: white;
             font-size: 15px;
             font-weight: bold;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            transition: color 0.4s ease;
-            margin-top: 5px;
-        }
-
-        /* Liquid fill pseudo element */
-        .login-btn::before {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 0%;
-            background-color: #007bff;
-            z-index: -1;
-            transition: height 0.35s ease-in-out;
-        }
-
-        /* When mouse hovers, liquid fills from bottom to top */
-        .login-btn:hover::before {
-            height: 100%;
+            box-shadow: 6px 6px 12px #babecc, -6px -6px 12px #ffffff;
+            transition: all 0.2s ease;
+            margin-top: 10px;
         }
 
         .login-btn:hover {
-            color: white;
+            background-color: #4338ca;
+        }
+
+        .login-btn:active {
+            box-shadow: inset 4px 4px 8px #3730a3, inset -4px -4px 8px #6366f1;
         }
 
         #errorMsg {
-            color: red;
-            margin-top: 10px;
+            color: #e11d48;
+            margin-top: 15px;
             text-align: center;
             font-size: 12px;
-            max-width: 80%;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
 
-    <!-- Inder Paradise title text above the circle -->
+    <!-- Header Title -->
     <div class="portal-title">Inder Paradise Admin</div>
 
-    <div class="login-container">
-        <h2>Admin Login</h2>
+    <div class="login-card">
+        <!-- Icon Circle -->
+        <div class="icon-circle">🏨</div>
+        
+        <h2>Welcome Admin</h2>
+        <p class="subtitle">Login to manage hotel dashboard</p>
+
         <div class="input-group">
             <label for="email">Admin Email</label>
             <input type="email" id="email" placeholder="admin@inderparadise.com">
         </div>
+
         <div class="input-group">
             <label for="password">Password</label>
-            <input type="password" id="password" placeholder="********">
+            <input type="password" id="password" placeholder="••••••••">
         </div>
+
         <button class="login-btn" id="loginBtn">Login</button>
         <p id="errorMsg"></p>
     </div>
 
-    <!-- Firebase Authentication Script (Original Config & Version Intact) -->
+    <!-- Firebase Authentication Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
@@ -172,7 +177,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Login Button Click Event with Dashboard Redirection Logic
+        // Login Button Click Event & Redirection Logic
         document.getElementById("loginBtn").addEventListener("click", () => {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
@@ -180,7 +185,6 @@
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     alert("Login Successful! Welcome Admin.");
-                    // Safely redirect to dashboard once created
                     window.location.href = "dashboard.html";
                 })
                 .catch((error) => {
