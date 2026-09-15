@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Inder Paradise - Rooms Status</title>
+    <!-- Google Fonts & Tailwind CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.4s ease, color 0.4s ease; }
+        #sidebar-menu { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body id="page-body" class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Top Graphical Header & Bottom Navigation Bar (Consistent Layout) -->
+    <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative mb-2">
+            <h1 class="text-xl sm:text-2xl font-black tracking-wider text-amber-400 drop-shadow-md">🏨 Hotel Inder Paradise</h1>
+            <p class="text-[11px] text-slate-400 font-medium">Room Status & Operations Portal</p>
+        </div>
+
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 pt-2 border-t border-slate-800/80">
+            <!-- Left: Menu Trigger -->
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleSidebar()" class="bg-slate-800 hover:bg-slate-700 px-3.5 py-2 rounded-xl text-amber-400 font-bold text-xs flex items-center space-x-2 border border-slate-700 shadow-sm transition">
+                    <span>☰ Menu</span>
+                </button>
+            </div>
+
+            <!-- Centre: Search Bar -->
+            <div class="flex-grow max-w-xs mx-auto">
+                <input type="text" id="status-search" onkeyup="filterStatusTable()" placeholder="Search room number..." class="w-full bg-slate-800/90 text-xs text-white placeholder-slate-400 px-3.5 py-2 rounded-xl outline-none border border-slate-700 focus:border-amber-400 transition-all">
+            </div>
+
+            <!-- Right: Notification Bell, Theme Selector, Admin Profile -->
+            <div class="flex items-center space-x-3">
+                <!-- Notification Bell -->
+                <div class="relative">
+                    <button onclick="toggleNotifications()" class="bg-slate-800 hover:bg-slate-700 p-2 rounded-xl text-slate-300 relative border border-slate-700 transition">
+                        🔔<span class="absolute -top-1 -right-1 bg-rose-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                    </button>
+                    <div id="notif-dropdown" class="hidden absolute right-0 mt-2 w-72 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl p-3 z-50 text-xs text-slate-200">
+                        <p class="font-bold border-b border-slate-800 pb-2 mb-2 text-amber-400">System Notifications</p>
+                        <p class="text-slate-400">No new alerts.</p>
+                    </div>
+                </div>
+
+                <!-- Theme Selector (8 Color Options) -->
+                <select id="theme-selector" onchange="changeTheme(this.value)" class="bg-slate-800 text-xs text-amber-300 px-3 py-2 rounded-xl border border-slate-700 outline-none cursor-pointer font-semibold">
+                    <option value="default">💡 Slate Theme</option>
+                    <option value="dark">🌑 Dark Midnight</option>
+                    <option value="emerald">🟢 Royal Emerald</option>
+                    <option value="indigo">🔵 Deep Indigo</option>
+                    <option value="amber">🟠 Sunset Amber</option>
+                    <option value="rose">🌸 Luxury Rose</option>
+                    <option value="cyan">❄️ Ice Cyan</option>
+                    <option value="light">☀️ Clean White</option>
+                </select>
+
+                <!-- Admin Profile -->
+                <div class="flex items-center space-x-2 border-l border-slate-700 pl-3">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces" alt="Admin" class="w-8 h-8 rounded-full border-2 border-amber-400 object-cover shadow-sm">
+                    <button id="logout-btn" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition shadow-sm">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Animated Slide Menu Sidebar -->
+    <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/60 z-40 hidden transition-opacity"></div>
+    <aside id="sidebar-menu" class="fixed top-0 left-0 bottom-0 w-72 bg-slate-900 text-white z-50 p-6 shadow-2xl transform -translate-x-full flex flex-col justify-between border-r border-slate-800">
+        <div>
+            <div class="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
+                <h2 class="text-base font-bold text-amber-400">🏨 Inder Paradise</h2>
+                <button onclick="toggleSidebar()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+            </div>
+            <nav class="space-y-2">
+                <a href="dashboard.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>📊</span> <span>Dashboard</span></a>
+                <a href="rooms-list.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🛏️</span> <span>Rooms List</span></a>
+                <a href="rooms-status.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 bg-indigo-600 text-white shadow-md"><span>🟢</span> <span>Rooms Status</span></a>
+                <a href="#" onclick="alert('Banquet page coming next!')" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🎊</span> <span>Banquet</span></a>
+            </nav>
+        </div>
+        <div class="border-t border-slate-800 pt-4">
+            <button onclick="document.getElementById('logout-btn').click()" class="w-full bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white py-2 rounded-xl text-xs font-semibold transition border border-rose-600/30">Logout Portal 🚪</button>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full space-y-6">
+
+        <!-- Header Bar with Left Title & Status Filter -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white p-4 rounded-3xl shadow-sm border border-slate-200">
+            <!-- Left Side Heading -->
+            <h2 class="text-base font-bold text-slate-800 flex items-center">📊 <span class="ml-2">Room Status Management</span></h2>
+            
+            <!-- Right Side Status Filter -->
+            <div class="flex items-center space-x-2 w-full sm:w-auto">
+                <span class="text-xs font-bold text-slate-600">Filter Status:</span>
+                <select id="status-filter" onchange="filterByStatus()" class="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs outline-none font-semibold text-slate-700">
+                    <option value="All">All Status (24 Rooms)</option>
+                    <option value="Available">Available</option>
+                    <option value="Booked">Booked</option>
+                    <option value="Housekeeping">Housekeeping</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Rooms Status Table Container -->
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+            <div class="flex justify-between items-center">
+                <h2 class="text-base font-bold text-slate-800">📋 Live Operational Status</h2>
+                <span id="entry-count" class="text-xs text-slate-500 font-medium">Showing entries...</span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="border-b border-slate-200 text-slate-500 font-bold bg-slate-50 uppercase tracking-wider">
+                            <th class="p-3">Room Number ↕</th>
+                            <th class="p-3">Room Type ↕</th>
+                            <th class="p-3">Floor ↕</th>
+                            <th class="p-3">Check-In ↕</th>
+                            <th class="p-3">Check-Out ↕</th>
+                            <th class="p-3">Status ↕</th>
+                            <th class="p-3 text-center">Modify (✏️)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="status-table-body" class="divide-y divide-slate-100 font-medium text-slate-700">
+                        <!-- Loaded dynamically via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination Bar -->
+            <div class="flex flex-col sm:flex-row justify-between items-center pt-4 border-t border-slate-100 gap-3">
+                <p id="pagination-info" class="text-xs text-slate-500">Showing page 1</p>
+                <div class="flex items-center space-x-2">
+                    <button onclick="changePage(-1)" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition">Previous</button>
+                    <span id="page-number-badge" class="bg-indigo-600 text-white px-3 py-1 rounded-xl text-xs font-bold">1</span>
+                    <button onclick="changePage(1)" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition">Next</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal: Quick Modify Status Form -->
+    <div id="status-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white p-6 rounded-3xl max-w-md w-full shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 id="modal-title" class="font-bold text-slate-800 text-sm">✏️ Update Room Status</h3>
+                <button onclick="closeStatusModal()" class="text-slate-400 font-bold text-base">✕</button>
+            </div>
+            <form id="status-form" class="space-y-3.5">
+                <input type="hidden" id="modal-room-id">
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-1">Select Status</label>
+                    <select id="modal-status" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none font-medium" required>
+                        <option value="Available">Available</option>
+                        <option value="Booked">Booked</option>
+                        <option value="Housekeeping">Housekeeping</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-1">Guest Name (If Booked)</label>
+                    <input type="text" id="modal-guest" placeholder="Enter guest name" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none font-medium">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-1">Check-In Date & Time</label>
+                    <input type="datetime-local" id="modal-checkin" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none font-medium">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-600 mb-1">Check-Out Date & Time</label>
+                    <input type="datetime-local" id="modal-checkout" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs outline-none font-medium">
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-xs transition shadow-md mt-2">Update Status 💾</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+        Hotel Inder Paradise Management Portal &copy; 2026. Rooms Status Tracking.
+    </footer>
+
+    <!-- Firebase SDK & Script Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+        import { getFirestore, collection, getDocs, doc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyDSk5NYb9Wm3fMnhrIsEvY1YmQKemXKB-Q",
+          authDomain: "hotel-authentication-9724f.firebaseapp.com",
+          projectId: "hotel-authentication-9724f",
+          storageBucket: "hotel-authentication-9724f.firebasestorage.app",
+          messagingSenderId: "35809047972",
+          appId: "1:35809047972:web:72e58da986b020e07a7d31",
+          measurementId: "G-TZKY0W3PYV"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                loadRoomsStatus();
+            } else {
+                window.location.href = "admin.html";
+            }
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            signOut(auth).then(() => { window.location.href = "admin.html"; });
+        });
+
+        let allStatusData = [];
+        let currentPage = 1;
+        const rowsPerPage = 10;
+
+        const masterRooms = [
+            { id: "101", category: "Deluxe Room", floor: "First Floor" }, { id: "102", category: "Deluxe Room", floor: "First Floor" },
+            { id: "103", category: "Deluxe Room", floor: "First Floor" }, { id: "104", category: "Deluxe Room", floor: "First Floor" },
+            { id: "105", category: "Deluxe Room", floor: "First Floor" }, { id: "106", category: "Deluxe Room", floor: "First Floor" },
+            { id: "107", category: "Deluxe Room", floor: "First Floor" }, { id: "108", category: "Deluxe Room", floor: "First Floor" },
+            { id: "201", category: "Super Deluxe", floor: "Second Floor" }, { id: "202", category: "Super Deluxe", floor: "Second Floor" },
+            { id: "203", category: "Super Deluxe", floor: "Second Floor" }, { id: "204", category: "Super Deluxe", floor: "Second Floor" },
+            { id: "205", category: "Super Deluxe", floor: "Second Floor" }, { id: "206", category: "Super Deluxe", floor: "Second Floor" },
+            { id: "207", category: "Super Deluxe", floor: "Second Floor" }, { id: "208", category: "Super Deluxe", floor: "Second Floor" },
+            { id: "209", category: "Super Deluxe", floor: "Second Floor" }, { id: "210", category: "Super Deluxe", floor: "Second Floor" },
+            { id: "211", category: "Super Deluxe", floor: "Second Floor" }, { id: "301", category: "Triple Executive", floor: "Third Floor" },
+            { id: "401", category: "Suite Gold", floor: "Fourth Floor" }, { id: "402", category: "Suite Gold", floor: "Fourth Floor" },
+            { id: "501", category: "Suite Platinum", floor: "Fifth Floor" }, { id: "502", category: "Suite Platinum", floor: "Fifth Floor" }
+        ];
+
+        async function loadRoomsStatus() {
+            const querySnapshot = await getDocs(collection(db, "rooms"));
+            if (querySnapshot.empty) {
+                for (let room of masterRooms) {
+                    await setDoc(doc(db, "rooms", room.id), { ...room, status: "Available", guest: "", checkIn: "", checkOut: "" });
+                }
+                return loadRoomsStatus();
+            }
+
+            allStatusData = [];
+            querySnapshot.forEach(docSnap => {
+                allStatusData.push(docSnap.data());
+            });
+
+            allStatusData.sort((a, b) => a.id.localeCompare(b.id, undefined, {numeric: true}));
+            renderStatusTable();
+        }
+
+        function renderStatusTable() {
+            const tbody = document.getElementById('status-table-body');
+            tbody.innerHTML = "";
+
+            let filterStatus = document.getElementById('status-filter').value;
+            let searchQuery = document.getElementById('status-search').value.toLowerCase();
+
+            let filtered = allStatusData.filter(room => {
+                let matchStatus = (filterStatus === "All" || room.status === filterStatus);
+                let matchSearch = room.id.toLowerCase().includes(searchQuery) || room.category.toLowerCase().includes(searchQuery);
+                return matchStatus && matchSearch;
+            });
+
+            let totalEntries = filtered.length;
+            let totalPages = Math.ceil(totalEntries / rowsPerPage) || 1;
+            if(currentPage > totalPages) currentPage = totalPages;
+
+            let start = (currentPage - 1) * rowsPerPage;
+            let paginatedItems = filtered.slice(start, start + rowsPerPage);
+
+            paginatedItems.forEach(room => {
+                let statusBadge = "";
+                if(room.status === 'Available') statusBadge = `<span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-bold text-[10px]">🟢 Available</span>`;
+                else if(room.status === 'Booked') statusBadge = `<span class="bg-rose-100 text-rose-700 px-3 py-1 rounded-full font-bold text-[10px]">🔴 Booked</span>`;
+                else statusBadge = `<span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-full font-bold text-[10px]">🟠 Housekeeping</span>`;
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="p-3 font-bold text-slate-900">#${room.id}</td>
+                        <td class="p-3 font-semibold text-indigo-600">${room.category}</td>
+                        <td class="p-3">${room.floor || 'First Floor'}</td>
+                        <td class="p-3">${room.checkIn ? new Date(room.checkIn).toLocaleString() : 'None'}</td>
+                        <td class="p-3">${room.checkOut ? new Date(room.checkOut).toLocaleString() : 'None'}</td>
+                        <td class="p-3">${statusBadge}</td>
+                        <td class="p-3 text-center">
+                            <button onclick="openStatusModal('${room.id}', '${room.status}', '${room.guest || ''}', '${room.checkIn || ''}', '${room.checkOut || ''}')" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-600 p-1.5 rounded-lg transition" title="Modify Status">✏️</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('entry-count').innerText = `Showing ${totalEntries} rooms`;
+            document.getElementById('pagination-info').innerText = `Page ${currentPage} of ${totalPages}`;
+            document.getElementById('page-number-badge').innerText = currentPage;
+        }
+
+        window.changePage = function(direction) {
+            let filterStatus = document.getElementById('status-filter').value;
+            let searchQuery = document.getElementById('status-search').value.toLowerCase();
+            let filtered = allStatusData.filter(room => {
+                let matchStatus = (filterStatus === "All" || room.status === filterStatus);
+                let matchSearch = room.id.toLowerCase().includes(searchQuery) || room.category.toLowerCase().includes(searchQuery);
+                return matchStatus && matchSearch;
+            });
+            let totalPages = Math.ceil(filtered.length / rowsPerPage) || 1;
+
+            currentPage += direction;
+            if(currentPage < 1) currentPage = 1;
+            if(currentPage > totalPages) currentPage = totalPages;
+            renderStatusTable();
+        };
+
+        window.filterByStatus = function() {
+            currentPage = 1;
+            renderStatusTable();
+        };
+
+        window.filterStatusTable = function() {
+            currentPage = 1;
+            renderStatusTable();
+        };
+
+        // Modal Controls
+        window.openStatusModal = function(id, status, guest, checkIn, checkOut) {
+            document.getElementById('modal-room-id').value = id;
+            document.getElementById('modal-status').value = status;
+            document.getElementById('modal-guest').value = guest;
+            document.getElementById('modal-checkin').value = checkIn;
+            document.getElementById('modal-checkout').value = checkOut;
+            document.getElementById('modal-title').innerText = `✏️ Update Status for Room #${id}`;
+            document.getElementById('status-modal').classList.remove('hidden');
+        };
+
+        window.closeStatusModal = function() {
+            document.getElementById('status-modal').classList.add('hidden');
+        };
+
+        document.getElementById('status-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('modal-room-id').value;
+            const status = document.getElementById('modal-status').value;
+            const guest = document.getElementById('modal-guest').value;
+            const checkIn = document.getElementById('modal-checkin').value;
+            const checkOut = document.getElementById('modal-checkout').value;
+
+            await updateDoc(doc(db, "rooms", id), {
+                status, guest, checkIn, checkOut
+            });
+
+            closeStatusModal();
+            loadRoomsStatus();
+            alert(`Room #${id} status updated successfully! ✅`);
+        });
+
+        // Global UI Nav / Menu / Theme Switchers
+        window.toggleSidebar = function() {
+            const menu = document.getElementById('sidebar-menu');
+            const overlay = document.getElementById('sidebar-overlay');
+            menu.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        };
+
+        window.toggleNotifications = function() {
+            const dropdown = document.getElementById('notif-dropdown');
+            dropdown.classList.toggle('hidden');
+        };
+
+        window.changeTheme = function(theme) {
+            const body = document.getElementById('page-body');
+            if(theme === 'dark') { body.className = "bg-slate-950 text-slate-100 min-h-screen flex flex-col"; }
+            else if(theme === 'emerald') { body.className = "bg-emerald-950 text-emerald-50 min-h-screen flex flex-col"; }
+            else if(theme === 'indigo') { body.className = "bg-indigo-950 text-indigo-50 min-h-screen flex flex-col"; }
+            else if(theme === 'amber') { body.className = "bg-amber-950 text-amber-50 min-h-screen flex flex-col"; }
+            else if(theme === 'rose') { body.className = "bg-rose-950 text-rose-50 min-h-screen flex flex-col"; }
+            else if(theme === 'cyan') { body.className = "bg-cyan-950 text-cyan-50 min-h-screen flex flex-col"; }
+            else if(theme === 'light') { body.className = "bg-white text-slate-900 min-h-screen flex flex-col"; }
+            else { body.className = "bg-slate-100 text-slate-800 min-h-screen flex flex-col"; }
+        };
+    </script>
+</body>
+</html>
