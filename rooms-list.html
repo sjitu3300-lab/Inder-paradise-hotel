@@ -14,7 +14,7 @@
 </head>
 <body id="page-body" class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Top Graphical Header & Bottom Navigation Bar (Consistent with Dashboard) -->
+    <!-- Top Graphical Header & Bottom Navigation Bar (Consistent Layout) -->
     <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative mb-2">
             <h1 class="text-xl sm:text-2xl font-black tracking-wider text-amber-400 drop-shadow-md">🏨 Hotel Inder Paradise</h1>
@@ -79,7 +79,7 @@
             <nav class="space-y-2">
                 <a href="dashboard.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>📊</span> <span>Dashboard</span></a>
                 <a href="rooms-list.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 bg-indigo-600 text-white shadow-md"><span>🛏️</span> <span>Rooms List</span></a>
-                <a href="#" onclick="alert('Rooms Status page coming next!')" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🟢</span> <span>Rooms Status</span></a>
+                <a href="rooms-status.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🟢</span> <span>Rooms Status</span></a>
                 <a href="#" onclick="alert('Banquet page coming next!')" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🎊</span> <span>Banquet</span></a>
             </nav>
         </div>
@@ -112,7 +112,7 @@
             </button>
         </div>
 
-        <!-- Rooms List Table Container (Screenshot Layout) -->
+        <!-- Rooms List Table Container -->
         <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
             <div class="flex justify-between items-center">
                 <h2 class="text-base font-bold text-slate-800">📋 Hotel Rooms Master Inventory</h2>
@@ -125,8 +125,8 @@
                         <tr class="border-b border-slate-200 text-slate-500 font-bold bg-slate-50 uppercase tracking-wider">
                             <th class="p-3">ID ↕</th>
                             <th class="p-3">Room Type ↕</th>
-                            <th class="p-3">Single Bed (₹) ↕</th>
-                            <th class="p-3">Double Bed (₹) ↕</th>
+                            <th class="p-3">Single Bed Rate ↕</th>
+                            <th class="p-3">Double Bed Rate ↕</th>
                             <th class="p-3">Capacity ↕</th>
                             <th class="p-3">Room Size ↕</th>
                             <th class="p-3 text-center">Actions</th>
@@ -242,8 +242,9 @@
         let currentPage = 1;
         const rowsPerPage = 10;
 
-        // Master 24 Rooms Backup Setup
+        // Exact 24 Master Rooms Setup with correct Single & Double Bed rates (+ GST)
         const masterRooms = [
+            // Deluxe Rooms (8 Rooms: 101 - 108) -> Single: 2400, Double: 3000
             { id: "101", category: "Deluxe Room", single: 2400, double: 3000, capacity: 2, size: "Queen" },
             { id: "102", category: "Deluxe Room", single: 2400, double: 3000, capacity: 2, size: "Queen" },
             { id: "103", category: "Deluxe Room", single: 2400, double: 3000, capacity: 2, size: "Queen" },
@@ -252,6 +253,8 @@
             { id: "106", category: "Deluxe Room", single: 2400, double: 3000, capacity: 2, size: "Queen" },
             { id: "107", category: "Deluxe Room", single: 2400, double: 3000, capacity: 2, size: "Queen" },
             { id: "108", category: "Deluxe Room", single: 2400, double: 3000, capacity: 2, size: "Queen" },
+
+            // Super Deluxe Rooms (11 Rooms: 201 - 211) -> Single: 2700, Double: 3300
             { id: "201", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King" },
             { id: "202", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King" },
             { id: "203", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King" },
@@ -263,18 +266,33 @@
             { id: "209", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King" },
             { id: "210", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King" },
             { id: "211", category: "Super Deluxe", single: 2700, double: 3300, capacity: 3, size: "King" },
+
+            // Triple Executive Room (1 Room: 301) -> Single: 3000, Double: 3500
             { id: "301", category: "Triple Executive", single: 3000, double: 3500, capacity: 4, size: "King" },
+
+            // Suite Gold Rooms (2 Rooms: 401 - 402) -> Single: 4200, Double: 5200
             { id: "401", category: "Suite Gold", single: 4200, double: 5200, capacity: 5, size: "King" },
             { id: "402", category: "Suite Gold", single: 4200, double: 5200, capacity: 5, size: "King" },
+
+            // Suite Platinum Rooms (2 Rooms: 501 - 502) -> Single: 4500, Double: 5500
             { id: "501", category: "Suite Platinum", single: 4500, double: 5500, capacity: 6, size: "King" },
             { id: "502", category: "Suite Platinum", single: 4500, double: 5500, capacity: 6, size: "King" }
         ];
 
         async function loadRoomsInventory() {
             const querySnapshot = await getDocs(collection(db, "rooms"));
+            
+            // If empty or missing master rooms, initialize them permanently into Firestore
             if (querySnapshot.empty) {
                 for (let room of masterRooms) {
-                    await setDoc(doc(db, "rooms", room.id), { ...room, status: "Available", guest: "", checkOut: "" });
+                    await setDoc(doc(db, "rooms", room.id), { 
+                        ...room, 
+                        status: "Available", 
+                        guest: "", 
+                        checkIn: "", 
+                        checkOut: "",
+                        type: "None"
+                    }, { merge: true });
                 }
                 return loadRoomsInventory();
             }
@@ -284,7 +302,22 @@
                 allRoomsData.push(docSnap.data());
             });
 
-            // Sort by Room ID numerically/alphabetically
+                    // Ensure master rooms always exist permanently
+            for (let room of masterRooms) {
+                let exists = allRoomsData.some(r => r.id === room.id);
+                if (!exists) {
+                    await setDoc(doc(db, "rooms", room.id), { 
+                        ...room, 
+                        status: "Available", 
+                        guest: "", 
+                        checkIn: "", 
+                        checkOut: "",
+                        type: "None"
+                    }, { merge: true });
+                    allRoomsData.push({ ...room, status: "Available" });
+                }
+            }
+
             allRoomsData.sort((a, b) => a.id.localeCompare(b.id, undefined, {numeric: true}));
             renderTable();
         }
@@ -302,7 +335,7 @@
                 return matchCat && matchSearch;
             });
 
-          let totalEntries = filtered.length;
+            let totalEntries = filtered.length;
             let totalPages = Math.ceil(totalEntries / rowsPerPage) || 1;
             if(currentPage > totalPages) currentPage = totalPages;
 
@@ -314,8 +347,8 @@
                     <tr class="hover:bg-slate-50 transition border-b border-slate-100">
                         <td class="p-3 font-bold text-slate-900">#${room.id}</td>
                         <td class="p-3 font-semibold text-indigo-600">${room.category}</td>
-                        <td class="p-3">₹${room.single}</td>
-                        <td class="p-3">₹${room.double}</td>
+                        <td class="p-3 font-medium">₹${room.single} <span class="text-[10px] text-slate-500 font-bold">+ GST</span></td>
+                        <td class="p-3 font-medium">₹${room.double} <span class="text-[10px] text-slate-500 font-bold">+ GST</span></td>
                         <td class="p-3">${room.capacity || 2} Persons</td>
                         <td class="p-3"><span class="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-lg font-bold text-[10px]">${room.size || 'King'} Size</span></td>
                         <td class="p-3 text-center space-x-2">
@@ -357,7 +390,7 @@
             renderTable();
         };
 
-        // Add / Edit Modal Controls
+        // Add / Edit Modal Controls (Permanently saves to Firestore)
         window.openAddRoomModal = function() {
             document.getElementById('modal-title').innerText = "➕ Add New Room";
             document.getElementById('room-form').reset();
@@ -390,17 +423,18 @@
             const capacity = Number(document.getElementById('form-capacity').value);
             const size = document.getElementById('form-size').value;
 
+            // Permanently saved in Firestore
             await setDoc(doc(db, "rooms", id), {
                 id, category, single, double, capacity, size
             }, { merge: true });
 
             closeRoomModal();
             loadRoomsInventory();
-            alert(`Room #${id} successfully saved! 🎉`);
+            alert(`Room #${id} permanently saved in database! 🎉`);
         });
 
         window.deleteRoom = async function(id) {
-            if(confirm(`Are you sure you want to delete Room #${id}?`)) {
+            if(confirm(`Are you sure you want to permanently delete Room #${id}?`)) {
                 await deleteDoc(doc(db, "rooms", id));
                 loadRoomsInventory();
                 alert(`Room #${id} deleted.`);
