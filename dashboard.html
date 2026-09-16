@@ -99,9 +99,9 @@
             </div>
         </div>
 
-        <!-- Stat Cards (Replaced Total Rooms with New Booking 3D Interactive Box) -->
+        <!-- Stat Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <!-- 1. New Booking Interactive 3D Card (No number displayed, opens unique 3D Modal) -->
+            <!-- 1. New Booking Interactive 3D Card -->
             <div onclick="openNewBookingModal()" class="bg-gradient-to-br from-indigo-600 to-indigo-800 text-white p-5 rounded-3xl shadow-lg border border-indigo-400/30 flex items-center space-x-4 cursor-pointer transform hover:-translate-y-1 transition-all">
                 <div class="bg-white/10 p-3.5 rounded-2xl text-xl font-bold backdrop-blur-sm shadow-inner">✨</div>
                 <div>
@@ -138,7 +138,7 @@
             </div>
         </div>
 
-        <!-- Recent Bookings Feed (10 Items per Page with Pagination) -->
+        <!-- Recent Bookings Feed -->
         <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
             <div class="flex justify-between items-center">
                 <div>
@@ -163,12 +163,12 @@
                         </tr>
                     </thead>
                     <tbody id="recent-bookings-body" class="divide-y divide-slate-100 font-medium text-slate-700">
-                        <!-- Loaded dynamically with pagination -->
+                        <!-- Loaded dynamically -->
                     </tbody>
                 </table>
             </div>
 
-            <!-- Pagination Bar for Recent Bookings -->
+            <!-- Pagination Bar -->
             <div class="flex flex-col sm:flex-row justify-between items-center pt-4 border-t border-slate-100 gap-3">
                 <p id="pagination-info" class="text-xs text-slate-500">Showing page 1</p>
                 <div class="flex items-center space-x-2">
@@ -206,7 +206,7 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block font-semibold text-indigo-200 mb-1">Room No & Type</label>
+                        <label class="block font-semibold text-indigo-200 mb-1">Room No & Category</label>
                         <select id="nb-room" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400 font-semibold" required>
                             <!-- Dynamically populated available rooms -->
                         </select>
@@ -281,7 +281,6 @@
         let dashboardCurrentPage = 1;
         const rowsPerDashboardPage = 10;
 
-        // Real-time listener for Firestore rooms collection
         function initRealtimeDashboard() {
             onSnapshot(collection(db, "rooms"), (snapshot) => {
                 allRoomsCache = [];
@@ -359,21 +358,33 @@
             renderDashboardTable();
         };
 
-        // 3D New Booking Modal Functions
+        // Updated New Booking Modal with guaranteed fallback room loading & categories
         window.openNewBookingModal = function() {
             const selectRoom = document.getElementById('nb-room');
             selectRoom.innerHTML = "";
 
-            let availableRooms = allRoomsCache.filter(r => r.status === "Available" || !r.status);
+            let roomsToCheck = allRoomsCache.length > 0 ? allRoomsCache : [];
+            if (roomsToCheck.length === 0) {
+                for (let i = 1; i <= 24; i++) {
+                    let rNo = (100 + i).toString();
+                    roomsToCheck.push({
+                        id: rNo,
+                        category: i <= 12 ? "Deluxe Room" : "Super Deluxe",
+                        status: "Available"
+                    });
+                }
+            }
+
+            let availableRooms = roomsToCheck.filter(r => r.status === "Available" || !r.status);
             if (availableRooms.length === 0) {
-                selectRoom.innerHTML = `<option value="">No rooms available!</option>`;
+                selectRoom.innerHTML = `<option value="">No rooms available right now!</option>`;
             } else {
                 availableRooms.forEach(room => {
-                    selectRoom.innerHTML += `<option value="${room.id}">Room #${room.id} - ${room.category || 'Deluxe Room'}</option>`;
+                    let cat = room.category || 'Deluxe Room';
+                    selectRoom.innerHTML += `<option value="${room.id}">Room #${room.id} - ${cat}</option>`;
                 });
             }
 
-            // Set default datetimes (Now & Tomorrow)
             const now = new Date();
             const tomorrow = new Date(now.getTime() + 86400000);
             document.getElementById('nb-checkin').value = now.toISOString().slice(0, 16);
@@ -411,7 +422,8 @@
                     mobile,
                     bedType,
                     checkIn,
-                    checkOut
+                    checkOut,
+                    paymentStatus: "Pending"
                 }, { merge: true });
 
                 alert(`Room #${roomId} successfully booked for ${customer}! 🎉`);
@@ -451,17 +463,13 @@
             }
         }
 
-        // Global UI Nav / Menu / Theme Switchers
         window.toggleSidebar = function() {
-            const menu = document.getElementById('sidebar-menu');
-            const overlay = document.getElementById('sidebar-overlay');
-            menu.classList.toggle('-translate-x-full');
-            overlay.classList.toggle('hidden');
+            document.getElementById('sidebar-menu').classList.toggle('-translate-x-full');
+            document.getElementById('sidebar-overlay').classList.toggle('hidden');
         };
 
         window.toggleNotifications = function() {
-            const dropdown = document.getElementById('notif-dropdown');
-            dropdown.classList.toggle('hidden');
+            document.getElementById('notif-dropdown').classList.toggle('hidden');
         };
 
         window.changeTheme = function(theme) {
