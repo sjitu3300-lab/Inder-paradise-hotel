@@ -100,7 +100,7 @@
         <div class="bg-gradient-to-r from-indigo-950 to-slate-900 text-white p-6 rounded-3xl shadow-sm border border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
                 <h2 class="text-xl font-bold text-amber-400">Welcome Back, Admin! 👋</h2>
-                <p class="text-xs text-slate-300 mt-1">Here is the real-time operational summary of Hotel Inder Paradise. All online & offline bookings are synced automatically.</p>
+                <p class="text-xs text-slate-300 mt-1">Real-time occupancy management for Hotel Inder Paradise. All online & offline bookings sync automatically.</p>
             </div>
             <div class="flex items-center space-x-3">
                 <a href="rooms-list.html" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs transition shadow-md">Manage Rooms 🛏️</a>
@@ -146,11 +146,14 @@
             </div>
         </div>
 
-        <!-- Recent Active Bookings Feed -->
+        <!-- Recent Bookings Feed (10 Items per Page with Pagination) -->
         <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
             <div class="flex justify-between items-center">
-                <h3 class="text-base font-bold text-slate-800">📋 Recent Bookings & Occupancy Log</h3>
-                <a href="rooms-status.html" class="text-xs font-bold text-indigo-600 hover:underline">View All Status →</a>
+                <div>
+                    <h3 class="text-base font-bold text-slate-800">📋 Recent Online & Offline Bookings</h3>
+                    <p class="text-[11px] text-slate-500">Showing up to 10 bookings per page</p>
+                </div>
+                <span id="booking-count-badge" class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-xl font-bold text-xs">Total Booked: 0</span>
             </div>
 
             <div class="overflow-x-auto">
@@ -167,9 +170,19 @@
                         </tr>
                     </thead>
                     <tbody id="recent-bookings-body" class="divide-y divide-slate-100 font-medium text-slate-700">
-                        <!-- Loaded dynamically via real-time database listener -->
+                        <!-- Loaded dynamically with pagination -->
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Pagination Bar for Recent Bookings -->
+            <div class="flex flex-col sm:flex-row justify-between items-center pt-4 border-t border-slate-100 gap-3">
+                <p id="pagination-info" class="text-xs text-slate-500">Showing page 1</p>
+                <div class="flex items-center space-x-2">
+                    <button onclick="changeDashboardPage(-1)" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition">Previous</button>
+                    <span id="page-number-badge" class="bg-indigo-600 text-white px-3 py-1 rounded-xl text-xs font-bold">1</span>
+                    <button onclick="changeDashboardPage(1)" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition">Next</button>
+                </div>
             </div>
         </div>
 
@@ -212,6 +225,10 @@
             signOut(auth).then(() => { window.location.href = "admin.html"; });
         });
 
+        let allBookedRooms = [];
+        let dashboardCurrentPage = 1;
+        const rowsPerDashboardPage = 10;
+
         // Real-time listener for Firestore rooms collection
         function initRealtimeDashboard() {
             onSnapshot(collection(db, "rooms"), (snapshot) => {
@@ -221,7 +238,7 @@
                 });
 
                 updateDashboardCounters(rooms);
-                renderRecentBookings(rooms);
+                setupRecentBookings(rooms);
                 checkCheckoutAlerts(rooms);
             });
         }
@@ -238,19 +255,33 @@
             document.getElementById('stat-cleaning').innerText = cleaning;
         }
 
-        function renderRecentBookings(rooms) {
+        function setupRecentBookings(rooms) {
+            allBookedRooms = rooms.filter(r => r.status === "Booked");
+            allBookedRooms.sort((a, b) => a.id.localeCompare(b.id, undefined, {numeric: true}));
+            
+            document.getElementById('booking-count-badge').innerText = `Total Booked: ${allBookedRooms.length}`;
+            renderDashboardTable();
+        }
+
+        function renderDashboardTable() {
             const tbody = document.getElementById('recent-bookings-body');
             tbody.innerHTML = "";
 
-            // Filter only booked rooms or show all sorted by room ID
-            let bookedRooms = rooms.filter(r => r.status === "Booked");
-            
-            if (bookedRooms.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400 italic">No active bookings right now. Assign rooms from Rooms List.</td></tr>`;
+            if (allBookedRooms.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400 italic">No active online or offline bookings found. Assign rooms from Rooms List.</td></tr>`;
+                document.getElementById('pagination-info').innerText = `Showing page 1 of 1`;
+                document.getElementById('page-number-badge').innerText = 1;
                 return;
             }
 
-            bookedRooms.forEach(room => {
+            let totalEntries = allBookedRooms.length;
+            let totalPages = Math.ceil(totalEntries / rowsPerDashboardPage) || 1;
+            if (dashboardCurrentPage > totalPages) dashboardCurrentPage = totalPages;
+
+            let start = (dashboardCurrentPage - 1) * rowsPerDashboardPage;
+            let paginatedItems = allBookedRooms.slice(start, start + rowsPerDashboardPage);
+
+            paginatedItems.forEach(room => {
                 let badge = `<span class="bg-rose-100 text-rose-700 px-3 py-1 rounded-full font-bold text-[10px]">🔴 Booked</span>`;
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 transition border-b border-slate-100">
@@ -264,7 +295,18 @@
                     </tr>
                 `;
             });
+
+            document.getElementById('pagination-info').innerText = `Showing page ${dashboardCurrentPage} of ${totalPages} (${totalEntries} total bookings)`;
+            document.getElementById('page-number-badge').innerText = dashboardCurrentPage;
         }
+
+        window.changeDashboardPage = function(direction) {
+            let totalPages = Math.ceil(allBookedRooms.length / rowsPerDashboardPage) || 1;
+            dashboardCurrentPage += direction;
+            if (dashboardCurrentPage < 1) dashboardCurrentPage = 1;
+            if (dashboardCurrentPage > totalPages) dashboardCurrentPage = totalPages;
+            renderDashboardTable();
+        };
 
         function checkCheckoutAlerts(rooms) {
             const notifList = document.getElementById('notif-list');
@@ -295,7 +337,7 @@
             }
         }
 
-        // Global UI Nav / Menu / Theme Switchers
+             // Global UI Nav / Menu / Theme Switchers
         window.toggleSidebar = function() {
             const menu = document.getElementById('sidebar-menu');
             const overlay = document.getElementById('sidebar-overlay');
@@ -321,5 +363,4 @@
         };
     </script>
 </body>
-    </html>
-                
+</html>
