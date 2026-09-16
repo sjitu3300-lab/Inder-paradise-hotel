@@ -14,7 +14,7 @@
 </head>
 <body id="page-body" class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Top Graphical Header & Bottom Navigation Bar (Consistent Layout) -->
+    <!-- Top Graphical Header & Navigation -->
     <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative mb-2">
             <h1 class="text-xl sm:text-2xl font-black tracking-wider text-amber-400 drop-shadow-md">🏨 Hotel Inder Paradise</h1>
@@ -22,14 +22,12 @@
         </div>
 
         <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 pt-2 border-t border-slate-800/80">
-            <!-- Left: Menu Trigger -->
             <div class="flex items-center space-x-3">
                 <button onclick="toggleSidebar()" class="bg-slate-800 hover:bg-slate-700 px-3.5 py-2 rounded-xl text-amber-400 font-bold text-xs flex items-center space-x-2 border border-slate-700 shadow-sm transition">
                     <span>☰ Menu</span>
                 </button>
             </div>
 
-            <!-- Centre: Quick Status Tag -->
             <div class="flex items-center space-x-2">
                 <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1 rounded-full text-[11px] font-bold flex items-center space-x-1">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -37,9 +35,7 @@
                 </span>
             </div>
 
-            <!-- Right: Notification Bell, Theme Selector, Admin Profile -->
             <div class="flex items-center space-x-3">
-                <!-- Notification Bell with Checkout Warnings -->
                 <div class="relative">
                     <button onclick="toggleNotifications()" class="bg-slate-800 hover:bg-slate-700 p-2 rounded-xl text-slate-300 relative border border-slate-700 transition">
                         🔔<span id="notif-badge" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
@@ -52,7 +48,6 @@
                     </div>
                 </div>
 
-                <!-- Theme Selector (8 Color Options) -->
                 <select id="theme-selector" onchange="changeTheme(this.value)" class="bg-slate-800 text-xs text-amber-300 px-3 py-2 rounded-xl border border-slate-700 outline-none cursor-pointer font-semibold">
                     <option value="default">💡 Slate Theme</option>
                     <option value="dark">🌑 Dark Midnight</option>
@@ -64,9 +59,7 @@
                     <option value="light">☀️ Clean White</option>
                 </select>
 
-                <!-- Admin Profile -->
                 <div class="flex items-center space-x-2 border-l border-slate-700 pl-3">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces" alt="Admin" class="w-8 h-8 rounded-full border-2 border-amber-400 object-cover shadow-sm">
                     <button id="logout-btn" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition shadow-sm">Logout</button>
                 </div>
             </div>
@@ -85,7 +78,6 @@
                 <a href="dashboard.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 bg-indigo-600 text-white shadow-md"><span>📊</span> <span>Dashboard</span></a>
                 <a href="rooms-list.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🛏️</span> <span>Rooms List</span></a>
                 <a href="rooms-status.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🟢</span> <span>Rooms Status</span></a>
-                <a href="#" onclick="alert('Banquet page coming next!')" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🎊</span> <span>Banquet</span></a>
             </nav>
         </div>
         <div class="border-t border-slate-800 pt-4">
@@ -100,25 +92,25 @@
         <div class="bg-gradient-to-r from-indigo-950 to-slate-900 text-white p-6 rounded-3xl shadow-sm border border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
                 <h2 class="text-xl font-bold text-amber-400">Welcome Back, Admin! 👋</h2>
-                <p class="text-xs text-slate-300 mt-1">Real-time occupancy management for Hotel Inder Paradise. All online & offline bookings sync automatically.</p>
+                <p class="text-xs text-slate-300 mt-1">Real-time occupancy management for Hotel Inder Paradise.</p>
             </div>
             <div class="flex items-center space-x-3">
                 <a href="rooms-list.html" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs transition shadow-md">Manage Rooms 🛏️</a>
             </div>
         </div>
 
-        <!-- Live Stat Cards (Auto-Updating) -->
+        <!-- Stat Cards (Replaced Total Rooms with New Booking 3D Interactive Box) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <!-- Total Rooms -->
-            <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 flex items-center space-x-4">
-                <div class="bg-indigo-50 text-indigo-600 p-3.5 rounded-2xl text-xl font-bold">🏨</div>
+            <!-- 1. New Booking Interactive 3D Card (No number displayed, opens unique 3D Modal) -->
+            <div onclick="openNewBookingModal()" class="bg-gradient-to-br from-indigo-600 to-indigo-800 text-white p-5 rounded-3xl shadow-lg border border-indigo-400/30 flex items-center space-x-4 cursor-pointer transform hover:-translate-y-1 transition-all">
+                <div class="bg-white/10 p-3.5 rounded-2xl text-xl font-bold backdrop-blur-sm shadow-inner">✨</div>
                 <div>
-                    <p class="text-xs font-semibold text-slate-500">Total Rooms</p>
-                    <h3 id="stat-total" class="text-xl font-black text-slate-900 mt-0.5">24</h3>
+                    <p class="text-xs font-semibold text-indigo-200">Quick Action</p>
+                    <h3 class="text-lg font-black text-amber-300 mt-0.5">New Booking 🚀</h3>
                 </div>
             </div>
 
-            <!-- Available Rooms -->
+            <!-- 2. Available Rooms -->
             <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 flex items-center space-x-4">
                 <div class="bg-emerald-50 text-emerald-600 p-3.5 rounded-2xl text-xl font-bold">🟢</div>
                 <div>
@@ -127,7 +119,7 @@
                 </div>
             </div>
 
-            <!-- Booked Rooms -->
+            <!-- 3. Booked Rooms -->
             <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 flex items-center space-x-4">
                 <div class="bg-rose-50 text-rose-600 p-3.5 rounded-2xl text-xl font-bold">🔴</div>
                 <div>
@@ -136,7 +128,7 @@
                 </div>
             </div>
 
-            <!-- Housekeeping -->
+            <!-- 4. Housekeeping -->
             <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 flex items-center space-x-4">
                 <div class="bg-amber-50 text-amber-600 p-3.5 rounded-2xl text-xl font-bold">🟠</div>
                 <div>
@@ -164,6 +156,7 @@
                             <th class="p-3">Category</th>
                             <th class="p-3">Customer Name</th>
                             <th class="p-3">Mobile No.</th>
+                            <th class="p-3">Bed Type</th>
                             <th class="p-3">Check-In</th>
                             <th class="p-3">Check-Out</th>
                             <th class="p-3">Status</th>
@@ -188,6 +181,64 @@
 
     </main>
 
+    <!-- Unique 3D Graphics New Booking Modal Form -->
+    <div id="new-booking-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-3xl max-w-lg w-full p-8 shadow-2xl border border-indigo-500/30 space-y-6 relative transform transition-all">
+            <div class="flex justify-between items-center border-b border-indigo-500/20 pb-4">
+                <div>
+                    <h3 class="text-lg font-black text-amber-400">✨ New Room Reservation</h3>
+                    <p class="text-xs text-slate-300">Enter guest details for permanent database booking</p>
+                </div>
+                <button onclick="closeNewBookingModal()" class="text-slate-400 hover:text-white text-lg font-bold bg-white/10 w-8 h-8 rounded-full flex items-center justify-center">✕</button>
+            </div>
+
+            <form id="new-booking-form" class="space-y-4 text-xs">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-semibold text-indigo-200 mb-1">Customer Name</label>
+                        <input type="text" id="nb-customer" placeholder="Enter guest full name" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400 font-medium" required>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-indigo-200 mb-1">Mobile Number</label>
+                        <input type="text" id="nb-mobile" placeholder="10-digit mobile number" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400 font-medium" required>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-semibold text-indigo-200 mb-1">Room No & Type</label>
+                        <select id="nb-room" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400 font-semibold" required>
+                            <!-- Dynamically populated available rooms -->
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-indigo-200 mb-1">Bed Option</label>
+                        <select id="nb-bed-type" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400 font-semibold">
+                            <option value="Single Bed">Single Bed</option>
+                            <option value="Double Bed">Double Bed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-semibold text-indigo-200 mb-1">Check-In Date & Time</label>
+                        <input type="datetime-local" id="nb-checkin" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400 font-medium" required>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-indigo-200 mb-1">Check-Out Date & Time</label>
+                        <input type="datetime-local" id="nb-checkout" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-400 font-medium" required>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-4 border-t border-indigo-500/20">
+                    <button type="button" onclick="closeNewBookingModal()" class="px-5 py-2.5 bg-slate-800 text-slate-300 hover:text-white rounded-xl font-bold transition">Cancel</button>
+                    <button type="submit" class="px-6 py-2.5 bg-amber-400 hover:bg-amber-500 text-slate-950 rounded-xl font-black shadow-lg transition">Confirm & Save Booking 🚀</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
         Hotel Inder Paradise Management Portal &copy; 2026. Automated Dashboard Sync.
@@ -197,7 +248,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyDSk5NYb9Wm3fMnhrIsEvY1YmQKemXKB-Q",
@@ -225,6 +276,7 @@
             signOut(auth).then(() => { window.location.href = "admin.html"; });
         });
 
+        let allRoomsCache = [];
         let allBookedRooms = [];
         let dashboardCurrentPage = 1;
         const rowsPerDashboardPage = 10;
@@ -232,24 +284,22 @@
         // Real-time listener for Firestore rooms collection
         function initRealtimeDashboard() {
             onSnapshot(collection(db, "rooms"), (snapshot) => {
-                let rooms = [];
+                allRoomsCache = [];
                 snapshot.forEach(doc => {
-                    rooms.push(doc.data());
+                    allRoomsCache.push(doc.data());
                 });
 
-                updateDashboardCounters(rooms);
-                setupRecentBookings(rooms);
-                checkCheckoutAlerts(rooms);
+                updateDashboardCounters(allRoomsCache);
+                setupRecentBookings(allRoomsCache);
+                checkCheckoutAlerts(allRoomsCache);
             });
         }
 
         function updateDashboardCounters(rooms) {
-            let total = rooms.length || 24;
             let available = rooms.filter(r => r.status === "Available" || !r.status).length;
             let booked = rooms.filter(r => r.status === "Booked").length;
             let cleaning = rooms.filter(r => r.status === "Housekeeping").length;
 
-            document.getElementById('stat-total').innerText = total;
             document.getElementById('stat-available').innerText = available;
             document.getElementById('stat-booked').innerText = booked;
             document.getElementById('stat-cleaning').innerText = cleaning;
@@ -268,7 +318,7 @@
             tbody.innerHTML = "";
 
             if (allBookedRooms.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400 italic">No active online or offline bookings found. Assign rooms from Rooms List.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" class="p-4 text-center text-slate-400 italic">No active online or offline bookings found. Use 'New Booking' to add one.</td></tr>`;
                 document.getElementById('pagination-info').innerText = `Showing page 1 of 1`;
                 document.getElementById('page-number-badge').innerText = 1;
                 return;
@@ -286,9 +336,10 @@
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 transition border-b border-slate-100">
                         <td class="p-3 font-bold text-slate-900">#${room.id}</td>
-                        <td class="p-3 font-semibold text-indigo-600">${room.category}</td>
+                        <td class="p-3 font-semibold text-indigo-600">${room.category || 'Deluxe Room'}</td>
                         <td class="p-3 font-medium text-slate-800">${room.customer || 'Guest'}</td>
                         <td class="p-3 font-medium">${room.mobile || '-'}</td>
+                        <td class="p-3 font-semibold text-amber-600">${room.bedType || 'Double Bed'}</td>
                         <td class="p-3">${room.checkIn ? new Date(room.checkIn).toLocaleString() : '-'}</td>
                         <td class="p-3">${room.checkOut ? new Date(room.checkOut).toLocaleString() : '-'}</td>
                         <td class="p-3">${badge}</td>
@@ -307,6 +358,69 @@
             if (dashboardCurrentPage > totalPages) dashboardCurrentPage = totalPages;
             renderDashboardTable();
         };
+
+        // 3D New Booking Modal Functions
+        window.openNewBookingModal = function() {
+            const selectRoom = document.getElementById('nb-room');
+            selectRoom.innerHTML = "";
+
+            let availableRooms = allRoomsCache.filter(r => r.status === "Available" || !r.status);
+            if (availableRooms.length === 0) {
+                selectRoom.innerHTML = `<option value="">No rooms available!</option>`;
+            } else {
+                availableRooms.forEach(room => {
+                    selectRoom.innerHTML += `<option value="${room.id}">Room #${room.id} - ${room.category || 'Deluxe Room'}</option>`;
+                });
+            }
+
+            // Set default datetimes (Now & Tomorrow)
+            const now = new Date();
+            const tomorrow = new Date(now.getTime() + 86400000);
+            document.getElementById('nb-checkin').value = now.toISOString().slice(0, 16);
+            document.getElementById('nb-checkout').value = tomorrow.toISOString().slice(0, 16);
+
+            document.getElementById('new-booking-modal').classList.remove('hidden');
+        };
+
+        window.closeNewBookingModal = function() {
+            document.getElementById('new-booking-modal').classList.add('hidden');
+        };
+
+        document.getElementById('new-booking-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const roomId = document.getElementById('nb-room').value;
+            const customer = document.getElementById('nb-customer').value;
+            const mobile = document.getElementById('nb-mobile').value;
+            const bedType = document.getElementById('nb-bed-type').value;
+            const checkIn = document.getElementById('nb-checkin').value;
+            const checkOut = document.getElementById('nb-checkout').value;
+
+            if (!roomId) return alert("Please select an available room!");
+
+            let existingRoom = allRoomsCache.find(r => r.id === roomId) || { category: "Deluxe Room", singlePrice: 2400, doublePrice: 3000 };
+
+            try {
+                await setDoc(doc(db, "rooms", roomId), {
+                    id: roomId,
+                    category: existingRoom.category || "Deluxe Room",
+                    singlePrice: existingRoom.singlePrice || 2400,
+                    doublePrice: existingRoom.doublePrice || 3000,
+                    capacity: "2 Persons",
+                    status: "Booked",
+                    customer,
+                    mobile,
+                    bedType,
+                    checkIn,
+                    checkOut
+                }, { merge: true });
+
+                alert(`Room #${roomId} successfully booked for ${customer}! 🎉`);
+                document.getElementById('new-booking-form').reset();
+                closeNewBookingModal();
+            } catch(err) {
+                alert("Error saving booking: " + err.message);
+            }
+        });
 
         function checkCheckoutAlerts(rooms) {
             const notifList = document.getElementById('notif-list');
@@ -337,7 +451,7 @@
             }
         }
 
-             // Global UI Nav / Menu / Theme Switchers
+        // Global UI Nav / Menu / Theme Switchers
         window.toggleSidebar = function() {
             const menu = document.getElementById('sidebar-menu');
             const overlay = document.getElementById('sidebar-overlay');
