@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Inder Paradise - Permanent Guest Info</title>
+    <title>Hotel Inder Paradise - Guest Info (Permanent Log)</title>
     <!-- Google Fonts & Tailwind CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,11 +14,11 @@
 </head>
 <body id="page-body" class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Top Graphical Header & Navigation -->
+    <!-- Top Header & Navigation -->
     <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative mb-2">
             <h1 class="text-xl sm:text-2xl font-black tracking-wider text-amber-400 drop-shadow-md">🏨 Hotel Inder Paradise</h1>
-            <p class="text-[11px] text-slate-400 font-medium">Permanent Guest Information & Records Portal</p>
+            <p class="text-[11px] text-slate-400 font-medium">Permanent Guest Log & History Archive</p>
         </div>
 
         <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 pt-2 border-t border-slate-800/80">
@@ -28,10 +28,8 @@
                 </button>
             </div>
 
-            <div class="flex items-center space-x-2">
-                <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[11px] font-bold">
-                    Active Guests Records
-                </span>
+            <div class="flex-grow max-w-xs mx-auto">
+                <input type="text" id="guest-search" onkeyup="filterGuests()" placeholder="Search guest name, mobile, room..." class="w-full bg-slate-800/90 text-xs text-white placeholder-slate-400 px-3.5 py-2 rounded-xl outline-none border border-slate-700 focus:border-amber-400 transition-all">
             </div>
 
             <div class="flex items-center space-x-3">
@@ -53,7 +51,7 @@
         </div>
     </header>
 
-    <!-- Animated Slide Menu Sidebar -->
+    <!-- Sidebar Menu -->
     <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/60 z-40 hidden transition-opacity"></div>
     <aside id="sidebar-menu" class="fixed top-0 left-0 bottom-0 w-72 bg-slate-900 text-white z-50 p-6 shadow-2xl transform -translate-x-full flex flex-col justify-between border-r border-slate-800">
         <div>
@@ -73,36 +71,50 @@
         </div>
     </aside>
 
-    <!-- Main Content: Guest Info Records -->
+    <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full space-y-6">
 
-        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div>
-                <h2 class="text-lg font-bold text-slate-900">👥 Permanent Guest Records</h2>
-                <p class="text-xs text-slate-500">All guest details from dashboard bookings and room assignments.</p>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <div>
+                    <h2 class="text-base font-bold text-slate-900">📋 All Recorded Guests History (Permanent Log)</h2>
+                    <p class="text-xs text-slate-500">Every guest entry is permanently saved. Refreshing the page or adding new guests will never clear older records.</p>
+                </div>
+                <span id="guest-count" class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-xs font-bold">Total Guests: 0</span>
             </div>
-            <div id="guest-count-badge" class="bg-indigo-50 text-indigo-700 font-bold text-xs px-4 py-2 rounded-2xl border border-indigo-100">
-                Total Active Guests: 0
-            </div>
-        </div>
 
-        <!-- Guests Cards / Table Container -->
-        <div id="guests-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <!-- Dynamically populated -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="border-b border-slate-200 text-slate-500 font-bold bg-slate-50 uppercase tracking-wider">
+                            <th class="p-3">Room No.</th>
+                            <th class="p-3">Guest Name</th>
+                            <th class="p-3">Mobile No.</th>
+                            <th class="p-3">ID Card No.</th>
+                            <th class="p-3">Category</th>
+                            <th class="p-3">Booking Type</th>
+                            <th class="p-3">Check-In</th>
+                            <th class="p-3">Check-Out</th>
+                        </tr>
+                    </thead>
+                    <tbody id="guest-table-body" class="divide-y divide-slate-100 font-medium text-slate-700">
+                        <!-- Loaded permanently -->
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </main>
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
-        Hotel Inder Paradise Management Portal &copy; 2026. Permanent Guest Database.
+        Hotel Inder Paradise Management Portal &copy; 2026. Guest Info Permanent Archive.
     </footer>
 
-    <!-- Firebase & Logic Script -->
+    <!-- Firebase Auth & Script Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyDSk5NYb9Wm3fMnhrIsEvY1YmQKemXKB-Q",
@@ -116,28 +128,12 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        let roomsDataMap = {};
-
-        // Instant Load from Cache
-        try {
-            const cached = localStorage.getItem('inder_rooms_cache_v2');
-            if (cached) {
-                roomsDataMap = JSON.parse(cached);
-                renderGuestsGrid();
-            } else {
-                renderGuestsGrid();
-            }
-        } catch(e) {
-            renderGuestsGrid();
-        }
 
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = "admin.html";
             } else {
-                loadGuestsData();
+                loadPermanentGuests();
             }
         });
 
@@ -145,62 +141,76 @@
             signOut(auth).then(() => { window.location.href = "admin.html"; });
         });
 
-        function loadGuestsData() {
-            onSnapshot(collection(db, "rooms"), (snapshot) => {
-                roomsDataMap = {};
-                snapshot.forEach(docSnap => {
-                    roomsDataMap[docSnap.id] = docSnap.data();
-                });
-                try {
-                    localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsDataMap));
-                } catch(e) {}
-                renderGuestsGrid();
-            });
-        }
+        let allPermanentGuests = [];
 
-        function renderGuestsGrid() {
-            const container = document.getElementById('guests-container');
-            if (!container) return;
-            container.innerHTML = "";
-
-            let activeGuestsCount = 0;
-
-            for (let roomNo in roomsDataMap) {
-                let rData = roomsDataMap[roomNo];
-                if (rData.status === "Booked" && rData.customer && rData.customer.trim() !== "") {
-                    activeGuestsCount++;
-
-                    container.innerHTML += `
-                        <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between space-y-3 hover:shadow-md transition">
-                            <div class="flex justify-between items-center border-b border-slate-100 pb-2">
-                                <span class="text-xs font-bold bg-indigo-50 text-indigo-700 px-3 py-1 rounded-xl">Room #${roomNo}</span>
-                                <span class="bg-rose-100 text-rose-700 px-2.5 py-0.5 rounded-full font-bold text-[10px]">🔴 Active Guest</span>
-                            </div>
-
-                            <div class="space-y-1 text-xs text-slate-700 font-medium">
-                                <div class="flex justify-between"><span class="text-slate-500">Guest Name:</span> <span class="font-bold text-slate-900">${rData.customer}</span></div>
-                                <div class="flex justify-between"><span class="text-slate-500">Mobile No:</span> <span class="font-bold text-slate-900">${rData.mobile || 'N/A'}</span></div>
-                                <div class="flex justify-between"><span class="text-slate-500">ID Card No:</span> <span class="font-bold text-indigo-600">${rData.idNo || 'N/A'}</span></div>
-                                <div class="flex justify-between"><span class="text-slate-500">Category:</span> <span class="font-bold text-slate-900">${rData.category}</span></div>
-                                <div class="flex justify-between"><span class="text-slate-500">Bed Type:</span> <span class="font-bold text-slate-900">${rData.bedType || 'Double Bed'}</span></div>
-                                <div class="flex justify-between"><span class="text-slate-500">Check-In:</span> <span class="font-bold text-slate-800">${rData.checkIn ? new Date(rData.checkIn).toLocaleString() : 'N/A'}</span></div>
-                                <div class="flex justify-between"><span class="text-slate-500">Check-Out:</span> <span class="font-bold text-slate-800">${rData.checkOut ? new Date(rData.checkOut).toLocaleString() : 'N/A'}</span></div>
-                            </div>
-                        </div>
-                    `;
+        function loadPermanentGuests() {
+            // Read from permanent localStorage log
+            let history = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
+            
+            // Fallback sync with current rooms cache if history is empty
+            if (history.length === 0) {
+                let cache = JSON.parse(localStorage.getItem('inder_rooms_cache_v2') || '{}');
+                for (let rNo in cache) {
+                    let d = cache[rNo];
+                    if (d.customer && d.customer.trim() !== "") {
+                        history.push(d);
+                    }
                 }
+                localStorage.setItem('inder_permanent_history', JSON.stringify(history));
             }
 
-            document.getElementById('guest-count-badge').innerText = `Total Active Guests: ${activeGuestsCount}`;
+            // Deduplicate to ensure clean unique permanent list
+            let uniqueMap = new Map();
+            history.forEach(item => {
+                if (item.customer && item.customer.trim() !== "") {
+                    let uniqueKey = `${item.id}-${item.customer}-${item.checkIn}`;
+                    uniqueMap.set(uniqueKey, item);
+                }
+            });
 
-            if (activeGuestsCount === 0) {
-                container.innerHTML = `
-                    <div class="col-span-full bg-white p-12 rounded-3xl text-center border border-slate-200 text-slate-400 text-xs">
-                        No active guest bookings found. Use the Dashboard "New Booking" button to add guests! 🏨
-                    </div>
-                `;
-            }
+            allPermanentGuests = Array.from(uniqueMap.values());
+            renderGuestTable(allPermanentGuests);
         }
+
+        window.renderGuestTable = function(guestsList) {
+            const tbody = document.getElementById('guest-table-body');
+            tbody.innerHTML = "";
+
+            if (guestsList.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-slate-400 italic">No guest records found yet. Make a booking from the dashboard.</td></tr>`;
+                document.getElementById('guest-count').innerText = `Total Guests: 0`;
+                return;
+            }
+
+            // Display newest entries first
+            guestsList.slice().reverse().forEach(guest => {
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="p-3 font-bold text-slate-900">#${guest.id || '-'}</td>
+                        <td class="p-3 font-semibold text-indigo-600">${guest.customer || '-'}</td>
+                        <td class="p-3">${guest.mobile || '-'}</td>
+                        <td class="p-3">${guest.idNo || '-'}</td>
+                        <td class="p-3 font-semibold text-slate-800">${guest.category || '-'}</td>
+                        <td class="p-3 font-bold text-amber-600">${guest.bookingType || 'Offline'}</td>
+                        <td class="p-3">${guest.checkIn ? guest.checkIn.replace('T', ' ') : '-'}</td>
+                        <td class="p-3">${guest.checkOut ? guest.checkOut.replace('T', ' ') : '-'}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('guest-count').innerText = `Total Guests: ${guestsList.length}`;
+        };
+
+        window.filterGuests = function() {
+            let query = document.getElementById('guest-search').value.toLowerCase();
+            let filtered = allPermanentGuests.filter(guest => {
+                return (guest.customer && guest.customer.toLowerCase().includes(query)) ||
+                       (guest.mobile && guest.mobile.toLowerCase().includes(query)) ||
+                       (guest.id && guest.id.toLowerCase().includes(query)) ||
+                       (guest.category && guest.category.toLowerCase().includes(query));
+            });
+            renderGuestTable(filtered);
+        };
 
         window.toggleSidebar = function() {
             document.getElementById('sidebar-menu').classList.toggle('-translate-x-full');
@@ -214,11 +224,10 @@
             else if(theme === 'indigo') { body.className = "bg-indigo-950 text-indigo-50 min-h-screen flex flex-col"; }
             else if(theme === 'amber') { body.className = "bg-amber-950 text-amber-50 min-h-screen flex flex-col"; }
             else if(theme === 'rose') { body.className = "bg-rose-950 text-rose-50 min-h-screen flex flex-col"; }
-            else if(theme === 'cyan') { body.className =="bg-cyan-950 text-cyan-50 min-h-screen flex flex-col"; }
+            else if(theme === 'cyan') { body.className = "bg-cyan-950 text-cyan-50 min-h-screen flex flex-col"; }
             else if(theme === 'light') { body.className = "bg-white text-slate-900 min-h-screen flex flex-col"; }
             else { body.className = "bg-slate-100 text-slate-800 min-h-screen flex flex-col"; }
         };
     </script>
 </body>
-  </html>
-
+</html>
