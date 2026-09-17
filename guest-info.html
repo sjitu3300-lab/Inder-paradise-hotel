@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Inder Paradise - Permanent Guest Info</title>
+    <!-- Google Fonts & Tailwind CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.4s ease, color 0.4s ease; }
+        #sidebar-menu { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body id="page-body" class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Top Graphical Header & Navigation -->
+    <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative mb-2">
+            <h1 class="text-xl sm:text-2xl font-black tracking-wider text-amber-400 drop-shadow-md">🏨 Hotel Inder Paradise</h1>
+            <p class="text-[11px] text-slate-400 font-medium">Permanent Guest Information & Records Portal</p>
+        </div>
+
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 pt-2 border-t border-slate-800/80">
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleSidebar()" class="bg-slate-800 hover:bg-slate-700 px-3.5 py-2 rounded-xl text-amber-400 font-bold text-xs flex items-center space-x-2 border border-slate-700 shadow-sm transition">
+                    <span>☰ Menu</span>
+                </button>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[11px] font-bold">
+                    Active Guests Records
+                </span>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <select id="theme-selector" onchange="changeTheme(this.value)" class="bg-slate-800 text-xs text-amber-300 px-3 py-2 rounded-xl border border-slate-700 outline-none cursor-pointer font-semibold">
+                    <option value="default">💡 Slate Theme</option>
+                    <option value="dark">🌑 Dark Midnight</option>
+                    <option value="emerald">🟢 Royal Emerald</option>
+                    <option value="indigo">🔵 Deep Indigo</option>
+                    <option value="amber">🟠 Sunset Amber</option>
+                    <option value="rose">🌸 Luxury Rose</option>
+                    <option value="cyan">❄️ Ice Cyan</option>
+                    <option value="light">☀️ Clean White</option>
+                </select>
+
+                <div class="flex items-center space-x-2 border-l border-slate-700 pl-3">
+                    <button id="logout-btn" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition shadow-sm">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Animated Slide Menu Sidebar -->
+    <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/60 z-40 hidden transition-opacity"></div>
+    <aside id="sidebar-menu" class="fixed top-0 left-0 bottom-0 w-72 bg-slate-900 text-white z-50 p-6 shadow-2xl transform -translate-x-full flex flex-col justify-between border-r border-slate-800">
+        <div>
+            <div class="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
+                <h2 class="text-base font-bold text-amber-400">🏨 Inder Paradise</h2>
+                <button onclick="toggleSidebar()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+            </div>
+            <nav class="space-y-2">
+                <a href="dashboard.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>📊</span> <span>Dashboard</span></a>
+                <a href="rooms-list.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🛏️</span> <span>Rooms List</span></a>
+                <a href="rooms-status.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🟢</span> <span>Rooms Status</span></a>
+                <a href="guest-info.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 bg-indigo-600 text-white shadow-md"><span>👥</span> <span>Guest Info</span></a>
+            </nav>
+        </div>
+        <div class="border-t border-slate-800 pt-4">
+            <button onclick="document.getElementById('logout-btn').click()" class="w-full bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white py-2 rounded-xl text-xs font-semibold transition border border-rose-600/30">Logout Portal 🚪</button>
+        </div>
+    </aside>
+
+    <!-- Main Content: Guest Info Records -->
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full space-y-6">
+
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <h2 class="text-lg font-bold text-slate-900">👥 Permanent Guest Records</h2>
+                <p class="text-xs text-slate-500">All guest details from dashboard bookings and room assignments.</p>
+            </div>
+            <div id="guest-count-badge" class="bg-indigo-50 text-indigo-700 font-bold text-xs px-4 py-2 rounded-2xl border border-indigo-100">
+                Total Active Guests: 0
+            </div>
+        </div>
+
+        <!-- Guests Cards / Table Container -->
+        <div id="guests-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Dynamically populated -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+        Hotel Inder Paradise Management Portal &copy; 2026. Permanent Guest Database.
+    </footer>
+
+    <!-- Firebase & Logic Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyDSk5NYb9Wm3fMnhrIsEvY1YmQKemXKB-Q",
+          authDomain: "hotel-authentication-9724f.firebaseapp.com",
+          projectId: "hotel-authentication-9724f",
+          storageBucket: "hotel-authentication-9724f.firebasestorage.app",
+          messagingSenderId: "35809047972",
+          appId: "1:35809047972:web:72e58da986b020e07a7d31",
+          measurementId: "G-TZKY0W3PYV"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let roomsDataMap = {};
+
+        // Instant Load from Cache
+        try {
+            const cached = localStorage.getItem('inder_rooms_cache_v2');
+            if (cached) {
+                roomsDataMap = JSON.parse(cached);
+                renderGuestsGrid();
+            } else {
+                renderGuestsGrid();
+            }
+        } catch(e) {
+            renderGuestsGrid();
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "admin.html";
+            } else {
+                loadGuestsData();
+            }
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            signOut(auth).then(() => { window.location.href = "admin.html"; });
+        });
+
+        function loadGuestsData() {
+            onSnapshot(collection(db, "rooms"), (snapshot) => {
+                roomsDataMap = {};
+                snapshot.forEach(docSnap => {
+                    roomsDataMap[docSnap.id] = docSnap.data();
+                });
+                try {
+                    localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsDataMap));
+                } catch(e) {}
+                renderGuestsGrid();
+            });
+        }
+
+        function renderGuestsGrid() {
+            const container = document.getElementById('guests-container');
+            if (!container) return;
+            container.innerHTML = "";
+
+            let activeGuestsCount = 0;
+
+            for (let roomNo in roomsDataMap) {
+                let rData = roomsDataMap[roomNo];
+                if (rData.status === "Booked" && rData.customer && rData.customer.trim() !== "") {
+                    activeGuestsCount++;
+
+                    container.innerHTML += `
+                        <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between space-y-3 hover:shadow-md transition">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                                <span class="text-xs font-bold bg-indigo-50 text-indigo-700 px-3 py-1 rounded-xl">Room #${roomNo}</span>
+                                <span class="bg-rose-100 text-rose-700 px-2.5 py-0.5 rounded-full font-bold text-[10px]">🔴 Active Guest</span>
+                            </div>
+
+                            <div class="space-y-1 text-xs text-slate-700 font-medium">
+                                <div class="flex justify-between"><span class="text-slate-500">Guest Name:</span> <span class="font-bold text-slate-900">${rData.customer}</span></div>
+                                <div class="flex justify-between"><span class="text-slate-500">Mobile No:</span> <span class="font-bold text-slate-900">${rData.mobile || 'N/A'}</span></div>
+                                <div class="flex justify-between"><span class="text-slate-500">ID Card No:</span> <span class="font-bold text-indigo-600">${rData.idNo || 'N/A'}</span></div>
+                                <div class="flex justify-between"><span class="text-slate-500">Category:</span> <span class="font-bold text-slate-900">${rData.category}</span></div>
+                                <div class="flex justify-between"><span class="text-slate-500">Bed Type:</span> <span class="font-bold text-slate-900">${rData.bedType || 'Double Bed'}</span></div>
+                                <div class="flex justify-between"><span class="text-slate-500">Check-In:</span> <span class="font-bold text-slate-800">${rData.checkIn ? new Date(rData.checkIn).toLocaleString() : 'N/A'}</span></div>
+                                <div class="flex justify-between"><span class="text-slate-500">Check-Out:</span> <span class="font-bold text-slate-800">${rData.checkOut ? new Date(rData.checkOut).toLocaleString() : 'N/A'}</span></div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            document.getElementById('guest-count-badge').innerText = `Total Active Guests: ${activeGuestsCount}`;
+
+            if (activeGuestsCount === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full bg-white p-12 rounded-3xl text-center border border-slate-200 text-slate-400 text-xs">
+                        No active guest bookings found. Use the Dashboard "New Booking" button to add guests! 🏨
+                    </div>
+                `;
+            }
+        }
+
+        window.toggleSidebar = function() {
+            document.getElementById('sidebar-menu').classList.toggle('-translate-x-full');
+            document.getElementById('sidebar-overlay').classList.toggle('hidden');
+        };
+
+        window.changeTheme = function(theme) {
+            const body = document.getElementById('page-body');
+            if(theme === 'dark') { body.className = "bg-slate-950 text-slate-100 min-h-screen flex flex-col"; }
+            else if(theme === 'emerald') { body.className = "bg-emerald-950 text-emerald-50 min-h-screen flex flex-col"; }
+            else if(theme === 'indigo') { body.className = "bg-indigo-950 text-indigo-50 min-h-screen flex flex-col"; }
+            else if(theme === 'amber') { body.className = "bg-amber-950 text-amber-50 min-h-screen flex flex-col"; }
+            else if(theme === 'rose') { body.className = "bg-rose-950 text-rose-50 min-h-screen flex flex-col"; }
+            else if(theme === 'cyan') { body.className =="bg-cyan-950 text-cyan-50 min-h-screen flex flex-col"; }
+            else if(theme === 'light') { body.className = "bg-white text-slate-900 min-h-screen flex flex-col"; }
+            else { body.className = "bg-slate-100 text-slate-800 min-h-screen flex flex-col"; }
+        };
+    </script>
+</body>
+  </html>
+
