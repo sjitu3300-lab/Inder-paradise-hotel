@@ -14,7 +14,7 @@
 </head>
 <body id="page-body" class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Top Graphical Header & Navigation -->
+    <!-- Top Header & Navigation -->
     <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative mb-2">
             <h1 class="text-xl sm:text-2xl font-black tracking-wider text-amber-400 drop-shadow-md">🏨 Hotel Inder Paradise</h1>
@@ -53,7 +53,7 @@
         </div>
     </header>
 
-    <!-- Animated Slide Menu Sidebar -->
+    <!-- Sidebar Menu -->
     <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/60 z-40 hidden transition-opacity"></div>
     <aside id="sidebar-menu" class="fixed top-0 left-0 bottom-0 w-72 bg-slate-900 text-white z-50 p-6 shadow-2xl transform -translate-x-full flex flex-col justify-between border-r border-slate-800">
         <div>
@@ -86,9 +86,8 @@
             </button>
         </div>
 
-        <!-- 4 Stat Boxes -->
+        <!-- 4 Stat Counters -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <!-- 1. Available -->
             <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
                 <div>
                     <p class="text-xs text-slate-500 font-semibold">Available Rooms 🟢</p>
@@ -96,7 +95,6 @@
                 </div>
                 <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center font-bold text-lg">🟢</div>
             </div>
-            <!-- 2. Booked -->
             <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
                 <div>
                     <p class="text-xs text-slate-500 font-semibold">Total Booked 🔴</p>
@@ -104,7 +102,6 @@
                 </div>
                 <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center font-bold text-lg">🔴</div>
             </div>
-            <!-- 3. Offline Booking -->
             <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
                 <div>
                     <p class="text-xs text-slate-500 font-semibold">Offline Bookings 🏨</p>
@@ -112,7 +109,6 @@
                 </div>
                 <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center font-bold text-lg">🏨</div>
             </div>
-            <!-- 4. Online Booking -->
             <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
                 <div>
                     <p class="text-xs text-slate-500 font-semibold">Online Bookings 🌐</p>
@@ -339,6 +335,17 @@
                 return;
             }
 
+               if (!targetRoomNo) {
+                for (let i = 1; i <= 24; i++) {
+                    let rNo = (100 + i).toString();
+                    let rData = roomsDataMap[rNo];
+                    if (!rData || rData.status !== "Booked") {
+                        targetRoomNo = rNo;
+                        break;
+                    }
+                }
+            }
+
             if (!targetRoomNo) {
                 alert("⚠️ All 24 rooms in the hotel are currently booked!");
                 return;
@@ -364,9 +371,13 @@
             try {
                 await setDoc(doc(db, "rooms", targetRoomNo), bookingData, { merge: true });
                 roomsDataMap[targetRoomNo] = bookingData;
-                localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsDataMap));
+                try {
+                    localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsDataMap));
+                } catch(err) {}
 
                 alert(`🎉 Booking successful! Assigned to Room #${targetRoomNo} (${category} - ${bookingType}).`);
+                
+                // Form close & reset
                 closeNewBookingModal();
                 document.getElementById('booking-form').reset();
             } catch(err) {
