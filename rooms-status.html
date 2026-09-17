@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Inder Paradise - Rooms Status</title>
+    <title>Hotel Inder Paradise - Rooms Status & Category Monitor</title>
     <!-- Google Fonts & Tailwind CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,7 +18,7 @@
     <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative mb-2">
             <h1 class="text-xl sm:text-2xl font-black tracking-wider text-amber-400 drop-shadow-md">🏨 Hotel Inder Paradise</h1>
-            <p class="text-[11px] text-slate-400 font-medium">Live Rooms Status & Instant Persistent Monitor</p>
+            <p class="text-[11px] text-slate-400 font-medium">Live Category Status Monitor (Deluxe:8, Super Deluxe:11, Exec:1, Gold:2, Platinum:2)</p>
         </div>
 
         <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 pt-2 border-t border-slate-800/80">
@@ -30,23 +30,11 @@
 
             <div class="flex items-center space-x-2">
                 <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[11px] font-bold">
-                    Real-time Instant Status Monitor (24 Rooms)
+                    24 Rooms Synchronized Live
                 </span>
             </div>
 
             <div class="flex items-center space-x-3">
-                <div class="relative">
-                    <button onclick="toggleNotifications()" class="bg-slate-800 hover:bg-slate-700 p-2 rounded-xl text-slate-300 relative border border-slate-700 transition">
-                        🔔<span id="notif-badge" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-                    </button>
-                    <div id="notif-dropdown" class="hidden absolute right-0 mt-2 w-80 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl p-3 z-50 text-xs text-slate-200 space-y-2">
-                        <p class="font-bold border-b border-slate-800 pb-2 text-amber-400">Checkout & Payment Alerts</p>
-                        <div id="notif-list" class="space-y-1.5 max-h-48 overflow-y-auto">
-                            <p class="text-slate-400">No pending alerts.</p>
-                        </div>
-                    </div>
-                </div>
-
                 <select id="theme-selector" onchange="changeTheme(this.value)" class="bg-slate-800 text-xs text-amber-300 px-3 py-2 rounded-xl border border-slate-700 outline-none cursor-pointer font-semibold">
                     <option value="default">💡 Slate Theme</option>
                     <option value="dark">🌑 Dark Midnight</option>
@@ -84,23 +72,23 @@
         </div>
     </aside>
 
-    <!-- Main Content: 24 Rooms Status Cards Grid -->
+    <!-- Main Content: 24 Rooms Status Grid -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full space-y-6">
 
         <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
-                <h2 class="text-lg font-bold text-slate-900">🟢 Live Rooms Status Panel (24 Rooms)</h2>
-                <p class="text-xs text-slate-500">Instant persistent rendering with automatic post-checkout reset.</p>
+                <h2 class="text-lg font-bold text-slate-900">🟢 Live Category Rooms Status (24 Rooms)</h2>
+                <p class="text-xs text-slate-500">Deluxe (8), Super Deluxe (11), Triple Executive (1), Suite Gold (2), Suite Platinum (2)</p>
             </div>
-            <div class="flex items-center space-x-2 text-xs font-semibold text-slate-600">
+            <div class="flex items-center space-x-3 text-xs font-semibold text-slate-600">
                 <span class="flex items-center space-x-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span><span>Available</span></span>
                 <span class="flex items-center space-x-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span><span>Booked</span></span>
             </div>
         </div>
 
-        <!-- Grid Container for 24 Room Status Cards -->
+        <!-- Grid Container for 24 Rooms Status Cards -->
         <div id="status-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            <!-- Instant load grid -->
+            <!-- Instant Rendered Status Cards -->
         </div>
 
     </main>
@@ -112,8 +100,8 @@
                 <h3 id="modal-room-title" class="text-base font-bold text-slate-900">Room Details</h3>
                 <button onclick="closeDetailsModal()" class="text-slate-400 hover:text-slate-700 font-bold">✕</button>
             </div>
-            <div id="modal-details-content" class="space-y-3 text-xs text-slate-700 font-medium">
-                <!-- Details here -->
+            <div id="modal-details-content" class="space-y-2.5 text-xs text-slate-700 font-medium">
+                <!-- Content here -->
             </div>
             <div class="pt-3 border-t border-slate-100 flex justify-end">
                 <button onclick="closeDetailsModal()" class="bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm">Close</button>
@@ -123,10 +111,10 @@
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
-        Hotel Inder Paradise Management Portal &copy; 2026. Instant Status Sync.
+        Hotel Inder Paradise Management Portal &copy; 2026. Real-time Status Sync Active.
     </footer>
 
-    <!-- Firebase Script & Logic -->
+    <!-- Firebase & Logic Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
@@ -148,11 +136,11 @@
 
         let roomsStatusMap = {};
 
-        // 1. INSTANT LOCAL STORAGE RENDER (Zero delay on page open)
+        // Instant Load from Cache
         try {
-            const cachedStatus = localStorage.getItem('inder_status_cache');
-            if (cachedStatus) {
-                roomsStatusMap = JSON.parse(cachedStatus);
+            const cached = localStorage.getItem('inder_rooms_cache_v2');
+            if (cached) {
+                roomsStatusMap = JSON.parse(cached);
                 renderStatusGrid();
             } else {
                 renderStatusGrid();
@@ -165,7 +153,7 @@
             if (!user) {
                 window.location.href = "admin.html";
             } else {
-                initStatusMonitor();
+                loadStatusData();
             }
         });
 
@@ -173,30 +161,25 @@
             signOut(auth).then(() => { window.location.href = "admin.html"; });
         });
 
-        function initStatusMonitor() {
+        function loadStatusData() {
             onSnapshot(collection(db, "rooms"), (snapshot) => {
                 roomsStatusMap = {};
                 snapshot.forEach(docSnap => {
                     roomsStatusMap[docSnap.id] = docSnap.data();
                 });
-
-                // Save to local cache for instant future loads
                 try {
-                    localStorage.setItem('inder_status_cache', JSON.stringify(roomsStatusMap));
+                    localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsStatusMap));
                 } catch(e) {}
 
                 checkAutomaticCheckoutAndReset();
                 renderStatusGrid();
-                checkCheckoutNotifications();
             });
 
-            // Run check every 1 minute for automatic status reset 10 mins post-checkout
             setInterval(() => {
                 checkAutomaticCheckoutAndReset();
             }, 60000);
         }
 
-        // Automatic 10 mins post-checkout status reset to Available
         async function checkAutomaticCheckoutAndReset() {
             const now = new Date().getTime();
             for (let roomNo in roomsStatusMap) {
@@ -205,7 +188,7 @@
                     let checkoutTime = new Date(rData.checkOut).getTime();
                     let diffMins = (now - checkoutTime) / (1000 * 60);
 
-                    // If 10 minutes have passed since check-out time, automatically clear details and set Available 🟢
+                    // If 10 mins pass after checkout time, automatically reset room to Available and clear details
                     if (diffMins >= 10) {
                         try {
                             let resetData = {
@@ -214,12 +197,11 @@
                                 customer: "",
                                 mobile: "",
                                 checkIn: "",
-                                checkOut: "",
-                                paymentStatus: "Pending"
+                                checkOut: ""
                             };
                             await setDoc(doc(db, "rooms", roomNo), resetData, { merge: true });
                             roomsStatusMap[roomNo] = resetData;
-                            localStorage.setItem('inder_status_cache', JSON.stringify(roomsStatusMap));
+                            localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsStatusMap));
                         } catch(err) {
                             console.error("Auto reset error:", err);
                         }
@@ -236,18 +218,20 @@
 
             for (let i = 1; i <= 24; i++) {
                 let roomNo = (100 + i).toString();
+                // Strict Category Distribution matching rooms-list.html
+                let defaultCategory = i <= 8 ? "Deluxe" : (i <= 19 ? "Super Deluxe" : (i === 20 ? "Triple Executive" : (i <= 22 ? "Suite Gold" : "Suite Platinum")));
+
                 let rData = roomsStatusMap[roomNo] || {
                     id: roomNo,
-                    category: i <= 12 ? "Deluxe Room" : "Super Deluxe",
+                    category: defaultCategory,
                     status: "Available",
                     customer: "",
                     mobile: "",
-                    bedType: "Double Bed",
-                    paymentStatus: "Pending"
+                    bedType: "Double Bed"
                 };
 
-                let isBooked = rData.status === "Booked";
-                let statusButton = isBooked
+                let isBooked = rData.status === "Booked" && rData.customer && rData.customer.trim() !== "";
+                let statusBadge = isBooked
                     ? `<span class="bg-rose-500 text-white px-3 py-1.5 rounded-xl font-bold text-[11px] shadow-sm flex items-center space-x-1"><span>🔴</span><span>Booked</span></span>`
                     : `<span class="bg-emerald-500 text-white px-3 py-1.5 rounded-xl font-bold text-[11px] shadow-sm flex items-center space-x-1"><span>🟢</span><span>Available</span></span>`;
 
@@ -265,16 +249,16 @@
                         </div>
 
                         <div class="space-y-1">
-                            <h3 class="text-sm font-bold text-slate-800">${rData.category || 'Deluxe Room'}</h3>
+                            <h3 class="text-sm font-bold text-slate-800">${rData.category || defaultCategory}</h3>
                             <p class="text-[11px] text-slate-500 font-medium">Bed: ${rData.bedType || 'Double Bed'}</p>
-                            ${isBooked ? `<p class="text-[11px] text-indigo-700 font-semibold truncate">Guest: ${rData.customer}</p>` : `<p class="text-[11px] text-emerald-600 font-semibold">Ready for Guest</p>`}
+                            ${isBooked ? `<p class="text-[11px] text-indigo-700 font-semibold truncate">Guest: ${rData.customer}</p>` : `<p class="text-[11px] text-emerald-600 font-semibold">Vacant Ready</p>`}
                         </div>
 
                         <div class="flex items-center justify-between pt-3 border-t border-slate-100">
                             <button onclick="openDetailsModal('${roomNo}')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1">
                                 <span>🔍</span><span>Details</span>
                             </button>
-                            <div>${statusButton}</div>
+                            <div>${statusBadge}</div>
                         </div>
                     </div>
                 `;
@@ -282,19 +266,19 @@
         }
 
         window.openDetailsModal = function(roomNo) {
-            let rData = roomsStatusMap[roomNo] || { id: roomNo, category: "Deluxe Room", status: "Available" };
+            let rData = roomsStatusMap[roomNo] || { id: roomNo, category: "Deluxe", status: "Available" };
             document.getElementById('modal-room-title').innerText = `Room #${roomNo} Full Details`;
-            
+
+            let isBooked = rData.status === "Booked" && rData.customer && rData.customer.trim() !== "";
             let content = `
                 <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                    <div class="flex justify-between"><span class="text-slate-500">Category:</span> <span class="font-bold text-slate-800">${rData.category || 'Deluxe Room'}</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">Status:</span> <span class="font-bold ${rData.status === 'Booked' ? 'text-rose-600' : 'text-emerald-600'}">${rData.status || 'Available'}</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">Category:</span> <span class="font-bold text-slate-800">${rData.category}</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">Status:</span> <span class="font-bold ${isBooked ? 'text-rose-600' : 'text-emerald-600'}">${isBooked ? 'Booked 🔴' : 'Available 🟢'}</span></div>
                     <div class="flex justify-between"><span class="text-slate-500">Guest Name:</span> <span class="font-bold text-slate-800">${rData.customer || 'N/A (Vacant)'}</span></div>
                     <div class="flex justify-between"><span class="text-slate-500">Mobile No:</span> <span class="font-bold text-slate-800">${rData.mobile || 'N/A'}</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">Bed Option:</span> <span class="font-bold text-slate-800">${rData.bedType || 'Double Bed'}</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">Bed Type:</span> <span class="font-bold text-slate-800">${rData.bedType || 'Double Bed'}</span></div>
                     <div class="flex justify-between"><span class="text-slate-500">Check-In:</span> <span class="font-bold text-slate-800">${rData.checkIn ? new Date(rData.checkIn).toLocaleString() : 'N/A'}</span></div>
                     <div class="flex justify-between"><span class="text-slate-500">Check-Out:</span> <span class="font-bold text-slate-800">${rData.checkOut ? new Date(rData.checkOut).toLocaleString() : 'N/A'}</span></div>
-                    <div class="flex justify-between border-t border-slate-200 pt-2"><span class="text-slate-500">Payment:</span> <span class="font-bold ${rData.paymentStatus === 'Paid' ? 'text-emerald-600' : 'text-amber-600'}">${rData.paymentStatus || 'Pending'}</span></div>
                 </div>
             `;
             document.getElementById('modal-details-content').innerHTML = content;
@@ -305,44 +289,9 @@
             document.getElementById('details-modal').classList.add('hidden');
         };
 
-        function checkCheckoutNotifications() {
-            const notifList = document.getElementById('notif-list');
-            notifList.innerHTML = "";
-            let alertCount = 0;
-            const now = new Date().getTime();
-
-            for (let roomNo in roomsStatusMap) {
-                let rData = roomsStatusMap[roomNo];
-                if (rData.status === "Booked" && rData.checkOut) {
-                    let checkoutTime = new Date(rData.checkOut).getTime();
-                    let diffMins = (checkoutTime - now) / (1000 * 60);
-
-                    if (diffMins <= 30 && diffMins >= -60) {
-                        alertCount++;
-                        notifList.innerHTML += `
-                            <div class="bg-rose-950/60 border border-rose-500/40 p-2.5 rounded-xl text-[11px] text-rose-200 space-y-0.5">
-                                <p class="font-bold text-amber-400">Room #${roomNo} - ${rData.customer || 'Guest'}</p>
-                                <p>Type: ${rData.category} (${rData.bedType || 'Double Bed'})</p>
-                                <p>Checkout in ${Math.round(diffMins)} mins | Payment: <span class="font-bold text-emerald-400">${rData.paymentStatus || 'Pending'}</span></p>
-                            </div>
-                        `;
-                    }
-                }
-            }
-
-            document.getElementById('notif-badge').innerText = alertCount;
-            if (alertCount === 0) {
-                notifList.innerHTML = `<p class="text-slate-400 text-center py-2">No pending checkout alerts.</p>`;
-            }
-        }
-
         window.toggleSidebar = function() {
             document.getElementById('sidebar-menu').classList.toggle('-translate-x-full');
             document.getElementById('sidebar-overlay').classList.toggle('hidden');
-        };
-
-        window.toggleNotifications = function() {
-            document.getElementById('notif-dropdown').classList.toggle('hidden');
         };
 
         window.changeTheme = function(theme) {
