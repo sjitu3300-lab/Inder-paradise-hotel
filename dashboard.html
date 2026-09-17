@@ -30,7 +30,7 @@
 
             <div class="flex items-center space-x-2">
                 <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[11px] font-bold">
-                    Analytics & Recent Bookings
+                    Analytics & Permanent Logs
                 </span>
             </div>
 
@@ -79,7 +79,7 @@
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
             <div>
                 <h2 class="text-lg font-bold text-slate-900">📊 Hotel Analytics & Management</h2>
-                <p class="text-xs text-slate-500">Live breakdown of Available, Booked, Offline, and Online bookings.</p>
+                <p class="text-xs text-slate-500">Live breakdown with 10-min post-checkout buffer rule.</p>
             </div>
             <button onclick="openNewBookingModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-3 rounded-2xl text-xs transition shadow-md flex items-center space-x-2">
                 <span>➕</span> <span>New Booking</span>
@@ -118,9 +118,9 @@
             </div>
         </div>
 
-        <!-- Recently Booked Rooms List Section -->
+        <!-- Recently Booked Rooms List Section (Permanent) -->
         <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
-            <h3 class="text-base font-bold text-slate-900 flex items-center">🕒 <span class="ml-2">Recently Booked Rooms List</span></h3>
+            <h3 class="text-base font-bold text-slate-900 flex items-center">🕒 <span class="ml-2">Recently Booked Rooms List (Permanent Log)</span></h3>
             <div id="recent-bookings-list" class="divide-y divide-slate-100">
                 <p class="text-xs text-slate-400 py-3 text-center">No recent bookings found.</p>
             </div>
@@ -246,10 +246,43 @@
                 recentContainer.innerHTML = "";
 
                 let activeBookingsList = [];
+                let permanentGuestLogs = [];
+
+                const now = new Date().getTime();
 
                 snapshot.forEach(docSnap => {
                     let d = docSnap.data();
-                    roomsDataMap[docSnap.id] = d;
+                    let roomNo = docSnap.id;
+
+                    // Check if checkout + 10 minutes buffer has passed
+                    let isExpired = false;
+                    if (d.checkOut) {
+                        let checkoutTime = new Date(d.checkOut).getTime();
+                        let bufferTime = checkoutTime + (10 * 60 * 1000); // 10 minutes extra
+                        if (now > bufferTime && d.status === "Booked") {
+                            isExpired = true;
+                            // Automatically clear room status in background if expired
+                            setDoc(doc(db, "rooms", roomNo), {
+                                status: "Available",
+                                customer: "",
+                                mobile: "",
+                                idNo: "",
+                                bookingType: "",
+                                bedType: "",
+                                checkIn: "",
+                                checkOut: ""
+                            }, { merge: true });
+                            d.status = "Available";
+                        }
+                    }
+
+                    roomsDataMap[roomNo] = d;
+
+                    // Collect permanent guest log for Guest Info & Recent list
+                    if (d.customer && d.customer.trim() !== "") {
+                        permanentGuestLogs.push(d);
+                    }
+
                     if (d.status === "Booked" && d.customer && d.customer.trim() !== "") {
                         bookedCount++;
                         if (d.bookingType === "Online") {
@@ -261,24 +294,37 @@
                     }
                 });
 
+                // Save permanent guest logs to localStorage so 'guest-info.html' can read them permanently
                 try {
                     localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsDataMap));
+                    let existingHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
+                    permanentGuestLogs.forEach(guest => {
+                        let exists = existingHistory.some(h => h.id === guest.id && h.customer === guest.customer && h.checkIn === guest.checkIn);
+                        if (!exists) {
+                            existingHistory.push(guest);
+                        }
+                    });
+                    localStorage.setItem('inder_permanent_history', JSON.stringify(existingHistory));
                 } catch(e) {}
 
+                // Update 4 Stat Counters
                 document.getElementById('stat-available').innerText = 24 - bookedCount;
                 document.getElementById('stat-booked').innerText = bookedCount;
                 document.getElementById('stat-offline').innerText = offlineCount;
                 document.getElementById('stat-online').innerText = onlineCount;
 
-                if (activeBookingsList.length > 0) {
-                    activeBookingsList.forEach(b => {
+                // Render Recently Booked List (Permanent & Refreshed safe)
+                let storedHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
+                if (storedHistory.length > 0) {
+                    // Show recent 10 bookings
+                    storedHistory.slice(-10).reverse().forEach(b => {
                         recentContainer.innerHTML += `
                             <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                                 <div>
-                                    <p class="text-xs font-bold text-slate-900">Room #${b.id} (${b.category}) - <span class="text-indigo-600">${b.customer}</span></p>
-                                    <p class="text-[11px] text-slate-500">Mobile: ${b.mobile || 'N/A'} | Type: <span class="font-bold text-slate-700">${b.bookingType || 'Offline'}</span></p>
+                                    <p class="text-xs font-bold text-slate-900">Room #${b.id} (${b.category || 'Standard'}) - <span class="text-indigo-600">${b.customer}</span></p>
+                                    <p class="text-[11px] text-slate-500">Mobile: ${b.mobile || 'N/A'} | Type: <span class="font-bold text-slate-700">${b.bookingType || 'Offline'}</span> | Out: ${b.checkOut ? b.checkOut.replace('T', ' ') : 'N/A'}</p>
                                 </div>
-                                <span class="bg-rose-100 text-rose-700 px-3 py-1 rounded-full text-[10px] font-bold">Booked 🔴</span>
+                                <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-[10px] font-bold">Logged 📌</span>
                             </div>
                         `;
                     });
@@ -335,7 +381,7 @@
                 return;
             }
 
-               if (!targetRoomNo) {
+            if (!targetRoomNo) {
                 for (let i = 1; i <= 24; i++) {
                     let rNo = (100 + i).toString();
                     let rData = roomsDataMap[rNo];
@@ -370,14 +416,15 @@
 
             try {
                 await setDoc(doc(db, "rooms", targetRoomNo), bookingData, { merge: true });
-                roomsDataMap[targetRoomNo] = bookingData;
-                try {
-                    localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsDataMap));
-                } catch(err) {}
+                
+                // Save to permanent history immediately
+                let existingHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
+                existingHistory.push(bookingData);
+                localStorage.setItem('inder_permanent_history', JSON.stringify(existingHistory));
 
                 alert(`🎉 Booking successful! Assigned to Room #${targetRoomNo} (${category} - ${bookingType}).`);
                 
-                // Form close & reset
+                // Immediately close & reset form
                 closeNewBookingModal();
                 document.getElementById('booking-form').reset();
             } catch(err) {
