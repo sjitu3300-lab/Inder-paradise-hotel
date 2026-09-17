@@ -79,7 +79,7 @@
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
             <div>
                 <h2 class="text-lg font-bold text-slate-900">📊 Hotel Analytics & Management</h2>
-                <p class="text-xs text-slate-500">Live breakdown with 10-min post-checkout buffer rule.</p>
+                <p class="text-xs text-slate-500">Live breakdown with 10-minute post-checkout buffer rule.</p>
             </div>
             <button onclick="openNewBookingModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-3 rounded-2xl text-xs transition shadow-md flex items-center space-x-2">
                 <span>➕</span> <span>New Booking</span>
@@ -118,7 +118,7 @@
             </div>
         </div>
 
-        <!-- Recently Booked Rooms List Section (Permanent) -->
+        <!-- Recently Booked Rooms List Section (Permanent & Fast Loading) -->
         <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
             <h3 class="text-base font-bold text-slate-900 flex items-center">🕒 <span class="ml-2">Recently Booked Rooms List (Permanent Log)</span></h3>
             <div id="recent-bookings-list" class="divide-y divide-slate-100">
@@ -224,6 +224,15 @@
             "Suite Platinum": 2
         };
 
+        // Fast Load from LocalStorage on Startup
+        try {
+            let cached = localStorage.getItem('inder_rooms_cache_v2');
+            if (cached) {
+                roomsDataMap = JSON.parse(cached);
+                updateDashboardUI(roomsDataMap);
+            }
+        } catch(e) {}
+
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = "admin.html";
@@ -239,29 +248,17 @@
         function loadDashboardData() {
             onSnapshot(collection(db, "rooms"), (snapshot) => {
                 roomsDataMap = {};
-                let bookedCount = 0;
-                let offlineCount = 0;
-                let onlineCount = 0;
-                let recentContainer = document.getElementById('recent-bookings-list');
-                recentContainer.innerHTML = "";
-
-                let activeBookingsList = [];
-                let permanentGuestLogs = [];
-
-                const now = new Date().getTime();
-
                 snapshot.forEach(docSnap => {
                     let d = docSnap.data();
                     let roomNo = docSnap.id;
-
-                    // Check if checkout + 10 minutes buffer has passed
-                    let isExpired = false;
-                    if (d.checkOut) {
+                    
+                    // 10-minute post-checkout buffer check
+                    let now = new Date().getTime();
+                    if (d.checkOut && d.status === "Booked") {
                         let checkoutTime = new Date(d.checkOut).getTime();
-                        let bufferTime = checkoutTime + (10 * 60 * 1000); // 10 minutes extra
-                        if (now > bufferTime && d.status === "Booked") {
-                            isExpired = true;
-                            // Automatically clear room status in background if expired
+                        let bufferTime = checkoutTime + (10 * 60 * 1000);
+                        if (now > bufferTime) {
+                            // Automatically free the room
                             setDoc(doc(db, "rooms", roomNo), {
                                 status: "Available",
                                 customer: "",
@@ -275,63 +272,73 @@
                             d.status = "Available";
                         }
                     }
-
                     roomsDataMap[roomNo] = d;
-
-                    // Collect permanent guest log for Guest Info & Recent list
-                    if (d.customer && d.customer.trim() !== "") {
-                        permanentGuestLogs.push(d);
-                    }
-
-                    if (d.status === "Booked" && d.customer && d.customer.trim() !== "") {
-                        bookedCount++;
-                        if (d.bookingType === "Online") {
-                            onlineCount++;
-                        } else {
-                            offlineCount++;
-                        }
-                        activeBookingsList.push(d);
-                    }
                 });
 
-                // Save permanent guest logs to localStorage so 'guest-info.html' can read them permanently
+                // Save cache
                 try {
                     localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsDataMap));
-                    let existingHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
-                    permanentGuestLogs.forEach(guest => {
-                        let exists = existingHistory.some(h => h.id === guest.id && h.customer === guest.customer && h.checkIn === guest.checkIn);
-                        if (!exists) {
-                            existingHistory.push(guest);
-                        }
-                    });
-                    localStorage.setItem('inder_permanent_history', JSON.stringify(existingHistory));
                 } catch(e) {}
 
-                // Update 4 Stat Counters
-                document.getElementById('stat-available').innerText = 24 - bookedCount;
-                document.getElementById('stat-booked').innerText = bookedCount;
-                document.getElementById('stat-offline').innerText = offlineCount;
-                document.getElementById('stat-online').innerText = onlineCount;
-
-                // Render Recently Booked List (Permanent & Refreshed safe)
-                let storedHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
-                if (storedHistory.length > 0) {
-                    // Show recent 10 bookings
-                    storedHistory.slice(-10).reverse().forEach(b => {
-                        recentContainer.innerHTML += `
-                            <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                                <div>
-                                    <p class="text-xs font-bold text-slate-900">Room #${b.id} (${b.category || 'Standard'}) - <span class="text-indigo-600">${b.customer}</span></p>
-                                    <p class="text-[11px] text-slate-500">Mobile: ${b.mobile || 'N/A'} | Type: <span class="font-bold text-slate-700">${b.bookingType || 'Offline'}</span> | Out: ${b.checkOut ? b.checkOut.replace('T', ' ') : 'N/A'}</p>
-                                </div>
-                                <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-[10px] font-bold">Logged 📌</span>
-                            </div>
-                        `;
-                    });
-                } else {
-                    recentContainer.innerHTML = `<p class="text-xs text-slate-400 py-3 text-center">No recent bookings found.</p>`;
-                }
+                updateDashboardUI(roomsDataMap);
             });
+        }
+
+        function updateDashboardUI(dataMap) {
+            let bookedCount = 0;
+            let offlineCount = 0;
+            let onlineCount = 0;
+            let recentContainer = document.getElementById('recent-bookings-list');
+            recentContainer.innerHTML = "";
+
+            let permanentGuestLogs = [];
+
+            for (let i = 1; i <= 24; i++) {
+                let rNo = (100 + i).toString();
+                let d = dataMap[rNo];
+                if (d && d.customer && d.customer.trim() !== "") {
+                    permanentGuestLogs.push(d);
+                    if (d.status === "Booked") {
+                        bookedCount++;
+                        if (d.bookingType === "Online") onlineCount++;
+                        else offlineCount++;
+                    }
+                }
+            }
+
+            // Update Permanent History for Guest Info
+            try {
+                let existingHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
+                permanentGuestLogs.forEach(guest => {
+                    let exists = existingHistory.some(h => h.id === guest.id && h.customer === guest.customer && h.checkIn === guest.checkIn);
+                    if (!exists) existingHistory.push(guest);
+                });
+                localStorage.setItem('inder_permanent_history', JSON.stringify(existingHistory));
+            } catch(e) {}
+
+            // Update Counters
+            document.getElementById('stat-available').innerText = 24 - bookedCount;
+            document.getElementById('stat-booked').innerText = bookedCount;
+            document.getElementById('stat-offline').innerText = offlineCount;
+            document.getElementById('stat-online').innerText = onlineCount;
+
+            // Render Recent Bookings from Permanent Storage (Fast Load)
+            let storedHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
+            if (storedHistory.length > 0) {
+                storedHistory.slice(-10).reverse().forEach(b => {
+                    recentContainer.innerHTML += `
+                        <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                            <div>
+                                <p class="text-xs font-bold text-slate-900">Room #${b.id} (${b.category || 'Standard'}) - <span class="text-indigo-600">${b.customer}</span></p>
+                                <p class="text-[11px] text-slate-500">Mobile: ${b.mobile || 'N/A'} | Type: <span class="font-bold text-slate-700">${b.bookingType || 'Offline'}</span> | Out: ${b.checkOut ? b.checkOut.replace('T', ' ') : 'N/A'}</p>
+                            </div>
+                            <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-[10px] font-bold">Logged 📌</span>
+                        </div>
+                    `;
+                });
+            } else {
+                recentContainer.innerHTML = `<p class="text-xs text-slate-400 py-3 text-center">No recent bookings found.</p>`;
+            }
         }
 
         window.openNewBookingModal = function() {
@@ -357,6 +364,7 @@
             let checkIn = document.getElementById('b-checkin').value;
             let checkOut = document.getElementById('b-checkout').value;
 
+            // Find an available room matching the category without overwriting other rooms
             let targetRoomNo = null;
             let currentCategoryBooked = 0;
 
@@ -415,18 +423,22 @@
             };
 
             try {
+                // Save uniquely to Firebase room document (fixing the overwrite bug)
                 await setDoc(doc(db, "rooms", targetRoomNo), bookingData, { merge: true });
                 
-                // Save to permanent history immediately
+                roomsDataMap[targetRoomNo] = bookingData;
+                localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsDataMap));
+
                 let existingHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
                 existingHistory.push(bookingData);
                 localStorage.setItem('inder_permanent_history', JSON.stringify(existingHistory));
 
                 alert(`🎉 Booking successful! Assigned to Room #${targetRoomNo} (${category} - ${bookingType}).`);
                 
-                // Immediately close & reset form
+                // Immediate form close and reset
                 closeNewBookingModal();
                 document.getElementById('booking-form').reset();
+                updateDashboardUI(roomsDataMap);
             } catch(err) {
                 alert("Error saving booking: " + err.message);
             } finally {
