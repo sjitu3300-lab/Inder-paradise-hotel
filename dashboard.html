@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Inder Paradise - Dashboard & New Booking</title>
+    <title>Hotel Inder Paradise - Admin Dashboard</title>
     <!-- Google Fonts & Tailwind CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,7 +18,7 @@
     <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative mb-2">
             <h1 class="text-xl sm:text-2xl font-black tracking-wider text-amber-400 drop-shadow-md">🏨 Hotel Inder Paradise</h1>
-            <p class="text-[11px] text-slate-400 font-medium">Admin Dashboard & Direct Booking Portal</p>
+            <p class="text-[11px] text-slate-400 font-medium">Admin Dashboard & Live Booking Analytics</p>
         </div>
 
         <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 pt-2 border-t border-slate-800/80">
@@ -30,7 +30,7 @@
 
             <div class="flex items-center space-x-2">
                 <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[11px] font-bold">
-                    Admin Portal Active
+                    Analytics & Recent Bookings
                 </span>
             </div>
 
@@ -73,35 +73,22 @@
         </div>
     </aside>
 
-    <!-- Main Content: Dashboard Cards & New Booking Quick Action -->
+    <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full space-y-6">
 
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
             <div>
-                <h2 class="text-lg font-bold text-slate-900">📊 Hotel Overview & Quick Actions</h2>
-                <p class="text-xs text-slate-500">Manage bookings, sync with rooms list, and view permanent guest records.</p>
+                <h2 class="text-lg font-bold text-slate-900">📊 Hotel Analytics & Management</h2>
+                <p class="text-xs text-slate-500">Live breakdown of Available, Booked, Offline, and Online bookings.</p>
             </div>
             <button onclick="openNewBookingModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-3 rounded-2xl text-xs transition shadow-md flex items-center space-x-2">
                 <span>➕</span> <span>New Booking</span>
             </button>
         </div>
 
-        <!-- Dashboard Stats Grid -->
+        <!-- 4 Updated Stat Boxes -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
-                <div>
-                    <p class="text-xs text-slate-500 font-semibold">Total Rooms</p>
-                    <h3 class="text-2xl font-black text-slate-900 mt-1">24</h3>
-                </div>
-                <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center font-bold text-lg">🏨</div>
-            </div>
-            <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
-                <div>
-                    <p class="text-xs text-slate-500 font-semibold">Active Bookings</p>
-                    <h3 id="stat-booked" class="text-2xl font-black text-rose-600 mt-1">0</h3>
-                </div>
-                <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center font-bold text-lg">🔴</div>
-            </div>
+            <!-- 1. Available -->
             <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
                 <div>
                     <p class="text-xs text-slate-500 font-semibold">Available Rooms</p>
@@ -109,12 +96,37 @@
                 </div>
                 <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center font-bold text-lg">🟢</div>
             </div>
+            <!-- 2. Booked -->
             <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
                 <div>
-                    <p class="text-xs text-slate-500 font-semibold">Permanent Guests</p>
-                    <h3 id="stat-guests" class="text-2xl font-black text-amber-600 mt-1">0</h3>
+                    <p class="text-xs text-slate-500 font-semibold">Total Booked</p>
+                    <h3 id="stat-booked" class="text-2xl font-black text-rose-600 mt-1">0</h3>
                 </div>
-                <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center font-bold text-lg">👥</div>
+                <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center font-bold text-lg">🔴</div>
+            </div>
+            <!-- 3. Offline Booking -->
+            <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
+                <div>
+                    <p class="text-xs text-slate-500 font-semibold">Offline Bookings</p>
+                    <h3 id="stat-offline" class="text-2xl font-black text-indigo-600 mt-1">0</h3>
+                </div>
+                <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center font-bold text-lg">🏨</div>
+            </div>
+            <!-- 4. Online Booking -->
+            <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
+                <div>
+                    <p class="text-xs text-slate-500 font-semibold">Online Bookings</p>
+                    <h3 id="stat-online" class="text-2xl font-black text-amber-600 mt-1">0</h3>
+                </div>
+                <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center font-bold text-lg">🌐</div>
+            </div>
+        </div>
+
+        <!-- Recently Bookings List Section -->
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+            <h3 class="text-base font-bold text-slate-900 flex items-center">🕒 <span class="ml-2">Recently Booked Rooms List</span></h3>
+            <div id="recent-bookings-list" class="divide-y divide-slate-100">
+                <p class="text-xs text-slate-400 py-3 text-center">No recent bookings found.</p>
             </div>
         </div>
 
@@ -124,7 +136,7 @@
     <div id="booking-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-slate-200">
             <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                <h3 class="text-base font-bold text-slate-900">✨ New Guest Booking</h3>
+                <h3 class="text-base font-bold text-slate-900">✨ New Offline Booking</h3>
                 <button type="button" onclick="closeNewBookingModal()" class="text-slate-400 hover:text-slate-700 font-bold">✕</button>
             </div>
             <form id="booking-form" class="space-y-3 text-xs" onsubmit="saveNewBooking(event)">
@@ -137,17 +149,24 @@
                     <input type="text" id="b-mobile" required placeholder="10-digit mobile number" class="w-full mt-1 p-2.5 border border-slate-200 rounded-xl">
                 </div>
                 <div>
-                    <label class="font-semibold text-slate-600">ID Card Number (Aadhaar / PAN / Voter)</label>
+                    <label class="font-semibold text-slate-600">ID Card Number</label>
                     <input type="text" id="b-idno" required placeholder="Enter ID number" class="w-full mt-1 p-2.5 border border-slate-200 rounded-xl">
                 </div>
                 <div>
-                    <label class="font-semibold text-slate-600">Room Category (Strict Limits)</label>
+                    <label class="font-semibold text-slate-600">Room Category</label>
                     <select id="b-category" class="w-full mt-1 p-2.5 bg-white border border-slate-200 rounded-xl outline-none font-semibold">
                         <option value="Deluxe">Deluxe (Max 8 Rooms)</option>
                         <option value="Super Deluxe">Super Deluxe (Max 11 Rooms)</option>
                         <option value="Triple Executive">Triple Executive (Max 1 Room)</option>
                         <option value="Suite Gold">Suite Gold (Max 2 Rooms)</option>
                         <option value="Suite Platinum">Suite Platinum (Max 2 Rooms)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="font-semibold text-slate-600">Booking Type</label>
+                    <select id="b-type" class="w-full mt-1 p-2.5 bg-white border border-slate-200 rounded-xl outline-none font-semibold">
+                        <option value="Offline">Offline Booking</option>
+                        <option value="Online">Online Booking</option>
                     </select>
                 </div>
                 <div>
@@ -225,14 +244,22 @@
             onSnapshot(collection(db, "rooms"), (snapshot) => {
                 roomsDataMap = {};
                 let bookedCount = 0;
-                let guestCount = 0;
+                let offlineCount = 0;
+                let onlineCount = 0;
+                let recentContainer = document.getElementById('recent-bookings-list');
+                recentContainer.innerHTML = "";
+
+                let activeBookingsList = [];
 
                 snapshot.forEach(docSnap => {
                     let d = docSnap.data();
                     roomsDataMap[docSnap.id] = d;
                     if (d.status === "Booked" && d.customer && d.customer.trim() !== "") {
                         bookedCount++;
-                        guestCount++;
+                        if (d.bookingType === "Online") onlineCount++;
+                        else offlineCount++; // Default offline
+
+                        activeBookingsList.push(d);
                     }
                 });
 
@@ -240,9 +267,26 @@
                     localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsDataMap));
                 } catch(e) {}
 
-                document.getElementById('stat-booked').innerText = bookedCount;
                 document.getElementById('stat-available').innerText = 24 - bookedCount;
-                document.getElementById('stat-guests').innerText = guestCount;
+                document.getElementById('stat-booked').innerText = bookedCount;
+                document.getElementById('stat-offline').innerText = offlineCount;
+                document.getElementById('stat-online').innerText = onlineCount;
+
+                if (activeBookingsList.length > 0) {
+                    activeBookingsList.forEach(b => {
+                        recentContainer.innerHTML += `
+                            <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                                <div>
+                                    <p class="text-xs font-bold text-slate-900">Room #${b.id} (${b.category}) - <span class="text-indigo-600">${b.customer}</span></p>
+                                    <p class="text-[11px] text-slate-500">Mobile: ${b.mobile || 'N/A'} | Type: <span class="font-bold text-slate-700">${b.bookingType || 'Offline'}</span></p>
+                                </div>
+                                <span class="bg-rose-100 text-rose-700 px-3 py-1 rounded-full text-[10px] font-bold">Booked 🔴</span>
+                            </div>
+                        `;
+                    });
+                } else {
+                    recentContainer.innerHTML = `<p class="text-xs text-slate-400 py-3 text-center">No recent bookings found.</p>`;
+                }
             });
         }
 
@@ -264,11 +308,11 @@
             let mobile = document.getElementById('b-mobile').value.trim();
             let idNo = document.getElementById('b-idno').value.trim();
             let category = document.getElementById('b-category').value;
+            let bookingType = document.getElementById('b-type').value;
             let bedType = document.getElementById('b-bed').value;
             let checkIn = document.getElementById('b-checkin').value;
             let checkOut = document.getElementById('b-checkout').value;
 
-            // Find first available room number matching this category
             let targetRoomNo = null;
             let currentCategoryBooked = 0;
 
@@ -294,7 +338,6 @@
             }
 
             if (!targetRoomNo) {
-                // Find any room of this category regardless of default mapping if unassigned
                 for (let i = 1; i <= 24; i++) {
                     let rNo = (100 + i).toString();
                     let rData = roomsDataMap[rNo];
@@ -321,6 +364,7 @@
                 customer,
                 mobile,
                 idNo,
+                bookingType,
                 bedType,
                 checkIn,
                 checkOut
@@ -331,7 +375,7 @@
                 roomsDataMap[targetRoomNo] = bookingData;
                 localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsDataMap));
 
-                alert(`🎉 Booking successful! Assigned to Room #${targetRoomNo} (${category}). Synced to Rooms List, Status & Guest Info.`);
+                alert(`🎉 Booking successful! Assigned to Room #${targetRoomNo} (${category} - ${bookingType}).`);
                 closeNewBookingModal();
                 document.getElementById('booking-form').reset();
             } catch(err) {
