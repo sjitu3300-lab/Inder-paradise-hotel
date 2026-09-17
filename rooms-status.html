@@ -18,7 +18,7 @@
     <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative mb-2">
             <h1 class="text-xl sm:text-2xl font-black tracking-wider text-amber-400 drop-shadow-md">🏨 Hotel Inder Paradise</h1>
-            <p class="text-[11px] text-slate-400 font-medium">Live Rooms Status & 3D Control Panel</p>
+            <p class="text-[11px] text-slate-400 font-medium">Live Rooms Status & Instant Persistent Monitor</p>
         </div>
 
         <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 pt-2 border-t border-slate-800/80">
@@ -30,7 +30,7 @@
 
             <div class="flex items-center space-x-2">
                 <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[11px] font-bold">
-                    Real-time Status Monitor (24 Rooms)
+                    Real-time Instant Status Monitor (24 Rooms)
                 </span>
             </div>
 
@@ -40,7 +40,7 @@
                         🔔<span id="notif-badge" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
                     </button>
                     <div id="notif-dropdown" class="hidden absolute right-0 mt-2 w-80 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl p-3 z-50 text-xs text-slate-200 space-y-2">
-                        <p class="font-bold border-b border-slate-800 pb-2 text-amber-400">Checkout & Payment Alerts (30m Before)</p>
+                        <p class="font-bold border-b border-slate-800 pb-2 text-amber-400">Checkout & Payment Alerts</p>
                         <div id="notif-list" class="space-y-1.5 max-h-48 overflow-y-auto">
                             <p class="text-slate-400">No pending alerts.</p>
                         </div>
@@ -84,13 +84,13 @@
         </div>
     </aside>
 
-    <!-- Main Content: 24 Rooms 3D Status Cards Grid -->
+    <!-- Main Content: 24 Rooms Status Cards Grid -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full space-y-6">
 
         <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
                 <h2 class="text-lg font-bold text-slate-900">🟢 Live Rooms Status Panel (24 Rooms)</h2>
-                <p class="text-xs text-slate-500">Left side features guest details, right side shows live availability/booking status.</p>
+                <p class="text-xs text-slate-500">Instant persistent rendering with automatic post-checkout reset.</p>
             </div>
             <div class="flex items-center space-x-2 text-xs font-semibold text-slate-600">
                 <span class="flex items-center space-x-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span><span>Available</span></span>
@@ -100,12 +100,12 @@
 
         <!-- Grid Container for 24 Room Status Cards -->
         <div id="status-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            <!-- Dynamic 3D Status Cards Will Load Here -->
+            <!-- Instant load grid -->
         </div>
 
     </main>
 
-    <!-- Guest Details Modal (Triggered by Left Side Details Button) -->
+    <!-- Guest Details Modal -->
     <div id="details-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
             <div class="flex justify-between items-center border-b border-slate-100 pb-3">
@@ -113,7 +113,7 @@
                 <button onclick="closeDetailsModal()" class="text-slate-400 hover:text-slate-700 font-bold">✕</button>
             </div>
             <div id="modal-details-content" class="space-y-3 text-xs text-slate-700 font-medium">
-                <!-- Dynamically filled details -->
+                <!-- Details here -->
             </div>
             <div class="pt-3 border-t border-slate-100 flex justify-end">
                 <button onclick="closeDetailsModal()" class="bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm">Close</button>
@@ -123,7 +123,7 @@
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
-        Hotel Inder Paradise Management Portal &copy; 2026. Automated Status Tracking.
+        Hotel Inder Paradise Management Portal &copy; 2026. Instant Status Sync.
     </footer>
 
     <!-- Firebase Script & Logic -->
@@ -146,6 +146,21 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        let roomsStatusMap = {};
+
+        // 1. INSTANT LOCAL STORAGE RENDER (Zero delay on page open)
+        try {
+            const cachedStatus = localStorage.getItem('inder_status_cache');
+            if (cachedStatus) {
+                roomsStatusMap = JSON.parse(cachedStatus);
+                renderStatusGrid();
+            } else {
+                renderStatusGrid();
+            }
+        } catch(e) {
+            renderStatusGrid();
+        }
+
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = "admin.html";
@@ -158,8 +173,6 @@
             signOut(auth).then(() => { window.location.href = "admin.html"; });
         });
 
-        let roomsStatusMap = {};
-
         function initStatusMonitor() {
             onSnapshot(collection(db, "rooms"), (snapshot) => {
                 roomsStatusMap = {};
@@ -167,12 +180,17 @@
                     roomsStatusMap[docSnap.id] = docSnap.data();
                 });
 
+                // Save to local cache for instant future loads
+                try {
+                    localStorage.setItem('inder_status_cache', JSON.stringify(roomsStatusMap));
+                } catch(e) {}
+
                 checkAutomaticCheckoutAndReset();
                 renderStatusGrid();
                 checkCheckoutNotifications();
             });
 
-            // Run check every 1 minute for automatic status updates
+            // Run check every 1 minute for automatic status reset 10 mins post-checkout
             setInterval(() => {
                 checkAutomaticCheckoutAndReset();
             }, 60000);
@@ -187,10 +205,10 @@
                     let checkoutTime = new Date(rData.checkOut).getTime();
                     let diffMins = (now - checkoutTime) / (1000 * 60);
 
-                    // If 10 minutes have passed since check-out time, automatically reset to Available
+                    // If 10 minutes have passed since check-out time, automatically clear details and set Available 🟢
                     if (diffMins >= 10) {
                         try {
-                            await setDoc(doc(db, "rooms", roomNo), {
+                            let resetData = {
                                 ...rData,
                                 status: "Available",
                                 customer: "",
@@ -198,20 +216,24 @@
                                 checkIn: "",
                                 checkOut: "",
                                 paymentStatus: "Pending"
-                            }, { merge: true });
+                            };
+                            await setDoc(doc(db, "rooms", roomNo), resetData, { merge: true });
+                            roomsStatusMap[roomNo] = resetData;
+                            localStorage.setItem('inder_status_cache', JSON.stringify(roomsStatusMap));
                         } catch(err) {
                             console.error("Auto reset error:", err);
                         }
                     }
                 }
             }
+            renderStatusGrid();
         }
 
         function renderStatusGrid() {
             const grid = document.getElementById('status-grid');
+            if (!grid) return;
             grid.innerHTML = "";
 
-            // Generate 24 Rooms (101 to 124)
             for (let i = 1; i <= 24; i++) {
                 let roomNo = (100 + i).toString();
                 let rData = roomsStatusMap[roomNo] || {
@@ -231,7 +253,6 @@
 
                 grid.innerHTML += `
                     <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4 hover:shadow-md transition">
-                        <!-- Top: Room ID & 3D Bed Graphic -->
                         <div class="flex justify-between items-center">
                             <span class="text-xs font-bold bg-indigo-50 text-indigo-700 px-3 py-1 rounded-xl">#${roomNo}</span>
                             <div class="w-10 h-8 bg-slate-900 rounded-lg flex flex-col items-center justify-center p-1 shadow-inner border border-slate-700">
@@ -243,21 +264,16 @@
                             </div>
                         </div>
 
-                        <!-- Middle: Category & Basic Info -->
                         <div class="space-y-1">
                             <h3 class="text-sm font-bold text-slate-800">${rData.category || 'Deluxe Room'}</h3>
                             <p class="text-[11px] text-slate-500 font-medium">Bed: ${rData.bedType || 'Double Bed'}</p>
                             ${isBooked ? `<p class="text-[11px] text-indigo-700 font-semibold truncate">Guest: ${rData.customer}</p>` : `<p class="text-[11px] text-emerald-600 font-semibold">Ready for Guest</p>`}
                         </div>
 
-                        <!-- Bottom: Left Side Details Button & Right Side Status Button -->
                         <div class="flex items-center justify-between pt-3 border-t border-slate-100">
-                            <!-- Left Side: Details Button -->
                             <button onclick="openDetailsModal('${roomNo}')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1">
                                 <span>🔍</span><span>Details</span>
                             </button>
-
-                            <!-- Right Side: Status Button -->
                             <div>${statusButton}</div>
                         </div>
                     </div>
@@ -289,7 +305,6 @@
             document.getElementById('details-modal').classList.add('hidden');
         };
 
-        // Notification alert trigger 30 minutes before checkout
         function checkCheckoutNotifications() {
             const notifList = document.getElementById('notif-list');
             notifList.innerHTML = "";
@@ -302,7 +317,6 @@
                     let checkoutTime = new Date(rData.checkOut).getTime();
                     let diffMins = (checkoutTime - now) / (1000 * 60);
 
-                    // Check if checkout is within 30 minutes or overdue up to 60 mins
                     if (diffMins <= 30 && diffMins >= -60) {
                         alertCount++;
                         notifList.innerHTML += `
@@ -322,7 +336,6 @@
             }
         }
 
-              // Global Navigation & Theme Switcher
         window.toggleSidebar = function() {
             document.getElementById('sidebar-menu').classList.toggle('-translate-x-full');
             document.getElementById('sidebar-overlay').classList.toggle('hidden');
