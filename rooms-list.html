@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Inder Paradise - Rooms List</title>
+    <title>Hotel Inder Paradise - Rooms Catalog & Management</title>
     <!-- Google Fonts & Tailwind CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.4s ease, color 0.4s ease; }
         #sidebar-menu { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes highlightPulse {
+            0% { box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.6); }
+            100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+        }
+        .highlight-card { animation: highlightPulse 1.5s ease-in-out; border-color: #6366f1 !important; }
     </style>
 </head>
 <body id="page-body" class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
@@ -18,7 +23,7 @@
     <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative mb-2">
             <h1 class="text-xl sm:text-2xl font-black tracking-wider text-amber-400 drop-shadow-md">🏨 Hotel Inder Paradise</h1>
-            <p class="text-[11px] text-slate-400 font-medium">Rooms Management & Persistent Storage</p>
+            <p class="text-[11px] text-slate-400 font-medium">Smart Rooms Catalog & Category Limit Validation</p>
         </div>
 
         <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 pt-2 border-t border-slate-800/80">
@@ -30,7 +35,7 @@
 
             <div class="flex items-center space-x-2">
                 <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[11px] font-bold">
-                    Total Rooms: 24 (Instant Persistent Load)
+                    24 Rooms Managed (Strict Category Limits)
                 </span>
             </div>
 
@@ -72,31 +77,30 @@
         </div>
     </aside>
 
-    <!-- Main Content: 24 Rooms 3D Cards Grid -->
+    <!-- Main Content: 24 Rooms Grid -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full space-y-6">
 
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
             <div>
                 <h2 class="text-lg font-bold text-slate-900">🛏️ Hotel Rooms Catalog (24 Rooms)</h2>
-                <p class="text-xs text-slate-500">Persistent database synchronization with instant rendering.</p>
+                <p class="text-xs text-slate-500">Limits: Deluxe (8), Super Deluxe (11), Triple Executive (1), Suite Gold (2), Suite Platinum (2)</p>
             </div>
         </div>
 
-        <!-- Grid Container for 24 Room Cards -->
+        <!-- Grid Container for 24 Rooms -->
         <div id="rooms-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            <!-- Instant Load Cards -->
+            <!-- Instant Rendered Cards -->
         </div>
 
     </main>
 
-    <!-- Booking / Edit Modal -->
+    <!-- Edit Details Modal -->
     <div id="room-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-slate-200">
             <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                <h3 id="modal-title" class="text-base font-bold text-slate-900">Assign Room Details</h3>
+                <h3 id="modal-title" class="text-base font-bold text-slate-900">Edit Room Details</h3>
                 <button type="button" onclick="closeModal()" class="text-slate-400 hover:text-slate-700 font-bold">✕</button>
             </div>
-            <!-- Form Tag with correct submit handler -->
             <form id="room-form" class="space-y-3 text-xs" onsubmit="saveRoomDetails(event)">
                 <input type="hidden" id="modal-room-id">
                 <div>
@@ -104,45 +108,28 @@
                     <input type="text" id="form-room-no" readonly class="w-full mt-1 p-2.5 bg-slate-100 border border-slate-200 rounded-xl font-bold text-slate-800">
                 </div>
                 <div>
-                    <label class="font-semibold text-slate-600">Room Category</label>
+                    <label class="font-semibold text-slate-600">Room Category (Strict Capacity Limits)</label>
                     <select id="form-category" class="w-full mt-1 p-2.5 bg-white border border-slate-200 rounded-xl outline-none font-semibold">
-                        <option value="Deluxe Room">Deluxe Room</option>
-                        <option value="Super Deluxe">Super Deluxe</option>
-                        <option value="Luxury Suite">Luxury Suite</option>
-                        <option value="Family Suite">Family Suite</option>
+                        <option value="Deluxe">Deluxe (Max 8 Rooms)</option>
+                        <option value="Super Deluxe">Super Deluxe (Max 11 Rooms)</option>
+                        <option value="Triple Executive">Triple Executive (Max 1 Room)</option>
+                        <option value="Suite Gold">Suite Gold (Max 2 Rooms)</option>
+                        <option value="Suite Platinum">Suite Platinum (Max 2 Rooms)</option>
                     </select>
                 </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <label class="font-semibold text-slate-600">Single Bed Price (₹)</label>
-                        <input type="number" id="form-single-price" value="2400" class="w-full mt-1 p-2.5 border border-slate-200 rounded-xl">
-                    </div>
-                    <div>
-                        <label class="font-semibold text-slate-600">Double Bed Price (₹)</label>
-                        <input type="number" id="form-double-price" value="3000" class="w-full mt-1 p-2.5 border border-slate-200 rounded-xl">
-                    </div>
-                </div>
                 <div>
-                    <label class="font-semibold text-slate-600">Customer Name (Guest)</label>
-                    <input type="text" id="form-customer" placeholder="Guest Name" class="w-full mt-1 p-2.5 border border-slate-200 rounded-xl">
+                    <label class="font-semibold text-slate-600">Guest Name</label>
+                    <input type="text" id="form-customer" placeholder="Enter guest full name" class="w-full mt-1 p-2.5 border border-slate-200 rounded-xl">
                 </div>
                 <div>
                     <label class="font-semibold text-slate-600">Mobile Number</label>
-                    <input type="text" id="form-mobile" placeholder="10-digit mobile" class="w-full mt-1 p-2.5 border border-slate-200 rounded-xl">
+                    <input type="text" id="form-mobile" placeholder="10-digit mobile number" class="w-full mt-1 p-2.5 border border-slate-200 rounded-xl">
                 </div>
                 <div>
-                    <label class="font-semibold text-slate-600">Bed Option</label>
+                    <label class="font-semibold text-slate-600">Bed Type</label>
                     <select id="form-bed-type" class="w-full mt-1 p-2.5 bg-white border border-slate-200 rounded-xl outline-none font-semibold">
                         <option value="Single Bed">Single Bed</option>
                         <option value="Double Bed">Double Bed</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="font-semibold text-slate-600">Status</label>
-                    <select id="form-status" class="w-full mt-1 p-2.5 bg-white border border-slate-200 rounded-xl outline-none font-semibold">
-                        <option value="Available">🟢 Available</option>
-                        <option value="Booked">🔴 Booked</option>
-                        <option value="Housekeeping">🟠 Housekeeping</option>
                     </select>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
@@ -157,18 +144,34 @@
                 </div>
                 <div class="flex justify-end space-x-2 pt-3 border-t border-slate-100">
                     <button type="button" onclick="closeModal()" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl font-bold">Cancel</button>
-                    <button type="submit" id="save-btn" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow-sm">Save Permanent Details 💾</button>
+                    <button type="submit" id="save-btn" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow-sm">Fast Save ⚡</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <!-- Previous / Guest Details Modal -->
+    <div id="guest-details-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <h3 id="guest-modal-title" class="text-base font-bold text-slate-900">Guest Information</h3>
+                <button onclick="closeGuestModal()" class="text-slate-400 hover:text-slate-700 font-bold">✕</button>
+            </div>
+            <div id="guest-modal-content" class="space-y-2.5 text-xs text-slate-700 font-medium">
+                <!-- Dynamically filled -->
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex justify-end">
+                <button onclick="closeGuestModal()" class="bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm">Close</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
-        Hotel Inder Paradise Management Portal &copy; 2026. Permanent Storage Active.
+        Hotel Inder Paradise Management Portal &copy; 2026. Fast Saving & Strict Limits.
     </footer>
 
-    <!-- Firebase Script & Logic -->
+    <!-- Firebase & Logic Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
@@ -189,10 +192,20 @@
         const db = getFirestore(app);
 
         let roomsDataMap = {};
+        let lastUpdatedRoomId = null;
 
-        // 1. Instant Load from LocalStorage Cache (Zero delay on page open)
+        // Category Maximum Limits Mapping
+        const categoryLimits = {
+            "Deluxe": 8,
+            "Super Deluxe": 11,
+            "Triple Executive": 1,
+            "Suite Gold": 2,
+            "Suite Platinum": 2
+        };
+
+        // Instant Load from Cache
         try {
-            const cached = localStorage.getItem('inder_rooms_cache');
+            const cached = localStorage.getItem('inder_rooms_cache_v2');
             if (cached) {
                 roomsDataMap = JSON.parse(cached);
                 renderRoomsGrid();
@@ -207,7 +220,7 @@
             if (!user) {
                 window.location.href = "admin.html";
             } else {
-                loadRoomsDataFromFirestore();
+                loadRoomsData();
             }
         });
 
@@ -215,32 +228,27 @@
             signOut(auth).then(() => { window.location.href = "admin.html"; });
         });
 
-        function loadRoomsDataFromFirestore() {
+        function loadRoomsData() {
             onSnapshot(collection(db, "rooms"), (snapshot) => {
                 roomsDataMap = {};
                 snapshot.forEach(docSnap => {
                     roomsDataMap[docSnap.id] = docSnap.data();
                 });
-                // Save to LocalStorage cache for instant future loads
                 try {
-                    localStorage.setItem('inder_rooms_cache', JSON.stringify(roomsDataMap));
+                    localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsDataMap));
                 } catch(e) {}
 
                 checkAutomaticCheckoutAndReset();
                 renderRoomsGrid();
             });
 
-            // Periodic check every 1 minute for 10 min post-checkout auto reset
             setInterval(() => {
                 checkAutomaticCheckoutAndReset();
             }, 60000);
         }
 
-        // Automatic reset 10 minutes after checkout time passes
         async function checkAutomaticCheckoutAndReset() {
             const now = new Date().getTime();
-            let updated = false;
-
             for (let roomNo in roomsDataMap) {
                 let rData = roomsDataMap[roomNo];
                 if (rData.status === "Booked" && rData.checkOut) {
@@ -249,22 +257,24 @@
 
                     if (diffMins >= 10) {
                         try {
-                            await setDoc(doc(db, "rooms", roomNo), {
+                            let resetData = {
                                 ...rData,
                                 status: "Available",
                                 customer: "",
                                 mobile: "",
                                 checkIn: "",
-                                checkOut: "",
-                                paymentStatus: "Pending"
-                            }, { merge: true });
-                            updated = true;
+                                checkOut: ""
+                            };
+                            await setDoc(doc(db, "rooms", roomNo), resetData, { merge: true });
+                            roomsDataMap[roomNo] = resetData;
+                            localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsDataMap));
                         } catch(err) {
                             console.error("Auto reset error:", err);
                         }
                     }
                 }
             }
+            renderRoomsGrid();
         }
 
         function renderRoomsGrid() {
@@ -274,69 +284,72 @@
 
             for (let i = 1; i <= 24; i++) {
                 let roomNo = (100 + i).toString();
+                // Default categories based on your distribution rules
+                let defaultCategory = i <= 8 ? "Deluxe" : (i <= 19 ? "Super Deluxe" : (i === 20 ? "Triple Executive" : (i <= 22 ? "Suite Gold" : "Suite Platinum")));
+                
                 let rData = roomsDataMap[roomNo] || {
                     id: roomNo,
-                    category: i <= 12 ? "Deluxe Room" : "Super Deluxe",
-                    singlePrice: 2400,
-                    doublePrice: 3000,
-                    capacity: "2 Persons",
+                    category: defaultCategory,
                     status: "Available",
                     customer: "",
-                    mobile: ""
+                    mobile: "",
+                    bedType: "Double Bed"
                 };
 
-                let statusBadge = rData.status === "Booked" 
+                let isBooked = rData.status === "Booked" && rData.customer && rData.customer.trim() !== "";
+                let statusBadge = isBooked 
                     ? `<span class="bg-rose-100 text-rose-700 px-2.5 py-0.5 rounded-full font-bold text-[10px]">🔴 Booked</span>`
-                    : rData.status === "Housekeeping"
-                    ? `<span class="bg-amber-100 text-amber-700 px-2.5 py-0.5 rounded-full font-bold text-[10px]">🟠 Cleaning</span>`
                     : `<span class="bg-emerald-100 text-emerald-700 px-2.5 py-0.5 rounded-full font-bold text-[10px]">🟢 Available</span>`;
 
+                let isHighlighted = (roomNo === lastUpdatedRoomId) ? "highlight-card" : "";
+
                 grid.innerHTML += `
-                    <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4 hover:shadow-md transition">
+                    <div id="room-card-${roomNo}" class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4 hover:shadow-md transition ${isHighlighted}">
                         <div class="flex justify-between items-center">
                             <span class="text-xs font-bold bg-indigo-50 text-indigo-700 px-3 py-1 rounded-xl">#${roomNo}</span>
-                            <div class="w-12 h-10 bg-slate-900 rounded-xl flex flex-col items-center justify-center p-1 shadow-inner relative border border-slate-700">
-                                <div class="flex space-x-1 mb-1">
-                                    <div class="w-3.5 h-2 bg-white rounded-sm"></div>
-                                    <div class="w-3.5 h-2 bg-white rounded-sm"></div>
+                            <div class="w-10 h-8 bg-slate-900 rounded-lg flex flex-col items-center justify-center p-1 shadow-inner border border-slate-700">
+                                <div class="flex space-x-0.5 mb-0.5">
+                                    <div class="w-2.5 h-1.5 bg-white rounded-sm"></div>
+                                    <div class="w-2.5 h-1.5 bg-white rounded-sm"></div>
                                 </div>
-                                <div class="w-9 h-3.5 bg-white rounded-md"></div>
+                                <div class="w-7 h-2.5 bg-white rounded-sm"></div>
                             </div>
                             <div>${statusBadge}</div>
                         </div>
 
-                        <div class="space-y-1.5">
-                            <h3 class="text-sm font-bold text-slate-800">${rData.category || 'Deluxe Room'}</h3>
-                            <p class="text-xs text-slate-500 font-medium">Bed: ${rData.bedType || 'Double Bed'}</p>
-                            
-                            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100 text-[11px] space-y-1">
-                                <div class="flex justify-between"><span class="text-slate-500">Price:</span> <span class="font-bold text-slate-800">₹${rData.doublePrice || 3000}</span></div>
-                                ${rData.customer ? `<div class="pt-1 border-t border-slate-200 text-indigo-900 font-semibold truncate">Guest: ${rData.customer}</div>` : '<div class="text-emerald-600 font-semibold">Vacant Ready</div>'}
-                            </div>
+                        <div class="space-y-1">
+                            <h3 class="text-sm font-bold text-slate-800">${rData.category || 'Deluxe'}</h3>
+                            <p class="text-[11px] text-slate-500 font-medium">Bed: ${rData.bedType || 'Double Bed'}</p>
+                            ${isBooked ? `<p class="text-[11px] text-indigo-700 font-semibold truncate">Guest: ${rData.customer}</p>` : `<p class="text-[11px] text-emerald-600 font-semibold">Vacant Ready</p>`}
                         </div>
 
+                        <!-- 2 Bottom Buttons: Edit Details & Previous Details -->
                         <div class="flex items-center space-x-2 pt-2 border-t border-slate-100">
-                            <button onclick="editRoom('${roomNo}')" class="flex-grow bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-xl text-xs font-bold transition shadow-sm">Assign Details ✏️</button>
-                            <button onclick="resetRoom('${roomNo}')" class="bg-rose-50 hover:bg-rose-100 text-rose-600 p-2 rounded-xl transition" title="Reset Room">🗑️</button>
+                            <button onclick="openEditModal('${roomNo}')" class="flex-grow bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-xl text-xs font-bold transition shadow-sm">Edit Details ✏️</button>
+                            <button onclick="openGuestDetailsModal('${roomNo}')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-1" title="Previous Details"><span>🔍</span><span>Previous</span></button>
                         </div>
                     </div>
                 `;
             }
+
+            // Remove highlight after 2 seconds
+            if (lastUpdatedRoomId) {
+                setTimeout(() => {
+                    lastUpdatedRoomId = null;
+                }, 2000);
+            }
         }
 
-        window.editRoom = function(roomNo) {
-            let rData = roomsDataMap[roomNo] || { category: "Deluxe Room", singlePrice: 2400, doublePrice: 3000, status: "Available", customer: "", mobile: "", bedType: "Double Bed" };
-            document.getElementById('modal-title').innerText = `Manage Room #${roomNo}`;
+        window.openEditModal = function(roomNo) {
+            let rData = roomsDataMap[roomNo] || { category: "Deluxe", status: "Available", customer: "", mobile: "", bedType: "Double Bed" };
+            document.getElementById('modal-title').innerText = `Edit Room #${roomNo}`;
             document.getElementById('modal-room-id').value = roomNo;
             document.getElementById('form-room-no').value = roomNo;
-            document.getElementById('form-category').value = rData.category || "Deluxe Room";
-            document.getElementById('form-single-price').value = rData.singlePrice || 2400;
-            document.getElementById('form-double-price').value = rData.doublePrice || 3000;
+            document.getElementById('form-category').value = rData.category || "Deluxe";
             document.getElementById('form-customer').value = rData.customer || "";
             document.getElementById('form-mobile').value = rData.mobile || "";
             document.getElementById('form-bed-type').value = rData.bedType || "Double Bed";
-            document.getElementById('form-status').value = rData.status || "Available";
-            
+
             const now = new Date();
             const tomorrow = new Date(now.getTime() + 86400000);
             document.getElementById('form-checkin').value = rData.checkIn || now.toISOString().slice(0, 16);
@@ -349,83 +362,97 @@
             document.getElementById('room-modal').classList.add('hidden');
         };
 
-        // Permanent Save Function attached to form submit
+        window.openGuestDetailsModal = function(roomNo) {
+            let rData = roomsDataMap[roomNo];
+            if (!rData || !rData.customer || rData.customer.trim() === "") {
+                alert(`Room #${roomNo} is currently Available. No guest details recorded yet.`);
+                return;
+            }
+
+            document.getElementById('guest-modal-title').innerText = `Room #${roomNo} - Guest Information`;
+            document.getElementById('guest-modal-content').innerHTML = `
+                <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                    <div class="flex justify-between"><span class="text-slate-500">Category:</span> <span class="font-bold text-slate-800">${rData.category}</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">Status:</span> <span class="font-bold text-rose-600">Booked 🔴</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">Guest Name:</span> <span class="font-bold text-slate-800">${rData.customer}</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">Mobile No:</span> <span class="font-bold text-slate-800">${rData.mobile || 'N/A'}</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">Bed Type:</span> <span class="font-bold text-slate-800">${rData.bedType || 'Double Bed'}</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">Check-In:</span> <span class="font-bold text-slate-800">${rData.checkIn ? new Date(rData.checkIn).toLocaleString() : 'N/A'}</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">Check-Out:</span> <span class="font-bold text-slate-800">${rData.checkOut ? new Date(rData.checkOut).toLocaleString() : 'N/A'}</span></div>
+                </div>
+            `;
+            document.getElementById('guest-details-modal').classList.remove('hidden');
+        };
+
+        window.closeGuestModal = function() {
+            document.getElementById('guest-details-modal').classList.add('hidden');
+        };
+
+        // Fast Save with Category Limit Validation
         window.saveRoomDetails = async function(e) {
             e.preventDefault();
             let roomNo = document.getElementById('modal-room-id').value;
             let category = document.getElementById('form-category').value;
-            let singlePrice = Number(document.getElementById('form-single-price').value);
-            let doublePrice = Number(document.getElementById('form-double-price').value);
-            let customer = document.getElementById('form-customer').value;
-            let mobile = document.getElementById('form-mobile').value;
+            let customer = document.getElementById('form-customer').value.trim();
+            let mobile = document.getElementById('form-mobile').value.trim();
             let bedType = document.getElementById('form-bed-type').value;
-            let status = document.getElementById('form-status').value;
             let checkIn = document.getElementById('form-checkin').value;
             let checkOut = document.getElementById('form-checkout').value;
 
+            if (!customer) {
+                alert("Please enter guest name!");
+                return;
+            }
+
+            // Check Category Limit Validation
+            let maxAllowed = categoryLimits[category] || 8;
+            let currentBookedCount = 0;
+
+            for (let rId in roomsDataMap) {
+                // Ignore current room being edited if it was already booked in same category
+                if (rId !== roomNo) {
+                    let r = roomsDataMap[rId];
+                    if (r.category === category && r.status === "Booked" && r.customer && r.customer.trim() !== "") {
+                        currentBookedCount++;
+                    }
+                }
+            }
+
+            if (currentBookedCount >= maxAllowed) {
+                alert(`⚠️ Cannot book! All ${maxAllowed} rooms for "${category}" are already full/booked!`);
+                return;
+            }
+
             let saveBtn = document.getElementById('save-btn');
-            saveBtn.innerText = "Saving...";
+            saveBtn.innerText = "Saving... ⚡";
             saveBtn.disabled = true;
 
-            let roomData = {
+            let updatedRoomData = {
                 id: roomNo,
                 category,
-                singlePrice,
-                doublePrice,
-                capacity: "2-3 Persons",
+                status: "Booked",
                 customer,
                 mobile,
                 bedType,
-                status,
                 checkIn,
-                checkOut,
-                paymentStatus: "Pending"
+                checkOut
             };
 
             try {
-                // Save permanently using setDoc with merge: true
-                await setDoc(doc(db, "rooms", roomNo), roomData, { merge: true });
+                // Fast background/direct persistence
+                await setDoc(doc(db, "rooms", roomNo), updatedRoomData, { merge: true });
                 
-                // Update local memory & cache immediately
-                roomsDataMap[roomNo] = roomData;
-                localStorage.setItem('inder_rooms_cache', JSON.stringify(roomsDataMap));
+                roomsDataMap[roomNo] = updatedRoomData;
+                localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsDataMap));
 
-                alert(`Room #${roomNo} details saved permanently! 🎉`);
+                lastUpdatedRoomId = roomNo;
                 closeModal();
                 renderRoomsGrid();
             } catch(err) {
-                alert("Error saving room details: " + err.message);
+                alert("Error saving: " + err.message);
             } finally {
-                saveBtn.innerText = "Save Permanent Details 💾";
+                saveBtn.innerText = "Fast Save ⚡";
                 saveBtn.disabled = false;
-            }
-        };
-
-        window.resetRoom = async function(roomNo) {
-            if(confirm(`Are you sure you want to reset Room #${roomNo} and clear guest details?`)) {
-                try {
-                    let resetData = {
-                        id: roomNo,
-                        category: "Deluxe Room",
-                        singlePrice: 2400,
-                        doublePrice: 3000,
-                        capacity: "2 Persons",
-                        status: "Available",
-                        customer: "",
-                        mobile: "",
-                        bedType: "Double Bed",
-                        checkIn: "",
-                        checkOut: "",
-                        paymentStatus: "Pending"
-                    };
-                    await setDoc(doc(db, "rooms", roomNo), resetData);
-                    roomsDataMap[roomNo] = resetData;
-                    localStorage.setItem('inder_rooms_cache', JSON.stringify(roomsDataMap));
-                    renderRoomsGrid();
-                    alert(`Room #${roomNo} has been cleared and set to Available.`);
-                } catch(err) {
-                    alert("Error resetting room: " + err.message);
-                }
             }
         };
 
