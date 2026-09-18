@@ -8,14 +8,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.4s ease, color 0.4s ease; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            color: #f1f5f9;
+            min-height: 100vh;
+        }
         #sidebar-menu { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        /* 3D Glass Box & Bottom Shadow Style */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+        }
     </style>
 </head>
-<body id="page-body" class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+<body id="page-body" class="min-h-screen flex flex-col">
 
     <!-- Top Graphical Header & Navigation -->
-    <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
+    <header class="bg-slate-900/85 backdrop-blur-md text-white shadow-xl sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative mb-2">
             <h1 class="text-xl sm:text-2xl font-black tracking-wider text-amber-400 drop-shadow-md">🏨 Hotel Inder Paradise</h1>
             <p class="text-[11px] text-slate-400 font-medium">Live Category Status Monitor (24 Independent Rooms)</p>
@@ -23,7 +38,7 @@
 
         <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 pt-2 border-t border-slate-800/80">
             <div class="flex items-center space-x-3">
-                <button onclick="toggleSidebar()" class="bg-slate-800 hover:bg-slate-700 px-3.5 py-2 rounded-xl text-amber-400 font-bold text-xs flex items-center space-x-2 border border-slate-700 shadow-sm transition">
+                <button onclick="toggleSidebar()" class="bg-slate-800/80 hover:bg-slate-700 px-3.5 py-2 rounded-xl text-amber-400 font-bold text-xs flex items-center space-x-2 border border-slate-700 shadow-lg transition">
                     <span>☰ Menu</span>
                 </button>
             </div>
@@ -35,19 +50,8 @@
             </div>
 
             <div class="flex items-center space-x-3">
-                <select id="theme-selector" onchange="changeTheme(this.value)" class="bg-slate-800 text-xs text-amber-300 px-3 py-2 rounded-xl border border-slate-700 outline-none cursor-pointer font-semibold">
-                    <option value="default">💡 Slate Theme</option>
-                    <option value="dark">🌑 Dark Midnight</option>
-                    <option value="emerald">🟢 Royal Emerald</option>
-                    <option value="indigo">🔵 Deep Indigo</option>
-                    <option value="amber">🟠 Sunset Amber</option>
-                    <option value="rose">🌸 Luxury Rose</option>
-                    <option value="cyan">❄️ Ice Cyan</option>
-                    <option value="light">☀️ Clean White</option>
-                </select>
-
-                <div class="flex items-center space-x-2 border-l border-slate-700 pl-3">
-                    <button id="logout-btn" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition shadow-sm">Logout</button>
+                <div class="flex items-center space-x-2 pl-2">
+                    <button id="logout-btn" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition shadow-lg">Logout</button>
                 </div>
             </div>
         </div>
@@ -76,14 +80,14 @@
     <!-- Main Content: 24 Rooms Status Grid -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full space-y-6">
 
-        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="glass-box p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
-                <h2 class="text-lg font-bold text-slate-900">🟢 Live Rooms Status Grid (Rooms #101 to #124)</h2>
-                <p class="text-xs text-slate-500">Each room's booking details and checkout timer are maintained completely independent.</p>
+                <h2 class="text-lg font-bold text-white">🟢 Live Rooms Status Grid (Rooms #101 to #124)</h2>
+                <p class="text-xs text-slate-400">Each room's booking details and checkout timer are maintained completely independent.</p>
             </div>
-            <div class="flex items-center space-x-3 text-xs font-semibold text-slate-600">
-                <span class="flex items-center space-x-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span><span>Available</span></span>
-                <span class="flex items-center space-x-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span><span>Booked</span></span>
+            <div class="flex items-center space-x-3 text-xs font-semibold text-slate-300">
+                <span class="flex items-center space-x-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span><span>Available</span></span>
+                <span class="flex items-center space-x-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span><span>Booked</span></span>
             </div>
         </div>
 
@@ -96,22 +100,22 @@
 
     <!-- Guest Details Modal -->
     <div id="details-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
-            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                <h3 id="modal-room-title" class="text-base font-bold text-slate-900">Room Details</h3>
-                <button onclick="closeDetailsModal()" class="text-slate-400 hover:text-slate-700 font-bold">✕</button>
+        <div class="glass-box max-w-md w-full p-6 space-y-4 border border-slate-700 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 id="modal-room-title" class="text-base font-bold text-white">Room Details</h3>
+                <button onclick="closeDetailsModal()" class="text-slate-400 hover:text-white font-bold">✕</button>
             </div>
-            <div id="modal-details-content" class="space-y-2.5 text-xs text-slate-700 font-medium">
+            <div id="modal-details-content" class="space-y-2.5 text-xs text-slate-300 font-medium">
                 <!-- Content here -->
             </div>
-            <div class="pt-3 border-t border-slate-100 flex justify-end">
-                <button onclick="closeDetailsModal()" class="bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm">Close</button>
+            <div class="pt-3 border-t border-slate-800 flex justify-end">
+                <button onclick="closeDetailsModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-lg shadow-indigo-600/30">Close</button>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+    <footer class="bg-slate-900/80 border-t border-slate-800 py-4 text-center text-xs text-slate-500">
         Hotel Inder Paradise Management Portal &copy; 2026. Real-time Status Sync Active[cite: 2].
     </footer>
 
@@ -137,7 +141,6 @@
 
         let roomsStatusMap = {};
 
-        // Instant Load from Cache
         try {
             const cached = localStorage.getItem('inder_rooms_cache_v2');
             if (cached) {
@@ -164,7 +167,6 @@
 
         function loadStatusData() {
             onSnapshot(collection(db, "rooms"), (snapshot) => {
-                // Safely merge incoming snapshot documents without wiping out other rooms
                 snapshot.forEach(docSnap => {
                     roomsStatusMap[docSnap.id] = docSnap.data();
                 });
@@ -192,7 +194,6 @@
                     let checkoutTime = new Date(rData.checkOut).getTime();
                     let diffMins = (now - checkoutTime) / (1000 * 60);
 
-                    // 10-minute post-checkout buffer rule per individual room
                     if (diffMins >= 10) {
                         try {
                             let resetData = {
@@ -239,13 +240,13 @@
 
                 let isBooked = rData.status === "Booked" && rData.customer && rData.customer.trim() !== "";
                 let statusBadge = isBooked
-                    ? `<span class="bg-rose-500 text-white px-3 py-1.5 rounded-xl font-bold text-[11px] shadow-sm flex items-center space-x-1"><span>🔴</span><span>Booked</span></span>`
-                    : `<span class="bg-emerald-500 text-white px-3 py-1.5 rounded-xl font-bold text-[11px] shadow-sm flex items-center space-x-1"><span>🟢</span><span>Available</span></span>`;
+                    ? `<span class="bg-rose-500/20 text-rose-300 border border-rose-500/30 px-3 py-1.5 rounded-xl font-bold text-[11px] shadow-sm flex items-center space-x-1"><span>🔴</span><span>Booked</span></span>`
+                    : `<span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-bold text-[11px] shadow-sm flex items-center space-x-1"><span>🟢</span><span>Available</span></span>`;
 
                 grid.innerHTML += `
-                    <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4 hover:shadow-md transition">
+                    <div class="glass-box p-5 flex flex-col justify-between space-y-4 hover:shadow-2xl transition">
                         <div class="flex justify-between items-center">
-                            <span class="text-xs font-bold bg-indigo-50 text-indigo-700 px-3 py-1 rounded-xl">#${roomNo}</span>
+                            <span class="text-xs font-bold bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 px-3 py-1 rounded-xl">#${roomNo}</span>
                             <div class="w-10 h-8 bg-slate-900 rounded-lg flex flex-col items-center justify-center p-1 shadow-inner border border-slate-700">
                                 <div class="flex space-x-0.5 mb-0.5">
                                     <div class="w-2.5 h-1.5 bg-white rounded-sm"></div>
@@ -256,13 +257,13 @@
                         </div>
 
                         <div class="space-y-1">
-                            <h3 class="text-sm font-bold text-slate-800">${rData.category || defaultCategory}</h3>
-                            <p class="text-[11px] text-slate-500 font-medium">Bed: ${rData.bedType || 'Double Bed'}</p>
-                            ${isBooked ? `<p class="text-[11px] text-indigo-700 font-semibold truncate">Guest: ${rData.customer}</p>` : `<p class="text-[11px] text-emerald-600 font-semibold">Vacant Ready</p>`}
+                            <h3 class="text-sm font-bold text-white">${rData.category || defaultCategory}</h3>
+                            <p class="text-[11px] text-slate-400 font-medium">Bed: ${rData.bedType || 'Double Bed'}</p>
+                            ${isBooked ? `<p class="text-[11px] text-indigo-300 font-semibold truncate">Guest: ${rData.customer}</p>` : `<p class="text-[11px] text-emerald-400 font-semibold">Vacant Ready</p>`}
                         </div>
 
-                        <div class="flex items-center justify-between pt-3 border-t border-slate-100">
-                            <button onclick="openDetailsModal('${roomNo}')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1">
+                        <div class="flex items-center justify-between pt-3 border-t border-slate-800">
+                            <button onclick="openDetailsModal('${roomNo}')" class="bg-slate-800/80 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1 border border-slate-700">
                                 <span>🔍</span><span>Details</span>
                             </button>
                             <div>${statusBadge}</div>
@@ -278,14 +279,14 @@
 
             let isBooked = rData.status === "Booked" && rData.customer && rData.customer.trim() !== "";
             let content = `
-                <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                    <div class="flex justify-between"><span class="text-slate-500">Category:</span> <span class="font-bold text-slate-800">${rData.category}</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">Status:</span> <span class="font-bold ${isBooked ? 'text-rose-600' : 'text-emerald-600'}">${isBooked ? 'Booked 🔴' : 'Available 🟢'}</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">Guest Name:</span> <span class="font-bold text-slate-800">${rData.customer || 'N/A (Vacant)'}</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">Mobile No:</span> <span class="font-bold text-slate-800">${rData.mobile || 'N/A'}</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">Bed Type:</span> <span class="font-bold text-slate-800">${rData.bedType || 'Double Bed'}</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">Check-In:</span> <span class="font-bold text-slate-800">${rData.checkIn ? new Date(rData.checkIn).toLocaleString() : 'N/A'}</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">Check-Out:</span> <span class="font-bold text-slate-800">${rData.checkOut ? new Date(rData.checkOut).toLocaleString() : 'N/A'}</span></div>
+                <div class="space-y-2 bg-slate-900/60 p-4 rounded-2xl border border-slate-800">
+                    <div class="flex justify-between"><span class="text-slate-400">Category:</span> <span class="font-bold text-white">${rData.category}</span></div>
+                    <div class="flex justify-between"><span class="text-slate-400">Status:</span> <span class="font-bold ${isBooked ? 'text-rose-400' : 'text-emerald-400'}">${isBooked ? 'Booked 🔴' : 'Available 🟢'}</span></div>
+                    <div class="flex justify-between"><span class="text-slate-400">Guest Name:</span> <span class="font-bold text-white">${rData.customer || 'N/A (Vacant)'}</span></div>
+                    <div class="flex justify-between"><span class="text-slate-400">Mobile No:</span> <span class="font-bold text-white">${rData.mobile || 'N/A'}</span></div>
+                    <div class="flex justify-between"><span class="text-slate-400">Bed Type:</span> <span class="font-bold text-white">${rData.bedType || 'Double Bed'}</span></div>
+                    <div class="flex justify-between"><span class="text-slate-400">Check-In:</span> <span class="font-bold text-white">${rData.checkIn ? new Date(rData.checkIn).toLocaleString() : 'N/A'}</span></div>
+                    <div class="flex justify-between"><span class="text-slate-400">Check-Out:</span> <span class="font-bold text-white">${rData.checkOut ? new Date(rData.checkOut).toLocaleString() : 'N/A'}</span></div>
                 </div>
             `;
             document.getElementById('modal-details-content').innerHTML = content;
@@ -299,18 +300,6 @@
         window.toggleSidebar = function() {
             document.getElementById('sidebar-menu').classList.toggle('-translate-x-full');
             document.getElementById('sidebar-overlay').classList.toggle('hidden');
-        };
-
-        window.changeTheme = function(theme) {
-            const body = document.getElementById('page-body');
-            if(theme === 'dark') { body.className = "bg-slate-950 text-slate-100 min-h-screen flex flex-col"; }
-            else if(theme === 'emerald') { body.className = "bg-emerald-950 text-emerald-50 min-h-screen flex flex-col"; }
-            else if(theme === 'indigo') { body.className = "bg-indigo-950 text-indigo-50 min-h-screen flex flex-col"; }
-            else if(theme === 'amber') { body.className = "bg-amber-950 text-amber-50 min-h-screen flex flex-col"; }
-            else if(theme === 'rose') { body.className = "bg-rose-950 text-rose-50 min-h-screen flex flex-col"; }
-            else if(theme === 'cyan') { body.className = "bg-cyan-950 text-cyan-50 min-h-screen flex flex-col"; }
-            else if(theme === 'light') { body.className = "bg-white text-slate-900 min-h-screen flex flex-col"; }
-            else { body.className = "bg-slate-100 text-slate-800 min-h-screen flex flex-col"; }
         };
     </script>
 </body>
