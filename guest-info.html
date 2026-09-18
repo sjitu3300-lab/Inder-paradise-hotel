@@ -8,14 +8,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.4s ease, color 0.4s ease; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            color: #f1f5f9;
+            min-height: 100vh;
+        }
         #sidebar-menu { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        /* 3D Glass Box & Bottom Shadow Style */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+        }
+
+        .glass-input {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+        .glass-input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+            outline: none;
+        }
     </style>
 </head>
-<body id="page-body" class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+<body id="page-body" class="min-h-screen flex flex-col">
 
     <!-- Top Header & Navigation -->
-    <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
+    <header class="bg-slate-900/85 backdrop-blur-md text-white shadow-xl sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative mb-2">
             <h1 class="text-xl sm:text-2xl font-black tracking-wider text-amber-400 drop-shadow-md">🏨 Hotel Inder Paradise</h1>
             <p class="text-[11px] text-slate-400 font-medium">Permanent Guest Log & History Archive</p>
@@ -23,29 +49,18 @@
 
         <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 pt-2 border-t border-slate-800/80">
             <div class="flex items-center space-x-3">
-                <button onclick="toggleSidebar()" class="bg-slate-800 hover:bg-slate-700 px-3.5 py-2 rounded-xl text-amber-400 font-bold text-xs flex items-center space-x-2 border border-slate-700 shadow-sm transition">
+                <button onclick="toggleSidebar()" class="bg-slate-800/80 hover:bg-slate-700 px-3.5 py-2 rounded-xl text-amber-400 font-bold text-xs flex items-center space-x-2 border border-slate-700 shadow-lg transition">
                     <span>☰ Menu</span>
                 </button>
             </div>
 
             <div class="flex-grow max-w-xs mx-auto">
-                <input type="text" id="guest-search" onkeyup="filterGuests()" placeholder="Search guest name, mobile, room..." class="w-full bg-slate-800/90 text-xs text-white placeholder-slate-400 px-3.5 py-2 rounded-xl outline-none border border-slate-700 focus:border-amber-400 transition-all">
+                <input type="text" id="guest-search" onkeyup="filterGuests()" placeholder="Search guest name, mobile, room..." class="w-full text-xs text-white placeholder-slate-400 px-3.5 py-2 rounded-xl outline-none glass-input transition-all">
             </div>
 
             <div class="flex items-center space-x-3">
-                <select id="theme-selector" onchange="changeTheme(this.value)" class="bg-slate-800 text-xs text-amber-300 px-3 py-2 rounded-xl border border-slate-700 outline-none cursor-pointer font-semibold">
-                    <option value="default">💡 Slate Theme</option>
-                    <option value="dark">🌑 Dark Midnight</option>
-                    <option value="emerald">🟢 Royal Emerald</option>
-                    <option value="indigo">🔵 Deep Indigo</option>
-                    <option value="amber">🟠 Sunset Amber</option>
-                    <option value="rose">🌸 Luxury Rose</option>
-                    <option value="cyan">❄️ Ice Cyan</option>
-                    <option value="light">☀️ Clean White</option>
-                </select>
-
-                <div class="flex items-center space-x-2 border-l border-slate-700 pl-3">
-                    <button id="logout-btn" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition shadow-sm">Logout</button>
+                <div class="flex items-center space-x-2 pl-2">
+                    <button id="logout-btn" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition shadow-lg">Logout</button>
                 </div>
             </div>
         </div>
@@ -74,19 +89,19 @@
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full space-y-6">
 
-        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+        <div class="glass-box p-6 space-y-4">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
-                    <h2 class="text-base font-bold text-slate-900">📋 All Recorded Guests History (Permanent Log)</h2>
-                    <p class="text-xs text-slate-500">Every guest entry is permanently saved. Refreshing the page or adding new guests will never clear older records.</p>
+                    <h2 class="text-base font-bold text-white">📋 All Recorded Guests History (Permanent Log)</h2>
+                    <p class="text-xs text-slate-400">Every guest entry is permanently saved. Refreshing the page or adding new guests will never clear older records.</p>
                 </div>
-                <span id="guest-count" class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-xs font-bold">Total Guests: 0</span>
+                <span id="guest-count" class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-xs font-bold">Total Guests: 0</span>
             </div>
 
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse text-xs">
                     <thead>
-                        <tr class="border-b border-slate-200 text-slate-500 font-bold bg-slate-50 uppercase tracking-wider">
+                        <tr class="border-b border-slate-800 text-slate-400 font-bold bg-slate-900/60 uppercase tracking-wider">
                             <th class="p-3">Room No.</th>
                             <th class="p-3">Guest Name</th>
                             <th class="p-3">Mobile No.</th>
@@ -97,7 +112,7 @@
                             <th class="p-3">Check-Out</th>
                         </tr>
                     </thead>
-                    <tbody id="guest-table-body" class="divide-y divide-slate-100 font-medium text-slate-700">
+                    <tbody id="guest-table-body" class="divide-y divide-slate-800 font-medium text-slate-300">
                         <!-- Loaded permanently -->
                     </tbody>
                 </table>
@@ -107,7 +122,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+    <footer class="bg-slate-900/80 border-t border-slate-800 py-4 text-center text-xs text-slate-500">
         Hotel Inder Paradise Management Portal &copy; 2026. Guest Info Permanent Archive.
     </footer>
 
@@ -144,10 +159,8 @@
         let allPermanentGuests = [];
 
         function loadPermanentGuests() {
-            // Read from permanent localStorage log
             let history = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
             
-            // Fallback sync with current rooms cache if history is empty
             if (history.length === 0) {
                 let cache = JSON.parse(localStorage.getItem('inder_rooms_cache_v2') || '{}');
                 for (let rNo in cache) {
@@ -159,7 +172,6 @@
                 localStorage.setItem('inder_permanent_history', JSON.stringify(history));
             }
 
-            // Deduplicate to ensure clean unique permanent list
             let uniqueMap = new Map();
             history.forEach(item => {
                 if (item.customer && item.customer.trim() !== "") {
@@ -182,16 +194,15 @@
                 return;
             }
 
-            // Display newest entries first
             guestsList.slice().reverse().forEach(guest => {
                 tbody.innerHTML += `
-                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
-                        <td class="p-3 font-bold text-slate-900">#${guest.id || '-'}</td>
-                        <td class="p-3 font-semibold text-indigo-600">${guest.customer || '-'}</td>
+                    <tr class="hover:bg-slate-800/40 transition border-b border-slate-800">
+                        <td class="p-3 font-bold text-white">#${guest.id || '-'}</td>
+                        <td class="p-3 font-semibold text-indigo-400">${guest.customer || '-'}</td>
                         <td class="p-3">${guest.mobile || '-'}</td>
                         <td class="p-3">${guest.idNo || '-'}</td>
-                        <td class="p-3 font-semibold text-slate-800">${guest.category || '-'}</td>
-                        <td class="p-3 font-bold text-amber-600">${guest.bookingType || 'Offline'}</td>
+                        <td class="p-3 font-semibold text-slate-200">${guest.category || '-'}</td>
+                        <td class="p-3 font-bold text-amber-400">${guest.bookingType || 'Offline'}</td>
                         <td class="p-3">${guest.checkIn ? guest.checkIn.replace('T', ' ') : '-'}</td>
                         <td class="p-3">${guest.checkOut ? guest.checkOut.replace('T', ' ') : '-'}</td>
                     </tr>
@@ -215,18 +226,6 @@
         window.toggleSidebar = function() {
             document.getElementById('sidebar-menu').classList.toggle('-translate-x-full');
             document.getElementById('sidebar-overlay').classList.toggle('hidden');
-        };
-
-        window.changeTheme = function(theme) {
-            const body = document.getElementById('page-body');
-            if(theme === 'dark') { body.className = "bg-slate-950 text-slate-100 min-h-screen flex flex-col"; }
-            else if(theme === 'emerald') { body.className = "bg-emerald-950 text-emerald-50 min-h-screen flex flex-col"; }
-            else if(theme === 'indigo') { body.className = "bg-indigo-950 text-indigo-50 min-h-screen flex flex-col"; }
-            else if(theme === 'amber') { body.className = "bg-amber-950 text-amber-50 min-h-screen flex flex-col"; }
-            else if(theme === 'rose') { body.className = "bg-rose-950 text-rose-50 min-h-screen flex flex-col"; }
-            else if(theme === 'cyan') { body.className = "bg-cyan-950 text-cyan-50 min-h-screen flex flex-col"; }
-            else if(theme === 'light') { body.className = "bg-white text-slate-900 min-h-screen flex flex-col"; }
-            else { body.className = "bg-slate-100 text-slate-800 min-h-screen flex flex-col"; }
         };
     </script>
 </body>
