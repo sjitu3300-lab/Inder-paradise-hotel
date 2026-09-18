@@ -3,90 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Inder Paradise - Premium Admin Dashboard</title>
+    <title>Hotel Inder Paradise - Admin Dashboard</title>
     <!-- Google Fonts & Tailwind CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.4s ease, color 0.4s ease; }
+        #sidebar-menu { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body id="page-body" class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Top Navigation Bar -->
-    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <!-- Top Graphical Header & Navigation -->
+    <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative mb-2">
+            <h1 class="text-xl sm:text-2xl font-black tracking-wider text-amber-400 drop-shadow-md">🏨 Hotel Inder Paradise Dashboard</h1>
+            <p class="text-[11px] text-slate-400 font-medium">Real-time Multi-Room Booking Management (24 Rooms)</p>
+        </div>
+
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 pt-2 border-t border-slate-800/80">
             <div class="flex items-center space-x-3">
-                <span class="text-2xl">🏨</span>
-                <div>
-                    <h1 class="text-xl font-bold tracking-wide">Hotel Inder Paradise</h1>
-                    <p class="text-xs text-slate-400">Admin Management Portal</p>
-                </div>
+                <button onclick="toggleSidebar()" class="bg-slate-800 hover:bg-slate-700 px-3.5 py-2 rounded-xl text-amber-400 font-bold text-xs flex items-center space-x-2 border border-slate-700 shadow-sm transition">
+                    <span>☰ Menu</span>
+                </button>
             </div>
-            <div class="flex items-center space-x-4">
-                <span id="admin-email" class="text-sm bg-slate-800 px-3 py-1.5 rounded-full text-amber-400 font-medium"></span>
-                <button id="logout-btn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">Logout 🚪</button>
+
+            <!-- Center Search Bar -->
+            <div class="flex-grow max-w-md mx-2">
+                <input type="text" id="dashboard-search" placeholder="Search guest or room number..." class="w-full bg-slate-800 text-xs text-white px-4 py-2 rounded-xl border border-slate-700 outline-none focus:border-amber-400">
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <select id="theme-selector" onchange="changeTheme(this.value)" class="bg-slate-800 text-xs text-amber-300 px-3 py-2 rounded-xl border border-slate-700 outline-none cursor-pointer font-semibold">
+                    <option value="default">💡 Slate Theme</option>
+                    <option value="dark">🌑 Dark Midnight</option>
+                    <option value="emerald">🟢 Royal Emerald</option>
+                    <option value="indigo">🔵 Deep Indigo</option>
+                    <option value="amber">🟠 Sunset Amber</option>
+                    <option value="rose">🌸 Luxury Rose</option>
+                    <option value="cyan">❄️ Ice Cyan</option>
+                    <option value="light">☀️ Clean White</option>
+                </select>
+
+                <div class="flex items-center space-x-2 border-l border-slate-700 pl-3">
+                    <button id="logout-btn" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition shadow-sm">Logout</button>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full grid grid-cols-1 lg:grid-cols-4 gap-8">
-        
-        <!-- Left Sidebar: Room Statistics & Offline Booking -->
-        <div class="lg:col-span-1 space-y-6">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center">📊 <span>Room Statistics</span></h2>
-                <div class="space-y-3">
-                    <div class="flex justify-between items-center bg-emerald-50 p-3 rounded-xl border border-emerald-100">
-                        <span class="text-sm font-medium text-emerald-700">Available Rooms</span>
-                        <span id="count-available" class="font-bold text-emerald-800 text-lg">24</span>
-                    </div>
-                    <div class="flex justify-between items-center bg-rose-50 p-3 rounded-xl border border-rose-100">
-                        <span class="text-sm font-medium text-rose-700">Booked Rooms</span>
-                        <span id="count-booked" class="font-bold text-rose-800 text-lg">0</span>
-                    </div>
-                </div>
+    <!-- Animated Slide Menu Sidebar -->
+    <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/60 z-40 hidden transition-opacity"></div>
+    <aside id="sidebar-menu" class="fixed top-0 left-0 bottom-0 w-72 bg-slate-900 text-white z-50 p-6 shadow-2xl transform -translate-x-full flex flex-col justify-between border-r border-slate-800">
+        <div>
+            <div class="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
+                <h2 class="text-base font-bold text-amber-400">🏨 Inder Paradise</h2>
+                <button onclick="toggleSidebar()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
             </div>
+            <nav class="space-y-2">
+                <a href="dashboard.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 bg-indigo-600 text-white shadow-md"><span>📊</span> <span>Dashboard</span></a>
+                <a href="rooms-list.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🛏️</span> <span>Rooms List</span></a>
+                <a href="rooms-status.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🟢</span> <span>Rooms Status</span></a>
+                <a href="guest-info.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>👥</span> <span>Guest Info</span></a>
+            </nav>
+        </div>
+        <div class="border-t border-slate-800 pt-4">
+            <button onclick="document.getElementById('logout-btn').click()" class="w-full bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white py-2 rounded-xl text-xs font-semibold transition border border-rose-600/30">Logout Portal 🚪</button>
+        </div>
+    </aside>
 
-            <!-- Offline Booking Form -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center">📝 <span>Quick Booking</span></h2>
-                <form id="offline-booking-form" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Select Room</label>
-                        <select id="book-room-select" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" required>
-                            <option value="">-- Choose Room --</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Guest Name</label>
-                        <input type="text" id="guest-name" placeholder="Enter guest name" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-sm outline-none" required>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Booking Type</label>
-                        <select id="booking-mode" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-sm outline-none">
-                            <option value="Offline">Offline / Walk-in</option>
-                            <option value="Online">Online Accepted</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-xl text-sm transition shadow-lg shadow-indigo-100">Confirm Booking 🚀</button>
-                </form>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full space-y-6">
+
+        <!-- 4 Live Counters Boxes -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase">Total Rooms</p>
+                    <h3 class="text-2xl font-black text-slate-900 mt-1">24</h3>
+                </div>
+                <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center font-bold text-lg">🏨</div>
+            </div>
+            <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase">Available Rooms</p>
+                    <h3 id="count-available" class="text-2xl font-black text-emerald-600 mt-1">24</h3>
+                </div>
+                <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center font-bold text-lg">🟢</div>
+            </div>
+            <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase">Booked Rooms</p>
+                    <h3 id="count-booked" class="text-2xl font-black text-rose-600 mt-1">0</h3>
+                </div>
+                <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center font-bold text-lg">🔴</div>
+            </div>
+            <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase">Active Bookings</p>
+                    <h3 id="count-active" class="text-2xl font-black text-indigo-600 mt-1">0</h3>
+                </div>
+                <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center font-bold text-lg">⚡</div>
             </div>
         </div>
 
-        <!-- Right Section: All 24 Rooms Grid View -->
-        <div class="lg:col-span-3 space-y-6">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold text-slate-800 flex items-center">🚪 <span>All 24 Rooms Live Status</span></h2>
-                    <span class="text-xs text-slate-500 bg-slate-100 px-3 py-1 rounded-full font-medium">Rates include GST + Breakfast 🍳</span>
-                </div>
-
-                <!-- Room Grid Container -->
-                <div id="rooms-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                    <!-- Dynamic Rooms loaded here -->
-                </div>
+        <!-- Active Bookings Table / List Section -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <h2 class="text-base font-bold text-slate-900">📋 Currently Booked Rooms List</h2>
+                <span class="text-xs text-slate-500 font-semibold" id="booked-count-badge">0 Rooms Occupied</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead>
+                        <tr class="bg-slate-50 text-slate-500 font-bold border-b border-slate-100">
+                            <th class="p-3 rounded-l-xl">Room No</th>
+                            <th class="p-3">Category</th>
+                            <th class="p-3">Guest Name</th>
+                            <th class="p-3">Mobile</th>
+                            <th class="p-3">Check-In</th>
+                            <th class="p-3 rounded-r-xl">Check-Out</th>
+                        </tr>
+                    </thead>
+                    <tbody id="active-bookings-tbody">
+                        <tr>
+                            <td colspan="6" class="text-center py-6 text-slate-400 font-medium">No active bookings found. All rooms are available.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -94,14 +138,14 @@
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
-        Hotel Inder Paradise Management Dashboard &copy; 2026. Multiple Bookings Supported.
+        Hotel Inder Paradise Management Portal &copy; 2026. All Rights Reserved.
     </footer>
 
-    <!-- Firebase SDK & Dashboard Logic -->
+    <!-- Firebase & Logic Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyDSk5NYb9Wm3fMnhrIsEvY1YmQKemXKB-Q",
@@ -117,33 +161,13 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        let roomsDataMap = {};
-
-        // Master setup for 24 rooms categories & rates
-        const masterRoomsData = {};
-        for (let i = 1; i <= 24; i++) {
-            let roomNo = (100 + i).toString();
-            let cat = i <= 8 ? "Deluxe Room" : (i <= 19 ? "Super Deluxe" : (i === 20 ? "Triple Executive" : (i <= 22 ? "Suite Gold" : "Suite Platinum")));
-            let singleRate = cat === "Deluxe Room" ? 2400 : (cat === "Super Deluxe" ? 2700 : (cat === "Triple Executive" ? 3000 : (cat === "Suite Gold" ? 4200 : 4500)));
-            let doubleRate = cat === "Deluxe Room" ? 3000 : (cat === "Super Deluxe" ? 3300 : (cat === "Triple Executive" ? 3500 : (cat === "Suite Gold" ? 5200 : 5500)));
-            
-            masterRoomsData[roomNo] = {
-                id: roomNo,
-                category: cat,
-                single: singleRate,
-                double: doubleRate,
-                status: "Available",
-                guest: "",
-                type: "None"
-            };
-        }
+        let allRoomsData = {};
 
         onAuthStateChanged(auth, (user) => {
-            if (user) {
-                document.getElementById('admin-email').innerText = user.email;
-                initDashboardData();
-            } else {
+            if (!user) {
                 window.location.href = "admin.html";
+            } else {
+                listenToAllRooms();
             }
         });
 
@@ -151,116 +175,77 @@
             signOut(auth).then(() => { window.location.href = "admin.html"; });
         });
 
-        function initDashboardData() {
-            // Real-time snapshot listener ensuring multiple bookings merge safely
+        function listenToAllRooms() {
+            // Real-time listener for all rooms collection
             onSnapshot(collection(db, "rooms"), (snapshot) => {
+                // Merge data properly without wiping out records
                 snapshot.forEach(docSnap => {
-                    roomsDataMap[docSnap.id] = { ...masterRoomsData[docSnap.id], ...docSnap.data() };
+                    allRoomsData[docSnap.id] = docSnap.data();
                 });
-                renderDashboard();
+
+                updateDashboardMetrics();
             });
         }
 
-        function renderDashboard() {
-            const grid = document.getElementById('rooms-grid');
-            const selectDropdown = document.getElementById('book-room-select');
-            if (!grid || !selectDropdown) return;
-
-            grid.innerHTML = "";
-            selectDropdown.innerHTML = '<option value="">-- Choose Room --</option>';
-
-            let availableCount = 0;
+        function updateDashboardMetrics() {
             let bookedCount = 0;
+            let tbody = document.getElementById('active-bookings-tbody');
+            tbody.innerHTML = "";
+
+            let activeBookingsList = [];
 
             for (let i = 1; i <= 24; i++) {
                 let roomNo = (100 + i).toString();
-                let room = roomsDataMap[roomNo] || masterRoomsData[roomNo];
-                let isBooked = room.status === "Booked" && room.guest && room.guest.trim() !== "";
+                let rData = allRoomsData[roomNo];
 
-                if (isBooked) {
+                if (rData && rData.status === "Booked" && rData.customer && rData.customer.trim() !== "") {
                     bookedCount++;
-                } else {
-                    availableCount++;
-                    selectDropdown.innerHTML += `<option value="${room.id}">Room ${room.id} (${room.category})</option>`;
+                    activeBookingsList.push(rData);
                 }
-
-                grid.innerHTML += `
-                    <div class="p-5 rounded-2xl border ${isBooked ? 'bg-rose-50/50 border-rose-200' : 'bg-white border-slate-200'} shadow-sm flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="font-bold text-lg text-slate-800">Room #${room.id}</span>
-                                <span class="text-xs px-2.5 py-1 rounded-full font-semibold ${isBooked ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'}">
-                                    ${isBooked ? 'Booked 🔴' : 'Available 🟢'}
-                                </span>
-                            </div>
-                            <p class="text-xs font-medium text-indigo-600 mb-3">${room.category}</p>
-                            <div class="text-xs text-slate-600 space-y-1 mb-4">
-                                <p>Single: ₹${room.single} <span class="text-[10px] text-slate-400">(+GST)</span></p>
-                                <p>Double: ₹${room.double} <span class="text-[10px] text-slate-400">(+GST)</span></p>
-                            </div>
-                            ${isBooked ? `<p class="text-xs text-rose-600 font-semibold mb-3">👤 Guest: ${room.guest} (${room.type || 'Offline'})</p>` : ''}
-                        </div>
-                        <div>
-                            ${isBooked ? 
-                                `<button onclick="freeRoom('${room.id}')" class="w-full bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold py-2 rounded-xl transition">Checkout / Free Room</button>` : 
-                                `<span class="text-xs text-emerald-600 font-medium flex items-center justify-center bg-emerald-50 py-2 rounded-xl">Ready for Booking</span>`
-                            }
-                        </div>
-                    </div>
-                `;
             }
 
-            document.getElementById('count-available').innerText = availableCount;
+            // Update Counters
             document.getElementById('count-booked').innerText = bookedCount;
+            document.getElementById('count-available').innerText = 24 - bookedCount;
+            document.getElementById('count-active').innerText = bookedCount;
+            document.getElementById('booked-count-badge').innerText = `${bookedCount} Rooms Occupied`;
+
+            if (activeBookingsList.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-400 font-medium">No active bookings found. All rooms are available.</td></tr>`;
+                return;
+            }
+
+            // Populate Table
+            activeBookingsList.forEach(room => {
+                tbody.innerHTML += `
+                    <tr class="border-b border-slate-100 hover:bg-slate-50 transition">
+                        <td class="p-3 font-bold text-indigo-600">#${room.id}</td>
+                        <td class="p-3 font-semibold text-slate-700">${room.category || 'Deluxe'}</td>
+                        <td class="p-3 font-bold text-slate-900">${room.customer}</td>
+                        <td class="p-3 text-slate-600">${room.mobile || 'N/A'}</td>
+                        <td class="p-3 text-slate-600">${room.checkIn ? new Date(room.checkIn).toLocaleString() : 'N/A'}</td>
+                        <td class="p-3 text-slate-600">${room.checkOut ? new Date(room.checkOut).toLocaleString() : 'N/A'}</td>
+                    </tr>
+                `;
+            });
         }
 
-        // Handle Quick Booking from Dashboard
-        document.getElementById('offline-booking-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const roomId = document.getElementById('book-room-select').value;
-            const guestName = document.getElementById('guest-name').value.trim();
-            const bookingMode = document.getElementById('booking-mode').value;
+        window.toggleSidebar = function() {
+            document.getElementById('sidebar-menu').classList.toggle('-translate-x-full');
+            document.getElementById('sidebar-overlay').classList.toggle('hidden');
+        };
 
-            if (!roomId || !guestName) return alert("Please select a room and enter guest name!");
-
-            let baseData = roomsDataMap[roomId] || masterRoomsData[roomId];
-            let updatedData = {
-                ...baseData,
-                status: "Booked",
-                guest: guestName,
-                type: bookingMode
-            };
-
-            try {
-                await setDoc(doc(db, "rooms", roomId), updatedData, { merge: true });
-                roomsDataMap[roomId] = updatedData;
-                document.getElementById('offline-booking-form').reset();
-                renderDashboard();
-                alert(`Room #${roomId} successfully booked for ${guestName}! 🎉`);
-            } catch (err) {
-                alert("Booking error: " + err.message);
-            }
-        });
-
-        // Checkout / Free Room Function
-        window.freeRoom = async function(roomId) {
-            if(confirm(`Are you sure you want to checkout Room #${roomId}?`)) {
-                let baseData = roomsDataMap[roomId] || masterRoomsData[roomId];
-                let resetData = {
-                    ...baseData,
-                    status: "Available",
-                    guest: "",
-                    type: "None"
-                };
-                try {
-                    await setDoc(doc(db, "rooms", roomId), resetData, { merge: true });
-                    roomsDataMap[roomId] = resetData;
-                    renderDashboard();
-                } catch (err) {
-                    alert("Checkout error: " + err.message);
-                }
-            }
-        }
+        window.changeTheme = function(theme) {
+            const body = document.getElementById('page-body');
+            if(theme === 'dark') { body.className = "bg-slate-950 text-slate-100 min-h-screen flex flex-col"; }
+            else if(theme === 'emerald') { body.className = "bg-emerald-950 text-emerald-50 min-h-screen flex flex-col"; }
+            else if(theme === 'indigo') { body.className = "bg-indigo-950 text-indigo-50 min-h-screen flex flex-col"; }
+            else if(theme === 'amber') { body.className = "bg-amber-950 text-amber-50 min-h-screen flex flex-col"; }
+            else if(theme === 'rose') { body.className = "bg-rose-950 text-rose-50 min-h-screen flex flex-col"; }
+            else if(theme === 'cyan') { body.className = "bg-cyan-950 text-cyan-50 min-h-screen flex flex-col"; }
+            else if(theme === 'light') { body.className = "bg-white text-slate-900 min-h-screen flex flex-col"; }
+            else { body.className = "bg-slate-100 text-slate-800 min-h-screen flex flex-col"; }
+        };
     </script>
 </body>
 </html>
