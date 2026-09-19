@@ -56,13 +56,13 @@
 
             <div class="flex items-center space-x-2">
                 <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[11px] font-bold">
-                    Firestore Cloud Live Sync ⚡
+                    Analytics & Permanent Logs 📊
                 </span>
             </div>
 
             <div class="flex items-center space-x-3">
                 <div class="flex items-center space-x-2 pl-2">
-                    <button id="logout-btn" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition shadow-lg">Logout</button>
+                    <button id="logout-btn" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition shadow-lg">Logout 🚪</button>
                 </div>
             </div>
         </div>
@@ -133,11 +133,11 @@
             </div>
         </div>
 
-        <!-- Recently Booked Rooms List Section (Cloud Firestore Log) -->
+        <!-- Recently Booked Rooms List Section (Permanent & Fast Loading) -->
         <div class="glass-box p-6 space-y-4">
-            <h3 class="text-base font-bold text-white flex items-center">🕒 <span class="ml-2">Recently Booked Rooms List (Cloud Log)</span></h3>
+            <h3 class="text-base font-bold text-white flex items-center">🕒 <span class="ml-2">Recently Booked Rooms List (Permanent Log)</span></h3>
             <div id="recent-bookings-list" class="divide-y divide-slate-800">
-                <p class="text-xs text-slate-400 py-3 text-center">Loading recent bookings...</p>
+                <p class="text-xs text-slate-400 py-3 text-center">No recent bookings found.</p>
             </div>
         </div>
 
@@ -210,11 +210,11 @@
         Hotel Inder Paradise Management Portal &copy; 2026. Dashboard Active.
     </footer>
 
-    <!-- Firebase & Real-Time Sync Script (No Local Storage) -->
+    <!-- Firebase & Direct Firestore Real-Time Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, doc, setDoc, addCollection, addDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyDSk5NYb9Wm3fMnhrIsEvY1YmQKemXKB-Q",
@@ -244,7 +244,6 @@
                 window.location.href = "admin.html";
             } else {
                 loadDashboardData();
-                loadHistoryData();
             }
         });
 
@@ -252,10 +251,10 @@
             signOut(auth).then(() => { window.location.href = "admin.html"; });
         });
 
-        // Real-time listener for rooms data (Live on both Mobile and PC)
         function loadDashboardData() {
+            // Direct Firestore Real-Time Listener (No local storage cache for rooms data)
             onSnapshot(collection(db, "rooms"), (snapshot) => {
-                roomsDataMap = {};
+                roomsDataMap = {}; // Reset local map to match database state precisely
                 snapshot.forEach(docSnap => {
                     let d = docSnap.data();
                     let roomNo = docSnap.id;
@@ -285,45 +284,20 @@
             });
         }
 
-        // Real-time listener for history logs from Firestore
-        function loadHistoryData() {
-            onSnapshot(collection(db, "booking_history"), (snapshot) => {
-                let recentContainer = document.getElementById('recent-bookings-list');
-                recentContainer.innerHTML = "";
-
-                let historyList = [];
-                snapshot.forEach(docSnap => {
-                    historyList.push(docSnap.data());
-                });
-
-                if (historyList.length > 0) {
-                    // Sort by check-in time or display last 10 entries
-                    historyList.slice(-10).reverse().forEach(b => {
-                        recentContainer.innerHTML += `
-                            <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                                <div>
-                                    <p class="text-xs font-bold text-white">Room #${b.id} (${b.category || 'Standard'}) - <span class="text-indigo-400">${b.customer}</span></p>
-                                    <p class="text-[11px] text-slate-400">Mobile: ${b.mobile || 'N/A'} | Type: <span class="font-bold text-slate-200">${b.bookingType || 'Offline'}</span> | Out: ${b.checkOut ? b.checkOut.replace('T', ' ') : 'N/A'}</p>
-                                </div>
-                                <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[10px] font-bold">Cloud Synced 📌</span>
-                            </div>
-                        `;
-                    });
-                } else {
-                    recentContainer.innerHTML = `<p class="text-xs text-slate-400 py-3 text-center">No recent bookings found.</p>`;
-                }
-            });
-        }
-
         function updateDashboardUI(dataMap) {
             let bookedCount = 0;
             let offlineCount = 0;
             let onlineCount = 0;
+            let recentContainer = document.getElementById('recent-bookings-list');
+            recentContainer.innerHTML = "";
+
+            let permanentGuestLogs = [];
 
             for (let i = 1; i <= 24; i++) {
                 let rNo = (100 + i).toString();
                 let d = dataMap[rNo];
                 if (d && d.customer && d.customer.trim() !== "") {
+                    permanentGuestLogs.push(d);
                     if (d.status === "Booked") {
                         bookedCount++;
                         if (d.bookingType === "Online") onlineCount++;
@@ -332,10 +306,36 @@
                 }
             }
 
+            try {
+                let existingHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
+                permanentGuestLogs.forEach(guest => {
+                    let exists = existingHistory.some(h => h.id === guest.id && h.customer === guest.customer && h.checkIn === guest.checkIn);
+                    if (!exists) existingHistory.push(guest);
+                });
+                localStorage.setItem('inder_permanent_history', JSON.stringify(existingHistory));
+            } catch(e) {}
+
             document.getElementById('stat-available').innerText = 24 - bookedCount;
             document.getElementById('stat-booked').innerText = bookedCount;
             document.getElementById('stat-offline').innerText = offlineCount;
             document.getElementById('stat-online').innerText = onlineCount;
+
+            let storedHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
+            if (storedHistory.length > 0) {
+                storedHistory.slice(-10).reverse().forEach(b => {
+                    recentContainer.innerHTML += `
+                        <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                            <div>
+                                <p class="text-xs font-bold text-white">Room #${b.id} (${b.category || 'Standard'}) - <span class="text-indigo-400">${b.customer}</span></p>
+                                <p class="text-[11px] text-slate-400">Mobile: ${b.mobile || 'N/A'} | Type: <span class="font-bold text-slate-200">${b.bookingType || 'Offline'}</span> | Out: ${b.checkOut ? b.checkOut.replace('T', ' ') : 'N/A'}</p>
+                            </div>
+                            <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[10px] font-bold">Logged 📌</span>
+                        </div>
+                    `;
+                });
+            } else {
+                recentContainer.innerHTML = `<p class="text-xs text-slate-400 py-3 text-center">No recent bookings found.</p>`;
+            }
         }
 
         window.openNewBookingModal = function() {
@@ -419,12 +419,11 @@
             };
 
             try {
-                // Update room status in Firestore (triggers real-time sync across devices)
                 await setDoc(doc(db, "rooms", targetRoomNo), bookingData, { merge: true });
-                
-                // Save log to Firestore history collection so both mobile & PC see it instantly
-                const historyRef = doc(collection(db, "booking_history"));
-                await setDoc(historyRef, bookingData);
+
+                let existingHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
+                existingHistory.push(bookingData);
+                localStorage.setItem('inder_permanent_history', JSON.stringify(existingHistory));
 
                 alert(`🎉 Booking successful! Assigned to Room #${targetRoomNo} (${category} - ${bookingType}).`);
                 
