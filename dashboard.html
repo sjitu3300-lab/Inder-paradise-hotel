@@ -239,6 +239,15 @@
             "Suite Platinum": 2
         };
 
+        // Fast Load Cache check
+        try {
+            const cachedRooms = localStorage.getItem('inder_dashboard_rooms_cache');
+            if (cachedRooms) {
+                roomsDataMap = JSON.parse(cachedRooms);
+                updateDashboardUI(roomsDataMap);
+            }
+        } catch(e) {}
+
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = "admin.html";
@@ -280,6 +289,11 @@
                     }
                     roomsDataMap[roomNo] = d;
                 });
+
+                // Cache store for fast load on refresh
+                try {
+                    localStorage.setItem('inder_dashboard_rooms_cache', JSON.stringify(roomsDataMap));
+                } catch(e) {}
 
                 updateDashboardUI(roomsDataMap);
             });
@@ -341,7 +355,7 @@
             }
         }
 
-          // Open modal and set check-in to present time automatically ⏰
+        // Open modal and set check-in to present time automatically ⏰
         window.openNewBookingModal = function() {
             const now = new Date();
             const year = now.getFullYear();
@@ -440,6 +454,11 @@
             try {
                 await setDoc(doc(db, "rooms", targetRoomNo), bookingData, { merge: true });
 
+                roomsDataMap[targetRoomNo] = bookingData;
+                try {
+                    localStorage.setItem('inder_dashboard_rooms_cache', JSON.stringify(roomsDataMap));
+                } catch(e) {}
+
                 let existingHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
                 existingHistory.push(bookingData);
                 localStorage.setItem('inder_permanent_history', JSON.stringify(existingHistory));
@@ -448,6 +467,7 @@
                 
                 closeNewBookingModal();
                 document.getElementById('booking-form').reset();
+                updateDashboardUI(roomsDataMap);
             } catch(err) {
                 alert("Error saving booking: " + err.message);
             } finally {
