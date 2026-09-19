@@ -252,9 +252,9 @@
         });
 
         function loadDashboardData() {
-            // Direct Firestore Real-Time Listener (No local storage cache for rooms data)
+            // Direct Firestore Real-Time Listener
             onSnapshot(collection(db, "rooms"), (snapshot) => {
-                roomsDataMap = {}; // Reset local map to match database state precisely
+                roomsDataMap = {}; 
                 snapshot.forEach(docSnap => {
                     let d = docSnap.data();
                     let roomNo = docSnap.id;
@@ -432,6 +432,7 @@
             } catch(err) {
                 alert("Error saving booking: " + err.message);
             } finally {
+                // Button state reset fix ensuring form closes properly 🔄
                 saveBtn.innerText = "Save Booking 🚀";
                 saveBtn.disabled = false;
             }
