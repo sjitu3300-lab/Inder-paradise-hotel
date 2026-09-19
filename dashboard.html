@@ -252,7 +252,7 @@
         });
 
         function loadDashboardData() {
-            // Direct Firestore Real-Time Listener
+            // Direct Firestore Real-Time Listener (Live Data sync for rooms status)
             onSnapshot(collection(db, "rooms"), (snapshot) => {
                 roomsDataMap = {}; 
                 snapshot.forEach(docSnap => {
@@ -260,6 +260,7 @@
                     let roomNo = docSnap.id;
                     
                     let now = new Date().getTime();
+                    // Check-out buffer rule (10 minutes after check-out time auto clears room data)
                     if (d.checkOut && d.status === "Booked") {
                         let checkoutTime = new Date(d.checkOut).getTime();
                         let bufferTime = checkoutTime + (10 * 60 * 1000);
@@ -293,6 +294,7 @@
 
             let permanentGuestLogs = [];
 
+            // Loop through all 24 rooms (101 to 124) to calculate 4 stat boxes dynamically
             for (let i = 1; i <= 24; i++) {
                 let rNo = (100 + i).toString();
                 let d = dataMap[rNo];
@@ -315,6 +317,7 @@
                 localStorage.setItem('inder_permanent_history', JSON.stringify(existingHistory));
             } catch(e) {}
 
+            // Update 4 Stat Boxes Live Numbers 📊
             document.getElementById('stat-available').innerText = 24 - bookedCount;
             document.getElementById('stat-booked').innerText = bookedCount;
             document.getElementById('stat-offline').innerText = offlineCount;
@@ -338,11 +341,26 @@
             }
         }
 
+             // Open modal and set check-in to present time automatically ⏰
         window.openNewBookingModal = function() {
             const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+
             const tomorrow = new Date(now.getTime() + 86400000);
-            document.getElementById('b-checkin').value = now.toISOString().slice(0, 16);
-            document.getElementById('b-checkout').value = tomorrow.toISOString().slice(0, 16);
+            const tYear = tomorrow.getFullYear();
+            const tMonth = String(tomorrow.getMonth() + 1).padStart(2, '0');
+            const tDay = String(tomorrow.getDate()).padStart(2, '0');
+            const tHours = String(tomorrow.getHours()).padStart(2, '0');
+            const tMinutes = String(tomorrow.getMinutes()).padStart(2, '0');
+            const tomorrowDateTime = `${tYear}-${tMonth}-${tDay}T${tHours}:${tMinutes}`;
+
+            document.getElementById('b-checkin').value = currentDateTime;
+            document.getElementById('b-checkout').value = tomorrowDateTime;
             document.getElementById('booking-modal').classList.remove('hidden');
         };
 
@@ -350,6 +368,7 @@
             document.getElementById('booking-modal').classList.add('hidden');
         };
 
+        // Save new booking with proper button reset and modal close assurance 🚀
         window.saveNewBooking = async function(e) {
             e.preventDefault();
             let customer = document.getElementById('b-customer').value.trim();
@@ -432,7 +451,6 @@
             } catch(err) {
                 alert("Error saving booking: " + err.message);
             } finally {
-                // Button state reset fix ensuring form closes properly 🔄
                 saveBtn.innerText = "Save Booking 🚀";
                 saveBtn.disabled = false;
             }
