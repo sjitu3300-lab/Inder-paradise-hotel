@@ -16,7 +16,6 @@
         }
         #sidebar-menu { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
-        /* 3D Glass Box & Bottom Shadow Style */
         .glass-box {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(16px);
@@ -239,7 +238,6 @@
             "Suite Platinum": 2
         };
 
-        // Instant Load from Persistent Cache on Startup
         try {
             let cached = localStorage.getItem('inder_rooms_cache_v2');
             if (cached) {
@@ -260,9 +258,28 @@
             signOut(auth).then(() => { window.location.href = "admin.html"; });
         });
 
-        function loadDashboardData() {
+        async function loadDashboardData() {
+            // Auto-initialize 24 rooms if missing
+            for (let i = 1; i <= 24; i++) {
+                let roomNo = (100 + i).toString();
+                let defCat = i <= 8 ? "Deluxe" : (i <= 19 ? "Super Deluxe" : (i === 20 ? "Triple Executive" : (i <= 22 ? "Suite Gold" : "Suite Platinum")));
+                if (!roomsDataMap[roomNo]) {
+                    roomsDataMap[roomNo] = {
+                        id: roomNo,
+                        category: defCat,
+                        status: "Available",
+                        customer: "",
+                        mobile: "",
+                        idNo: "",
+                        bookingType: "",
+                        bedType: "Double Bed",
+                        checkIn: "",
+                        checkOut: ""
+                    };
+                }
+            }
+
             onSnapshot(collection(db, "rooms"), (snapshot) => {
-                // Merge data properly so existing rooms data is never wiped out
                 snapshot.forEach(docSnap => {
                     let d = docSnap.data();
                     let roomNo = docSnap.id;
@@ -288,7 +305,6 @@
                     roomsDataMap[roomNo] = d;
                 });
 
-                // Save to localStorage cache
                 try {
                     localStorage.setItem('inder_rooms_cache_v2', JSON.stringify(roomsDataMap));
                 } catch(e) {}
@@ -309,17 +325,19 @@
             for (let i = 1; i <= 24; i++) {
                 let rNo = (100 + i).toString();
                 let d = dataMap[rNo];
-                if (d && d.customer && d.customer.trim() !== "") {
+                if (d && d.status === "Booked" && d.customer && d.customer.trim() !== "") {
                     permanentGuestLogs.push(d);
-                    if (d.status === "Booked") {
-                        bookedCount++;
-                        if (d.bookingType === "Online") onlineCount++;
-                        else offlineCount++;
+                    bookedCount++;
+                    
+                    let bType = d.bookingType ? d.bookingType.trim().toLowerCase() : "offline";
+                    if (bType === "online") {
+                        onlineCount++;
+                    } else {
+                        offlineCount++;
                     }
                 }
             }
 
-            // Save permanent history to prevent data loss on refresh
             try {
                 let existingHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
                 permanentGuestLogs.forEach(guest => {
@@ -352,7 +370,6 @@
             }
         }
 
-        // Helper function for accurate local real-time formatting
         function getLocalDateTime(date = new Date()) {
             const tzOffset = date.getTimezoneOffset() * 60000;
             const localISOTime = new Date(date - tzOffset).toISOString().slice(0, 16);
@@ -361,7 +378,7 @@
 
         window.openNewBookingModal = function() {
             const now = new Date();
-            const tomorrow = new Date(now.getTime() + 86400000); // 24 hours later
+            const tomorrow = new Date(now.getTime() + 86400000);
             
             document.getElementById('b-checkin').value = getLocalDateTime(now);
             document.getElementById('b-checkout').value = getLocalDateTime(tomorrow);
