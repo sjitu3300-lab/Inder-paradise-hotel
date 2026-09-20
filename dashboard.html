@@ -16,7 +16,7 @@
         }
         #sidebar-menu { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
-        /* 3D Glass Box & Bottom Shadow Style */
+        /* 3D Glass Box Style */
         .glass-box {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(16px);
@@ -101,7 +101,7 @@
             </button>
         </div>
 
-        <!-- 4 Stat Counters (3D Glass Boxes) -->
+        <!-- 4 Stat Counters -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="glass-box p-5 flex items-center justify-between">
                 <div>
@@ -133,7 +133,7 @@
             </div>
         </div>
 
-        <!-- Recently Booked Rooms List Section (Permanent & Fast Loading) -->
+        <!-- Recently Booked Rooms List Section -->
         <div class="glass-box p-6 space-y-4">
             <h3 class="text-base font-bold text-white flex items-center">🕒 <span class="ml-2">Recently Booked Rooms List (Permanent Log)</span></h3>
             <div id="recent-bookings-list" class="divide-y divide-slate-800">
@@ -261,7 +261,6 @@
         });
 
         function loadDashboardData() {
-            // Direct Firestore Real-Time Listener (Live Data sync for rooms status)
             onSnapshot(collection(db, "rooms"), (snapshot) => {
                 roomsDataMap = {}; 
                 snapshot.forEach(docSnap => {
@@ -269,7 +268,6 @@
                     let roomNo = docSnap.id;
                     
                     let now = new Date().getTime();
-                    // Check-out buffer rule (10 minutes after check-out time auto clears room data)
                     if (d.checkOut && d.status === "Booked") {
                         let checkoutTime = new Date(d.checkOut).getTime();
                         let bufferTime = checkoutTime + (10 * 60 * 1000);
@@ -290,7 +288,6 @@
                     roomsDataMap[roomNo] = d;
                 });
 
-                // Cache store for fast load on refresh
                 try {
                     localStorage.setItem('inder_dashboard_rooms_cache', JSON.stringify(roomsDataMap));
                 } catch(e) {}
@@ -308,16 +305,20 @@
 
             let permanentGuestLogs = [];
 
-            // Loop through all 24 rooms (101 to 124) to calculate 4 stat boxes dynamically
+            // Sabhi 24 independent rooms (#101 to #124) ko loop karke accurately count karte hain
             for (let i = 1; i <= 24; i++) {
                 let rNo = (100 + i).toString();
                 let d = dataMap[rNo];
-                if (d && d.customer && d.customer.trim() !== "") {
+                if (d && d.status === "Booked" && d.customer && d.customer.trim() !== "") {
                     permanentGuestLogs.push(d);
-                    if (d.status === "Booked") {
-                        bookedCount++;
-                        if (d.bookingType === "Online") onlineCount++;
-                        else offlineCount++;
+                    bookedCount++;
+                    
+                    // Booking type ko safely check karte hain taaki offline/online alag count ho
+                    let bType = d.bookingType ? String(d.bookingType).trim().toLowerCase() : "offline";
+                    if (bType === "online") {
+                        onlineCount++;
+                    } else {
+                        offlineCount++;
                     }
                 }
             }
@@ -331,7 +332,7 @@
                 localStorage.setItem('inder_permanent_history', JSON.stringify(existingHistory));
             } catch(e) {}
 
-            // Update 4 Stat Boxes Live Numbers 📊
+            // 4 Stat boxes ke numbers live update hote hain
             document.getElementById('stat-available').innerText = 24 - bookedCount;
             document.getElementById('stat-booked').innerText = bookedCount;
             document.getElementById('stat-offline').innerText = offlineCount;
@@ -355,7 +356,6 @@
             }
         }
 
-        // Open modal and set check-in to present time automatically ⏰
         window.openNewBookingModal = function() {
             const now = new Date();
             const year = now.getFullYear();
@@ -382,7 +382,6 @@
             document.getElementById('booking-modal').classList.add('hidden');
         };
 
-        // Save new booking with proper button reset and modal close assurance 🚀
         window.saveNewBooking = async function(e) {
             e.preventDefault();
             let customer = document.getElementById('b-customer').value.trim();
