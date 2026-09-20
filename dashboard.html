@@ -237,7 +237,6 @@
         });
 
         function loadDashboardData() {
-            // Direct Real-Time Firebase Sync for both Mobile and Desktop
             onSnapshot(collection(db, "rooms"), (snapshot) => {
                 roomsDataMap = {};
                 snapshot.forEach(docSnap => {
@@ -314,11 +313,19 @@
             }
         }
 
+        // Helper function for accurate local real-time formatting
+        function getLocalDateTime(date = new Date()) {
+            const tzOffset = date.getTimezoneOffset() * 60000;
+            const localISOTime = new Date(date - tzOffset).toISOString().slice(0, 16);
+            return localISOTime;
+        }
+
         window.openNewBookingModal = function() {
             const now = new Date();
-            const tomorrow = new Date(now.getTime() + 86400000);
-            document.getElementById('b-checkin').value = now.toISOString().slice(0, 16);
-            document.getElementById('b-checkout').value = tomorrow.toISOString().slice(0, 16);
+            const tomorrow = new Date(now.getTime() + 86400000); // 24 hours later
+            
+            document.getElementById('b-checkin').value = getLocalDateTime(now);
+            document.getElementById('b-checkout').value = getLocalDateTime(tomorrow);
             document.getElementById('booking-modal').classList.remove('hidden');
         };
 
@@ -348,7 +355,7 @@
 
                 if (cat === category) {
                     if (rData.status === "Booked" && rData.customer && rData.customer.trim() !== "") {
-                        currentCategoryBookged++;
+                        currentCategoryBooked++;
                     } else if (!targetRoomNo && rData.status !== "Booked") {
                         targetRoomNo = rNo;
                     }
@@ -356,7 +363,7 @@
             }
 
             let maxAllowed = categoryLimits[category];
-            if (currentCategoryBookged >= maxAllowed) {
+            if (currentCategoryBooked >= maxAllowed) {
                 alert(`⚠️ Cannot book! All ${maxAllowed} rooms for "${category}" are already fully booked!`);
                 return;
             }
