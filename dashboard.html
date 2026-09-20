@@ -16,7 +16,6 @@
         }
         #sidebar-menu { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
-        /* 3D Glass Box Style */
         .glass-box {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(16px);
@@ -43,26 +42,26 @@
     <!-- Top Header & Navigation -->
     <header class="bg-slate-900/85 backdrop-blur-md text-white shadow-xl sticky top-0 z-50 px-4 py-3 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative mb-2">
-            <h1 class="text-xl sm:text-2xl font-black tracking-wider text-amber-400 drop-shadow-md">🏨 Hotel Inder Paradise[cite: 3]</h1>
-            <p class="text-[11px] text-slate-400 font-medium">Admin Dashboard & Live Booking Analytics[cite: 3]</p>
+            <h1 class="text-xl sm:text-2xl font-black tracking-wider text-amber-400 drop-shadow-md">🏨 Hotel Inder Paradise</h1>
+            <p class="text-[11px] text-slate-400 font-medium">Admin Dashboard & Live Booking Analytics</p>
         </div>
 
         <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3 pt-2 border-t border-slate-800/80">
             <div class="flex items-center space-x-3">
                 <button onclick="toggleSidebar()" class="bg-slate-800/80 hover:bg-slate-700 px-3.5 py-2 rounded-xl text-amber-400 font-bold text-xs flex items-center space-x-2 border border-slate-700 shadow-lg transition">
-                    <span>☰ Menu[cite: 3]</span>
+                    <span>☰ Menu</span>
                 </button>
             </div>
 
             <div class="flex items-center space-x-2">
                 <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[11px] font-bold">
-                    Analytics & Permanent Logs 📊[cite: 3]
+                    Analytics & Permanent Logs 📊
                 </span>
             </div>
 
             <div class="flex items-center space-x-3">
                 <div class="flex items-center space-x-2 pl-2">
-                    <button id="logout-btn" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition shadow-lg">Logout 🚪[cite: 3]</button>
+                    <button id="logout-btn" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition shadow-lg">Logout 🚪</button>
                 </div>
             </div>
         </div>
@@ -73,18 +72,18 @@
     <aside id="sidebar-menu" class="fixed top-0 left-0 bottom-0 w-72 bg-slate-900 text-white z-50 p-6 shadow-2xl transform -translate-x-full flex flex-col justify-between border-r border-slate-800">
         <div>
             <div class="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
-                <h2 class="text-base font-bold text-amber-400">🏨 Inder Paradise[cite: 3]</h2>
-                <button onclick="toggleSidebar()" class="text-slate-400 hover:text-white text-lg font-bold">✕[cite: 3]</button>
+                <h2 class="text-base font-bold text-amber-400">🏨 Inder Paradise</h2>
+                <button onclick="toggleSidebar()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
             </div>
             <nav class="space-y-2">
-                <a href="dashboard.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 bg-indigo-600 text-white shadow-md"><span>📊[cite: 3]</span> <span>Dashboard[cite: 3]</span></a>
-                <a href="rooms-list.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🛏️[cite: 3]</span> <span>Rooms List[cite: 3]</span></a>
-                <a href="rooms-status.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🟢[cite: 3]</span> <span>Rooms Status[cite: 3]</span></a>
-                <a href="guest-info.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>👥[cite: 3]</span> <span>Guest Info[cite: 3]</span></a>
+                <a href="dashboard.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 bg-indigo-600 text-white shadow-md"><span>📊</span> <span>Dashboard</span></a>
+                <a href="rooms-list.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🛏️</span> <span>Rooms List</span></a>
+                <a href="rooms-status.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>🟢</span> <span>Rooms Status</span></a>
+                <a href="guest-info.html" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-sm flex items-center space-x-3 text-slate-300 hover:bg-slate-800 transition"><span>👥</span> <span>Guest Info</span></a>
             </nav>
         </div>
         <div class="border-t border-slate-800 pt-4">
-            <button onclick="document.getElementById('logout-btn').click()" class="w-full bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white py-2 rounded-xl text-xs font-semibold transition border border-rose-600/30">Logout Portal 🚪[cite: 3]</button>
+            <button onclick="document.getElementById('logout-btn').click()" class="w-full bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white py-2 rounded-xl text-xs font-semibold transition border border-rose-600/30">Logout Portal 🚪</button>
         </div>
     </aside>
 
@@ -93,11 +92,11 @@
 
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4 glass-box p-6">
             <div>
-                <h2 class="text-lg font-bold text-white">📊 Hotel Analytics & Management[cite: 3]</h2>
-                <p class="text-xs text-slate-400">Live breakdown with 10-minute post-checkout buffer rule[cite: 3].</p>
+                <h2 class="text-lg font-bold text-white">📊 Hotel Analytics & Management</h2>
+                <p class="text-xs text-slate-400">Live breakdown with 10-minute post-checkout buffer rule.</p>
             </div>
             <button onclick="openNewBookingModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-5 py-3 rounded-2xl text-xs transition shadow-lg shadow-indigo-600/30 flex items-center space-x-2">
-                <span>➕[cite: 3]</span> <span>New Booking[cite: 3]</span>
+                <span>➕</span> <span>New Booking</span>
             </button>
         </div>
 
@@ -105,39 +104,39 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="glass-box p-5 flex items-center justify-between">
                 <div>
-                    <p class="text-xs text-slate-300 font-semibold">Available Rooms 🟢[cite: 3]</p>
-                    <h3 id="stat-available" class="text-2xl font-black text-emerald-400 mt-1">24[cite: 3]</h3>
+                    <p class="text-xs text-slate-300 font-semibold">Available Rooms 🟢</p>
+                    <h3 id="stat-available" class="text-2xl font-black text-emerald-400 mt-1">24</h3>
                 </div>
-                <div class="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center font-bold text-lg shadow-inner">🟢[cite: 3]</div>
+                <div class="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center font-bold text-lg shadow-inner">🟢</div>
             </div>
             <div class="glass-box p-5 flex items-center justify-between">
                 <div>
-                    <p class="text-xs text-slate-300 font-semibold">Total Booked 🔴[cite: 3]</p>
-                    <h3 id="stat-booked" class="text-2xl font-black text-rose-400 mt-1">0[cite: 3]</h3>
+                    <p class="text-xs text-slate-300 font-semibold">Total Booked 🔴</p>
+                    <h3 id="stat-booked" class="text-2xl font-black text-rose-400 mt-1">0</h3>
                 </div>
-                <div class="w-12 h-12 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-2xl flex items-center justify-center font-bold text-lg shadow-inner">🔴[cite: 3]</div>
+                <div class="w-12 h-12 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-2xl flex items-center justify-center font-bold text-lg shadow-inner">🔴</div>
             </div>
             <div class="glass-box p-5 flex items-center justify-between">
                 <div>
-                    <p class="text-xs text-slate-300 font-semibold">Offline Bookings 🏨[cite: 3]</p>
-                    <h3 id="stat-offline" class="text-2xl font-black text-indigo-400 mt-1">0[cite: 3]</h3>
+                    <p class="text-xs text-slate-300 font-semibold">Offline Bookings 🏨</p>
+                    <h3 id="stat-offline" class="text-2xl font-black text-indigo-400 mt-1">0</h3>
                 </div>
-                <div class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg shadow-inner">🏨[cite: 3]</div>
+                <div class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg shadow-inner">🏨</div>
             </div>
             <div class="glass-box p-5 flex items-center justify-between">
                 <div>
-                    <p class="text-xs text-slate-300 font-semibold">Online Bookings 🌐[cite: 3]</p>
-                    <h3 id="stat-online" class="text-2xl font-black text-amber-400 mt-1">0[cite: 3]</h3>
+                    <p class="text-xs text-slate-300 font-semibold">Online Bookings 🌐</p>
+                    <h3 id="stat-online" class="text-2xl font-black text-amber-400 mt-1">0</h3>
                 </div>
-                <div class="w-12 h-12 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center font-bold text-lg shadow-inner">🌐[cite: 3]</div>
+                <div class="w-12 h-12 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center font-bold text-lg shadow-inner">🌐</div>
             </div>
         </div>
 
         <!-- Recently Booked Rooms List Section -->
         <div class="glass-box p-6 space-y-4">
-            <h3 class="text-base font-bold text-white flex items-center">🕒 <span class="ml-2">Recently Booked Rooms List (Permanent Log)[cite: 3]</span></h3>
+            <h3 class="text-base font-bold text-white flex items-center">🕒 <span class="ml-2">Recently Booked Rooms List (Permanent Log)</span></h3>
             <div id="recent-bookings-list" class="divide-y divide-slate-800">
-                <p class="text-xs text-slate-400 py-3 text-center">No recent bookings found[cite: 3].</p>
+                <p class="text-xs text-slate-400 py-3 text-center">No recent bookings found.</p>
             </div>
         </div>
 
@@ -147,59 +146,59 @@
     <div id="booking-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
         <div class="glass-box max-w-md w-full p-6 space-y-4 border border-slate-700 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-white">✨ New Booking Form[cite: 3]</h3>
-                <button type="button" onclick="closeNewBookingModal()" class="text-slate-400 hover:text-white font-bold">✕[cite: 3]</button>
+                <h3 class="text-base font-bold text-white">✨ New Booking Form</h3>
+                <button type="button" onclick="closeNewBookingModal()" class="text-slate-400 hover:text-white font-bold">✕</button>
             </div>
             <form id="booking-form" class="space-y-3 text-xs" onsubmit="saveNewBooking(event)">
                 <div>
-                    <label class="font-semibold text-slate-300">Guest Name[cite: 3]</label>
+                    <label class="font-semibold text-slate-300">Guest Name</label>
                     <input type="text" id="b-customer" required placeholder="Enter guest full name" class="w-full mt-1 p-2.5 rounded-xl glass-input">
                 </div>
                 <div>
-                    <label class="font-semibold text-slate-300">Mobile Number[cite: 3]</label>
+                    <label class="font-semibold text-slate-300">Mobile Number</label>
                     <input type="text" id="b-mobile" required placeholder="10-digit mobile number" class="w-full mt-1 p-2.5 rounded-xl glass-input">
                 </div>
                 <div>
-                    <label class="font-semibold text-slate-300">ID Card Number[cite: 3]</label>
+                    <label class="font-semibold text-slate-300">ID Card Number</label>
                     <input type="text" id="b-idno" required placeholder="Enter ID number" class="w-full mt-1 p-2.5 rounded-xl glass-input">
                 </div>
                 <div>
-                    <label class="font-semibold text-slate-300">Room Category[cite: 3]</label>
+                    <label class="font-semibold text-slate-300">Room Category</label>
                     <select id="b-category" class="w-full mt-1 p-2.5 rounded-xl glass-input font-semibold">
-                        <option value="Deluxe" class="bg-slate-900">Deluxe (Max 8 Rooms)[cite: 3]</option>
-                        <option value="Super Deluxe" class="bg-slate-900">Super Deluxe (Max 11 Rooms)[cite: 3]</option>
-                        <option value="Triple Executive" class="bg-slate-900">Triple Executive (Max 1 Room)[cite: 3]</option>
-                        <option value="Suite Gold" class="bg-slate-900">Suite Gold (Max 2 Rooms)[cite: 3]</option>
-                        <option value="Suite Platinum" class="bg-slate-900">Suite Platinum (Max 2 Rooms)[cite: 3]</option>
+                        <option value="Deluxe" class="bg-slate-900">Deluxe (Max 8 Rooms)</option>
+                        <option value="Super Deluxe" class="bg-slate-900">Super Deluxe (Max 11 Rooms)</option>
+                        <option value="Triple Executive" class="bg-slate-900">Triple Executive (Max 1 Room)</option>
+                        <option value="Suite Gold" class="bg-slate-900">Suite Gold (Max 2 Rooms)</option>
+                        <option value="Suite Platinum" class="bg-slate-900">Suite Platinum (Max 2 Rooms)</option>
                     </select>
                 </div>
                 <div>
-                    <label class="font-semibold text-slate-300">Booking Type[cite: 3]</label>
+                    <label class="font-semibold text-slate-300">Booking Type</label>
                     <select id="b-type" class="w-full mt-1 p-2.5 rounded-xl glass-input font-semibold">
-                        <option value="Offline" class="bg-slate-900">Offline Booking[cite: 3]</option>
-                        <option value="Online" class="bg-slate-900">Online Booking[cite: 3]</option>
+                        <option value="Offline" class="bg-slate-900">Offline Booking</option>
+                        <option value="Online" class="bg-slate-900">Online Booking</option>
                     </select>
                 </div>
                 <div>
-                    <label class="font-semibold text-slate-300">Bed Type[cite: 3]</label>
+                    <label class="font-semibold text-slate-300">Bed Type</label>
                     <select id="b-bed" class="w-full mt-1 p-2.5 rounded-xl glass-input font-semibold">
-                        <option value="Single Bed" class="bg-slate-900">Single Bed[cite: 3]</option>
-                        <option value="Double Bed" class="bg-slate-900">Double Bed[cite: 3]</option>
+                        <option value="Single Bed" class="bg-slate-900">Single Bed</option>
+                        <option value="Double Bed" class="bg-slate-900">Double Bed</option>
                     </select>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
-                        <label class="font-semibold text-slate-300">Check-In[cite: 3]</label>
+                        <label class="font-semibold text-slate-300">Check-In</label>
                         <input type="datetime-local" id="b-checkin" required class="w-full mt-1 p-2 rounded-xl glass-input text-[10px]">
                     </div>
                     <div>
-                        <label class="font-semibold text-slate-300">Check-Out[cite: 3]</label>
+                        <label class="font-semibold text-slate-300">Check-Out</label>
                         <input type="datetime-local" id="b-checkout" required class="w-full mt-1 p-2 rounded-xl glass-input text-[10px]">
                     </div>
                 </div>
                 <div class="flex justify-end space-x-2 pt-3 border-t border-slate-800">
-                    <button type="button" onclick="closeNewBookingModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl font-bold">Cancel[cite: 3]</button>
-                    <button type="submit" id="b-save-btn" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold shadow-lg shadow-indigo-600/30">Save Booking 🚀[cite: 3]</button>
+                    <button type="button" onclick="closeNewBookingModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl font-bold">Cancel</button>
+                    <button type="submit" id="b-save-btn" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold shadow-lg shadow-indigo-600/30">Save Booking 🚀</button>
                 </div>
             </form>
         </div>
@@ -207,7 +206,7 @@
 
     <!-- Footer -->
     <footer class="bg-slate-900/80 border-t border-slate-800 py-4 text-center text-xs text-slate-500">
-        Hotel Inder Paradise Management Portal &copy; 2026. Dashboard Active[cite: 3].
+        Hotel Inder Paradise Management Portal &copy; 2026. Dashboard Active.
     </footer>
 
     <!-- Firebase & Direct Firestore Real-Time Script -->
@@ -232,7 +231,6 @@
 
         let roomsDataMap = {};
 
-        // Default initialize all 24 rooms (#101 to #124) as available
         function initializeDefaultRooms() {
             for (let i = 1; i <= 24; i++) {
                 let rNo = (100 + i).toString();
@@ -261,15 +259,6 @@
             "Suite Platinum": 2
         };
 
-        // Fast Load Cache check
-        try {
-            const cachedRooms = localStorage.getItem('inder_dashboard_rooms_cache_v3');
-            if (cachedRooms) {
-                roomsDataMap = JSON.parse(cachedRooms);
-                updateDashboardUI(roomsDataMap);
-            }
-        } catch(e) {}
-
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = "admin.html";
@@ -284,7 +273,7 @@
 
         function loadDashboardData() {
             onSnapshot(collection(db, "rooms"), (snapshot) => {
-                initializeDefaultRooms(); // Ensure all 24 rooms exist first
+                initializeDefaultRooms();
                 
                 snapshot.forEach(docSnap => {
                     let d = docSnap.data();
@@ -313,11 +302,19 @@
                     roomsDataMap[roomNo] = d;
                 });
 
+                // Mobile aur desktop dono par same data sync karne ke liye
                 try {
-                    localStorage.setItem('inder_dashboard_rooms_cache_v3', JSON.stringify(roomsDataMap));
+                    localStorage.setItem('inder_dashboard_rooms_cache_v4', JSON.stringify(roomsDataMap));
                 } catch(e) {}
 
                 updateDashboardUI(roomsDataMap);
+            }, (error) => {
+                console.error("Sync error:", error);
+                let cached = localStorage.getItem('inder_dashboard_rooms_cache_v4');
+                if (cached) {
+                    roomsDataMap = JSON.parse(cached);
+                    updateDashboardUI(roomsDataMap);
+                }
             });
         }
 
@@ -330,7 +327,6 @@
 
             let permanentGuestLogs = [];
 
-            // Loop through all 24 independent rooms (#101 to #124)
             for (let i = 1; i <= 24; i++) {
                 let rNo = (100 + i).toString();
                 let d = dataMap[rNo];
@@ -339,7 +335,6 @@
                     permanentGuestLogs.push(d);
                     bookedCount++;
                     
-                    // Independent checking for Online or Offline booking type
                     let bType = d.bookingType ? String(d.bookingType).trim().toLowerCase() : "offline";
                     if (bType === "online") {
                         onlineCount++;
@@ -358,7 +353,6 @@
                 localStorage.setItem('inder_permanent_history', JSON.stringify(existingHistory));
             } catch(e) {}
 
-            // Update 4 Stat Boxes Live Numbers 📊[cite: 3]
             document.getElementById('stat-available').innerText = 24 - bookedCount;
             document.getElementById('stat-booked').innerText = bookedCount;
             document.getElementById('stat-offline').innerText = offlineCount;
@@ -373,12 +367,12 @@
                                 <p class="text-xs font-bold text-white">Room #${b.id} (${b.category || 'Standard'}) - <span class="text-indigo-400">${b.customer}</span></p>
                                 <p class="text-[11px] text-slate-400">Mobile: ${b.mobile || 'N/A'} | Type: <span class="font-bold text-slate-200">${b.bookingType || 'Offline'}</span> | Out: ${b.checkOut ? b.checkOut.replace('T', ' ') : 'N/A'}</p>
                             </div>
-                            <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[10px] font-bold">Logged 📌[cite: 3]</span>
+                            <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[10px] font-bold">Logged 📌</span>
                         </div>
                     `;
                 });
             } else {
-                recentContainer.innerHTML = `<p class="text-xs text-slate-400 py-3 text-center">No recent bookings found[cite: 3].</p>`;
+                recentContainer.innerHTML = `<p class="text-xs text-slate-400 py-3 text-center">No recent bookings found.</p>`;
             }
         }
 
@@ -460,7 +454,7 @@
             }
 
             let saveBtn = document.getElementById('b-save-btn');
-            saveBtn.innerText = "Saving... 🚀[cite: 3]";
+            saveBtn.innerText = "Saving... 🚀";
             saveBtn.disabled = true;
 
             let bookingData = {
@@ -481,7 +475,7 @@
 
                 roomsDataMap[targetRoomNo] = bookingData;
                 try {
-                    localStorage.setItem('inder_dashboard_rooms_cache_v3', JSON.stringify(roomsDataMap));
+                    localStorage.setItem('inder_dashboard_rooms_cache_v4', JSON.stringify(roomsDataMap));
                 } catch(e) {}
 
                 let existingHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
@@ -496,7 +490,7 @@
             } catch(err) {
                 alert("Error saving booking: " + err.message);
             } finally {
-                saveBtn.innerText = "Save Booking 🚀[cite: 3]";
+                saveBtn.innerText = "Save Booking 🚀";
                 saveBtn.disabled = false;
             }
         };
