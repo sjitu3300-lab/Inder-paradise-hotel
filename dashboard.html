@@ -132,11 +132,18 @@
             </div>
         </div>
 
-        <!-- Recently Booked Rooms List Section -->
+        <!-- Today's Bookings List Section with Pagination -->
         <div class="glass-box p-6 space-y-4">
-            <h3 class="text-base font-bold text-white flex items-center">🕒 <span class="ml-2">Recently Booked Rooms List (Permanent Log)</span></h3>
+            <h3 class="text-base font-bold text-white flex items-center">🕒 <span class="ml-2">Today's Bookings List (Auto Reset at Midnight)</span></h3>
             <div id="recent-bookings-list" class="divide-y divide-slate-800">
-                <p class="text-xs text-slate-400 py-3 text-center">No recent bookings found.</p>
+                <p class="text-xs text-slate-400 py-3 text-center">No bookings found for today.</p>
+            </div>
+
+            <!-- Pagination Controls for Today's Bookings -->
+            <div id="dashboard-pagination" class="flex justify-between items-center pt-3 border-t border-slate-800 text-xs hidden">
+                <button onclick="prevDashboardPage()" id="d-prev-btn" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-xl font-bold transition disabled:opacity-50">⬅️ Previous</button>
+                <span id="d-page-info" class="text-slate-400 font-semibold">Page 1 of 1</span>
+                <button onclick="nextDashboardPage()" id="d-next-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-xl font-bold transition disabled:opacity-50">Next ➡️</button>
             </div>
         </div>
 
@@ -230,6 +237,10 @@
         const db = getFirestore(app);
 
         let roomsDataMap = {};
+        let currentDashboardPage = 1;
+        const dashboardRowsPerPage = 10;
+        let todayBookingsList = [];
+
         const categoryLimits = {
             "Deluxe": 8,
             "Super Deluxe": 11,
@@ -259,7 +270,6 @@
         });
 
         async function loadDashboardData() {
-            // Auto-initialize 24 rooms if missing
             for (let i = 1; i <= 24; i++) {
                 let roomNo = (100 + i).toString();
                 let defCat = i <= 8 ? "Deluxe" : (i <= 19 ? "Super Deluxe" : (i === 20 ? "Triple Executive" : (i <= 22 ? "Suite Gold" : "Suite Platinum")));
@@ -317,9 +327,6 @@
             let bookedCount = 0;
             let offlineCount = 0;
             let onlineCount = 0;
-            let recentContainer = document.getElementById('recent-bookings-list');
-            recentContainer.innerHTML = "";
-
             let permanentGuestLogs = [];
 
             for (let i = 1; i <= 24; i++) {
@@ -352,23 +359,67 @@
             document.getElementById('stat-offline').innerText = offlineCount;
             document.getElementById('stat-online').innerText = onlineCount;
 
+            // Filter today's bookings (Resets automatically at 12:00 AM / next day)
             let storedHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
-            if (storedHistory.length > 0) {
-                storedHistory.slice(-10).reverse().forEach(b => {
-                    recentContainer.innerHTML += `
-                        <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                            <div>
-                                <p class="text-xs font-bold text-white">Room #${b.id} (${b.category || 'Standard'}) - <span class="text-indigo-400">${b.customer}</span></p>
-                                <p class="text-[11px] text-slate-400">Mobile: ${b.mobile || 'N/A'} | Type: <span class="font-bold text-slate-200">${b.bookingType || 'Offline'}</span> | Out: ${b.checkOut ? b.checkOut.replace('T', ' ') : 'N/A'}</p>
-                            </div>
-                            <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[10px] font-bold">Logged 📌</span>
-                        </div>
-                    `;
-                });
-            } else {
-                recentContainer.innerHTML = `<p class="text-xs text-slate-400 py-3 text-center">No recent bookings found.</p>`;
-            }
+            const todayStr = new Date().toISOString().slice(0, 10);
+            
+            todayBookingsList = storedHistory.filter(b => b.checkIn && b.checkIn.startsWith(todayStr));
+            renderDashboardList();
         }
+
+        function renderDashboardList() {
+            let recentContainer = document.getElementById('recent-bookings-list');
+            let paginationDiv = document.getElementById('dashboard-pagination');
+            recentContainer.innerHTML = "";
+
+            if (todayBookingsList.length === 0) {
+                recentContainer.innerHTML = `<p class="text-xs text-slate-400 py-3 text-center">No bookings found for today.</p>`;
+                if (paginationDiv) paginationDiv.classList.add('hidden');
+                return;
+            }
+
+            if (paginationDiv) paginationDiv.classList.remove('hidden');
+
+            let reversedList = todayBookingsList.slice().reverse();
+            let totalPages = Math.ceil(reversedList.length / dashboardRowsPerPage);
+            if (currentDashboardPage > totalPages) currentDashboardPage = totalPages;
+            if (currentDashboardPage < 1) currentDashboardPage = 1;
+
+            let start = (currentDashboardPage - 1) * dashboardRowsPerPage;
+            let end = start + dashboardRowsPerPage;
+            let paginatedItems = reversedList.slice(start, end);
+
+            paginatedItems.forEach(b => {
+                recentContainer.innerHTML += `
+                    <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-800/50">
+                        <div>
+                            <p class="text-xs font-bold text-white">Room #${b.id} (${b.category || 'Standard'}) - <span class="text-indigo-400">${b.customer}</span></p>
+                            <p class="text-[11px] text-slate-400">Mobile: ${b.mobile || 'N/A'} | Type: <span class="font-bold text-slate-200">${b.bookingType || 'Offline'}</span> | In: ${b.checkIn ? b.checkIn.replace('T', ' ') : 'N/A'}</p>
+                        </div>
+                        <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[10px] font-bold">Today 📌</span>
+                    </div>
+                `;
+            });
+
+            document.getElementById('d-page-info').innerText = `Page ${currentDashboardPage} of ${totalPages || 1}`;
+            document.getElementById('d-prev-btn').disabled = currentDashboardPage === 1;
+            document.getElementById('d-next-btn').disabled = currentDashboardPage >= totalPages;
+        }
+
+        window.nextDashboardPage = function() {
+            let totalPages = Math.ceil(todayBookingsList.length / dashboardRowsPerPage);
+            if (currentDashboardPage < totalPages) {
+                currentDashboardPage++;
+                renderDashboardList();
+            }
+        };
+
+        window.prevDashboardPage = function() {
+            if (currentDashboardPage > 1) {
+                currentDashboardPage--;
+                renderDashboardList();
+            }
+        };
 
         function getLocalDateTime(date = new Date()) {
             const tzOffset = date.getTimezoneOffset() * 60000;
