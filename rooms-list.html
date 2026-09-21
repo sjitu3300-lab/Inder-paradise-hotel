@@ -315,7 +315,7 @@
 
             for (let i = 1; i <= 24; i++) {
                 let roomNo = (100 + i).toString();
-                let defaultCategory = i <= 8 ? "Deluxe" : (i <= 19 ? "Super Deluxe" : (i === 20 ? "Triple Executive" : (i <= 22 ? "Suite Gold" : (i<=24 ? "Suite Platinum")));
+                let defaultCategory = i <= 8 ? "Deluxe" : (i <= 19 ? "Super Deluxe" : (i === 20 ? "Triple Executive" : (i <= 22 ? "Suite Gold" : "Suite Platinum")));
                 
                 let rData = roomsDataMap[roomNo] || {
                     id: roomNo,
