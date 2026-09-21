@@ -238,7 +238,6 @@
                 renderRoomsGrid();
             });
 
-            // Check every minute for 10:30 AM checkout condition ⏰
             setInterval(() => {
                 checkAutomaticCheckout1030AM();
             }, 60000);
@@ -253,7 +252,6 @@
                 if (rData.status === "Booked" && rData.checkOut) {
                     let checkoutDateObj = new Date(rData.checkOut);
                     
-                    // Check if today is the checkout date (or has passed) AND current time is >= 10:30 AM
                     let isSameOrPastDay = now.toDateString() === checkoutDateObj.toDateString() || now > checkoutDateObj;
                     let isAfter1030AM = now.getHours() > 10 || (now.getHours() === 10 && now.getMinutes() >= 30);
 
@@ -357,7 +355,7 @@
 
                         <div class="flex items-center space-x-2 pt-2 border-t border-slate-800">
                             <button onclick="openEditModal('${roomNo}')" class="flex-grow bg-indigo-600 hover:bg-indigo-500 text-white py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-indigo-600/30">Edit ✏️</button>
-                            <button onclick="manualCheckout('${roomNo}')" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-rose-600/30">Check-Out 🚪</button>
+                            <button onclick="manualCheckout('${roomNo}')" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-indigo-600/30">Check-Out 🚪</button>
                         </div>
                     </div>
                 `;
