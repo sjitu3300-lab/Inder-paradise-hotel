@@ -295,8 +295,9 @@
                     let roomNo = docSnap.id;
                     
                     let now = new Date().getTime();
-                    if (d.checkOut && d.status === "Booked") {
-                        let checkoutTime = new Date(d.checkOut).getTime();
+                    let checkoutVal = d.checkOut || d.checkout;
+                    if (checkoutVal && d.status === "Booked") {
+                        let checkoutTime = new Date(checkoutVal).getTime();
                         let bufferTime = checkoutTime + (10 * 60 * 1000);
                         if (now > bufferTime) {
                             setDoc(doc(db, "rooms", roomNo), {
@@ -336,7 +337,7 @@
                     permanentGuestLogs.push(d);
                     bookedCount++;
                     
-                    let bType = d.bookingType ? d.bookingType.trim().toLowerCase() : "offline";
+                    let bType = (d.bookingType || d.bookingtype || "offline").trim().toLowerCase();
                     if (bType === "online") {
                         onlineCount++;
                     } else {
@@ -348,7 +349,8 @@
             try {
                 let existingHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
                 permanentGuestLogs.forEach(guest => {
-                    let exists = existingHistory.some(h => h.id === guest.id && h.customer === guest.customer && h.checkIn === guest.checkIn);
+                    let guestCheckIn = guest.checkIn || guest.checkin || "";
+                    let exists = existingHistory.some(h => h.id === guest.id && h.customer === guest.customer && ((h.checkIn || h.checkin) === guestCheckIn));
                     if (!exists) existingHistory.push(guest);
                 });
                 localStorage.setItem('inder_permanent_history', JSON.stringify(existingHistory));
@@ -359,11 +361,13 @@
             document.getElementById('stat-offline').innerText = offlineCount;
             document.getElementById('stat-online').innerText = onlineCount;
 
-            // Filter today's bookings (Resets automatically at 12:00 AM / next day)
             let storedHistory = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
             const todayStr = new Date().toISOString().slice(0, 10);
             
-            todayBookingsList = storedHistory.filter(b => b.checkIn && b.checkIn.startsWith(todayStr));
+            todayBookingsList = storedHistory.filter(b => {
+                let cIn = b.checkIn || b.checkin || "";
+                return cIn && cIn.startsWith(todayStr);
+            });
             renderDashboardList();
         }
 
@@ -390,11 +394,13 @@
             let paginatedItems = reversedList.slice(start, end);
 
             paginatedItems.forEach(b => {
+                let cIn = b.checkIn || b.checkin || "";
+                let bType = b.bookingType || b.bookingtype || 'Offline';
                 recentContainer.innerHTML += `
                     <div class="py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-800/50">
                         <div>
                             <p class="text-xs font-bold text-white">Room #${b.id} (${b.category || 'Standard'}) - <span class="text-indigo-400">${b.customer}</span></p>
-                            <p class="text-[11px] text-slate-400">Mobile: ${b.mobile || 'N/A'} | Type: <span class="font-bold text-slate-200">${b.bookingType || 'Offline'}</span> | In: ${b.checkIn ? b.checkIn.replace('T', ' ') : 'N/A'}</p>
+                            <p class="text-[11px] text-slate-400">Mobile: ${b.mobile || 'N/A'} | Type: <span class="font-bold text-slate-200">${bType}</span> | In: ${cIn ? cIn.replace('T', ' ') : 'N/A'}</p>
                         </div>
                         <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-[10px] font-bold">Today 📌</span>
                     </div>
