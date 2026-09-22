@@ -168,18 +168,9 @@
         const rowsPerPage = 20;
 
         function loadPermanentGuests() {
-            let history = JSON.parse(localStorage.getItem('inder_permanent_history') || '[]');
-            
-            if (history.length === 0) {
-                let cache = JSON.parse(localStorage.getItem('inder_rooms_cache_v2') || '{}');
-                for (let rNo in cache) {
-                    let d = cache[rNo];
-                    if (d.customer && d.customer.trim() !== "") {
-                        history.push(d);
-                    }
-                }
-                localStorage.setItem('inder_permanent_history', JSON.stringify(history));
-            }
+            // Purane records ko hatane ke liye history clear ki ja rahi hai
+            localStorage.removeItem('inder_permanent_history');
+            let history = [];
 
             let uniqueMap = new Map();
             history.forEach(item => {
