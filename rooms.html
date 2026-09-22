@@ -522,7 +522,7 @@
             <img src="https://i.ibb.co/Kjnprrtt/IMG-20260831-130222.jpg?q=80&w=300&auto=format&fit=crop" alt="Bathroom">
             <span class="thumb-tag">Bathroom</span>
           </div>
-          <div class="thumb-item" onclick="changeImage('mainImg3', 'https://i.ibb.co/pthfDtc/IMG-20260907-211641.jpg?q=80&w=300&auto=format&fit=crop', this)">
+          <div class="thumb-item" onclick="changeImage('mainImg3', 'https://i.ibb.co/pthfDtc/IMG-20260907-211641.jpg?q=80&w=800&auto=format&fit=crop', this)">
             <img src="https://i.ibb.co/pthfDtc/IMG-20260907-211641.jpg?q=80&w=300&auto=format&fit=crop" alt="Decor">
             <span class="thumb-tag">Decor</span>
           </div>
@@ -699,9 +699,7 @@
         <div class="form-group">
           <label>Occupancy Type</label>
           <select id="roomOccupancy" required>
-            <option value="Single">Single Occupancy</option>
-            <option value="Double">Double Occupancy</option>
-            <option value="Triple">Triple Occupancy (Applicable for Triple Executive)</option>
+            <!-- Dynamically populated based on room selection -->
           </select>
         </div>
 
@@ -736,10 +734,23 @@
       }
     }
 
-    // Modal Control
+    // Modal Control & Dynamic Occupancy Setup
     function openBookingModal(roomName) {
       document.getElementById('selectedRoomName').value = roomName;
       document.getElementById('modalRoomTitle').innerText = `Book: ${roomName}`;
+      
+      const occupancySelect = document.getElementById('roomOccupancy');
+      occupancySelect.innerHTML = '';
+      
+      if (roomName.toLowerCase().includes('triple')) {
+        occupancySelect.innerHTML = '<option value="Triple">Triple Bed (Triple Occupancy)</option>';
+      } else {
+        occupancySelect.innerHTML = `
+          <option value="Single">Single Bed (Single Occupancy)</option>
+          <option value="Double">Double Bed (Double Occupancy)</option>
+        `;
+      }
+
       document.getElementById('bookingModal').classList.add('active');
     }
 
@@ -796,4 +807,4 @@
     }
   </script>
 </body>
-          </html>
+</html>
