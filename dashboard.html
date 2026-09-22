@@ -171,7 +171,7 @@
                 </div>
                 <div>
                     <label class="font-semibold text-slate-300">Room Category</label>
-                    <select id="b-category" class="w-full mt-1 p-2.5 rounded-xl glass-input font-semibold">
+                    <select id="b-category" class="w-full mt-1 p-2.5 rounded-xl glass-input font-semibold" onchange="handleCategoryChange()">
                         <option value="Deluxe" class="bg-slate-900">Deluxe (Max 8 Rooms)</option>
                         <option value="Super Deluxe" class="bg-slate-900">Super Deluxe (Max 11 Rooms)</option>
                         <option value="Triple Executive" class="bg-slate-900">Triple Executive (Max 1 Room)</option>
@@ -191,6 +191,7 @@
                     <select id="b-bed" class="w-full mt-1 p-2.5 rounded-xl glass-input font-semibold">
                         <option value="Single Bed" class="bg-slate-900">Single Bed</option>
                         <option value="Double Bed" class="bg-slate-900">Double Bed</option>
+                        <option value="Triple Bed" class="bg-slate-900">Triple Bed</option>
                     </select>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
@@ -439,11 +440,25 @@
             
             document.getElementById('b-checkin').value = getLocalDateTime(now);
             document.getElementById('b-checkout').value = getLocalDateTime(tomorrow);
+            
+            // Modal khulte hi category check karke bed type set karein
+            handleCategoryChange();
+
             document.getElementById('booking-modal').classList.remove('hidden');
         };
 
         window.closeNewBookingModal = function() {
             document.getElementById('booking-modal').classList.add('hidden');
+        };
+
+        window.handleCategoryChange = function() {
+            let categorySelect = document.getElementById('b-category');
+            let bedSelect = document.getElementById('b-bed');
+            if (categorySelect.value === "Triple Executive") {
+                bedSelect.value = "Triple Bed";
+            } else {
+                bedSelect.value = "Double Bed";
+            }
         };
 
         window.saveNewBooking = async function(e) {
