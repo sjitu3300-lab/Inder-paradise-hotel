@@ -741,8 +741,9 @@
         </div>
       </div>
     </div>
-                                                                                          </section>
-      <!-- Dining Section -->
+  </section>
+
+  <!-- Dining Section -->
   <section id="dining" class="dining-section">
     <div class="section-container">
       <div class="section-header">
@@ -1252,6 +1253,16 @@
       localStorage.setItem('inderParadiseReviews', JSON.stringify(allReviews));
       
       loadReviews();
+
+      // Clipboard copy & Google Maps redirect logic added here
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert("🎉 Review website par save ho gaya aur clipboard par copy ho gaya! \n\nAb Google Maps open hoga, wahan bas review ko paste (Ctrl+V) karke Post kar dein.");
+          window.open("https://www.google.com/maps/search/?api=1&query=Hotel+Inder+Paradise+Nagaur", "_blank");
+        }).catch(err => {
+          console.error('Clipboard copy failed: ', err);
+        });
+      }
 
       const popup = document.getElementById('successPopup');
       popup.classList.add('active');
