@@ -34,7 +34,7 @@
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Montserrat', sans-serif;
       --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
+    
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -1292,6 +1292,18 @@
     window.onload = function() {
       loadReviews();
     };
+    function copyAndRedirect(reviewText) {
+  // 1. Clipboard par text copy karna
+  navigator.clipboard.writeText(reviewText).then(() => {
+    alert("✅ Review copy ho gaya hai! Ab Google Maps khul raha hai, wahan long-press karke paste kar dein.");
+    
+    // 2. Google Maps review page par redirect karna
+    window.open("https://www.google.com/maps/search/?api=1&query=Hotel+Inder+Paradise+Nagaur", "_blank");
+  }).catch(err => {
+    console.error("Clipboard copy failed: ", err);
+  });
+    }
+    
   </script>
 </body>
 </html>
