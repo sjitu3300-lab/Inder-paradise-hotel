@@ -1244,27 +1244,88 @@
       `).join('');
     }
 
-    function saveReview(text, stars) {
+  let currentReviewPage = 1;
+const reviewsPerPage = 10;
+
+function saveReview(text, stars) {
   const nameInput = document.getElementById('customerNameInput').value.trim();
   const authorName = nameInput ? nameInput : "Anonymous Guest";
 
   let allReviews = JSON.parse(localStorage.getItem('inderParadiseReviews')) || [];
+  
+  // Naya review add karein
   allReviews.unshift({ text, stars, name: authorName, date: new Date().toLocaleDateString() });
+  
+  // Agar reviews 9,999 se zyada ho jayein, toh sabse purana review hata dein 
+  if (allReviews.length > 9999) {
+    allReviews.pop();
+  }
+
   localStorage.setItem('inderParadiseReviews', JSON.stringify(allReviews));
   
+  currentReviewPage = 1; // Naya review aane par page 1 par chalein
   loadReviews();
 
-  // 1. Google Maps ko turant open karein taaki popup blocker se na ruke
-  window.open("https://www.google.com/maps/search/?api=1&query=Hotel+Inder+Paradise+Nagaur", "_blank");
+  const popup = document.getElementById('successPopup');
+  popup.classList.add('active');
 
-  // 2. Background mein clipboard par text copy karein
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(() => {
-      console.log("Review copied successfully.");
-    }).catch(err => {
-      console.error("Clipboard copy failed: ", err);
-    });
+  setTimeout(() => {
+    popup.classList.remove('active');
+    document.getElementById('aiPillsBox').style.display = 'none';
+    document.querySelectorAll('#indexStars i').forEach(s => s.style.color = '#444');
+    document.getElementById('customerNameInput').value = '';
+  }, 2000);
+}
+
+function loadReviews() {
+  let allReviews = JSON.parse(localStorage.getItem('inderParadiseReviews')) || [
+    { text: "Best hotel and restaurant in Nagaur! Super clean rooms and delicious food at Ashray Restaurant. 🌟", stars: 5, name: "Rahul Sharma", date: "30/03/2026" }
+  ];
+
+  const totalPages = Math.ceil(allReviews.length / reviewsPerPage) || 1;
+  if (currentReviewPage > totalPages) currentReviewPage = totalPages;
+  if (currentReviewPage < 1) currentReviewPage = 1;
+
+  const start = (currentReviewPage - 1) * reviewsPerPage;
+  const end = start + reviewsPerPage;
+  const paginatedReviews = allReviews.slice(start, end);
+
+  let html = paginatedReviews.map(r => `
+    <div class="review-card-item">
+      <strong>${'⭐'.repeat(r.stars)} <span style="font-size:0.75rem; color:#888; float:right;">${r.date}</span></strong>
+      <p>"${r.text}"</p>
+      <span class="author">— ${r.name || 'Guest'}</span>
+    </div>
+  `).join('');
+
+  // Reviews container aur Pagination buttons render karna
+  document.getElementById('savedReviewsContainer').innerHTML = html;
+  
+  // Agar pagination controls add karne hon toh HTML container mein yeh buttons dikhayein:
+  /* 
+     <div class="pagination-box">
+       <button onclick="prevReviewPage()">Previous</button>
+       <span>Page X of Y</span>
+       <button onclick="nextReviewPage()">Next</button>
+     </div>
+  */
+}
+
+function nextReviewPage() {
+  let allReviews = JSON.parse(localStorage.getItem('inderParadiseReviews')) || [];
+  let totalPages = Math.ceil(allReviews.length / reviewsPerPage);
+  if (currentReviewPage < totalPages) {
+    currentReviewPage++;
+    loadReviews();
   }
+}
+
+function prevReviewPage() {
+  if (currentReviewPage > 1) {
+    currentReviewPage--;
+    loadReviews();
+  }
+}
 
   const popup = document.getElementById('successPopup');
   popup.classList.add('active');
